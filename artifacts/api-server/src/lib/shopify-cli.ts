@@ -131,12 +131,17 @@ export async function cliStatus(){
   }
   return result;
 }
+export function assertCliUploadEligibility(status:string,product:unknown,brand:unknown){
+  // Selecting Publish is sufficient for an unpublished preview; separate
+  // positive feedback is optional. Rejected/incomplete designs remain blocked.
+  if(!product||!brand||status==="rejected")throw new AppError(409,"A non-rejected design with product and brand data is required.");
+}
 export async function uploadCliTheme(designId:string,expectedShop:string,options?:CliUploadInput){
   const shop=currentStore(expectedShop);
   const {design,content,run,category}=await getDesign(designId);
-  if(!run.product||!run.brand||design.status==="rejected")throw new AppError(409,"A non-rejected design with product and brand data is required.");
+  assertCliUploadEligibility(design.status,run.product,run.brand);
+  if(!run.product||!run.brand)throw new AppError(409,"Product and brand data are required.");
   const mode=options?.productMode??"none";
-  if(mode!=="none"&&!["approved","published"].includes(design.status))throw new AppError(409,"Approve this design before publishing it to a store product.");
   // Validate a complete package before any product import or theme creation.
   standaloneTheme(compile(design,content,run.product,run.brand));
   const id=randomUUID(),base=await mkdtemp(path.join(tmpdir(),"wishluck-cli-theme-"));

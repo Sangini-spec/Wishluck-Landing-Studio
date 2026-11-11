@@ -163,7 +163,7 @@ export default function DesignPage() {
         <div className="flex flex-wrap gap-2">
           <a href={d.downloadUrl} download data-testid="link-download" className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3.5 text-[13px] font-medium hover:bg-muted"><Download className="h-4 w-4" /> Theme ZIP</a>
           <Btn data-testid="button-regenerate" variant="outline" disabled={regen.isPending} onClick={() => regen.mutate({ id: d.id }, { ...done("New design version created"), onSuccess: (next) => { invalidateRun(qc, run.id); navigate(`/designs/${next.id}`); toast({title:"New design version created"}); } })}>{regen.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />} Regenerate</Btn>
-          <Btn data-testid="button-publish" variant="seal" disabled={!["approved","published"].includes(d.status)} title={!["approved","published"].includes(d.status)?"Approve this design before publishing":"Upload through CLI and open Shopify’s editor"} onClick={() => setPubOpen(true)}><Send className="h-4 w-4" /> Publish to Shopify</Btn>
+          <Btn data-testid="button-publish" variant="seal" disabled={d.status==="rejected"} title={d.status==="rejected"?"Approve this rejected design before publishing":"Upload automatically and open Shopify’s editor"} onClick={() => setPubOpen(true)}><Send className="h-4 w-4" /> Publish to Shopify</Btn>
         </div>
       </header>
       <CliPublishing design={d} open={pubOpen} onOpenChange={setPubOpen}/>

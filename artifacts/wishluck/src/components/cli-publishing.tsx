@@ -22,7 +22,7 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
       if(p.status==="failed"){popup.current?.close();toast({title:"Theme upload incomplete",description:p.error,variant:"destructive"});await qc.invalidateQueries();return;}
       if(p.editorUrl&&popup.current&&!popup.current.closed){returnCheck.current={id:p.id,shop:p.shop!};popup.current.location.href=p.editorUrl;}
       setUploadOpen(false);setUploadConfirm(false);
-      toast({title:"Published to an unpublished Shopify theme",description:popup.current&&!popup.current.closed?"Shopify's editor is opening. Quality checks run back here.":"Use Open theme editor below if your browser blocked the new tab."});
+      toast({title:"Design uploaded to Shopify",description:popup.current&&!popup.current.closed?"Shopify's editor is opening. Quality checks run automatically.":"Use Open theme editor below if your browser blocked the new tab."});
       await qc.invalidateQueries();
     },
     onError:()=>{popup.current?.close();},
@@ -44,7 +44,7 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
     window.addEventListener("focus",focus);return()=>{window.removeEventListener("focus",focus);if(timer)clearTimeout(timer);};
   },[check.mutate]);
   const uploads=(status.data?.uploads??[]).filter(p=>p.designId===design.id);
-  const approved=["approved","published"].includes(design.status);
+  const canPublish=design.status!=="rejected";
   function closeUpload(open:boolean){if(upload.isPending)return;setUploadOpen(open);if(!open){setUploadConfirm(false);upload.reset();}}
   function confirmUpload(){
     // Reserve a tab synchronously with the click: opening after an async CLI
@@ -56,14 +56,12 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
   }
   return <section className="panel my-5 space-y-4 p-5" data-testid="cli-publishing">
     <div className="flex flex-wrap items-center justify-between gap-3">
-      <div><h2 className="font-display text-xl">Theme Access publishing</h2>
-        <p className="mt-1 text-sm text-muted-foreground">Publish through CLI, edit in Shopify, review the preview, then use Shopify’s Publish button when you are ready to go live.</p></div>
-      <Btn data-testid="button-cli-upload" variant="outline" disabled={!ready||!approved||status.isFetching} onClick={()=>setUploadOpen(true)}><Upload className="h-4 w-4"/>Publish another preview</Btn>
+      <div><h2 className="font-display text-xl">Shopify publishing</h2></div>
+      <Btn data-testid="button-cli-upload" variant="outline" disabled={!ready||!canPublish||status.isFetching} onClick={()=>setUploadOpen(true)}><Upload className="h-4 w-4"/>{uploads.length?"Publish another preview":"Publish to Shopify"}</Btn>
     </div>
-    {status.isLoading?<p className="text-sm text-muted-foreground">Checking store-specific Theme Access…</p>:status.error?<Notice>{errMsg(status.error)}</Notice>:
-      <p className="text-xs text-muted-foreground"><span className="font-medium text-foreground">{status.data?.shop}</span> · {ready?"Theme Access authenticated":status.data?.configured?"Authentication failed":"Theme Access password not configured"}</p>}
+    {status.isLoading?<p className="text-sm text-muted-foreground">Checking your Shopify connection…</p>:status.error?<Notice>{errMsg(status.error)}</Notice>:
+      <p className="text-xs text-muted-foreground"><span className="font-medium text-foreground">{status.data?.shop}</span> · {ready?"Connected":status.data?.configured?"Connection needs attention":"Publishing not configured"}</p>}
     {status.data&&!ready&&<Notice>{status.data.message??`Add ${status.data.credentialKey} through project Secrets. This credential is specific to this store.`}</Notice>}
-    <p className="text-xs text-muted-foreground">The app never activates the theme. Shopify’s editor opens after verified upload. Return here after editing or publishing to refresh the theme status and rerun Lighthouse.</p>
     {uploads.map(p=><article key={p.id} className="rounded-lg border border-border p-3" data-testid={`cli-upload-${p.id}`}>
       <div className="flex flex-wrap items-center justify-between gap-2"><div><b className="text-sm">{p.themeName??"CLI upload"}</b>
         <p className="mt-1 text-xs text-muted-foreground">Theme {p.themeId??"ID unavailable"} · {p.livePublished?"Live on Shopify":p.verified?"Verified · unpublished":"Not verified"} · {p.shop}</p></div>
@@ -75,7 +73,7 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
       {p.warnings?.map((warning,i)=><p key={i} className="mt-2 text-xs text-muted-foreground">{warning}</p>)}
       {p.checkedAt&&<p className="mt-2 text-xs text-muted-foreground">Shopify status checked {new Date(p.checkedAt).toLocaleString()}</p>}
     </article>)}
-    <Dialog open={uploadOpen} onOpenChange={closeUpload}><DialogContent className="max-h-[90vh] overflow-y-auto"><DialogHeader><DialogTitle>Publish to Shopify</DialogTitle><DialogDescription>Create a new unpublished theme in {status.data?.shop} using CLI. The editor opens after file verification; only you can make it live from Shopify.</DialogDescription></DialogHeader>
+    <Dialog open={uploadOpen} onOpenChange={closeUpload}><DialogContent className="max-h-[90vh] overflow-y-auto"><DialogHeader><DialogTitle>Publish to Shopify</DialogTitle><DialogDescription>Choose the product for {status.data?.shop}.</DialogDescription></DialogHeader>
       {context.isLoading?<p>Loading store products…</p>:context.error?<Notice>{errMsg(context.error)}</Notice>:<div className="space-y-3">
         <label className="block text-sm">Product destination<select data-testid="select-cli-product-mode" className="mt-1 w-full rounded border border-border bg-background p-2" value={mode} disabled={upload.isPending} onChange={e=>{setMode(e.target.value as typeof mode);setAssign(false);}}>
           {context.data?.sameStore&&<option value="source">Source product in this store</option>}<option value="existing">Choose a product from this store</option><option value="import">Import or reuse a draft copy</option><option value="none">Theme only — choose product later</option></select></label>
@@ -87,7 +85,7 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
       {upload.error&&<Notice>{errMsg(upload.error)}</Notice>}
       {upload.data?.status==="failed"&&<Notice>{upload.data.error}</Notice>}
       <div className="flex justify-end gap-2"><Btn variant="outline" disabled={upload.isPending} onClick={()=>closeUpload(false)}>Cancel</Btn>
-        <Btn data-testid="button-cli-confirm-upload" disabled={!uploadConfirm||!ready||!approved||upload.isPending||context.isLoading||!!context.error||(mode==="existing"&&!productId)||(mode==="import"&&(!importRights||(context.data?.sourceCurrency!==context.data?.currency&&!currencyConfirm)))} onClick={confirmUpload}>{upload.isPending?<Loader2 className="h-4 w-4 animate-spin"/>:null}Publish & open Shopify</Btn></div>
+        <Btn data-testid="button-cli-confirm-upload" disabled={!uploadConfirm||!ready||!canPublish||upload.isPending||context.isLoading||!!context.error||(mode==="existing"&&!productId)||(mode==="import"&&(!importRights||(context.data?.sourceCurrency!==context.data?.currency&&!currencyConfirm)))} onClick={confirmUpload}>{upload.isPending?<Loader2 className="h-4 w-4 animate-spin"/>:null}Publish & open Shopify</Btn></div>
     </DialogContent></Dialog>
   </section>;
 }

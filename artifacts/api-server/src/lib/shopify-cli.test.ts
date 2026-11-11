@@ -1,7 +1,14 @@
 import {test} from "node:test";
 import assert from "node:assert/strict";
-import {cliSecretKey,cliCredential,cliEnvironment,sameThemeFile,safeCliMessage,parseCliTheme,assertLiveConfirmation,activateCliTheme} from "./shopify-cli";
+import {cliSecretKey,cliCredential,cliEnvironment,sameThemeFile,safeCliMessage,parseCliTheme,assertLiveConfirmation,activateCliTheme,assertCliUploadEligibility} from "./shopify-cli";
 import type {Publication} from "./domain";
+
+test("Draft Publish starts the unpublished CLI path without a separate Approve step",()=>{
+  for(const status of ["draft","approved","published"])assert.doesNotThrow(()=>assertCliUploadEligibility(status,{title:"Product"},{name:"Brand"}));
+  assert.throws(()=>assertCliUploadEligibility("rejected",{},{}),/non-rejected/);
+  assert.throws(()=>assertCliUploadEligibility("draft",null,{}),/product and brand/);
+  assert.throws(()=>assertCliUploadEligibility("draft",{},undefined),/product and brand/);
+});
 
 test("Theme Access credentials and subprocess environment are strictly store scoped",()=>{
   const a="store-a.myshopify.com",b="store-b.myshopify.com";
