@@ -1,7 +1,7 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import path from "node:path";
-import { randomUUID } from "node:crypto";
+import { randomUUID,createHash } from "node:crypto";
 import { AppError, type Publication } from "./domain";
 import { compile, rootDir } from "./compiler";
 import { getDesign, savePublication, saveDesign } from "./store";
@@ -11,6 +11,7 @@ import { shopifyConfig, customAdmin } from "./shopify-auth";
 import { importDraft, mappedProduct, productFields } from "./shopify-products";
 import type { PublishInput, PublishingContext } from "@workspace/api-zod";
 import {rememberStore,selectStore,withStoreLock} from "./shopify-selection";
+import {ShopifyApiError} from "./shopify-diagnostics";
 
 const exec = promisify(execFile);
 let connection:Connection={configured:false,connected:false,shop:"",message:"Shopify access has not been verified. Test the connection to your existing custom app.",missing:[]};
@@ -126,9 +127,9 @@ export async function publish(designId:string,themeId:string,confirm:boolean,opt
     const check=await admin("query($id: ID!, $names:[String!]!) { theme(id:$id) { role files(filenames:$names,first:50) { nodes { filename } } } }",{id:themeId,names:filenames});
     if(check.theme?.role==="MAIN")throw new AppError(409,"The selected theme became live. Publishing was stopped.");
     if(check.theme?.files?.nodes?.length)throw new AppError(409,"These generated filenames already exist on this theme. Generate a new version to preserve any native-editor changes.");
-    const result=await admin("mutation($themeId:ID!,$files:[OnlineStoreThemeFilesUpsertFileInput!]!){themeFilesUpsert(themeId:$themeId,files:$files){job{id done} upsertedThemeFiles{filename} userErrors{field message}}}",{themeId,files:filenames.map(filename=>({filename,body:{type:"TEXT",value:files[filename]}}))});
+    const result=await admin("mutation($themeId:ID!,$files:[OnlineStoreThemeFilesUpsertFileInput!]!){themeFilesUpsert(themeId:$themeId,files:$files){job{id done} upsertedThemeFiles{filename} userErrors{field message code}}}",{themeId,files:filenames.map(filename=>({filename,body:{type:"TEXT",value:files[filename]}}))});
     const write=result.themeFilesUpsert;
-    if(write.userErrors?.length)throw new AppError(422,write.userErrors.map((e:any)=>e.message).join("; "));
+    if(write.userErrors?.length)throw new AppError(422,write.userErrors.map((e:any)=>`${e.code??"USER_ERROR"}: ${e.message}`).join("; "));
     if(write.job&&!write.job.done){
       let done=false;
       for(let i=0;i<15;i++){
@@ -138,8 +139,10 @@ export async function publish(designId:string,themeId:string,confirm:boolean,opt
       }
       if(!done)throw new AppError(504,"Shopify theme write is still pending. Product assignment was not changed.");
     }
-    const verified=await admin("query($id:ID!,$names:[String!]!){theme(id:$id){files(filenames:$names,first:50){nodes{filename}}}}",{id:themeId,names:filenames});
-    if(verified.theme.files.nodes.length!==filenames.length)throw new AppError(502,"Not all theme files could be verified. Product assignment was not changed.");
+    const verified=await admin("query($id:ID!,$names:[String!]!){theme(id:$id){role files(filenames:$names,first:50){nodes{filename checksumMd5}}}}",{id:themeId,names:filenames});
+    if(!verified.theme||verified.theme.role==="MAIN")throw new AppError(409,"The destination is missing or became live. Product assignment was not changed.");
+    const readback=new Map<string,string>(verified.theme.files.nodes.map((file:any)=>[file.filename,file.checksumMd5]));
+    if(filenames.some(filename=>readback.get(filename)!==createHash("md5").update(files[filename],"utf8").digest("hex")))throw new AppError(502,"Uploaded theme content did not match Shopify readback. Product assignment was not changed.");
     if(mode==="import"){
       product=await importDraft(admin,run.product,run.id,context.currency,!!options.confirmCurrencyMismatch,async created=>{
         p.imported=true;p.productId=created.id;p.productHandle=created.handle;p.productStatus=created.status;
@@ -166,7 +169,11 @@ export async function publish(designId:string,themeId:string,confirm:boolean,opt
   }catch(e){
     p.status="failed";p.error=e instanceof Error?e.message:"Publishing failed";
     if(/exemption|access denied for themeFilesUpsert/i.test(p.error)){
-      p.error=`Your store ${context.shop} is authenticated, but Shopify requires a theme-file API exemption in addition to write_themes. Automatic upload is blocked by Shopify. No draft product was created by this attempt. Request the exemption or download the theme ZIP for manual installation.`;
+      const exact=p.error;
+      let granted=false;
+      try{const installation=await admin("query{currentAppInstallation{accessScopes{handle}}}");granted=installation.currentAppInstallation.accessScopes.some((s:any)=>s.handle==="write_themes");}catch{/* Preserve the original failure when scope verification is unavailable. */}
+      const codes=e instanceof ShopifyApiError?e.diagnostic.response.errors?.map((error:any)=>error.extensions?.code).filter(Boolean).join(", "):"";
+      p.error=`Shopify blocked ${e instanceof ShopifyApiError?e.diagnostic.operation:"themeFilesUpsert"}${codes?` (${codes})`:""}: ${exact} ${granted?"write_themes is granted; Shopify's separate theme-API approval is not effective for this installation.":"Verify granted write_themes and Shopify's separate theme-API approval."} No product was created or assigned by this attempt.`;
       p.helpUrl="https://docs.google.com/forms/d/e/1FAIpQLSfZTB1vxFC5d1-GPdqYunWRGUoDcOheHQzfK2RoEFEHrknt5g/viewform";
     }
   }

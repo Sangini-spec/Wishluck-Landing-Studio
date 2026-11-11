@@ -1,5 +1,6 @@
 import { AppError } from "./domain";
 import {selectedShopDomain} from "./shopify-selection";
+import {recordShopifyResponse,ShopifyApiError} from "./shopify-diagnostics";
 
 // The assignment explicitly supplies an existing, merchant-owned custom app.
 // This adapter does not create a store or collect credentials from the browser.
@@ -40,13 +41,18 @@ export async function customAdmin(query:string,variables:Record<string,unknown>=
   if(!/^\d{4}-(01|04|07|10)$/.test(version))throw new AppError(400,"SHOPIFY_API_VERSION must be a supported YYYY-MM version.");
   const token=await accessToken(attempt===1,shop);
   const response=await fetch(`https://${shop}/admin/api/${version}/graphql.json`,{method:"POST",headers:{"Content-Type":"application/json","X-Shopify-Access-Token":token},body:JSON.stringify({query,variables}),signal:AbortSignal.timeout(30000)});
+  const raw=await response.text();
+  let parsed:any;
+  try{parsed=JSON.parse(raw);}catch{parsed={nonJsonResponse:raw};}
+  const diagnostic=recordShopifyResponse(query,shop,response,parsed,[token,process.env.SHOPIFY_CLIENT_ID??"",process.env.SHOPIFY_CLIENT_SECRET??""]);
   if(response.status===401&&attempt===0)return customAdmin(query,variables,1,shop);
-  if(!response.ok)throw new AppError(response.status===403?403:502,`Shopify Admin API returned HTTP ${response.status}. Verify the app scopes and theme-file write exemption.`);
-  const data=await response.json() as {data?:unknown;errors?:{message:string;extensions?:{code?:string}}[];extensions?:{cost?:{throttleStatus?:{currentlyAvailable:number;restoreRate:number}}}};
+  if(!response.ok)throw new ShopifyApiError(response.status===401?401:response.status===403?403:502,`Shopify Admin API returned HTTP ${response.status}. Verify the app installation and permissions.`,diagnostic);
+  const data=parsed as {data?:unknown;errors?:{message:string;extensions?:{code?:string}}[];extensions?:{cost?:{throttleStatus?:{currentlyAvailable:number;restoreRate:number}}}};
   if(data.errors?.length){
     if(data.errors.some(e=>e.extensions?.code==="THROTTLED")&&attempt<2){await new Promise(r=>setTimeout(r,1500));return customAdmin(query,variables,attempt+1,shop);}
-    throw new AppError(422,data.errors.map(e=>e.message).join("; "));
+    throw new ShopifyApiError(422,diagnostic.response.errors.map((e:any)=>e.message).join("; "),diagnostic);
   }
+  if(!data.data)throw new ShopifyApiError(502,"Shopify returned no GraphQL data.",diagnostic);
   const throttle=data.extensions?.cost?.throttleStatus;
   if(throttle&&throttle.currentlyAvailable<100&&throttle.restoreRate>0)await new Promise(r=>setTimeout(r,Math.min(3000,1000*100/throttle.restoreRate)));
   return data.data;

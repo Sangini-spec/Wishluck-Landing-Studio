@@ -79,6 +79,19 @@ Three-dot menus provide confirmed deletion from recent runs, category memory, ru
 
 Deleting category memory clears learnings and feedback and excludes older design fingerprints from future generation, while preserving runs and designs in history. New research or generation can build fresh memory. Clearing publication history only removes local audit entries; it does not unpublish designs or alter Shopify. Bulk run-history deletion explicitly includes all runs, even those hidden by a filter. Active processing/publishing is protected from deletion.
 
+### Shopify theme-permission diagnostics
+
+Run only with explicit permission to create an isolated, unpublished test theme:
+
+```sh
+pnpm --filter @workspace/scripts exec tsx "$PWD/artifacts/api-server/scripts/diagnose-shopify.ts" \
+  --shop your-store.myshopify.com --allow-unpublished-test
+```
+
+The diagnostic compares the installed app's declared and actually granted scopes, verifies app/store identity, records staging and theme-operation responses, and checks the existing themes and draft products before/after. It never assigns products, activates a theme, or writes to an existing theme. If theme creation is denied, a verified nonexistent theme ID can probe field-level write authorisation; this is explicitly **not** an upload or readback success.
+
+Secret-redacted HTML and JSON evidence is written under `generated-artifacts/shopify-publishing-diagnostic/` (excluded from Git and deployment). Normal publishing now records HTTP status, Shopify request IDs, GraphQL errors and mutation responses in server logs and verifies uploaded content using Shopify's MD5 checksums before product assignment. A granted `write_themes` scope does not establish that Shopify's separate Theme API exemption is effective. Do not reinstall, add unrelated scopes, or claim success to work around this approval dependency.
+
 If the user explicitly chooses an already-authorised managed connector, `SHOPIFY_CONNECTOR_NAME=shopify` or `shopify-store` uses the provided server-only proxy helper instead. That path has not been verified in this build.
 
 Current documented API version: `2026-10`. Reference documentation consulted:
