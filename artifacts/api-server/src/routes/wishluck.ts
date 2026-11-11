@@ -15,7 +15,7 @@ import { publicUrl } from "../lib/network";
 import { enqueue,isActive,withRunLock } from "../lib/jobs";
 import { AppError,type Run } from "../lib/domain";
 import { aiReady } from "../lib/ai";
-import { shopifyStatus,connectShopify,themes,publish,admin } from "../lib/shopify";
+import { shopifyStatus,connectShopify,themes,publish,admin,publishingContext } from "../lib/shopify";
 import { preview } from "../lib/preview";
 import { compile,zipDesign } from "../lib/compiler";
 import { objectStorageClient } from "../lib/objectStorage";
@@ -119,7 +119,8 @@ router.get("/shopify/status",(_req,res)=>{res.json(GetShopifyStatusResponse.pars
 router.post("/shopify/connect",async(_req,res)=>{res.json(GetShopifyStatusResponse.parse(await connectShopify()));});
 router.get("/shopify/themes",async(_req,res)=>{res.json(ListThemesResponse.parse(await themes()));});
 router.get("/shopify/products",async(_req,res)=>{res.json(await admin("query{products(first:50){nodes{id title handle variants(first:100){nodes{id title price availableForSale}} images(first:10){nodes{url altText}}}}}"));});
-router.post("/shopify/publish",async(req,res)=>{const body=PublishDesignBody.parse(req.body);res.json(PublishDesignResponse.parse(await publish(body.designId,body.themeId,body.confirmTemplateAssignment)));});
+router.get("/designs/:id/publishing",async(req,res)=>{res.json(await publishingContext(idParam(req.params.id)));});
+router.post("/shopify/publish",async(req,res)=>{const body=PublishDesignBody.parse(req.body);res.json(PublishDesignResponse.parse(await publish(body.designId,body.themeId,body.confirmTemplateAssignment,body)));});
 router.get("/shopify/publish/:id/status",async(req,res)=>{const p=(await publications()).find(p=>p.id===idParam(req.params.id));if(!p)throw new AppError(404,"Publication not found");res.json(p);});
 router.get("/settings",async(_req,res)=>{
   let database="Unavailable";try{await db.execute(sql`select 1`);database="Connected · PostgreSQL";}catch{/* Keep integration status available during a database outage. */}

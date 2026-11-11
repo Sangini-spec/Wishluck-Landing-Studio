@@ -1,0 +1,82 @@
+/* Wishluck base: tokens, type, controls, sticky cart, motion primitives.
+   Layout: wishluck-hero.css / wishluck-sections.css. Art direction: wishluck-families.css / wishluck-axes.css. */
+.wl,.wl-ac-panel .wl-copy,.wl-ac-panel .wl-head,.wl-dl-bento .wl-item:first-child{
+  --wl-line:color-mix(in srgb,var(--wl-text) 18%,transparent);
+  --wl-muted:color-mix(in srgb,var(--wl-text) 76%,var(--wl-bg));
+}
+.wl{
+  --wl-gutter:clamp(18px,5.2vw,84px);
+  --wl-pad:clamp(calc(var(--wl-space,72px)*.5),7vw,var(--wl-space,72px));
+  --wl-mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --wl-ease:cubic-bezier(.16,.84,.3,1);
+  --wl-h1:clamp(34px,4.6vw,var(--wl-heading-size,64px));
+  --wl-h2:clamp(28px,3.4vw,52px);
+  --wl-label-font:var(--wl-body);
+  --wl-gap:24px;
+  position:relative;box-sizing:border-box;display:block;margin:0;
+  padding:var(--wl-pad) var(--wl-gutter);
+  color:var(--wl-text);background:var(--wl-bg);
+  font-family:var(--wl-body);font-weight:var(--wl-body-weight,400);font-size:var(--wl-body-size,16px);line-height:1.62;
+  overflow-x:clip;overflow-wrap:break-word;-webkit-font-smoothing:antialiased;
+}
+.wl *,.wl *::before,.wl *::after{box-sizing:border-box}
+.wl h1,.wl h2,.wl h3{font-family:var(--wl-heading);font-weight:var(--wl-weight,400);line-height:1.05;letter-spacing:-.02em;margin:0;text-wrap:balance;color:inherit}
+.wl h1{font-size:var(--wl-h1)}
+.wl h2{font-size:var(--wl-h2)}
+.wl h3{font-size:clamp(19px,1.6vw,24px);line-height:1.2}
+.wl p{margin:0 0 .9em;max-width:66ch}
+.wl p:last-child{margin-bottom:0}
+.wl a{color:inherit;text-underline-offset:.22em;text-decoration-thickness:1px}
+.wl img{display:block;max-width:100%;height:auto}
+.wl figure,.wl blockquote,.wl dd{margin:0}
+.wl-inner{max-width:1320px;margin:0 auto;position:relative;z-index:1}
+
+.wl-kicker{display:flex;flex-wrap:wrap;gap:.4em 1.1em;align-items:center;margin:0;font-family:var(--wl-label-font);font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;max-width:none}
+.wl-kicker-meta{color:var(--wl-muted);font-weight:500}
+.wl-kicker-meta::before{content:"";display:inline-block;width:1.6em;height:1px;background:currentColor;vertical-align:middle;margin-right:1.1em}
+.wl-description{font-size:1.1em;color:var(--wl-muted)}
+.wl-price{display:flex;align-items:baseline;gap:12px;font-size:clamp(22px,2vw,28px);font-weight:600;font-variant-numeric:tabular-nums}
+.wl-price del{font-size:.6em;font-weight:400;color:var(--wl-muted)}
+.wl-price del:empty{display:none}
+
+.wl-form{display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:10px 12px;width:100%;max-width:520px}
+.wl-form label{display:grid;gap:6px;font-family:var(--wl-label-font);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.wl select,.wl input{appearance:none;-webkit-appearance:none;width:100%;min-width:0;height:50px;padding:0 14px;border:1px solid color-mix(in srgb,var(--wl-text) 50%,transparent);border-radius:var(--wl-radius,0);background-color:var(--wl-bg);color:var(--wl-text);font:inherit;font-size:16px;letter-spacing:0;text-transform:none;transition:border-color .2s}
+.wl select{background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);background-position:calc(100% - 20px) 52%,calc(100% - 15px) 52%;background-size:5px 5px;background-repeat:no-repeat;padding-right:38px}
+.wl select:hover,.wl input:hover{border-color:var(--wl-text)}
+.wl button,.wl .wl-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:14px 26px;border:0;border-radius:var(--wl-radius,0);background:var(--wl-button);color:var(--wl-button-text);font:inherit;font-weight:600;letter-spacing:.02em;text-decoration:none;cursor:pointer;overflow:hidden;isolation:isolate}
+.wl button::before,.wl .wl-btn::before{content:"";position:absolute;inset:0;z-index:-1;background:currentColor;opacity:.12;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--wl-ease)}
+.wl button:not(:disabled):hover::before,.wl .wl-btn:hover::before{transform:scaleX(1)}
+.wl button:active{transform:translateY(1px)}
+.wl-form button{grid-column:1/-1}
+.wl button:disabled{opacity:.5;cursor:not-allowed}
+.wl :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.wl-arrow{position:relative;width:18px;height:1.5px;background:currentColor;transition:transform .4s var(--wl-ease)}
+.wl-arrow::after{content:"";position:absolute;right:0;top:-3.5px;width:8px;height:8px;border-top:1.5px solid currentColor;border-right:1.5px solid currentColor;transform:rotate(45deg)}
+.wl-btn:hover .wl-arrow{transform:translateX(5px)}
+.wl-status{grid-column:1/-1;min-height:1.4em;font-size:14px}
+.wl-status:empty{min-height:0}
+.wl-trust{font-size:13px;color:var(--wl-muted)}
+.wl-copy-link{margin:0;font-size:14px}
+
+.wl-sticky{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;gap:14px;align-items:center;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--wl-bg);color:var(--wl-text);border-top:1px solid var(--wl-line);box-shadow:0 -12px 30px color-mix(in srgb,var(--wl-text) 12%,transparent);transform:translateY(110%);visibility:hidden;transition:transform .35s var(--wl-ease),visibility 0s .35s}
+.wl-sticky.is-visible{transform:none;visibility:visible;transition:transform .35s var(--wl-ease)}
+.wl-sticky button{flex:1;min-height:48px}
+.wl-sticky-price{font-weight:600;font-variant-numeric:tabular-nums}
+@media(min-width:900px){.wl-sticky{display:none}}
+@media(max-width:899px){body:has(.wl-sticky){padding-bottom:76px}}
+
+@keyframes wl-rise{from{opacity:0;transform:translateY(18px)}}
+@keyframes wl-settle{from{opacity:0;transform:scale(.94) translateY(12px)}}
+@keyframes wl-marquee{to{transform:translateX(-100%)}}
+@keyframes wl-float{from{transform:translateY(-6px)}to{transform:translateY(8px)}}
+@media(prefers-reduced-motion:no-preference){
+  .wl-motion .wl [data-wl-reveal]{opacity:0;transform:translateY(24px);transition:opacity .9s var(--wl-ease),transform .9s var(--wl-ease)}
+  .wl-motion .wl [data-wl-reveal].is-in{opacity:1;transform:none}
+  .wl-hero .wl-copy>*{animation:wl-rise .9s var(--wl-ease) both}
+  .wl-hero .wl-copy>:nth-child(2){animation-delay:.06s}
+  .wl-hero .wl-copy>:nth-child(3){animation-delay:.12s}
+  .wl-hero .wl-copy>:nth-child(n+4){animation-delay:.18s}
+  .wl-hero .wl-fig-1 img{animation:wl-settle 1.2s var(--wl-ease) both}
+}
+@media(prefers-reduced-motion:reduce){.wl *,.wl *::before,.wl *::after{animation:none!important;transition:none!important}}

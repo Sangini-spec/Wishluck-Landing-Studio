@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { GetRunResponse, PublishDesignResponse } from "@workspace/api-zod";
+import type { VisualPlan } from "./design-plan";
 
 export type Run = z.infer<typeof GetRunResponse>;
 export type Product = NonNullable<Run["product"]>;
@@ -25,6 +26,7 @@ export interface DesignContent {
   generationMode: "ai" | "source-only";
   productSnapshot?: Product;
   brandSnapshot?: Brand;
+  visualPlan?: VisualPlan;
 }
 export class AppError extends Error {
   constructor(public status: number, message: string) { super(message); }

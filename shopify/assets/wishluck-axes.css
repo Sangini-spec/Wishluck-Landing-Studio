@@ -1,0 +1,54 @@
+/* Plan axes that cut across every family: typography voice, rhythm, alignment, accent placement, colour strategy. Loaded last. */
+
+/* Typography voice */
+.wl-ty-display{--wl-h2:clamp(32px,4.8vw,76px)}
+.wl-ty-display h1,.wl-ty-display h2{letter-spacing:-.04em;line-height:.95}
+.wl-ty-display .wl-kicker{letter-spacing:.24em}
+.wl-ty-editorial{--wl-h2:clamp(28px,3.4vw,54px)}
+.wl-ty-editorial h2{font-style:italic;letter-spacing:-.01em}
+.wl-ty-editorial .wl-kicker{text-transform:none;letter-spacing:.01em;font-family:var(--wl-heading);font-style:italic;font-size:15px;font-weight:400}
+.wl-ty-editorial .wl-prose{font-size:1.14em;line-height:1.78}
+.wl-ty-editorial .wl-item-b{line-height:1.72}
+.wl-ty-technical{--wl-label-font:var(--wl-mono);--wl-h2:clamp(22px,2.4vw,34px)}
+.wl-ty-technical h2,.wl-ty-technical h3,.wl-ty-technical .wl-item-t{font-family:var(--wl-body);text-transform:uppercase;letter-spacing:.05em;font-weight:600;font-size:clamp(14px,1.1vw,17px)}
+.wl-ty-technical h2{font-size:var(--wl-h2);letter-spacing:.02em}
+.wl-ty-technical .wl-price,.wl-ty-technical .wl-num,.wl-ty-technical .wl-item-n,.wl-ty-technical .wl-buy-price{font-family:var(--wl-mono)}
+.wl-ty-technical h1{letter-spacing:-.03em}
+
+/* Rhythm */
+.wl-rh-spacious{--wl-gap:clamp(28px,3vw,48px)}
+.wl-rh-spacious .wl-prose{max-width:56ch}
+.wl-rh-dense{--wl-gap:14px;line-height:1.55}
+.wl-rh-dense.wl-sec .wl-inner{gap:clamp(18px,2vw,28px)}
+.wl-rh-dense .wl-q summary{padding:14px 0}
+.wl-rh-alternating{--wl-gap:24px}
+
+/* Alignment */
+.wl-al-center .wl-copy{align-items:center;text-align:center}
+.wl-al-center .wl-copy .wl-kicker,.wl-al-center .wl-copy .wl-price{justify-content:center}
+.wl-al-center .wl-copy p{margin-inline:auto}
+.wl-al-center.wl-sec .wl-head{justify-items:center;text-align:center;margin-inline:auto}
+.wl-al-center:is(.wl-dl-tiles,.wl-dl-bento,.wl-dl-columns) .wl-item{text-align:center;justify-items:center}
+.wl-al-center .wl-faq{margin-inline:auto;width:100%}
+.wl-al-center .wl-prose{margin-inline:auto}
+@media(min-width:900px){
+  .wl-al-center:is(.wl-f-gallery,.wl-f-kinetic,.wl-f-panorama) .wl-copy{text-align:start;align-items:start}
+  .wl-al-center:is(.wl-f-gallery,.wl-f-kinetic,.wl-f-panorama) .wl-copy .wl-kicker{justify-content:start}
+  .wl-al-center:is(.wl-f-dossier,.wl-f-panorama).wl-sec .wl-head{justify-items:start;text-align:start;margin-inline:0}
+}
+
+/* Accent placement */
+.wl-ac-edge::before{content:"";position:absolute;top:0;bottom:0;left:0;width:clamp(5px,.7vw,10px);background:var(--wl-primary);z-index:3}
+.wl-ac-edge .wl-kicker>span:first-child{box-shadow:inset 0 -.45em 0 color-mix(in srgb,var(--wl-primary) 22%,transparent)}
+.wl-ac-panel .wl-copy,.wl-ac-panel.wl-sec .wl-head{--wl-text:var(--wl-on-primary);--wl-bg:var(--wl-primary);--wl-button:var(--wl-on-primary);--wl-button-text:var(--wl-primary);background:var(--wl-primary);color:var(--wl-on-primary);padding:clamp(20px,3vw,44px)}
+.wl-ac-panel.wl-sec .wl-head{max-width:none}
+.wl-ac-panel.wl-f-kinetic .wl-num{-webkit-text-stroke-color:var(--wl-on-primary)}
+.wl-ac-rule .wl-copy>h1::after{content:"";display:block;width:72px;height:3px;background:var(--wl-primary);margin-top:.32em}
+.wl-al-center.wl-ac-rule .wl-copy>h1::after{margin-inline:auto}
+.wl-ac-rule.wl-sec .wl-head{border-top:3px solid var(--wl-primary);padding-top:20px}
+.wl-ac-rule .wl-buy{border-width:3px 0 0;border-color:var(--wl-primary)}
+
+/* Colour strategy accents (palette itself is computed in the renderer) */
+.wl-cs-contrast .wl-price{letter-spacing:-.01em}
+.wl-cs-brand.wl-hero .wl-kicker>span:first-child,.wl-cs-ink.wl-hero .wl-kicker>span:first-child{color:var(--wl-primary)}
+.wl-dark .wl-select,.wl-dark select{color-scheme:dark}

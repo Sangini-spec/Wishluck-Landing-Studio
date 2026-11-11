@@ -181,6 +181,8 @@ export interface Run {
   aiCost?: number;
 }
 
+export type PublicationVariantMap = {[key: string]: string};
+
 export interface Publication {
   id: string;
   designId: string;
@@ -189,6 +191,15 @@ export interface Publication {
   createdAt: string;
   previewUrl?: string;
   editorUrl?: string;
+  shop?: string;
+  productId?: string;
+  productHandle?: string;
+  productStatus?: string;
+  imported?: boolean;
+  adminUrl?: string;
+  warnings?: string[];
+  variantMap?: PublicationVariantMap;
+  helpUrl?: string;
   error?: string;
   themeName?: string;
 }
@@ -242,10 +253,42 @@ export interface FeedbackInput {
   reason?: string;
 }
 
+export type PublishInputProductMode = typeof PublishInputProductMode[keyof typeof PublishInputProductMode];
+
+
+export const PublishInputProductMode = {
+  source: 'source',
+  existing: 'existing',
+  import: 'import',
+} as const;
+
 export interface PublishInput {
   designId: string;
   themeId: string;
   confirmTemplateAssignment: boolean;
+  productMode?: PublishInputProductMode;
+  productId?: string;
+  confirmProductImport?: boolean;
+  confirmCurrencyMismatch?: boolean;
+}
+
+export interface StoreProduct {
+  id: string;
+  title: string;
+  handle: string;
+  status: string;
+}
+
+export interface PublishingContext {
+  shop: string;
+  name: string;
+  primaryDomain: string;
+  currency: string;
+  sourceHost: string;
+  sourceCurrency: string;
+  sameStore: boolean;
+  canImport: boolean;
+  products: StoreProduct[];
 }
 
 export interface Connection {

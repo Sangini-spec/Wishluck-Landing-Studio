@@ -35,6 +35,7 @@ import type {
   ProductUpdate,
   Publication,
   PublishInput,
+  PublishingContext,
   Run,
   RunInput,
   Settings,
@@ -1390,6 +1391,101 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
       > => {
       return useMutation(getPublishDesignMutationOptions(options), queryClient);
     }
+
+export const getGetPublishingContextUrl = (id: string,) => {
+
+
+
+
+  return `/api/designs/${id}/publishing`
+}
+
+export const getPublishingContext = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<PublishingContext> => {
+
+  return customFetch<PublishingContext>(getGetPublishingContextUrl(id),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetPublishingContextQueryKey = (id: string,) => {
+    return [
+    `/api/designs/${id}/publishing`
+    ] as const;
+    }
+
+
+export const getGetPublishingContextQueryOptions = <TData = Awaited<ReturnType<typeof getPublishingContext>>, TError = ErrorType<unknown>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPublishingContext>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetPublishingContextQueryKey(id);
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPublishingContext>>> = ({ signal }) => getPublishingContext(id, { signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, enabled: id !== null && id !== undefined, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPublishingContext>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetPublishingContextQueryResult = NonNullable<Awaited<ReturnType<typeof getPublishingContext>>>
+export type GetPublishingContextQueryError = ErrorType<unknown>
+
+
+export function useGetPublishingContext<TData = Awaited<ReturnType<typeof getPublishingContext>>, TError = ErrorType<unknown>>(
+ id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPublishingContext>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPublishingContext>>,
+          TError,
+          Awaited<ReturnType<typeof getPublishingContext>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetPublishingContext<TData = Awaited<ReturnType<typeof getPublishingContext>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPublishingContext>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPublishingContext>>,
+          TError,
+          Awaited<ReturnType<typeof getPublishingContext>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetPublishingContext<TData = Awaited<ReturnType<typeof getPublishingContext>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPublishingContext>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetPublishingContext<TData = Awaited<ReturnType<typeof getPublishingContext>>, TError = ErrorType<unknown>>(
+ id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPublishingContext>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetPublishingContextQueryOptions(id,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
 
 export const getGetSettingsUrl = () => {
 

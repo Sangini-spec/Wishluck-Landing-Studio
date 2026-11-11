@@ -5,9 +5,14 @@
  * Wishluck Shopify landing page studio
  * OpenAPI spec version: 1.0.0
  */
+import type { PublishInputProductMode } from './publishInputProductMode';
 
 export interface PublishInput {
   designId: string;
   themeId: string;
   confirmTemplateAssignment: boolean;
+  productMode?: PublishInputProductMode;
+  productId?: string;
+  confirmProductImport?: boolean;
+  confirmCurrencyMismatch?: boolean;
 }

@@ -1,28 +1,114 @@
+{%- liquid
+  assign s = section.settings
+  assign mode = s.mode
+  assign bright = s.background | color_brightness
+  assign visible = s.show_section
+  if mode == 'reviews' and section.blocks.size == 0
+    assign visible = false
+  endif
+  if mode == 'gallery' and product.images.size < 2
+    assign picked = 0
+    for block in section.blocks
+      if block.type == 'image' and block.settings.image != blank
+        assign picked = picked | plus: 1
+      endif
+    endfor
+    if picked < 2
+      assign visible = false
+    endif
+  endif
+-%}
 {% style %}
-{{ section.settings.heading_font | font_face: font_display: 'swap' }}
-{{ section.settings.body_font | font_face: font_display: 'swap' }}
+{{ s.heading_font | font_face: font_display: 'swap' }}
+{{ s.body_font | font_face: font_display: 'swap' }}
 #wl-{{ section.id }} {
-  --wl-primary: {{ section.settings.primary }}; --wl-secondary: {{ section.settings.secondary }}; --wl-bg: {{ section.settings.background }}; --wl-text: {{ section.settings.text_color }};
-  --wl-heading: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
-  --wl-body: {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
-  --wl-radius: {{ section.settings.radius }}px; --wl-space: {{ section.settings.spacing }}px;
-  --wl-weight: {{ section.settings.heading_weight }}; --wl-body-weight: {{ section.settings.body_weight }};
-  --wl-button: {{ section.settings.button_color }}; --wl-button-text: {{ section.settings.button_text }};
+  --wl-bg: {{ s.background }}; --wl-text: {{ s.text_color }}; --wl-primary: {{ s.primary }}; --wl-on-primary: {{ s.on_primary }};
+  --wl-secondary: {{ s.secondary }}; --wl-stage: {{ s.stage }}; --wl-button: {{ s.button_color }}; --wl-button-text: {{ s.button_text }};
+  --wl-heading: {{ s.heading_font.family }}, {{ s.heading_font.fallback_families }};
+  --wl-body: {{ s.body_font.family }}, {{ s.body_font.fallback_families }};
+  --wl-weight: {{ s.heading_weight }}; --wl-body-weight: {{ s.body_weight }};
+  --wl-heading-size: {{ s.heading_size }}px; --wl-body-size: {{ s.body_size }}px;
+  --wl-radius: {{ s.radius }}px; --wl-space: {{ s.spacing }}px;
 }
 {% endstyle %}
-{% if section.settings.show_section %}
-<section id="wl-{{ section.id }}" class="wl wl-color-{{ section.settings.color_use }} wl-benefits-{{ section.settings.benefits_style }}">
-  {% if section.settings.heading != blank %}<h2>{{ section.settings.heading | escape }}</h2>{% endif %}
-  {% if section.settings.image != blank %}<div class="wl-block-image">{{ section.settings.image | image_url: width: 1080 | image_tag: widths: '360,768,1080', sizes: '(max-width: 768px) 100vw, 60vw', loading: 'lazy', alt: section.settings.image_alt }}</div>{% endif %}
-  <div>{{ section.settings.body }}</div>
-  {% if section.settings.mode == 'specs' %}<table><tbody>{% for block in section.blocks %}{% if block.type == 'item' %}<tr {{ block.shopify_attributes }}><th scope="row">{{ block.settings.title | escape }}</th><td>{{ block.settings.body }}</td></tr>{% endif %}{% endfor %}</tbody></table>
-  {% elsif section.settings.mode == 'faq' %}
-    {% for block in section.blocks %}{% if block.type == 'item' %}<details {{ block.shopify_attributes }}><summary>{{ block.settings.title | escape }}</summary><div>{{ block.settings.body }}</div></details>{% endif %}{% endfor %}
+{% if visible %}
+<section id="wl-{{ section.id }}" class="wl wl-sec wl-sec-{{ mode }} wl-f-{{ s.family }} wl-img-{{ s.image_treatment }} wl-scale-{{ s.hero_scale }} wl-cs-{{ s.color_strategy }} wl-rh-{{ s.rhythm }} wl-ty-{{ s.typography }} wl-dl-{{ s.detail_layout }} wl-al-{{ s.alignment }} wl-ac-{{ s.accent_placement }}{% if s.flip %} wl-flip{% endif %}{% if bright < 110 %} wl-dark{% endif %}">
+<div class="wl-inner">
+  <header class="wl-head" data-wl-reveal>{% if s.label != blank %}<span class="wl-num">{{ s.label | escape }}</span>{% endif %}{% if s.heading != blank %}<h2>{{ s.heading | escape }}</h2>{% endif %}</header>
+  <div class="wl-body">
+  {%- case mode -%}
+  {%- when 'story' -%}
+    {%- liquid
+      if s.image != blank
+        assign img = s.image
+      elsif s.image_index > 0
+        assign ii = s.image_index | minus: 1
+        assign img = product.images[ii]
+      endif
+      assign alt = s.image_alt | default: product.title
+    -%}
+    <div class="wl-story-grid"><div class="wl-prose" data-wl-reveal>{{ s.body }}</div>{% if img != blank %}<figure class="wl-fig wl-story-fig" data-wl-reveal>{{ img | image_url: width: 1200 | image_tag: widths: '360,768,1080,1200', sizes: '(max-width: 899px) 100vw, 42vw', loading: 'lazy', alt: alt }}</figure>{% endif %}</div>
+  {%- when 'specs' -%}
+    <dl class="wl-items">{% for block in section.blocks %}{% if block.type == 'item' %}<div class="wl-item" data-wl-reveal {{ block.shopify_attributes }}><span class="wl-item-n" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span><dt class="wl-item-t">{{ block.settings.title | escape }}</dt><dd class="wl-item-b">{{ block.settings.body }}</dd></div>{% endif %}{% endfor %}</dl>
+  {%- when 'faq' -%}
+    <div class="wl-faq">{% for block in section.blocks %}{% if block.type == 'item' %}<details class="wl-q" data-wl-reveal {{ block.shopify_attributes }}><summary><span class="wl-item-n" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span><span>{{ block.settings.title | escape }}</span></summary><div class="wl-a">{{ block.settings.body }}</div></details>{% endif %}{% endfor %}</div>
     {% if section.blocks.size > 0 %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for block in section.blocks %}{"@type":"Question","name":{{ block.settings.title | json }},"acceptedAnswer":{"@type":"Answer","text":{{ block.settings.body | strip_html | json }}}}{% unless forloop.last %},{% endunless %}{% endfor %}]}</script>{% endif %}
-  {% else %}
-    <div class="wl-grid">{% for block in section.blocks %}<article class="wl-card" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 540 | image_tag: loading: 'lazy', alt: block.settings.title }}{% endif %}<h3>{{ block.settings.title | escape }}</h3><div>{{ block.settings.body }}</div></article>{% endfor %}</div>
-  {% endif %}
-  {% if section.settings.show_button and section.settings.button_link != blank %}<p><a class="wl-link" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a></p>{% endif %}
+  {%- when 'reviews' -%}
+    <ol class="wl-items">{% for block in section.blocks %}{% if block.type == 'item' %}<li class="wl-item" data-wl-reveal {{ block.shopify_attributes }}><span class="wl-item-n" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span><blockquote class="wl-item-b">{{ block.settings.body }}</blockquote><p class="wl-item-t">{{ block.settings.title | escape }}</p></li>{% endif %}{% endfor %}</ol>
+  {%- when 'gallery' -%}
+    <div class="wl-gallery" data-count="{{ section.blocks.size }}">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'image' -%}
+      {%- liquid
+        if block.settings.image != blank
+          assign img = block.settings.image
+        else
+          assign ii = block.settings.image_index | minus: 1
+          assign img = product.images[ii]
+        endif
+        assign fname = img.src | split: '/' | last | split: '?' | first | upcase
+        assign view = 'View'
+        if fname contains '_LEFT'
+          assign view = 'Left'
+        elsif fname contains '_RIGHT'
+          assign view = 'Right'
+        elsif fname contains '_FRONT'
+          assign view = 'Front'
+        elsif fname contains '_BACK'
+          assign view = 'Back'
+        elsif fname contains '_TOP'
+          assign view = 'Top'
+        elsif fname contains '_BOTTOM'
+          assign view = 'Bottom'
+        elsif fname contains '_SIDE'
+          assign view = 'Side'
+        endif
+        assign cap = 'Fig. 0' | append: forloop.index | append: ' · ' | append: view
+        if block.settings.caption != blank
+          assign cap = block.settings.caption
+        endif
+        assign alt = product.title | append: ' ' | append: cap
+      -%}
+      {%- if img != blank -%}
+      <figure class="wl-gfig" data-wl-reveal {{ block.shopify_attributes }}>{{ img | image_url: width: 1200 | image_tag: widths: '360,600,900,1200', sizes: '(max-width: 899px) 50vw, 25vw', loading: 'lazy', alt: alt }}<figcaption class="wl-fig-cap">{{ cap | escape }}</figcaption></figure>
+      {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    </div>
+  {%- when 'purchase' -%}
+    {%- assign v = product.selected_or_first_available_variant -%}
+    <div class="wl-buy" data-wl-reveal>
+      {% if product.featured_image %}<figure class="wl-buy-fig">{{ product.featured_image | image_url: width: 480 | image_tag: widths: '160,320,480', sizes: '128px', loading: 'lazy', alt: '' }}</figure>{% endif %}
+      <div class="wl-buy-name"><p class="wl-kicker"><span>{{ product.vendor | escape }}</span></p><p class="wl-buy-title">{{ product.title | escape }}</p></div>
+      <p class="wl-buy-price">{{ v.price | money }}</p>
+      <a class="wl-btn" href="#wl-product-purchase">{{ s.button_label | escape }}<span class="wl-arrow" aria-hidden="true"></span></a>
+    </div>
+  {%- else -%}
+    {% if s.body != blank %}<div class="wl-prose">{{ s.body }}</div>{% endif %}
+    <ol class="wl-items">{% for block in section.blocks %}{% if block.type == 'item' %}<li class="wl-item" data-wl-reveal {{ block.shopify_attributes }}><span class="wl-item-n" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span><h3 class="wl-item-t">{{ block.settings.title | escape }}</h3><div class="wl-item-b">{{ block.settings.body }}</div></li>{% endif %}{% endfor %}</ol>
+  {%- endcase -%}
+  </div>
+</div>
 </section>
 {% endif %}
 {% schema %}

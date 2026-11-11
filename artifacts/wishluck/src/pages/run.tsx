@@ -293,7 +293,7 @@ function Designs({ run }: { run: Run }) {
         <div className="p-4">
           <div className="flex items-center justify-between gap-2"><div className="truncate font-medium">{d.name}</div><StatusPill status={d.status} /></div>
           <div className="mt-0.5 text-xs text-muted-foreground">{d.direction} · v{d.version}</div>
-          <div className="mt-3 flex items-center justify-between font-mono text-[11px] text-muted-foreground"><span>Score {Math.round(d.scores.overall)}</span><span>{Math.round(d.uniqueness)}% unique</span><ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" /></div>
+          <div className="mt-3 flex items-center justify-between font-mono text-[11px] text-muted-foreground"><span>Score {Math.round(d.scores.overall)}</span><span>{d.comparedCount?`${Math.round(d.uniqueness)}% layout difference`:"New baseline"}</span><ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" /></div>
         </div>
       </Link>))}</div>
   );

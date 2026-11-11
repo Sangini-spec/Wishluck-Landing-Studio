@@ -1,7 +1,9 @@
 import type { Brand, Design, DesignContent } from "./domain";
+import {resolvePlan} from "./render-plan";
 
 export function fingerprint(content: DesignContent, brand: Brand) {
   return {
+    ...(content.visualPlan?{schemaVersion:2,designFamily:content.visualPlan.family,...content.visualPlan,typeTreatment:content.visualPlan.typography,sections:undefined}:{}),
     sectionOrder:content.sections,heroType:content.composition,imagePosition:content.imagePosition,
     colourUsage:content.colorUse,ctaPlacement:content.ctaPlacement,
     typography:`${brand.shopifyHeadingFont}/${brand.shopifyBodyFont}`,
@@ -16,12 +18,24 @@ function sequenceSimilarity(a: string[], b: string[]) {
   return dp[a.length]![b.length]! / Math.max(a.length,b.length,1);
 }
 export function similarity(a: Record<string,unknown>, b: Record<string,unknown>) {
+  if(a.schemaVersion===2||b.schemaVersion===2){
+    const project=(fp:Record<string,unknown>)=>{
+      if(fp.schemaVersion===2)return fp;
+      const plan=resolvePlan({composition:String(fp.heroType??""),colorUse:String(fp.colourUsage??""),sections:(fp.sectionOrder??[]) as string[]} as DesignContent);
+      return {...fp,...plan,designFamily:plan.family,typeTreatment:plan.typography};
+    };
+    a=project(a);b=project(b);
+    const weights={designFamily:.30,heroScale:.07,imageTreatment:.08,colorStrategy:.08,contentRhythm:.06,typeTreatment:.08,detailLayout:.08,alignment:.05,accentPlacement:.05};
+    let result=sequenceSimilarity((a.sectionOrder??[]) as string[],(b.sectionOrder??[]) as string[])*.15;
+    for(const[key,weight]of Object.entries(weights))if(a[key]===b[key])result+=weight;
+    return Math.min(1,result);
+  }
   const weights = {heroType:.30,imagePosition:.12,colourUsage:.12,ctaPlacement:.12,benefitsPresentation:.08,typography:.04,faqPosition:.02};
   let score = sequenceSimilarity((a.sectionOrder??[]) as string[],(b.sectionOrder??[]) as string[])*.20;
   for(const [key,weight] of Object.entries(weights)) if(a[key]===b[key])score+=weight;
   return Math.min(1,score);
 }
-export function compare(fp: Record<string,unknown>, previous: Design[]) {
+export function compare(fp: Record<string,unknown>, previous: Pick<Design,"id"|"fingerprint">[]) {
   let highest=0,closest:string|null=null;
   for(const d of previous){const s=similarity(fp,d.fingerprint);if(s>highest){highest=s;closest=d.id;}}
   return {uniqueness:Math.round((1-highest)*100),comparedCount:previous.length,closestDesign:closest};

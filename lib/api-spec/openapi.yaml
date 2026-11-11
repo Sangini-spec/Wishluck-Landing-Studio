@@ -190,6 +190,17 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/Publication" }
+  /designs/{id}/publishing:
+    get:
+      operationId: getPublishingContext
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: Actual connected store and safe publishing targets
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PublishingContext" }
   /settings:
     get:
       operationId: getSettings
@@ -421,6 +432,31 @@ components:
         designId: { type: string }
         themeId: { type: string }
         confirmTemplateAssignment: { type: boolean }
+        productMode: { type: string, enum: [source, existing, import] }
+        productId: { type: string }
+        confirmProductImport: { type: boolean }
+        confirmCurrencyMismatch: { type: boolean }
+    PublishingContext:
+      type: object
+      required: [shop, name, primaryDomain, currency, sourceHost, sourceCurrency, sameStore, products, canImport]
+      properties:
+        shop: { type: string }
+        name: { type: string }
+        primaryDomain: { type: string }
+        currency: { type: string }
+        sourceHost: { type: string }
+        sourceCurrency: { type: string }
+        sameStore: { type: boolean }
+        canImport: { type: boolean }
+        products: { type: array, items: { $ref: "#/components/schemas/StoreProduct" } }
+    StoreProduct:
+      type: object
+      required: [id, title, handle, status]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        handle: { type: string }
+        status: { type: string }
     Publication:
       type: object
       required: [id, designId, title, status, createdAt]
@@ -432,6 +468,15 @@ components:
         createdAt: { type: string }
         previewUrl: { type: string }
         editorUrl: { type: string }
+        shop: { type: string }
+        productId: { type: string }
+        productHandle: { type: string }
+        productStatus: { type: string }
+        imported: { type: boolean }
+        adminUrl: { type: string }
+        warnings: { type: array, items: { type: string } }
+        variantMap: { type: object, additionalProperties: { type: string } }
+        helpUrl: { type: string }
         error: { type: string }
         themeName: { type: string }
     Connection:

@@ -153,6 +153,15 @@ export const GetDashboardResponse = zod.object({
   "createdAt": zod.string(),
   "previewUrl": zod.string().optional(),
   "editorUrl": zod.string().optional(),
+  "shop": zod.string().optional(),
+  "productId": zod.string().optional(),
+  "productHandle": zod.string().optional(),
+  "productStatus": zod.string().optional(),
+  "imported": zod.boolean().optional(),
+  "adminUrl": zod.string().optional(),
+  "warnings": zod.array(zod.string()).optional(),
+  "variantMap": zod.record(zod.string(), zod.string()).optional(),
+  "helpUrl": zod.string().optional(),
   "error": zod.string().optional(),
   "themeName": zod.string().optional()
 }))
@@ -1311,7 +1320,11 @@ export const ListThemesResponse = zod.array(ListThemesResponseItem)
 export const PublishDesignBody = zod.object({
   "designId": zod.string(),
   "themeId": zod.string(),
-  "confirmTemplateAssignment": zod.boolean()
+  "confirmTemplateAssignment": zod.boolean(),
+  "productMode": zod.enum(['source', 'existing', 'import']).optional(),
+  "productId": zod.string().optional(),
+  "confirmProductImport": zod.boolean().optional(),
+  "confirmCurrencyMismatch": zod.boolean().optional()
 })
 
 export const PublishDesignResponse = zod.object({
@@ -1322,8 +1335,39 @@ export const PublishDesignResponse = zod.object({
   "createdAt": zod.string(),
   "previewUrl": zod.string().optional(),
   "editorUrl": zod.string().optional(),
+  "shop": zod.string().optional(),
+  "productId": zod.string().optional(),
+  "productHandle": zod.string().optional(),
+  "productStatus": zod.string().optional(),
+  "imported": zod.boolean().optional(),
+  "adminUrl": zod.string().optional(),
+  "warnings": zod.array(zod.string()).optional(),
+  "variantMap": zod.record(zod.string(), zod.string()).optional(),
+  "helpUrl": zod.string().optional(),
   "error": zod.string().optional(),
   "themeName": zod.string().optional()
+})
+
+
+export const GetPublishingContextParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+export const GetPublishingContextResponse = zod.object({
+  "shop": zod.string(),
+  "name": zod.string(),
+  "primaryDomain": zod.string(),
+  "currency": zod.string(),
+  "sourceHost": zod.string(),
+  "sourceCurrency": zod.string(),
+  "sameStore": zod.boolean(),
+  "canImport": zod.boolean(),
+  "products": zod.array(zod.object({
+  "id": zod.string(),
+  "title": zod.string(),
+  "handle": zod.string(),
+  "status": zod.string()
+}))
 })
 
 

@@ -93,7 +93,7 @@ Text/vision model names are configurable. This build does not yet implement arbi
 
 Each run records an estimated cost from actual usage tokens. The default assumptions are $0.75 / million input tokens and $4.50 / million output tokens. **These are configurable planning assumptions, not a current billing quote.** A 25k-input / 6k-output run would estimate ~$0.046; multiple screenshots, longer competitor excerpts and retries can cost more. Search, browser hosting and storage are separate. Replit usage is billed to credits.
 
-If AI fails, a source-only fallback can still compile factual content; its warnings explicitly say it is not AI output.
+AI must return a validated visual plan and source-grounded copy. Generation fails explicitly if AI is unavailable or a sufficiently different plan cannot be produced; it does not silently create another template clone.
 
 ### Search
 
@@ -119,7 +119,7 @@ JSON-LD review bodies/authors/ratings and additional product properties are supp
 
 ## Competitor research
 
-Search uses three diversified queries combining category, product keywords and Indian D2C/commercial intent. Own-store and major marketplace/social results are excluded; candidates are deduplicated by host. AI ranks only URLs actually returned by search and supplies reasons. Up to 24 candidates are considered, crawling until eight succeed or candidates are exhausted.
+Search uses three diversified queries combining generic product attributes and Indian D2C/commercial intent, rather than the exact source SKU. The source brand, own-store and major marketplace/social results are excluded; candidates are deduplicated by host. AI ranks only URLs actually returned by search and supplies reasons. Up to 24 candidates are considered, crawling until eight succeed or candidates are exhausted.
 
 Crawling checks robots.txt, honors conservative per-origin pacing and captures HTML plus mobile/desktop screenshots. Failed and forbidden sources stay visible. Text heuristics record feature presence; optional screenshot vision describes observed section/headline/offer/trust/cart/FAQ/media/urgency patterns.
 
@@ -129,30 +129,36 @@ Learnings use actual successful-source denominators with clickable URLs. “Revi
 
 Category memory is assembled from persisted learnings, prior design snapshots and feedback. Each new copy-generation prompt receives category learnings and approval/rejection reasons. Successful publication adds a positive signal; approvals and publication remain distinct events.
 
-Every generated version is retained with immutable product and brand snapshots. Later analysis corrections do not silently change existing preview/export content or invalidate stored fingerprints. Regenerate creates a new ID and navigates to the new version instead of deleting history.
+Every generated version retains immutable product and brand facts. Regenerate creates a new ID instead of deleting history. Rendering uses the current shared native/preview engine; legacy compositions map to defined visual families. Non-product privacy-table rows are excluded from specifications.
 
-The layout fingerprint records:
+AI selects a complete page plan using captured competitor observations, source-linked learnings, feedback and saved layouts. Eight composition families (atelier, kinetic, gallery, dossier, panorama, mosaic, catalogue and journal) have different hero and page-wide arrangements. Image staging, scale, palette strategy, spacing, typography treatment, detail arrangement, alignment, accents and section order change actual HTML and native Liquid.
 
-- Section order, hero composition and image position.
-- Brand-colour distribution and CTA repetition.
-- Font mapping, benefits presentation and FAQ position.
-
-Similarity uses weighted exact matches plus normalised longest-common-subsequence section similarity:
+Each batch excludes its previous four families where available, then excludes each newly selected family within the batch. Version-two layout similarity uses:
 
 | Feature | Weight |
 |---|---:|
-| Hero composition | 30% |
-| Section order | 20% |
-| Image position | 12% |
-| Colour usage | 12% |
-| CTA placement | 12% |
-| Benefits style | 8% |
-| Typography | 4% |
-| FAQ position | 2% |
+| Composition family | 30% |
+| Section order (normalised longest common subsequence) | 15% |
+| Hero scale | 7% |
+| Image staging | 8% |
+| Colour strategy | 8% |
+| Content rhythm | 6% |
+| Typography treatment | 8% |
+| Detail arrangement | 8% |
+| Alignment | 5% |
+| Accent placement | 5% |
 
-Uniqueness = `100 × (1 − maximum similarity to stored category designs)`. The generator searches up to 48 composition combinations for a better score. The dashboard shows count and nearest prior design. With no prior designs this is a baseline, **not proof of uniqueness**.
+Layout difference = `100 × (1 − maximum similarity to stored category designs)`. The generator searches up to 128 independently sampled plans when needed and rejects candidates below 38%. Older fingerprints are projected through the legacy renderer's actual plan for cross-version comparisons. Older-versus-older comparisons retain their original calculation. The dashboard labels this as **layout difference**, and no-history results as a baseline.
 
-This is an interpretable structural heuristic, not perceptual proof. Visual review and the same-product-twice demonstration remain mandatory. The initial implementation warns below 20% novelty but does not automatically keep regenerating indefinitely.
+This is an interpretable structural heuristic, not perceptual proof or a guarantee of unlimited unique artwork. Same-product repeat generation and visual review remain necessary. Names and copy changes alone do not increase the measured difference.
+
+### Publishing external products into the connected store
+
+The publishing dialog reads the authenticated store identity and product catalogue directly. Foreign-store variant IDs cannot be reused. Merchants can explicitly import a draft copy or select an existing store product; importing requires rights consent and a separate currency-mismatch confirmation where applicable (no invented FX conversion).
+
+Draft imports copy source product facts, images and genuine variant prices into new store IDs. They do not activate products, publish sales channels, copy source inventory, ratings or store policies. A per-run handle plus source-URL metafield prevents duplicate imports. Theme uploads are attempted before automatic import, avoiding orphan products when Shopify refuses theme writes. Existing-product publishing adapts content to the selected product's actual facts.
+
+The configured app authenticated successfully, and an approved draft import was verified with seven new variant IDs and four READY images. A real upload to the unpublished Horizon theme was denied because Shopify requires a theme-file API exemption in addition to the installed `write_themes` scope. The app surfaces the request link and manual ZIP option; it must not claim successful native publishing until that permission is granted and upload/assignment/cart checks pass. The MAIN theme was not modified.
 
 ## Liquid generation, editing and carts
 

@@ -8,7 +8,7 @@ import type { Product, Run } from "./domain";
 import { AppError } from "./domain";
 import { admin } from "./shopify";
 import type { Brand } from "./domain";
-import { missingFacts } from "./facts";
+import { missingFacts,cleanProductSpecs } from "./facts";
 
 const strip = (text: string) => load(text || "").text().trim();
 export async function analyseProduct(run: Run) {
@@ -115,6 +115,7 @@ export async function analyseProduct(run: Run) {
       rating:r.reviewRating?.ratingValue?Number(r.reviewRating.ratingValue):null,
     })),
   };
+  product.specs=cleanProductSpecs(product.specs);
   product.missingFacts=missingFacts(product);
   if (!variants.length) run.warnings.push("Variant IDs could not be verified. Shopify cart and publishing must not be claimed working.");
   if (currency === "XXX") run.warnings.push("Currency was not found; it is marked unknown, not guessed.");

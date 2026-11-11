@@ -5,6 +5,7 @@
  * Wishluck Shopify landing page studio
  * OpenAPI spec version: 1.0.0
  */
+import type { PublicationVariantMap } from './publicationVariantMap';
 
 export interface Publication {
   id: string;
@@ -14,6 +15,15 @@ export interface Publication {
   createdAt: string;
   previewUrl?: string;
   editorUrl?: string;
+  shop?: string;
+  productId?: string;
+  productHandle?: string;
+  productStatus?: string;
+  imported?: boolean;
+  adminUrl?: string;
+  warnings?: string[];
+  variantMap?: PublicationVariantMap;
+  helpUrl?: string;
   error?: string;
   themeName?: string;
 }

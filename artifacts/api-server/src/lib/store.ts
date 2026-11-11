@@ -13,7 +13,7 @@ export async function listRuns(): Promise<Run[]> {
 export async function getRun(id: string): Promise<Run> {
   const [row] = await db.select().from(runsTable).where(eq(runsTable.id, id));
   if (!row) throw new AppError(404, "Run not found");
-  const designs = await db.select().from(designsTable).where(eq(designsTable.runId, id));
+  const designs = await db.select().from(designsTable).where(eq(designsTable.runId, id)).orderBy(desc(designsTable.createdAt));
   return { ...row.data, designs: designs.map(d => d.data) } as Run;
 }
 export async function saveRun(run: Run) {

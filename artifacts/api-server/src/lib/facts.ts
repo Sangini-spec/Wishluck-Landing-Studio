@@ -1,5 +1,10 @@
 import type { Product } from "./domain";
 
+export function isProductFact(label:string,value:string){
+  return !/^(identifiers|financial information|commercial information)$/i.test(label.trim())&&!/personal information|privacy policy|cookie identifiers|cookie preferences|ccpa|gdpr|psychographic inferences|payment information.*credit card|inferences drawn from|geolocation data|electronic network activity information/i.test(`${label} ${value}`);
+}
+export const cleanProductSpecs=(specs:Record<string,string>)=>Object.fromEntries(Object.entries(specs).filter(([label,value])=>isProductFact(label,value)));
+
 export function trustFacts(p:Product){
   const facts:string[]=[];
   if(p.rating&&p.reviewCount)facts.push(`${p.rating} / 5 from ${p.reviewCount} source reviews`);

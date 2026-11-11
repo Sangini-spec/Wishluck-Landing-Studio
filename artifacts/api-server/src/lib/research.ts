@@ -12,12 +12,19 @@ export async function research(run: Run) {
   run.status = "researching";
   await event(run,"finding_competitors",`Searching for ${p.category} competitors, with preference for Indian D2C brands.`);
   const ownHost = new URL(run.url).hostname;
+  let queries=[
+    `${p.category} Indian D2C brands official product buy -site:${ownHost}`,
+    `${p.category} independent brand product India -${p.brand}`,
+    `${p.category} product official brand online -site:${ownHost} -${p.brand}`,
+  ];
+  if(aiReady()){
+    try{
+      const planned=await askJson(`Create exactly three web search queries to find genuinely competing independent product brands, preferably Indian D2C, for category ${JSON.stringify(p.category)}. Source product context:${JSON.stringify({title:p.title,brand:p.brand,description:p.description.slice(0,1800)})}. Search by generic product category and factual attributes, NOT the exact source SKU or source brand: resellers of the same product are not competitors. Exclude marketplaces and the source brand. Return JSON {queries:[string,string,string]}. No URLs or invented competitor names.`,z.object({queries:z.array(z.string().min(8).max(220)).length(3)}));
+      queries=planned.value.queries;run.aiCost=(run.aiCost??0)+planned.estimatedCost;
+    }catch{/* The category queries remain genuine provider searches. */}
+  }
   const results = [];
-  for(const query of [
-    `${p.category} ${p.title.split(" ").slice(0,5).join(" ")} buy India D2C product`,
-    `${p.category} Indian D2C brand product buy -site:${ownHost}`,
-    `${p.category} product landing page buy online -site:${ownHost}`,
-  ]){
+  for(const query of queries){
     results.push(...await search(query));
     await new Promise(r=>setTimeout(r,1100));
   }
@@ -25,7 +32,8 @@ export async function research(run: Run) {
   const candidates = results.filter(r => {
     try {
       const u = new URL(r.url);
-      if (u.protocol !== "https:" || u.hostname === ownHost || hosts.has(u.hostname) || /(amazon\.|flipkart\.|youtube\.|instagram\.|pinterest\.|facebook\.)/.test(u.hostname)) return false;
+      const sourceBrand=p.brand.toLowerCase().replace(/[^a-z0-9]/g,"");
+      if (u.protocol !== "https:" || u.hostname === ownHost || hosts.has(u.hostname) || (sourceBrand.length>=4&&u.hostname.replace(/[^a-z0-9]/g,"").includes(sourceBrand)) || /(amazon\.|flipkart\.|ebay\.|shopee\.|samsclub\.|govx\.|zalando\.|namshi\.|youtube\.|instagram\.|pinterest\.|facebook\.)/.test(u.hostname)) return false;
       hosts.add(u.hostname); return true;
     } catch { return false; }
   }).slice(0,24);
