@@ -6,6 +6,39 @@ The original HR assignment in `docs/source` remains authoritative. Its embedded 
 
 The user approved investigating Shopify CLI + Theme Access after the custom app's `themeFilesUpsert` operation was denied. Theme file uploads now use this separately authorized CLI route. Product lookup/optional draft import and explicit global template/SEO assignment still use the installed Admin app. This distinction does not imply the custom app received the protected exemption.
 
+## Offline progress-screen regressions
+
+Run `pnpm --filter @workspace/wishluck test` for the focused suite. It also runs
+as part of root `pnpm test`; root `pnpm run typecheck` checks its TypeScript.
+The suite mounts the real `CliPublishing` component, Radix dialog and generated
+React Query hooks in Happy DOM, replacing HTTP with explicit in-memory
+jobs/receipt/context responses. Unexpected requests fail the test, external asset
+loading is disabled, and navigation is captured instead of followed. No API
+server, database, credentials, Shopify themes or real Shopify writes are used.
+
+Coverage includes:
+
+- A queued job restored from tab storage, real polling, phase changes and
+  navigation only after a verified matching receipt; intent is cleared **before**
+  navigation.
+- One confirmed upload POST, then reload recovery with no second upload POST.
+- Temporary jobs or receipt polling failures, a visible reconnection message,
+  preserved intent and successful recovery without another upload.
+- “Stay in Wishluck” cancelling automatic navigation, with completed receipts
+  still visible after polling and reload.
+- Back restoration with both a retained component and a document remount:
+  recheck the receipt once, consume the return marker, and never redirect again.
+- Unrelated stores/designs/jobs/receipts never triggering automatic navigation;
+  a store switch explaining how to find the original upload.
+- Failed/attention jobs stopping progress with useful messages and saved
+  history retained; malformed or mismatched saved intent is ignored safely.
+
+These are repeatable component integration tests, not a real browser history,
+layout, Shopify editor, or live-store verification. The Back tests reproduce the
+two restoration states (same component plus focus, or remount plus surviving
+session storage); they do not claim to exercise a browser's back/forward cache.
+Test bundles are written only to ignored `generated-artifacts/publishing-ui/`.
+
 ## Requirement traceability
 
 | Requirement | Implementation | Backend API | Frontend | Persisted entity | Verification |
