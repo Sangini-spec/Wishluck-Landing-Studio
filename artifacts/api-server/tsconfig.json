@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "lib": ["es2022", "dom", "dom.iterable"],
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
     "outDir": "dist",
@@ -9,6 +10,7 @@
   },
   "include": ["src"],
   "references": [
+    { "path": "../../lib/integrations-openai-ai-server" },
     {
       "path": "../../lib/db"
     },

@@ -1,0 +1,6 @@
+.wl{font-weight:var(--wl-body-weight,400)}
+.wl-benefits-stack .wl-grid{display:flex;flex-direction:column;max-width:850px}
+.wl-benefits-stack .wl-card{border-width:0 0 1px;padding:24px 0}
+.wl-benefits-editorial .wl-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.wl-color-brand-details:not(.wl-hero){background:var(--wl-secondary,#f0f2ee)}
+@media(max-width:540px){.wl-hero .wl-visual{order:1!important}.wl-benefits-editorial .wl-grid{grid-template-columns:1fr;gap:20px}}

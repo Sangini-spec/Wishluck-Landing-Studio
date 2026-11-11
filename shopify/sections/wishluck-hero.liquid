@@ -1,0 +1,57 @@
+{{ 'WL_CSS' | asset_url | stylesheet_tag }}
+{% style %}
+{{ section.settings.heading_font | font_face: font_display: 'swap' }}
+{{ section.settings.body_font | font_face: font_display: 'swap' }}
+#wl-{{ section.id }} {
+  --wl-primary: {{ section.settings.primary }}; --wl-secondary: {{ section.settings.secondary }}; --wl-bg: {{ section.settings.background }};
+  --wl-text: {{ section.settings.text_color }}; --wl-button: {{ section.settings.button_color }};
+  --wl-button-text: {{ section.settings.button_text }}; --wl-on-primary: {{ section.settings.on_primary }};
+  --wl-heading: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  --wl-body: {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
+  --wl-radius: {{ section.settings.radius }}px; --wl-space: {{ section.settings.spacing }}px;
+  --wl-body-size: {{ section.settings.body_size }}px; --wl-heading-size: {{ section.settings.heading_size }}px;
+  --wl-weight: {{ section.settings.heading_weight }}; --wl-body-weight: {{ section.settings.body_weight }};
+}
+{% endstyle %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% if section.settings.show_section %}
+<section id="wl-{{ section.id }}" class="wl wl-hero {% if section.settings.composition == 'grid' %}wl-grid-hero{% else %}wl-{{ section.settings.composition }}{% endif %} wl-color-{{ section.settings.color_use }}" data-wl-product data-currency="{{ cart.currency.iso_code }}">
+  <div class="wl-visual"{% if section.settings.image_position == 'right' %} style="order:2"{% endif %}>
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 1440 | image_tag: widths: '360,540,768,1080,1440', sizes: '(max-width: 540px) 100vw, 50vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.image_alt }}
+    {% elsif product.featured_image %}
+      {{ product.featured_image | image_url: width: 1440 | image_tag: widths: '360,540,768,1080,1440', sizes: '(max-width: 540px) 100vw, 50vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.image_alt }}
+    {% endif %}
+  </div>
+  <div class="wl-copy" id="wl-product-purchase"><div>
+    <div class="wl-kicker">{{ section.settings.brand_name | escape }}</div>
+    <h1>{{ section.settings.heading | escape }}</h1>
+    <div class="wl-description">{{ section.settings.description }}</div>
+    <div class="wl-price"><span data-wl-price>{{ current_variant.price | money }}</span> <del data-wl-compare>{% if current_variant.compare_at_price > current_variant.price %}{{ current_variant.compare_at_price | money }}{% endif %}</del></div>
+    </div><div>
+    <form method="post" action="{{ routes.cart_add_url }}" class="wl-form" id="wl-form-{{ section.id }}">
+      <label for="wl-variant-{{ section.id }}">{{ section.settings.variant_label | escape }}
+        <select id="wl-variant-{{ section.id }}" name="id">
+          {% for variant in product.variants %}
+            <option value="{{ variant.id }}" data-price="{{ variant.price }}" data-compare="{{ variant.compare_at_price | default: 0 }}" data-available="{{ variant.available }}"{% if variant.id == current_variant.id %} selected{% endif %}>{{ variant.title | escape }}{% unless variant.available %} — Sold out{% endunless %}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label for="wl-qty-{{ section.id }}">{{ section.settings.quantity_label | escape }}<input id="wl-qty-{{ section.id }}" type="number" name="quantity" min="1" max="99" value="1"></label>
+      <button type="submit" data-label="{{ section.settings.button_label | escape }}"{% unless current_variant.available %} disabled{% endunless %}>{{ section.settings.button_label | escape }}</button>
+      <div class="wl-status" role="status" aria-live="polite"></div>
+    </form>
+    {% if section.settings.show_trust and section.settings.trust_text != blank %}<div class="wl-trust">{{ section.settings.trust_text }}</div>{% endif %}
+    {% if section.settings.button_link != blank %}<p><a href="{{ section.settings.button_link }}">{{ section.settings.link_label | escape }}</a></p>{% endif %}
+    </div>
+  </div>
+  {% if section.settings.show_sticky %}<div class="wl-sticky"><span class="wl-sticky-price" data-wl-price>{{ current_variant.price | money }}</span><button type="button">{{ section.settings.button_label | escape }}</button></div>{% endif %}
+</section>
+<script src="{{ 'WL_JS' | asset_url }}" defer></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Product","name":{{ product.title | json }},"url":{{ canonical_url | json }},"image":{{ product.featured_image | image_url: width: 1200 | prepend: 'https:' | json }},"description":{{ product.description | strip_html | json }},"brand":{"@type":"Brand","name":{{ product.vendor | json }}},"offers":{"@type":"Offer","url":{{ canonical_url | json }},"priceCurrency":{{ cart.currency.iso_code | json }},"price":{{ current_variant.price | divided_by: 100.0 | json }},"availability":"https://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}"}WL_RATING}
+</script>
+{% endif %}
+{% schema %}
+WL_SCHEMA
+{% endschema %}

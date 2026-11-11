@@ -1,36 +1,480 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
-  version: 0.1.0
-  description: API specification
+  version: 1.0.0
+  description: Wishluck Shopify landing page studio
 servers:
   - url: /api
-    description: Base API path
-tags:
-  - name: health
-    description: Health operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
-      tags: [health]
-      summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
           content:
             application/json:
-              schema:
-                $ref: "#/components/schemas/HealthStatus"
+              schema: { $ref: "#/components/schemas/HealthStatus" }
+  /dashboard:
+    get:
+      operationId: getDashboard
+      responses:
+        "200":
+          description: Live workspace summary
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Dashboard" }
+  /runs:
+    get:
+      operationId: listRuns
+      responses:
+        "200":
+          description: Run history
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/Run" } }
+    post:
+      operationId: createRun
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/RunInput" }
+      responses:
+        "201":
+          description: Analysis queued
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Run" }
+  /runs/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      operationId: getRun
+      responses:
+        "200":
+          description: Complete run state; poll while processing
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Run" }
+  /runs/{id}/brand:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    patch:
+      operationId: updateBrand
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/BrandProfile" }
+      responses:
+        "200":
+          description: Saved
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Run" }
+  /runs/{id}/product:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    patch:
+      operationId: updateProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProductUpdate" }
+      responses:
+        "200":
+          description: Corrected product
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Run" }
+  /runs/{id}/research:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    post:
+      operationId: researchRun
+      responses:
+        "200":
+          description: Research queued
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Run" }
+  /runs/{id}/generate:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    post:
+      operationId: generateRun
+      responses:
+        "200":
+          description: Generation queued
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Run" }
+  /designs/{id}/feedback:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    post:
+      operationId: submitFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/FeedbackInput" }
+      responses:
+        "200":
+          description: Feedback saved
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Design" }
+  /designs/{id}/regenerate:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    post:
+      operationId: regenerateDesign
+      responses:
+        "200":
+          description: New design version
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Design" }
+  /designs/{id}/quality:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    post:
+      operationId: auditDesign
+      responses:
+        "200":
+          description: Run technical and Lighthouse checks
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Design" }
+  /shopify/status:
+    get:
+      operationId: getShopifyStatus
+      responses:
+        "200":
+          description: Credential readiness
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Connection" }
+  /shopify/connect:
+    post:
+      operationId: connectShopify
+      responses:
+        "200":
+          description: Actual authentication result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Connection" }
+  /shopify/themes:
+    get:
+      operationId: listThemes
+      responses:
+        "200":
+          description: Themes from Shopify
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/Theme" } }
+  /shopify/publish:
+    post:
+      operationId: publishDesign
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PublishInput" }
+      responses:
+        "200":
+          description: Publishing result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Publication" }
+  /settings:
+    get:
+      operationId: getSettings
+      responses:
+        "200":
+          description: Redacted environment and provider readiness
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Settings" }
+  /memory:
+    get:
+      operationId: getMemory
+      responses:
+        "200":
+          description: Persistent category memory
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/MemoryCategory" } }
 components:
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
-        status:
-          type: string
-      required:
-        - status
-
+        status: { type: string }
+    Dashboard:
+      type: object
+      required: [totalRuns, totalDesigns, publishedCount, categories, recentRuns, publications]
+      properties:
+        totalRuns: { type: integer }
+        totalDesigns: { type: integer }
+        publishedCount: { type: integer }
+        categories: { type: integer }
+        recentRuns: { type: array, items: { $ref: "#/components/schemas/Run" } }
+        publications: { type: array, items: { $ref: "#/components/schemas/Publication" } }
+    RunInput:
+      type: object
+      required: [url]
+      properties:
+        url: { type: string }
+    ProductUpdate:
+      type: object
+      properties:
+        title: { type: string }
+        category: { type: string }
+        description: { type: string }
+        specs: { type: object, additionalProperties: { type: string } }
+        price: { type: number, minimum: 0 }
+        compareAtPrice: { type: ["number", "null"] }
+        currency: { type: string }
+        images: { type: array, items: { type: string } }
+        variants: { type: array, items: { $ref: "#/components/schemas/Variant" } }
+        rating: { type: ["number", "null"] }
+        reviewCount: { type: ["integer", "null"] }
+        reviews: { type: array, items: { $ref: "#/components/schemas/Review" } }
+        collectionUrl: { type: ["string", "null"] }
+    Run:
+      type: object
+      required: [id, url, status, stage, createdAt, events, warnings, competitors, learnings, designs]
+      properties:
+        id: { type: string }
+        url: { type: string }
+        status: { type: string }
+        stage: { type: string }
+        createdAt: { type: string }
+        error: { type: ["string", "null"] }
+        product: { $ref: "#/components/schemas/Product" }
+        brand: { $ref: "#/components/schemas/BrandProfile" }
+        events: { type: array, items: { $ref: "#/components/schemas/RunEvent" } }
+        warnings: { type: array, items: { type: string } }
+        competitors: { type: array, items: { $ref: "#/components/schemas/Competitor" } }
+        learnings: { type: array, items: { $ref: "#/components/schemas/Learning" } }
+        designs: { type: array, items: { $ref: "#/components/schemas/Design" } }
+        screenshot: { type: string }
+        mobileScreenshot: { type: string }
+        aiCost: { type: number }
+    RunEvent:
+      type: object
+      required: [stage, message, at]
+      properties:
+        stage: { type: string }
+        message: { type: string }
+        at: { type: string }
+    Product:
+      type: object
+      required: [title, handle, brand, category, description, images, variants, currency, specs, sourceUrl, missingFacts]
+      properties:
+        shopifyId: { type: string }
+        title: { type: string }
+        handle: { type: string }
+        brand: { type: string }
+        category: { type: string }
+        description: { type: string }
+        price: { type: number }
+        compareAtPrice: { type: ["number", "null"] }
+        currency: { type: string }
+        images: { type: array, items: { type: string } }
+        variants: { type: array, items: { $ref: "#/components/schemas/Variant" } }
+        specs: { type: object, additionalProperties: { type: string } }
+        rating: { type: ["number", "null"] }
+        reviewCount: { type: ["integer", "null"] }
+        collectionUrl: { type: string }
+        sourceUrl: { type: string }
+        missingFacts: { type: array, items: { type: string } }
+        reviews: { type: array, items: { $ref: "#/components/schemas/Review" } }
+    Review:
+      type: object
+      required: [text, author, sourceUrl]
+      properties:
+        text: { type: string }
+        author: { type: string }
+        sourceUrl: { type: string }
+        rating: { type: ["number", "null"] }
+    Variant:
+      type: object
+      required: [id, title, price, available]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        price: { type: number }
+        compareAtPrice: { type: ["number", "null"] }
+        available: { type: boolean }
+    BrandProfile:
+      type: object
+      required: [primary, secondary, background, text, button, headingFont, bodyFont, headingSize, bodySize, headingWeight, bodyWeight, tone, radius, spacing, imageStyle, buttonStyle]
+      properties:
+        primary: { type: string }
+        secondary: { type: string }
+        background: { type: string }
+        text: { type: string }
+        button: { type: string }
+        headingFont: { type: string }
+        bodyFont: { type: string }
+        shopifyHeadingFont: { type: string }
+        shopifyBodyFont: { type: string }
+        headingSize: { type: string }
+        bodySize: { type: string }
+        headingWeight: { type: string }
+        bodyWeight: { type: string }
+        tone: { type: string }
+        radius: { type: string }
+        spacing: { type: string }
+        imageStyle: { type: string }
+        buttonStyle: { type: string }
+        evidence: { type: string }
+    Competitor:
+      type: object
+      required: [id, url, title, reason, status, sections]
+      properties:
+        id: { type: string }
+        url: { type: string }
+        title: { type: string }
+        reason: { type: string }
+        status: { type: string }
+        error: { type: string }
+        screenshot: { type: string }
+        mobileScreenshot: { type: string }
+        htmlUrl: { type: string }
+        sections: { type: array, items: { type: string } }
+        analysis: { type: object, additionalProperties: true }
+    Learning:
+      type: object
+      required: [id, text, sources, category]
+      properties:
+        id: { type: string }
+        text: { type: string }
+        sources: { type: array, items: { type: string } }
+        category: { type: string }
+    Design:
+      type: object
+      required: [id, runId, name, direction, description, status, createdAt, version, uniqueness, fingerprint, checks, scores, previewUrl, downloadUrl, warnings]
+      properties:
+        id: { type: string }
+        runId: { type: string }
+        name: { type: string }
+        direction: { type: string }
+        description: { type: string }
+        status: { type: string }
+        createdAt: { type: string }
+        version: { type: integer }
+        uniqueness: { type: number }
+        comparedCount: { type: integer }
+        closestDesign: { type: ["string", "null"] }
+        fingerprint: { type: object, additionalProperties: true }
+        checks: { type: array, items: { $ref: "#/components/schemas/Check" } }
+        scores: { $ref: "#/components/schemas/Scores" }
+        previewUrl: { type: string }
+        downloadUrl: { type: string }
+        warnings: { type: array, items: { type: string } }
+        lighthouse: { $ref: "#/components/schemas/LighthouseResult" }
+    Check:
+      type: object
+      required: [key, category, label, status, detail]
+      properties:
+        key: { type: string }
+        category: { type: string }
+        label: { type: string }
+        status: { type: string, enum: [passed, failed, unverified] }
+        detail: { type: string }
+    Scores:
+      type: object
+      required: [seo, aeo, geo, overall]
+      properties:
+        seo: { type: number }
+        aeo: { type: number }
+        geo: { type: number }
+        overall: { type: number }
+    LighthouseResult:
+      type: object
+      required: [status]
+      properties:
+        status: { type: string }
+        performance: { type: number }
+        seo: { type: number }
+        accessibility: { type: number }
+        url: { type: string }
+        error: { type: string }
+        testedAt: { type: string }
+    FeedbackInput:
+      type: object
+      required: [action]
+      properties:
+        action: { type: string, enum: [approve, reject] }
+        reason: { type: string }
+    PublishInput:
+      type: object
+      required: [designId, themeId, confirmTemplateAssignment]
+      properties:
+        designId: { type: string }
+        themeId: { type: string }
+        confirmTemplateAssignment: { type: boolean }
+    Publication:
+      type: object
+      required: [id, designId, title, status, createdAt]
+      properties:
+        id: { type: string }
+        designId: { type: string }
+        title: { type: string }
+        status: { type: string }
+        createdAt: { type: string }
+        previewUrl: { type: string }
+        editorUrl: { type: string }
+        error: { type: string }
+        themeName: { type: string }
+    Connection:
+      type: object
+      required: [configured, connected, shop, message, missing]
+      properties:
+        configured: { type: boolean }
+        connected: { type: boolean }
+        shop: { type: string }
+        name: { type: string }
+        message: { type: string }
+        missing: { type: array, items: { type: string } }
+    Theme:
+      type: object
+      required: [id, name, role]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        role: { type: string }
+    Settings:
+      type: object
+      required: [shopify, ai, search, database, requirementsUrl]
+      properties:
+        shopify: { $ref: "#/components/schemas/Connection" }
+        ai: { $ref: "#/components/schemas/ProviderStatus" }
+        search: { $ref: "#/components/schemas/ProviderStatus" }
+        database: { type: string }
+        requirementsUrl: { type: string }
+    ProviderStatus:
+      type: object
+      required: [provider, configured, message]
+      properties:
+        provider: { type: string }
+        configured: { type: boolean }
+        message: { type: string }
+    MemoryCategory:
+      type: object
+      required: [category, runCount, designCount, approvedCount, rejectedCount, learnings, fingerprints]
+      properties:
+        category: { type: string }
+        runCount: { type: integer }
+        designCount: { type: integer }
+        approvedCount: { type: integer }
+        rejectedCount: { type: integer }
+        learnings: { type: array, items: { $ref: "#/components/schemas/Learning" } }
+        fingerprints: { type: array, items: { $ref: "#/components/schemas/Design" } }

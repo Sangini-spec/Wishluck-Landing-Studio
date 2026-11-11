@@ -1,0 +1,30 @@
+{% style %}
+{{ section.settings.heading_font | font_face: font_display: 'swap' }}
+{{ section.settings.body_font | font_face: font_display: 'swap' }}
+#wl-{{ section.id }} {
+  --wl-primary: {{ section.settings.primary }}; --wl-secondary: {{ section.settings.secondary }}; --wl-bg: {{ section.settings.background }}; --wl-text: {{ section.settings.text_color }};
+  --wl-heading: {{ section.settings.heading_font.family }}, {{ section.settings.heading_font.fallback_families }};
+  --wl-body: {{ section.settings.body_font.family }}, {{ section.settings.body_font.fallback_families }};
+  --wl-radius: {{ section.settings.radius }}px; --wl-space: {{ section.settings.spacing }}px;
+  --wl-weight: {{ section.settings.heading_weight }}; --wl-body-weight: {{ section.settings.body_weight }};
+  --wl-button: {{ section.settings.button_color }}; --wl-button-text: {{ section.settings.button_text }};
+}
+{% endstyle %}
+{% if section.settings.show_section %}
+<section id="wl-{{ section.id }}" class="wl wl-color-{{ section.settings.color_use }} wl-benefits-{{ section.settings.benefits_style }}">
+  {% if section.settings.heading != blank %}<h2>{{ section.settings.heading | escape }}</h2>{% endif %}
+  {% if section.settings.image != blank %}<div class="wl-block-image">{{ section.settings.image | image_url: width: 1080 | image_tag: widths: '360,768,1080', sizes: '(max-width: 768px) 100vw, 60vw', loading: 'lazy', alt: section.settings.image_alt }}</div>{% endif %}
+  <div>{{ section.settings.body }}</div>
+  {% if section.settings.mode == 'specs' %}<table><tbody>{% for block in section.blocks %}{% if block.type == 'item' %}<tr {{ block.shopify_attributes }}><th scope="row">{{ block.settings.title | escape }}</th><td>{{ block.settings.body }}</td></tr>{% endif %}{% endfor %}</tbody></table>
+  {% elsif section.settings.mode == 'faq' %}
+    {% for block in section.blocks %}{% if block.type == 'item' %}<details {{ block.shopify_attributes }}><summary>{{ block.settings.title | escape }}</summary><div>{{ block.settings.body }}</div></details>{% endif %}{% endfor %}
+    {% if section.blocks.size > 0 %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{% for block in section.blocks %}{"@type":"Question","name":{{ block.settings.title | json }},"acceptedAnswer":{"@type":"Answer","text":{{ block.settings.body | strip_html | json }}}}{% unless forloop.last %},{% endunless %}{% endfor %}]}</script>{% endif %}
+  {% else %}
+    <div class="wl-grid">{% for block in section.blocks %}<article class="wl-card" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 540 | image_tag: loading: 'lazy', alt: block.settings.title }}{% endif %}<h3>{{ block.settings.title | escape }}</h3><div>{{ block.settings.body }}</div></article>{% endfor %}</div>
+  {% endif %}
+  {% if section.settings.show_button and section.settings.button_link != blank %}<p><a class="wl-link" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a></p>{% endif %}
+</section>
+{% endif %}
+{% schema %}
+WL_SCHEMA
+{% endschema %}
