@@ -51,4 +51,5 @@
 /* Colour strategy accents (palette itself is computed in the renderer) */
 .wl-cs-contrast .wl-price{letter-spacing:-.01em}
 .wl-cs-brand.wl-hero .wl-kicker>span:first-child,.wl-cs-ink.wl-hero .wl-kicker>span:first-child{color:var(--wl-primary)}
+.wl-ac-panel.wl-hero .wl-copy .wl-kicker>span:first-child{color:var(--wl-text)}
 .wl-dark .wl-select,.wl-dark select{color-scheme:dark}

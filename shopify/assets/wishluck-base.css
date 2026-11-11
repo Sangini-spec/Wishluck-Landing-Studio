@@ -2,7 +2,9 @@
    Layout: wishluck-hero.css / wishluck-sections.css. Art direction: wishluck-families.css / wishluck-axes.css. */
 .wl,.wl-ac-panel .wl-copy,.wl-ac-panel .wl-head,.wl-dl-bento .wl-item:first-child{
   --wl-line:color-mix(in srgb,var(--wl-text) 18%,transparent);
-  --wl-muted:color-mix(in srgb,var(--wl-text) 76%,var(--wl-bg));
+  /* The palette guarantees contrast for --wl-text, not a diluted mixture.
+     Keep supporting copy readable on saturated brand and accent panels too. */
+  --wl-muted:var(--wl-text);
 }
 .wl{
   --wl-gutter:clamp(18px,5.2vw,84px);

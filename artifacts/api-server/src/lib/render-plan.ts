@@ -102,9 +102,13 @@ export function palette(plan: VisualPlan, br: Brand): Palette {
   const make = (bg: string, surface: string, accentPref: string, stage: string): Tone => {
     const dark = lum(bg) < .2;
     const text = best([dark ? paper : tx0, dark ? lightest : ink, dark ? "#f6f3ec" : "#161615"], bg);
+    // Detail tiles reuse this text colour on the secondary surface. A light
+    // tint of a saturated brand background can otherwise make white copy unreadable.
+    let readableSurface = surface;
+    for (let n = 1; ratio(text, readableSurface) < 4.5 && n <= 10; n++) readableSurface = mix(surface, bg, n / 10);
     const accent = ratio(accentPref, bg) >= 3 ? accentPref : (dark ? paper : ink);
     const button = chromatic && ratio(chromatic, bg) >= 3 ? chromatic : dark ? paper : (ratio(bt, bg) >= 3 ? bt : ink);
-    return { background: bg, text_color: text, primary: accent, secondary: surface, on_primary: best([paper, ink, "#f6f3ec", "#161615"], accent),
+    return { background: bg, text_color: text, primary: accent, secondary: readableSurface, on_primary: best([paper, ink, "#f6f3ec", "#161615"], accent),
       button_color: button, button_text: best([paper, ink, "#f6f3ec", "#161615"], button), stage };
   };
   const lightSurface = lightest !== paper && ratio(lightest, paper) < 1.6 ? lightest : mix(paper, ink, .06);

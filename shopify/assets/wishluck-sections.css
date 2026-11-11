@@ -67,7 +67,7 @@
 .wl-gallery{display:grid;gap:clamp(8px,1.2vw,18px);grid-template-columns:repeat(2,minmax(0,1fr))}
 .wl-gfig{position:relative;aspect-ratio:1;overflow:hidden;background:var(--wl-stage);border-radius:var(--wl-radius,0)}
 .wl-gfig img{width:100%;height:100%;object-fit:contain;transition:transform 1s var(--wl-ease)}
-.wl-gfig:hover img{transform:scale(1.06)}
+.wl-gfig:hover img{filter:brightness(.97)}
 .wl-gfig .wl-fig-cap{display:block}
 @media(min-width:900px){
   .wl-gallery{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -87,4 +87,7 @@
 .wl-buy-price{font-size:clamp(20px,2vw,28px);font-weight:600;margin:0;font-variant-numeric:tabular-nums}
 .wl-buy .wl-btn{grid-column:1/-1}
 .wl-sec-purchase .wl-head{display:none}
+/* Families with a two-column section grid must not leave the buy band in the
+   empty heading column when its heading is hidden. */
+.wl-sec-purchase .wl-inner{display:block}
 @media(min-width:900px){.wl-buy{grid-template-columns:auto minmax(0,1fr) auto auto}.wl-buy .wl-btn{grid-column:auto}}

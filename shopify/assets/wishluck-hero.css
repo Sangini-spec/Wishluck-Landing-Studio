@@ -21,7 +21,8 @@
 .wl-dark.wl-img-cutout .wl-fig img{filter:drop-shadow(0 26px 24px rgba(0,0,0,.45))}
 .wl-img-framed .wl-fig{background:var(--wl-stage);padding:clamp(14px,5%,56px);box-shadow:inset 0 0 0 1px var(--wl-line),0 0 0 clamp(6px,1vw,14px) var(--wl-bg),0 0 0 calc(clamp(6px,1vw,14px) + 1px) var(--wl-line)}
 .wl-img-fullbleed .wl-fig{background:var(--wl-stage)}
-.wl-img-fullbleed .wl-fig-1 img{transform:scale(1.06)}
+/* Fullbleed expands the stage, never the product itself beyond its bounds. */
+.wl-img-fullbleed .wl-fig-1 img{transform:none}
 .wl-img-collage .wl-fig{background:var(--wl-stage)}
 .wl-img-collage .wl-fig-2{background:color-mix(in srgb,var(--wl-primary) 14%,var(--wl-stage))}
 .wl-img-collage .wl-fig-3{background:color-mix(in srgb,var(--wl-stage) 70%,var(--wl-bg))}
