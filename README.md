@@ -2,8 +2,7 @@
 
 An AI-assisted Shopify landing-page studio that turns product research into distinctive, editable landing pages.
 
-**[Five-product showcase](docs/results/README.md)** · **[Development-store access](docs/REVIEWER_ACCESS.md)** · **[GitHub repository](https://github.com/Sangini-spec/Wishluck-Landing-Studio)**
-
+**[Five-product showcase](docs/results/README.md)** · **[Development-store access](docs/REVIEWER_ACCESS.md)** · 
 ## Product highlights
 
 - Analyse a product URL, extract its brand identity and review editable product facts.
