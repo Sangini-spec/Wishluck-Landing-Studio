@@ -5,6 +5,21 @@
  * Wishluck Shopify landing page studio
  * OpenAPI spec version: 1.0.0
  */
+export interface ProductDiscoveryInput {
+  url: string;
+}
+
+export interface DiscoveredProduct {
+  url: string;
+  title: string;
+}
+
+export interface ProductDiscovery {
+  sourceUrl: string;
+  message: string;
+  products: DiscoveredProduct[];
+}
+
 export interface DeletionResult {
   deleted: number;
 }

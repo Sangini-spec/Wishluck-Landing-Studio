@@ -8,6 +8,20 @@
 import * as zod from 'zod';
 
 
+export const DiscoverStoreProductsBody = zod.object({
+  "url": zod.string().url()
+})
+
+export const DiscoverStoreProductsResponse = zod.object({
+  "sourceUrl": zod.string(),
+  "message": zod.string(),
+  "products": zod.array(zod.object({
+  "url": zod.string(),
+  "title": zod.string()
+}))
+})
+
+
 export const HealthCheckResponse = zod.object({
   "status": zod.string()
 })

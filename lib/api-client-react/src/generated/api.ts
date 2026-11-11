@@ -37,6 +37,8 @@ import type {
   FeedbackInput,
   HealthStatus,
   MemoryCategory,
+  ProductDiscovery,
+  ProductDiscoveryInput,
   ProductUpdate,
   Publication,
   PublishInput,
@@ -75,6 +77,88 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
   }
   return result;
 };
+
+export const getDiscoverStoreProductsUrl = () => {
+
+
+
+
+  return `/api/products/discover`
+}
+
+export const discoverStoreProducts = async (productDiscoveryInput: ProductDiscoveryInput, options?: Parameters<typeof customFetch>[1]): Promise<ProductDiscovery> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<ProductDiscovery>(getDiscoverStoreProductsUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(productDiscoveryInput)
+  }
+);}
+
+
+
+
+
+export const getDiscoverStoreProductsMutationKey = () => ['discoverStoreProducts'] as const;
+
+export const getDiscoverStoreProductsMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof discoverStoreProducts>>, TError,DiscoverStoreProductsMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof discoverStoreProducts>>, TError,DiscoverStoreProductsMutationVariables, TContext> => {
+
+const mutationKey = getDiscoverStoreProductsMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof discoverStoreProducts>>, DiscoverStoreProductsMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  discoverStoreProducts(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DiscoverStoreProductsMutationResult = NonNullable<Awaited<ReturnType<typeof discoverStoreProducts>>>
+    export type DiscoverStoreProductsMutationBody = BodyType<ProductDiscoveryInput>
+    export type DiscoverStoreProductsMutationError = ErrorType<unknown>
+    export type DiscoverStoreProductsMutationVariables = {data: BodyType<ProductDiscoveryInput>}
+
+    export const useDiscoverStoreProducts = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof discoverStoreProducts>>, TError,DiscoverStoreProductsMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof discoverStoreProducts>>,
+        TError,
+        DiscoverStoreProductsMutationVariables,
+        TContext
+      > => {
+      return useMutation(getDiscoverStoreProductsMutationOptions(options), queryClient);
+    }
 
 export const getHealthCheckUrl = () => {
 

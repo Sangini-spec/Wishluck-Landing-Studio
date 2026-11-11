@@ -6,6 +6,20 @@ info:
 servers:
   - url: /api
 paths:
+  /products/discover:
+    post:
+      operationId: discoverStoreProducts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProductDiscoveryInput" }
+      responses:
+        "200":
+          description: Real products found at a store or collection URL; the user chooses before analysis
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ProductDiscovery" }
   /healthz:
     get:
       operationId: healthCheck
@@ -358,6 +372,26 @@ paths:
               schema: { type: array, items: { $ref: "#/components/schemas/MemoryCategory" } }
 components:
   schemas:
+    ProductDiscoveryInput:
+      type: object
+      required: [url]
+      properties:
+        url: { type: string, format: uri }
+    DiscoveredProduct:
+      type: object
+      required: [url, title]
+      properties:
+        url: { type: string }
+        title: { type: string }
+    ProductDiscovery:
+      type: object
+      required: [sourceUrl, products, message]
+      properties:
+        sourceUrl: { type: string }
+        message: { type: string }
+        products:
+          type: array
+          items: { $ref: "#/components/schemas/DiscoveredProduct" }
     DeletionResult:
       type: object
       required: [deleted]

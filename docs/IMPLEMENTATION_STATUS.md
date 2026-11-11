@@ -20,6 +20,8 @@ Schema normalization beyond these six tables remains an implementation-prompt ga
 
 ## Mandatory functional and technical requirements
 
+User-requested input extension: store and collection links are accepted through `product-discovery.ts` and `POST /api/products/discover`, exposed in `pages/create.tsx` as a product selector. No Run is created until the user selects a real product; existing `POST /api/runs` analysis remains product-specific. Seven offline discovery tests and the full 55-test backend suite passed. Live read-only checks found eight products at the user's example store and eighteen in the connected store. Frontend/backend type checks passed. This verifies discovery, not a new complete AI generation run or final HR acceptance.
+
 | ID | Actual module | Actual backend API | Actual frontend | Database entity | Testing method / evidence needed | Completion status |
 |---|---|---|---|---|---|---|
 | H01 | Node/Express service; React/Vite app; README | GET /api/healthz | App.tsx | — | Workspace typecheck and both workflows passed; rationale documented | Verified foundation |

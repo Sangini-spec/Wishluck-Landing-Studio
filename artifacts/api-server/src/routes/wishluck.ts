@@ -28,9 +28,15 @@ import { compile,zipDesign } from "../lib/compiler";
 import { objectStorageClient } from "../lib/objectStorage";
 import { queueAudit } from "../lib/audit";
 import { missingFacts } from "../lib/facts";
+import {discoverProducts} from "../lib/product-discovery";
+import {DiscoverStoreProductsBody,DiscoverStoreProductsResponse} from "@workspace/api-zod";
 
 const router:IRouter=Router();
 const idParam=(raw:unknown)=>GetRunParams.parse({id:raw}).id;
+router.post("/products/discover",async(req,res)=>{
+  const input=DiscoverStoreProductsBody.parse(req.body);
+  res.json(DiscoverStoreProductsResponse.parse(await discoverProducts(input.url)));
+});
 router.get("/dashboard",async(_req,res)=>{
   const [runs,pubs]=await Promise.all([listRuns(),publications()]);
   const memories=await Promise.all([...new Set(runs.flatMap(r=>r.product?[r.product.category]:[]))].map(categoryContext));
@@ -51,7 +57,7 @@ router.post("/shopify/store",async(req,res)=>{
 router.post("/runs",async(req,res)=>{
   const input=CreateRunBody.parse(req.body);
   const url=await publicUrl(input.url);
-  if(!url.pathname.includes("/products/"))throw new AppError(400,"Enter a Shopify product URL with /products/ in the path.");
+  if(!/\/products\/[^/]+\/?$/.test(url.pathname))throw new AppError(400,"Choose a product from the store first, or paste its product-page URL.");
   const run:Run={id:randomUUID(),url:url.href,status:"queued",stage:"validating",createdAt:new Date().toISOString(),events:[],warnings:[],competitors:[],learnings:[],designs:[]};
   await saveRun(run);
   enqueue(run.id,async current=>{current.status="analysing";await event(current,"validating","URL validated; starting public product analysis.");await analyseProduct(current);});
