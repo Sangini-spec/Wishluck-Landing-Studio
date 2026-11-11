@@ -1,0 +1,31 @@
+{
+  "product": "Men's Tree Runner - Jet Black (White Sole)",
+  "category": "Shoes",
+  "sourceUrl": "https://www.allbirds.com/products/mens-tree-runners",
+  "brand": {
+    "primary": "#ffffff",
+    "secondary": "#ece9e2",
+    "background": "#ece9e2",
+    "text": "#000000",
+    "button": "#222222",
+    "headingFont": "\"Self Modern\", ui-serif, serif",
+    "bodyFont": "Geograph, system-ui, sans-serif",
+    "shopifyHeadingFont": "libre_baskerville_n4",
+    "shopifyBodyFont": "assistant_n4",
+    "headingSize": "30px",
+    "bodySize": "16px",
+    "headingWeight": "400",
+    "bodyWeight": "400",
+    "tone": "Clean, minimalist, and practical, with a premium casual-athletic feel.",
+    "radius": "0px",
+    "spacing": "0px",
+    "imageStyle": "Studio product imagery with multiple angles on a neutral light beige background; crisp catalog-style presentation.",
+    "buttonStyle": "0px solid; none",
+    "evidence": "CSS/computed styles + vision analysis of actual screenshot. Visible palette is mostly black, white, and warm off-white/beige. The page presentation emphasizes the product clearly with little visual clutter. Computed styles support a neutral background and simple layout."
+  },
+  "aiCostEstimateUSD": 0.10428749999999999,
+  "warnings": [
+    "Research coverage: 7 of the target 8 competitor pages could be captured. Review blocked sources before using these findings.",
+    "Ignored non-product privacy/cookie table rows; they are not product specifications."
+  ]
+}

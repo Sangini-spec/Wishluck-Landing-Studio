@@ -1,0 +1,99 @@
+{
+  "designId": "dd7cb7f7-ccaf-4b93-802b-945a75ba0662",
+  "testedAt": "2026-11-11T14:05:20.784Z",
+  "scope": "Actual archived Shopify mobile Lighthouse audit",
+  "scores": {
+    "performance": 96,
+    "accessibility": 96,
+    "seo": 100
+  },
+  "failedAudits": [
+    {
+      "id": "total-blocking-time",
+      "title": "Total Blocking Time",
+      "score": 0.87,
+      "displayValue": "220 ms"
+    },
+    {
+      "id": "max-potential-fid",
+      "title": "Max Potential First Input Delay",
+      "score": 0.46,
+      "displayValue": "260 ms"
+    },
+    {
+      "id": "interactive",
+      "title": "Time to Interactive",
+      "score": 0.8,
+      "displayValue": "4.7 s"
+    },
+    {
+      "id": "redirects",
+      "title": "Avoid multiple page redirects",
+      "score": 0,
+      "displayValue": "Est savings of 770 ms"
+    },
+    {
+      "id": "mainthread-work-breakdown",
+      "title": "Minimize main-thread work",
+      "score": 0,
+      "displayValue": "2.7 s"
+    },
+    {
+      "id": "frame-title",
+      "title": "`<frame>` or `<iframe>` elements do not have a title",
+      "score": 0
+    },
+    {
+      "id": "unused-javascript",
+      "title": "Reduce unused JavaScript",
+      "score": 0.5,
+      "displayValue": "Est savings of 39 KiB"
+    },
+    {
+      "id": "bf-cache",
+      "title": "Page prevented back/forward cache restoration",
+      "score": 0,
+      "displayValue": "3 failure reasons"
+    },
+    {
+      "id": "cache-insight",
+      "title": "Use efficient cache lifetimes",
+      "score": 0.5,
+      "displayValue": "Est savings of 546 KiB"
+    },
+    {
+      "id": "document-latency-insight",
+      "title": "Document request latency",
+      "score": 0,
+      "displayValue": "Est savings of 140 ms"
+    },
+    {
+      "id": "forced-reflow-insight",
+      "title": "Forced reflow",
+      "score": 0
+    },
+    {
+      "id": "image-delivery-insight",
+      "title": "Improve image delivery",
+      "score": 0.5,
+      "displayValue": "Est savings of 28 KiB"
+    },
+    {
+      "id": "network-dependency-tree-insight",
+      "title": "Network dependency tree",
+      "score": 0
+    },
+    {
+      "id": "render-blocking-insight",
+      "title": "Render-blocking requests",
+      "score": 0.5
+    }
+  ],
+  "targets": {
+    "performance": 85,
+    "seo": 95,
+    "accessibility": 90
+  },
+  "requestedUrl": "https://wishluck-ai-builder.myshopify.com/products/the-inventory-not-tracked-snowboard?preview_theme_id=167128760418",
+  "finalDisplayedUrl": "https://wishluck-ai-builder.myshopify.com/products/the-inventory-not-tracked-snowboard"
+}

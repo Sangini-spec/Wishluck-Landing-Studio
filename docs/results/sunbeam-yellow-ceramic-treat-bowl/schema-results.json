@@ -1,0 +1,258 @@
+[
+  {
+    "designId": "cbb5818a-5483-42fc-9dc9-9434b13023ee",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Sunbeam Yellow Ceramic Treat Bowl",
+        "url": "https://pets.hydrogen.mock.shop/products/sunbeam-yellow-ceramic-treat-bowl",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/a1d6c687d405b1a47af462971c421c56.png?v=14972184",
+          "https://cdn.shopify.com/mock-shop-production-media/pets/e6647190-1b65-42ea-a3db-7379e8fe3626.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Paws and Whimsy"
+        },
+        "description": "Brighten snack time with a sunbeam yellow ceramic treat bowl that beams good vibes into every nibble. Weighty ceramic base stays put—even when paws get excited Lively yellow glaze resists stains and cleans up in a snap Low-profile rim makes treats easy to reach for big dogs and tiny kittens alike",
+        "offers": {
+          "@type": "Offer",
+          "price": 27,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Sunbeam Yellow Ceramic Treat Bowl?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Brighten snack time with a sunbeam yellow ceramic treat bowl that beams good vibes into every nibble. Weighty ceramic base stays put—even when paws get excited Lively yellow glaze resists stains and cleans up in a snap Low-profile rim makes treats easy to reach for big dogs and tiny kittens alike"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Sunbeam Yellow Ceramic Treat Bowl cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 27.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "c996f184-35e1-4c99-9f3d-6535b0034361",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Sunbeam Yellow Ceramic Treat Bowl",
+        "url": "https://pets.hydrogen.mock.shop/products/sunbeam-yellow-ceramic-treat-bowl",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/a1d6c687d405b1a47af462971c421c56.png?v=14972184",
+          "https://cdn.shopify.com/mock-shop-production-media/pets/e6647190-1b65-42ea-a3db-7379e8fe3626.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Paws and Whimsy"
+        },
+        "description": "Brighten snack time with a sunbeam yellow ceramic treat bowl that beams good vibes into every nibble. Weighty ceramic base stays put—even when paws get excited Lively yellow glaze resists stains and cleans up in a snap Low-profile rim makes treats easy to reach for big dogs and tiny kittens alike",
+        "offers": {
+          "@type": "Offer",
+          "price": 27,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Sunbeam Yellow Ceramic Treat Bowl?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Brighten snack time with a sunbeam yellow ceramic treat bowl that beams good vibes into every nibble. Weighty ceramic base stays put—even when paws get excited Lively yellow glaze resists stains and cleans up in a snap Low-profile rim makes treats easy to reach for big dogs and tiny kittens alike"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Sunbeam Yellow Ceramic Treat Bowl cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 27.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "7e94a585-fe44-4e11-be1e-0b4ea556950e",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Sunbeam Yellow Ceramic Treat Bowl",
+        "url": "https://pets.hydrogen.mock.shop/products/sunbeam-yellow-ceramic-treat-bowl",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/a1d6c687d405b1a47af462971c421c56.png?v=14972184",
+          "https://cdn.shopify.com/mock-shop-production-media/pets/e6647190-1b65-42ea-a3db-7379e8fe3626.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Paws and Whimsy"
+        },
+        "description": "Brighten snack time with a sunbeam yellow ceramic treat bowl that beams good vibes into every nibble. Weighty ceramic base stays put—even when paws get excited Lively yellow glaze resists stains and cleans up in a snap Low-profile rim makes treats easy to reach for big dogs and tiny kittens alike",
+        "offers": {
+          "@type": "Offer",
+          "price": 27,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Sunbeam Yellow Ceramic Treat Bowl?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Brighten snack time with a sunbeam yellow ceramic treat bowl that beams good vibes into every nibble. Weighty ceramic base stays put—even when paws get excited Lively yellow glaze resists stains and cleans up in a snap Low-profile rim makes treats easy to reach for big dogs and tiny kittens alike"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Sunbeam Yellow Ceramic Treat Bowl cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 27.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "462b7a0f-d8df-4f34-810e-7491870641d9",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Sunbeam Yellow Ceramic Treat Bowl",
+        "url": "https://pets.hydrogen.mock.shop/products/sunbeam-yellow-ceramic-treat-bowl",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/a1d6c687d405b1a47af462971c421c56.png?v=14972184",
+          "https://cdn.shopify.com/mock-shop-production-media/pets/e6647190-1b65-42ea-a3db-7379e8fe3626.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Paws and Whimsy"
+        },
+        "description": "Brighten snack time with a sunbeam yellow ceramic treat bowl that beams good vibes into every nibble. Weighty ceramic base stays put—even when paws get excited Lively yellow glaze resists stains and cleans up in a snap Low-profile rim makes treats easy to reach for big dogs and tiny kittens alike",
+        "offers": {
+          "@type": "Offer",
+          "price": 27,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Sunbeam Yellow Ceramic Treat Bowl?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Brighten snack time with a sunbeam yellow ceramic treat bowl that beams good vibes into every nibble. Weighty ceramic base stays put—even when paws get excited Lively yellow glaze resists stains and cleans up in a snap Low-profile rim makes treats easy to reach for big dogs and tiny kittens alike"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Sunbeam Yellow Ceramic Treat Bowl cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 27.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "product": "Large Waterproof Gold-Plated Hoop Earrings",
+  "category": "Accessories",
+  "sourceUrl": "https://jewelry-dropship.hydrogen.mock.shop/products/large-waterproof-gold-plated-hoop-earrings",
+  "brand": {
+    "primary": "#000000",
+    "secondary": "#ffffff",
+    "background": "#ffffff",
+    "text": "#000000",
+    "button": "#222222",
+    "headingFont": "system-ui, -apple-system, sans-serif",
+    "bodyFont": "system-ui, -apple-system, sans-serif",
+    "shopifyHeadingFont": "assistant_n4",
+    "shopifyBodyFont": "assistant_n4",
+    "headingSize": "72px",
+    "bodySize": "16px",
+    "headingWeight": "700",
+    "bodyWeight": "400",
+    "tone": "Bold, modern, premium, and minimal; the product presentation feels fashion-forward and polished.",
+    "radius": "8px",
+    "spacing": "0px",
+    "imageStyle": "Clean studio e-commerce imagery with bright white backgrounds, close-up product shots, and one lifestyle image with warm gold tones.",
+    "buttonStyle": "0px solid; none",
+    "evidence": "CSS/computed styles + vision analysis of actual screenshot. Product facts support jewelry/accessories. Visuals show gold hoop earrings with a black-and-white, high-contrast layout. Missing facts remain unspecified."
+  },
+  "aiCostEstimateUSD": 0.25353425,
+  "warnings": []
+}

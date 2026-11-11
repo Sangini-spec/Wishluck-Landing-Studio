@@ -1,0 +1,28 @@
+{
+  "product": "Chestnut Ceramic Mug",
+  "category": "Home & Kitchen",
+  "sourceUrl": "https://coffee.hydrogen.mock.shop/products/chestnut-ceramic-mug",
+  "brand": {
+    "primary": "#000000",
+    "secondary": "#ffffff",
+    "background": "#ffffff",
+    "text": "#000000",
+    "button": "#222222",
+    "headingFont": "system-ui, -apple-system, sans-serif",
+    "bodyFont": "system-ui, -apple-system, sans-serif",
+    "shopifyHeadingFont": "assistant_n4",
+    "shopifyBodyFont": "assistant_n4",
+    "headingSize": "72px",
+    "bodySize": "16px",
+    "headingWeight": "700",
+    "bodyWeight": "400",
+    "tone": "Warm, artisanal, and minimal; premium but understated.",
+    "radius": "8px",
+    "spacing": "0px",
+    "imageStyle": "Soft-lit product photography on neutral backgrounds, with lifestyle framing and warm earthy tones.",
+    "buttonStyle": "0px solid; none",
+    "evidence": "CSS/computed styles + vision analysis of actual screenshot. Broadly appears to be a ceramic drinkware product. The screenshots show a mug with chestnut/brown glazing and a clean ecommerce layout. Several on-page option labels appear mismatched to the product text, so they are not used here."
+  },
+  "aiCostEstimateUSD": 0.29053949999999995,
+  "warnings": []
+}

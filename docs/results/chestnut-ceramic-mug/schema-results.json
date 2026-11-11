@@ -1,0 +1,290 @@
+[
+  {
+    "designId": "68386968-cf9a-4616-8f73-1219971bed44",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Chestnut Ceramic Mug",
+        "url": "https://coffee.hydrogen.mock.shop/products/chestnut-ceramic-mug",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/b68672854a19990768a189c61c51c804.png?v=13060324",
+          "https://cdn.shopify.com/mock-shop-production-media/coffee/a6fb3f45-a499-44dc-b2d6-422ee7a610cb.png",
+          "https://cdn.shopify.com/mock-shop-production-media/coffee/16bb76cf-6683-4091-82ef-e26ee4dd9680.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Sunbeam Brew Co."
+        },
+        "description": "A chestnut ceramic mug with rich, warm tones and exquisite artisanal details. The soft lighting highlights its craftsmanship against a neutral background.",
+        "offers": {
+          "@type": "Offer",
+          "price": 25,
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Chestnut Ceramic Mug?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A chestnut ceramic mug with rich, warm tones and exquisite artisanal details. The soft lighting highlights its craftsmanship against a neutral background."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Chestnut Ceramic Mug cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 25.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "b400ae9b-5116-42b8-9f46-2422aa8fe85a",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Chestnut Ceramic Mug",
+        "url": "https://coffee.hydrogen.mock.shop/products/chestnut-ceramic-mug",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/b68672854a19990768a189c61c51c804.png?v=13060324",
+          "https://cdn.shopify.com/mock-shop-production-media/coffee/a6fb3f45-a499-44dc-b2d6-422ee7a610cb.png",
+          "https://cdn.shopify.com/mock-shop-production-media/coffee/16bb76cf-6683-4091-82ef-e26ee4dd9680.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Sunbeam Brew Co."
+        },
+        "description": "A chestnut ceramic mug with rich, warm tones and exquisite artisanal details. The soft lighting highlights its craftsmanship against a neutral background.",
+        "offers": {
+          "@type": "Offer",
+          "price": 25,
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is confirmed about this product?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The verified facts available here confirm the product name, brand, price, category, and that there are three product images. The description identifies it as a chestnut ceramic mug with rich, warm tones and artisanal details."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are material or size details shown?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No verified material or dimension details were provided, so they are not added here."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the design include reviews?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. There are no verified reviews or ratings in the supplied facts, so the page does not include a reviews section."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "38ada6e0-8e03-4481-bedd-b8c1b6238d23",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Chestnut Ceramic Mug",
+        "url": "https://coffee.hydrogen.mock.shop/products/chestnut-ceramic-mug",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/b68672854a19990768a189c61c51c804.png?v=13060324",
+          "https://cdn.shopify.com/mock-shop-production-media/coffee/a6fb3f45-a499-44dc-b2d6-422ee7a610cb.png",
+          "https://cdn.shopify.com/mock-shop-production-media/coffee/16bb76cf-6683-4091-82ef-e26ee4dd9680.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Sunbeam Brew Co."
+        },
+        "description": "A chestnut ceramic mug with rich, warm tones and exquisite artisanal details. The soft lighting highlights its craftsmanship against a neutral background.",
+        "offers": {
+          "@type": "Offer",
+          "price": 25,
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What information is confirmed for this mug?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Confirmed facts are limited to the product name, brand, price, category, description, and the three supplied product images. No specifications, reviews, or policy details were provided in the source data."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are materials or dimensions listed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Materials and dimensions are not present in the verified product facts, so they are not added here."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this design use reviews or ratings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. There are no verified reviews or ratings in the supplied product facts, so this concept does not include review content."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "0c5892d7-0197-454c-a2d5-3fdb44ac7082",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Chestnut Ceramic Mug",
+        "url": "https://coffee.hydrogen.mock.shop/products/chestnut-ceramic-mug",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/b68672854a19990768a189c61c51c804.png?v=13060324",
+          "https://cdn.shopify.com/mock-shop-production-media/coffee/a6fb3f45-a499-44dc-b2d6-422ee7a610cb.png",
+          "https://cdn.shopify.com/mock-shop-production-media/coffee/16bb76cf-6683-4091-82ef-e26ee4dd9680.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Sunbeam Brew Co."
+        },
+        "description": "A chestnut ceramic mug with rich, warm tones and exquisite artisanal details. The soft lighting highlights its craftsmanship against a neutral background.",
+        "offers": {
+          "@type": "Offer",
+          "price": 25,
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the product shown here?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "This page is for the Chestnut Ceramic Mug by Sunbeam Brew Co., listed at $25 USD."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are there verified reviews on this product page?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No verified reviews were supplied, so this design does not include a reviews section."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are specifications included?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No specifications were provided in the source facts, so there is no specs section in the page structure."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does the page use a separate FAQ section?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The FAQ block keeps the page useful without adding unsupported claims, and it matches competitor patterns where question-led guidance helps shoppers orient themselves."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  }
+]

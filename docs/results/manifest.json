@@ -1,0 +1,149 @@
+{
+  "generatedAt": "2026-11-11T19:18:05.893Z",
+  "repository": "https://github.com/Sangini-spec/Wishluck-Landing-Studio",
+  "scope": "Five real saved product runs. Local previews and real Shopify audit evidence are explicitly distinguished. Video excluded at owner request.",
+  "products": [
+    {
+      "slug": "large-waterproof-gold-plated-hoop-earrings",
+      "title": "Large Waterproof Gold-Plated Hoop Earrings",
+      "category": "Accessories",
+      "sourceUrl": "https://jewelry-dropship.hydrogen.mock.shop/products/large-waterproof-gold-plated-hoop-earrings",
+      "runId": "4eea4e41-136b-46c9-ac67-bb88ca83bcce",
+      "totalDesigns": 4,
+      "capturedDesigns": 4,
+      "competitors": 8,
+      "captures": 12,
+      "horizontalOverflowCaptures": 0,
+      "unloadedImageCaptures": 0,
+      "audits": [
+        {
+          "designId": "bc6dfeca-8f0c-401d-8e30-ef516594e0d4",
+          "file": "lighthouse-1.html",
+          "screenshot": "lighthouse-1.jpg",
+          "status": "completed",
+          "jobId": "a6987529-6b98-4dc5-aaec-4c7169842ca6",
+          "performance": 93,
+          "seo": 69,
+          "accessibility": 97,
+          "testedAt": "2026-11-11T18:17:44.554Z"
+        }
+      ],
+      "googleRichResults": "not_verified",
+      "cart": "not certified across all five products",
+      "generatedAt": "2026-11-11T19:17:43.965Z"
+    },
+    {
+      "slug": "sunbeam-yellow-ceramic-treat-bowl",
+      "title": "Sunbeam Yellow Ceramic Treat Bowl",
+      "category": "Pet Accessories",
+      "sourceUrl": "https://pets.hydrogen.mock.shop/products/sunbeam-yellow-ceramic-treat-bowl",
+      "runId": "d2dcd9d3-35c0-4f52-82ed-6fb68609da2a",
+      "totalDesigns": 9,
+      "capturedDesigns": 4,
+      "competitors": 8,
+      "captures": 12,
+      "horizontalOverflowCaptures": 0,
+      "unloadedImageCaptures": 0,
+      "audits": [],
+      "googleRichResults": "not_verified",
+      "cart": "not certified across all five products",
+      "generatedAt": "2026-11-11T19:17:49.528Z"
+    },
+    {
+      "slug": "glass-bottle-facial-cleanser",
+      "title": "Glass Bottle Facial Cleanser",
+      "category": "Beauty",
+      "sourceUrl": "https://clean-beauty.hydrogen.mock.shop/products/glass-bottle-facial-cleanser",
+      "runId": "9036e2c4-fc00-4827-a8ed-ed1b4f690da3",
+      "totalDesigns": 5,
+      "capturedDesigns": 4,
+      "competitors": 8,
+      "captures": 12,
+      "horizontalOverflowCaptures": 0,
+      "unloadedImageCaptures": 0,
+      "audits": [],
+      "googleRichResults": "not_verified",
+      "cart": "not certified across all five products",
+      "generatedAt": "2026-11-11T19:17:55.229Z"
+    },
+    {
+      "slug": "chestnut-ceramic-mug",
+      "title": "Chestnut Ceramic Mug",
+      "category": "Home & Kitchen",
+      "sourceUrl": "https://coffee.hydrogen.mock.shop/products/chestnut-ceramic-mug",
+      "runId": "a26c6a65-8d40-40e9-a686-9ed2c11912c2",
+      "totalDesigns": 14,
+      "capturedDesigns": 4,
+      "competitors": 8,
+      "captures": 12,
+      "horizontalOverflowCaptures": 0,
+      "unloadedImageCaptures": 0,
+      "audits": [
+        {
+          "designId": "19ef26f4-0e6c-479c-8181-c6e72362faab",
+          "file": "lighthouse-1.html",
+          "screenshot": "lighthouse-1.jpg",
+          "status": "completed",
+          "jobId": "e95ff589-cefa-4ada-bedb-2ce2dd8ba4a9",
+          "performance": 95,
+          "seo": 69,
+          "accessibility": 97,
+          "testedAt": "2026-11-11T14:49:12.666Z"
+        }
+      ],
+      "googleRichResults": "not_verified",
+      "cart": "not certified across all five products",
+      "generatedAt": "2026-11-11T19:17:58.069Z"
+    },
+    {
+      "slug": "mens-tree-runners",
+      "title": "Men's Tree Runner - Jet Black (White Sole)",
+      "category": "Shoes",
+      "sourceUrl": "https://www.allbirds.com/products/mens-tree-runners",
+      "runId": "6a24fb6d-a83a-4dc1-85f5-39c436240f68",
+      "totalDesigns": 16,
+      "capturedDesigns": 4,
+      "competitors": 7,
+      "captures": 12,
+      "horizontalOverflowCaptures": 0,
+      "unloadedImageCaptures": 0,
+      "audits": [
+        {
+          "designId": "7a3b7af7-daf6-4f14-999c-3bf5d8eb37cf",
+          "file": "lighthouse-1.html",
+          "screenshot": "lighthouse-1.jpg",
+          "status": "completed",
+          "jobId": "68218dc0-ad13-4748-b16f-a6d02b3ae5fb",
+          "performance": 86,
+          "seo": 69,
+          "accessibility": 93,
+          "testedAt": "2026-11-11T13:42:54.376Z"
+        },
+        {
+          "designId": "dd7cb7f7-ccaf-4b93-802b-945a75ba0662",
+          "file": "lighthouse-2.html",
+          "screenshot": "lighthouse-2.jpg",
+          "status": "completed",
+          "jobId": "854b0221-7c5f-42c2-8033-353d0bcbe73d",
+          "performance": 96,
+          "seo": 100,
+          "accessibility": 96,
+          "testedAt": "2026-11-11T14:05:20.784Z"
+        },
+        {
+          "designId": "dbd6b429-7f1b-4f65-ba3a-04ea3086cb0b",
+          "file": "lighthouse-3.html",
+          "screenshot": "lighthouse-3.jpg",
+          "status": "completed",
+          "performance": 96,
+          "seo": 100,
+          "accessibility": 96,
+          "testedAt": "2026-11-11T13:15:35.022Z"
+        }
+      ],
+      "googleRichResults": "not_verified",
+      "cart": "not certified across all five products",
+      "generatedAt": "2026-11-11T19:18:05.481Z"
+    }
+  ]
+}

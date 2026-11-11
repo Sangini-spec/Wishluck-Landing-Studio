@@ -1,0 +1,26 @@
+{
+  "recordedAt": "2026-11-11T19:22:08.139Z",
+  "typecheck": {
+    "command": "pnpm run typecheck",
+    "exitCode": 0
+  },
+  "tests": {
+    "command": "pnpm test",
+    "exitCode": 0,
+    "backend": 98,
+    "frontend": 65,
+    "renderRegression": 69,
+    "total": 232
+  },
+  "scope": "Offline/service/component/render tests, not five-product live Shopify acceptance",
+  "responsiveCaptures": 60,
+  "sourceProducts": 5,
+  "categories": 5,
+  "googleRichResults": "not_verified",
+  "nativeLighthouseMissing": [
+    "Glass Bottle Facial Cleanser",
+    "Sunbeam Yellow Ceramic Treat Bowl"
+  ],
+  "video": "excluded_by_owner",
+  "shopifyWritesDuringPackaging": 0
+}

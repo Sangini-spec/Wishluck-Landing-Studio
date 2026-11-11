@@ -1,0 +1,111 @@
+{
+  "designId": "19ef26f4-0e6c-479c-8181-c6e72362faab",
+  "testedAt": "2026-11-11T14:49:12.666Z",
+  "scope": "Actual archived Shopify mobile Lighthouse audit",
+  "scores": {
+    "performance": 95,
+    "accessibility": 97,
+    "seo": 69
+  },
+  "failedAudits": [
+    {
+      "id": "first-contentful-paint",
+      "title": "First Contentful Paint",
+      "score": 0.98,
+      "displayValue": "1.3 s"
+    },
+    {
+      "id": "speed-index",
+      "title": "Speed Index",
+      "score": 0.97,
+      "displayValue": "2.6 s"
+    },
+    {
+      "id": "total-blocking-time",
+      "title": "Total Blocking Time",
+      "score": 0.84,
+      "displayValue": "260 ms"
+    },
+    {
+      "id": "max-potential-fid",
+      "title": "Max Potential First Input Delay",
+      "score": 0.55,
+      "displayValue": "230 ms"
+    },
+    {
+      "id": "interactive",
+      "title": "Time to Interactive",
+      "score": 0.81,
+      "displayValue": "4.6 s"
+    },
+    {
+      "id": "redirects",
+      "title": "Avoid multiple page redirects",
+      "score": 0,
+      "displayValue": "Est savings of 780 ms"
+    },
+    {
+      "id": "mainthread-work-breakdown",
+      "title": "Minimize main-thread work",
+      "score": 0,
+      "displayValue": "2.1 s"
+    },
+    {
+      "id": "frame-title",
+      "title": "`<frame>` or `<iframe>` elements do not have a title",
+      "score": 0
+    },
+    {
+      "id": "unused-javascript",
+      "title": "Reduce unused JavaScript",
+      "score": 0.5,
+      "displayValue": "Est savings of 39 KiB"
+    },
+    {
+      "id": "is-crawlable",
+      "title": "Page is blocked from indexing",
+      "score": 0
+    },
+    {
+      "id": "bf-cache",
+      "title": "Page prevented back/forward cache restoration",
+      "score": 0,
+      "displayValue": "3 failure reasons"
+    },
+    {
+      "id": "cache-insight",
+      "title": "Use efficient cache lifetimes",
+      "score": 0.5,
+      "displayValue": "Est savings of 544 KiB"
+    },
+    {
+      "id": "document-latency-insight",
+      "title": "Document request latency",
+      "score": 0,
+      "displayValue": "Est savings of 580 ms"
+    },
+    {
+      "id": "image-delivery-insight",
+      "title": "Improve image delivery",
+      "score": 0.5,
+      "displayValue": "Est savings of 111 KiB"
+    },
+    {
+      "id": "network-dependency-tree-insight",
+      "title": "Network dependency tree",
+      "score": 0
+    },
+    {
+      "id": "render-blocking-insight",
+      "title": "Render-blocking requests",
+      "score": 0.5
+    }
+  ],
+  "targets": {
+    "performance": 85,
+    "seo": 95,
+    "accessibility": 90
+  },
+  "requestedUrl": "https://redacted-shopify-preview.invalid/products_preview?preview_theme_id=167129645154",
+  "finalDisplayedUrl": "https://redacted-shopify-preview.invalid/products_preview"
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "title": "The Inventory Not Tracked Snowboard",
+    "status": "uploaded",
+    "shop": "wishluck-ai-builder.myshopify.com",
+    "themeId": "167128760418",
+    "remoteRole": "unpublished",
+    "checkedAt": "2026-11-11T19:17:37.873Z",
+    "previewUrl": "https://wishluck-ai-builder.myshopify.com/?preview_theme_id=167128760418",
+    "editorUrl": "https://wishluck-ai-builder.myshopify.com/admin/themes/167128760418/editor",
+    "uploadedAt": "2026-11-11T14:04:15.542Z",
+    "timeline": [
+      {
+        "status": "uploaded",
+        "at": "2026-11-11T14:04:15.542Z"
+      }
+    ]
+  },
+  {
+    "title": "Men's Tree Runner - Jet Black (White Sole)",
+    "status": "uploaded",
+    "shop": "wishluck-ai-builder.myshopify.com",
+    "themeId": "167128203362",
+    "remoteRole": "unpublished",
+    "checkedAt": "2026-11-11T19:17:37.879Z",
+    "previewUrl": "https://wishluck-ai-builder.myshopify.com/?preview_theme_id=167128203362",
+    "editorUrl": "https://wishluck-ai-builder.myshopify.com/admin/themes/167128203362/editor",
+    "uploadedAt": "2026-11-11T13:34:29.906Z",
+    "publishedAt": "2026-11-11T15:21:25.893Z",
+    "timeline": [
+      {
+        "status": "uploaded",
+        "at": "2026-11-11T13:34:29.906Z"
+      },
+      {
+        "status": "published",
+        "at": "2026-11-11T15:21:25.893Z"
+      },
+      {
+        "status": "uploaded",
+        "at": "2026-11-11T18:17:24.507Z"
+      }
+    ]
+  },
+  {
+    "title": "The Inventory Not Tracked Snowboard",
+    "status": "uploaded",
+    "shop": "wishluck-ai-builder.myshopify.com",
+    "themeId": "167127318626",
+    "remoteRole": "unpublished",
+    "checkedAt": "2026-11-11T19:17:37.886Z",
+    "previewUrl": "https://wishluck-ai-builder.myshopify.com/?preview_theme_id=167127318626",
+    "editorUrl": "https://wishluck-ai-builder.myshopify.com/admin/themes/167127318626/editor",
+    "uploadedAt": "2026-11-11T12:58:45.007Z",
+    "timeline": [
+      {
+        "status": "uploaded",
+        "at": "2026-11-11T12:58:45.007Z"
+      }
+    ]
+  },
+  {
+    "title": "Men's Tree Runner - Jet Black (White Sole)",
+    "status": "deleted",
+    "shop": "wishluck-ai-builder.myshopify.com",
+    "themeId": "167126859874",
+    "remoteRole": "missing",
+    "checkedAt": "2026-11-11T19:17:37.891Z",
+    "previewUrl": "https://wishluck-ai-builder.myshopify.com/?preview_theme_id=167126859874",
+    "editorUrl": "https://wishluck-ai-builder.myshopify.com/admin/themes/167126859874/editor",
+    "uploadedAt": "2026-11-11T12:25:26.798Z",
+    "timeline": [
+      {
+        "status": "uploaded",
+        "at": "2026-11-11T12:25:26.798Z"
+      },
+      {
+        "status": "deleted",
+        "at": "2026-11-11T18:38:16.705Z"
+      }
+    ]
+  }
+]

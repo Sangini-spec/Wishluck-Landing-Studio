@@ -1,0 +1,3910 @@
+[
+  {
+    "id": "7a3b7af7-daf6-4f14-999c-3bf5d8eb37cf",
+    "name": "Quiet angle archive",
+    "version": 1,
+    "createdAt": "2026-11-11T11:01:31.971Z",
+    "direction": "offer-led",
+    "structuralDifferencePercent": 49,
+    "comparedCount": 15,
+    "closestDesign": "1831deb0-6a0b-4292-8377-c9ca551aae15",
+    "fingerprint": {
+      "name": "Quiet angle archive",
+      "family": "mosaic",
+      "heroType": "mosaic",
+      "alignment": "start",
+      "heroScale": "monumental",
+      "rationale": "The captured product set contains four clean studio views on a warm beige background, and the competitor landscape is mostly single-image PDPs or compact purchase panels. This composition uses a mosaic family to turn those four views into a deliberate progression: an oversized hero, then a tiled evidence section, then a restrained purchase moment, keeping the page minimal while making the product feel fully inspected.",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "contrast",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-repeat-sticky",
+      "designFamily": "mosaic",
+      "detailLayout": "bento",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "purchase",
+        "faq"
+      ],
+      "colorStrategy": "contrast",
+      "contentRhythm": "alternating",
+      "imagePosition": "left",
+      "schemaVersion": 2,
+      "typeTreatment": "technical",
+      "imageTreatment": "collage",
+      "accentPlacement": "rule",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 61
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "passed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "failed",
+        "detail": "Measured mobile results: performance 86/85, SEO 69/95, accessibility 93/90. Tested 2026-11-11T13:42:54.376Z."
+      }
+    ]
+  },
+  {
+    "id": "3baa38dd-4c9a-4c1e-8b85-aef65ebb5cec",
+    "name": "Quiet Motion Ledger",
+    "version": 1,
+    "createdAt": "2026-11-11T11:01:28.994Z",
+    "direction": "social-proof",
+    "structuralDifferencePercent": 41,
+    "comparedCount": 14,
+    "closestDesign": "dd7cb7f7-ccaf-4b93-802b-945a75ba0662",
+    "fingerprint": {
+      "name": "Quiet Motion Ledger",
+      "family": "kinetic",
+      "heroType": "kinetic",
+      "alignment": "start",
+      "heroScale": "monumental",
+      "rationale": "The source gives a restrained black, white, and warm beige product presentation, plus four studio views that invite sequential inspection rather than a lifestyle story. Competitor pages were mostly single-image or compact purchase layouts, so this direction uses layered motion in the page order: a monumental hero, then alternating evidence and utility blocks, then a precise FAQ landing. That keeps the page minimal and practical while making the product feel more fully examined.",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "contrast",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-repeat-sticky",
+      "designFamily": "kinetic",
+      "detailLayout": "split",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "purchase",
+        "faq"
+      ],
+      "colorStrategy": "contrast",
+      "contentRhythm": "alternating",
+      "imagePosition": "left",
+      "schemaVersion": 2,
+      "typeTreatment": "editorial",
+      "imageTreatment": "framed",
+      "accentPlacement": "rule",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 61
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "passed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "418545d5-b8ba-4e28-97f1-7770a865f740",
+    "name": "Quiet Horizon Ledger",
+    "version": 1,
+    "createdAt": "2026-11-11T11:01:24.220Z",
+    "direction": "benefit-grid",
+    "structuralDifferencePercent": 38,
+    "comparedCount": 13,
+    "closestDesign": "09400ad8-1479-4a57-82cb-e108760a0fe3",
+    "fingerprint": {
+      "name": "Quiet Horizon Ledger",
+      "family": "panorama",
+      "heroType": "panorama",
+      "alignment": "start",
+      "heroScale": "monumental",
+      "rationale": "The source shows four studio angles on a neutral beige background and a very restrained black, white, and warm off-white palette. Competitor pages are mostly single-image or compact purchase layouts, so this direction uses a wide opening composition and then shifts into ordered, low-clutter sections to preserve the premium casual-athletic tone while making the product feel more fully examined.",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "contrast",
+      "faqPosition": 3,
+      "ctaPlacement": "hero-and-sticky",
+      "designFamily": "panorama",
+      "detailLayout": "columns",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "faq"
+      ],
+      "colorStrategy": "contrast",
+      "contentRhythm": "alternating",
+      "imagePosition": "left",
+      "schemaVersion": 2,
+      "typeTreatment": "editorial",
+      "imageTreatment": "fullbleed",
+      "accentPlacement": "rule",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "dd7cb7f7-ccaf-4b93-802b-945a75ba0662",
+    "name": "Monochrome Inspection File",
+    "version": 1,
+    "createdAt": "2026-11-11T11:01:21.122Z",
+    "direction": "story-led",
+    "structuralDifferencePercent": 46,
+    "comparedCount": 12,
+    "closestDesign": "210529c9-85e6-48cb-8936-2e599964e4b0",
+    "fingerprint": {
+      "name": "Monochrome Inspection File",
+      "family": "dossier",
+      "heroType": "dossier",
+      "alignment": "start",
+      "heroScale": "monumental",
+      "rationale": "The source data shows a very restrained black, white, and warm off-white presentation with four distinct studio angles and no cluttered selling claims. Competitor pages are mostly single-image or compact PDPs, so a dossier structure creates a more editorial, inspectable rhythm: big opening plate, then tightly organized evidence blocks that make the shoe feel documented from every side.",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "contrast",
+      "faqPosition": 3,
+      "ctaPlacement": "hero-and-sticky",
+      "designFamily": "dossier",
+      "detailLayout": "split",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "faq"
+      ],
+      "colorStrategy": "contrast",
+      "contentRhythm": "alternating",
+      "imagePosition": "left",
+      "schemaVersion": 2,
+      "typeTreatment": "technical",
+      "imageTreatment": "framed",
+      "accentPlacement": "rule",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "passed",
+        "detail": "Measured mobile results: performance 96/85, SEO 100/95, accessibility 96/90. Tested 2026-11-11T14:05:20.784Z."
+      }
+    ]
+  },
+  {
+    "id": "9307331a-ec7c-4327-b21f-6f90e813b9ce",
+    "name": "Quiet Runway Spread",
+    "version": 1,
+    "createdAt": "2026-11-11T10:52:59.025Z",
+    "direction": "offer-led",
+    "structuralDifferencePercent": 48,
+    "comparedCount": 11,
+    "closestDesign": "b573dd6c-0138-42b6-b9db-a47fd17ecc87",
+    "fingerprint": {
+      "name": "Quiet Runway Spread",
+      "family": "atelier",
+      "heroType": "atelier",
+      "alignment": "start",
+      "heroScale": "monumental",
+      "rationale": "The source imagery is a four-angle studio set on a neutral beige background, with a very minimal black-and-white product presentation and little visual clutter. A panorama composition lets the hero feel expansive without becoming busy, and the page can then shift into compact, ordered blocks that mirror the practical, premium casual-athletic tone while staying clearly different from a split or gallery-first layout.",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "brand",
+      "faqPosition": 3,
+      "ctaPlacement": "hero-and-sticky",
+      "designFamily": "atelier",
+      "detailLayout": "tiles",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "faq"
+      ],
+      "colorStrategy": "brand",
+      "contentRhythm": "dense",
+      "imagePosition": "left",
+      "schemaVersion": 2,
+      "typeTreatment": "editorial",
+      "imageTreatment": "collage",
+      "accentPlacement": "rule",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "1831deb0-6a0b-4292-8377-c9ca551aae15",
+    "name": "Angle Study Grid",
+    "version": 1,
+    "createdAt": "2026-11-11T10:52:55.203Z",
+    "direction": "social-proof",
+    "structuralDifferencePercent": 54,
+    "comparedCount": 10,
+    "closestDesign": "c5152ae0-3c74-486e-9f9f-70a986777fcc",
+    "fingerprint": {
+      "name": "Angle Study Grid",
+      "family": "gallery",
+      "heroType": "gallery",
+      "alignment": "start",
+      "heroScale": "monumental",
+      "rationale": "The captured product set includes four distinct studio views, so the page should lean into image-led inspection rather than a text-heavy sales narrative. Competitor observations skew toward single-image PDPs or compact purchase boxes; this plan instead uses a gallery-first sequence with alternating light surfaces and inset detail blocks to make the sneaker feel examined from every side while staying minimal and practical.",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "light",
+      "faqPosition": 5,
+      "ctaPlacement": "hero-repeat-sticky",
+      "designFamily": "gallery",
+      "detailLayout": "bento",
+      "sectionOrder": [
+        "hero",
+        "gallery",
+        "story",
+        "benefits",
+        "purchase",
+        "faq"
+      ],
+      "colorStrategy": "light",
+      "contentRhythm": "alternating",
+      "imagePosition": "left",
+      "schemaVersion": 2,
+      "typeTreatment": "editorial",
+      "imageTreatment": "collage",
+      "accentPlacement": "rule",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 61
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "passed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "210529c9-85e6-48cb-8936-2e599964e4b0",
+    "name": "Field Guide Stack",
+    "version": 1,
+    "createdAt": "2026-11-11T10:52:51.718Z",
+    "direction": "benefit-grid",
+    "structuralDifferencePercent": 48,
+    "comparedCount": 9,
+    "closestDesign": "b573dd6c-0138-42b6-b9db-a47fd17ecc87",
+    "fingerprint": {
+      "name": "Field Guide Stack",
+      "family": "catalogue",
+      "heroType": "catalogue",
+      "alignment": "start",
+      "heroScale": "monumental",
+      "rationale": "The source shows a minimal black-and-white sneaker on a warm beige studio background, with four clean angles and little page clutter. A catalogue composition lets the hero stay product-first while using ordered, inspectable sections to echo the site’s practical, premium casual-athletic tone without borrowing competitor layouts.",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "light",
+      "faqPosition": 3,
+      "ctaPlacement": "hero-and-sticky",
+      "designFamily": "catalogue",
+      "detailLayout": "columns",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "faq"
+      ],
+      "colorStrategy": "light",
+      "contentRhythm": "alternating",
+      "imagePosition": "left",
+      "schemaVersion": 2,
+      "typeTreatment": "technical",
+      "imageTreatment": "framed",
+      "accentPlacement": "rule",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "09400ad8-1479-4a57-82cb-e108760a0fe3",
+    "name": "Quiet field notes",
+    "version": 1,
+    "createdAt": "2026-11-11T10:52:47.813Z",
+    "direction": "story-led",
+    "structuralDifferencePercent": 48,
+    "comparedCount": 8,
+    "closestDesign": "b573dd6c-0138-42b6-b9db-a47fd17ecc87",
+    "fingerprint": {
+      "name": "Quiet field notes",
+      "family": "journal",
+      "heroType": "journal",
+      "alignment": "start",
+      "heroScale": "monumental",
+      "rationale": "The source imagery is a clean studio presentation on a warm light beige background, with black-and-white product contrast and little clutter. A journal structure lets the page feel observed and documented rather than promotional: one large hero, then alternating text/image densities that echo the product’s simple catalog clarity without repeating competitor layouts.",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "contrast",
+      "faqPosition": 3,
+      "ctaPlacement": "hero-and-sticky",
+      "designFamily": "journal",
+      "detailLayout": "split",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "faq"
+      ],
+      "colorStrategy": "contrast",
+      "contentRhythm": "alternating",
+      "imagePosition": "left",
+      "schemaVersion": 2,
+      "typeTreatment": "editorial",
+      "imageTreatment": "fullbleed",
+      "accentPlacement": "rule",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "c5152ae0-3c74-486e-9f9f-70a986777fcc",
+    "name": "Straight to the essentials",
+    "version": 1,
+    "createdAt": "2026-11-11T10:26:00.580Z",
+    "direction": "offer-led",
+    "structuralDifferencePercent": 46,
+    "comparedCount": 7,
+    "closestDesign": "baf2b1c6-4908-43b0-a33d-56fe172ee00f",
+    "fingerprint": {
+      "heroType": "panorama",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "brand-details",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-repeat-sticky",
+      "sectionOrder": [
+        "hero",
+        "specs",
+        "benefits",
+        "story",
+        "faq"
+      ],
+      "imagePosition": "left",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 78,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 52
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "failed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "e2cd8913-d7c8-44a1-b504-22fdb7bcded0",
+    "name": "Proof, not promises",
+    "version": 1,
+    "createdAt": "2026-11-11T10:25:58.692Z",
+    "direction": "social-proof",
+    "structuralDifferencePercent": 42,
+    "comparedCount": 6,
+    "closestDesign": "dbd6b429-7f1b-4f65-ba3a-04ea3086cb0b",
+    "fingerprint": {
+      "heroType": "purchase",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "neutral",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-and-sticky",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "specs",
+        "faq"
+      ],
+      "imagePosition": "right",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "f67ad30f-bc12-46ac-a63d-3a314eac1947",
+    "name": "Every detail, considered",
+    "version": 1,
+    "createdAt": "2026-11-11T10:25:56.800Z",
+    "direction": "benefit-grid",
+    "structuralDifferencePercent": 46,
+    "comparedCount": 5,
+    "closestDesign": "b573dd6c-0138-42b6-b9db-a47fd17ecc87",
+    "fingerprint": {
+      "heroType": "editorial",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "neutral",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-and-sticky",
+      "sectionOrder": [
+        "hero",
+        "specs",
+        "benefits",
+        "story",
+        "faq"
+      ],
+      "imagePosition": "left",
+      "benefitsPresentation": "editorial",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "baf2b1c6-4908-43b0-a33d-56fe172ee00f",
+    "name": "The product story",
+    "version": 1,
+    "createdAt": "2026-11-11T10:25:55.029Z",
+    "direction": "story-led",
+    "structuralDifferencePercent": 46,
+    "comparedCount": 4,
+    "closestDesign": "ef25373f-59a1-4308-aa6d-48133295476e",
+    "fingerprint": {
+      "heroType": "framed",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "brand-details",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-repeat-sticky",
+      "sectionOrder": [
+        "hero",
+        "benefits",
+        "story",
+        "specs",
+        "faq"
+      ],
+      "imagePosition": "right",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 78,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 52
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "failed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "ef25373f-59a1-4308-aa6d-48133295476e",
+    "name": "Straight to the essentials",
+    "version": 1,
+    "createdAt": "2026-11-11T10:14:57.830Z",
+    "direction": "offer-led",
+    "structuralDifferencePercent": 62,
+    "comparedCount": 3,
+    "closestDesign": "6e28584e-e43b-4255-b30c-46f13debaf9e",
+    "fingerprint": {
+      "heroType": "compact",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "brand-hero",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-repeat-sticky",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "specs",
+        "faq"
+      ],
+      "imagePosition": "right",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "6e28584e-e43b-4255-b30c-46f13debaf9e",
+    "name": "Proof, not promises",
+    "version": 1,
+    "createdAt": "2026-11-11T10:14:55.652Z",
+    "direction": "social-proof",
+    "structuralDifferencePercent": 50,
+    "comparedCount": 2,
+    "closestDesign": "b573dd6c-0138-42b6-b9db-a47fd17ecc87",
+    "fingerprint": {
+      "heroType": "reversed",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "brand-hero",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-and-sticky",
+      "sectionOrder": [
+        "hero",
+        "specs",
+        "benefits",
+        "story",
+        "faq"
+      ],
+      "imagePosition": "left",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  },
+  {
+    "id": "dbd6b429-7f1b-4f65-ba3a-04ea3086cb0b",
+    "name": "Every detail, considered",
+    "version": 1,
+    "createdAt": "2026-11-11T10:14:54.049Z",
+    "direction": "benefit-grid",
+    "structuralDifferencePercent": 54,
+    "comparedCount": 1,
+    "closestDesign": "b573dd6c-0138-42b6-b9db-a47fd17ecc87",
+    "fingerprint": {
+      "heroType": "grid",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "neutral",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-and-sticky",
+      "sectionOrder": [
+        "hero",
+        "benefits",
+        "story",
+        "specs",
+        "faq"
+      ],
+      "imagePosition": "right",
+      "benefitsPresentation": "cards",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "passed",
+        "detail": "Measured mobile results: performance 96/85, SEO 100/95, accessibility 96/90. Tested 2026-11-11T13:15:35.022Z."
+      }
+    ]
+  },
+  {
+    "id": "b573dd6c-0138-42b6-b9db-a47fd17ecc87",
+    "name": "The product story",
+    "version": 1,
+    "createdAt": "2026-11-11T10:14:51.977Z",
+    "direction": "story-led",
+    "structuralDifferencePercent": 100,
+    "comparedCount": 0,
+    "closestDesign": null,
+    "fingerprint": {
+      "heroType": "split",
+      "typography": "libre_baskerville_n4/assistant_n4",
+      "colourUsage": "neutral",
+      "faqPosition": 4,
+      "ctaPlacement": "hero-and-sticky",
+      "sectionOrder": [
+        "hero",
+        "story",
+        "benefits",
+        "specs",
+        "faq"
+      ],
+      "imagePosition": "left",
+      "benefitsPresentation": "stack",
+      "socialProofPlacement": -1
+    },
+    "localCheckCoverage": {
+      "seo": 89,
+      "aeo": 60,
+      "geo": 17,
+      "overall": 57
+    },
+    "checks": [
+      {
+        "key": "h1",
+        "category": "SEO",
+        "label": "One non-empty H1 in local HTML",
+        "status": "passed",
+        "detail": "Inspected generated preview HTML; final Shopify theme still needs its own audit."
+      },
+      {
+        "key": "headings",
+        "category": "SEO",
+        "label": "Sequential heading hierarchy",
+        "status": "passed",
+        "detail": "Local headings must not skip levels."
+      },
+      {
+        "key": "meta",
+        "category": "SEO",
+        "label": "Non-empty page title and description",
+        "status": "passed",
+        "detail": "Checked actual local head tags, not just source product fields."
+      },
+      {
+        "key": "alt",
+        "category": "SEO",
+        "label": "Product images have descriptive alt text",
+        "status": "passed",
+        "detail": "Every image in the local page must have a non-empty description."
+      },
+      {
+        "key": "canonical",
+        "category": "SEO",
+        "label": "Canonical points to the source product",
+        "status": "passed",
+        "detail": "Local preview identity only; destination-store canonical and metadata remain an external check."
+      },
+      {
+        "key": "collection",
+        "category": "SEO",
+        "label": "Related collection link is present",
+        "status": "passed",
+        "detail": "Add a verified collection URL in Product details. Destination-store links must be checked after upload."
+      },
+      {
+        "key": "product-schema",
+        "category": "SEO",
+        "label": "Product JSON-LD matches local product and price",
+        "status": "passed",
+        "detail": "Local JSON and source-value consistency only. Google Rich Results validation is separate."
+      },
+      {
+        "key": "snippet-quality",
+        "category": "SEO",
+        "label": "Search snippet has useful title and description lengths",
+        "status": "passed",
+        "detail": "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee."
+      },
+      {
+        "key": "product-depth",
+        "category": "SEO",
+        "label": "Substantive product detail beyond name and price",
+        "status": "failed",
+        "detail": "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information."
+      },
+      {
+        "key": "faq",
+        "category": "AEO",
+        "label": "Useful FAQ answers are actually rendered",
+        "status": "passed",
+        "detail": "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing."
+      },
+      {
+        "key": "faq-direct",
+        "category": "AEO",
+        "label": "Answers are concise and stand alone",
+        "status": "passed",
+        "detail": "Do not replace a useful answer with a source-data disclaimer or a pointer to another paragraph."
+      },
+      {
+        "key": "faq-schema",
+        "category": "AEO",
+        "label": "FAQ markup agrees with visible questions and answers",
+        "status": "passed",
+        "detail": "Compared local JSON-LD with the FAQ content that was actually rendered. This is not external validation."
+      },
+      {
+        "key": "faq-evidence",
+        "category": "AEO",
+        "label": "FAQ answer grounding needs review",
+        "status": "unverified",
+        "detail": "Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers."
+      },
+      {
+        "key": "faq-depth",
+        "category": "AEO",
+        "label": "Answers cover specific buying questions beyond identity and price",
+        "status": "failed",
+        "detail": "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality."
+      },
+      {
+        "key": "specs",
+        "category": "GEO",
+        "label": "Verified specification table is visible",
+        "status": "failed",
+        "detail": "Save verified product specifications, then regenerate; a hidden or omitted table does not count."
+      },
+      {
+        "key": "brand",
+        "category": "GEO",
+        "label": "Brand name agrees with Product markup",
+        "status": "passed",
+        "detail": "Brand must appear consistently in local content and structured data."
+      },
+      {
+        "key": "material",
+        "category": "GEO",
+        "label": "Materials are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified materials in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "dimension",
+        "category": "GEO",
+        "label": "Dimensions or capacity are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified dimensions or capacity in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "contents",
+        "category": "GEO",
+        "label": "Package contents are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified package contents in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "audience",
+        "category": "GEO",
+        "label": "Intended audience are source-backed and visible",
+        "status": "failed",
+        "detail": "Add verified intended audience in Product details; no facts were invented to raise this score."
+      },
+      {
+        "key": "campaign",
+        "category": "CONTENT",
+        "label": "Complete product campaign, not only a product description",
+        "status": "failed",
+        "detail": "Required for these facts: story, faq, purchase. Each must contribute useful content and an obvious purchase journey."
+      },
+      {
+        "key": "variants",
+        "category": "CONTENT",
+        "label": "Verified source price and variant identifiers",
+        "status": "passed",
+        "detail": "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately."
+      },
+      {
+        "key": "copy-grounding",
+        "category": "CONTENT",
+        "label": "Review narrative and benefit claims against source facts",
+        "status": "unverified",
+        "detail": "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately."
+      },
+      {
+        "key": "product-rich-results",
+        "category": "EXTERNAL",
+        "label": "Google Product Rich Results validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid local JSON does not certify Google's Rich Results Test."
+      },
+      {
+        "key": "faq-rich-results",
+        "category": "EXTERNAL",
+        "label": "External FAQ structured-data validation",
+        "status": "unverified",
+        "detail": "Not externally validated. Valid markup does not guarantee search-result eligibility."
+      },
+      {
+        "key": "destination-seo",
+        "category": "EXTERNAL",
+        "label": "Destination-store canonical, metadata and internal links",
+        "status": "unverified",
+        "detail": "Check the actual uploaded product URL; a source-store preview is not destination-store evidence."
+      },
+      {
+        "key": "cart",
+        "category": "EXTERNAL",
+        "label": "Real Shopify cart on every variant",
+        "status": "unverified",
+        "detail": "Must be tested on the actual store, on mobile and desktop. Local HTML inspection cannot submit a real Shopify cart."
+      },
+      {
+        "key": "responsive",
+        "category": "EXTERNAL",
+        "label": "Actual theme at 360 / 768 / 1440 pixels",
+        "status": "unverified",
+        "detail": "Local render regressions are development evidence, not a per-design Shopify browser acceptance test."
+      },
+      {
+        "key": "lighthouse",
+        "category": "EXTERNAL",
+        "label": "Measured Lighthouse targets",
+        "status": "unverified",
+        "detail": "No complete current result. Targets: performance 85+, SEO 95+, accessibility 90+. "
+      }
+    ]
+  }
+]

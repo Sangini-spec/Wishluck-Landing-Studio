@@ -1,0 +1,254 @@
+[
+  {
+    "designId": "55dfd411-f93d-41fa-bb3e-687ed2b48dd9",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Glass Bottle Facial Cleanser",
+        "url": "https://clean-beauty.hydrogen.mock.shop/products/glass-bottle-facial-cleanser",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/2e54ab4c18abb5d5199865c8be6f9b98.png?v=13671939",
+          "https://cdn.shopify.com/mock-shop-production-media/clean-beauty/8cc4ebcc-f48f-463b-a480-9c9e2ced2914.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Bloom & Dew Botanicals"
+        },
+        "description": "A glass bottle containing facial cleanser, presented with soft lighting and subtle shadowing. This product is designed for personal skincare routines.",
+        "offers": {
+          "@type": "Offer",
+          "price": 25,
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Glass Bottle Facial Cleanser?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A glass bottle containing facial cleanser, presented with soft lighting and subtle shadowing. This product is designed for personal skincare routines."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Glass Bottle Facial Cleanser cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 25.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "ab0a5978-d730-4b61-b796-f63af7d16cae",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Glass Bottle Facial Cleanser",
+        "url": "https://clean-beauty.hydrogen.mock.shop/products/glass-bottle-facial-cleanser",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/2e54ab4c18abb5d5199865c8be6f9b98.png?v=13671939",
+          "https://cdn.shopify.com/mock-shop-production-media/clean-beauty/8cc4ebcc-f48f-463b-a480-9c9e2ced2914.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Bloom & Dew Botanicals"
+        },
+        "description": "A glass bottle containing facial cleanser, presented with soft lighting and subtle shadowing. This product is designed for personal skincare routines.",
+        "offers": {
+          "@type": "Offer",
+          "price": 25,
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Glass Bottle Facial Cleanser?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A glass bottle containing facial cleanser, presented with soft lighting and subtle shadowing. This product is designed for personal skincare routines."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Glass Bottle Facial Cleanser cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 25.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "99df21b0-2da9-4560-a44e-380bf6f9d359",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Glass Bottle Facial Cleanser",
+        "url": "https://clean-beauty.hydrogen.mock.shop/products/glass-bottle-facial-cleanser",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/2e54ab4c18abb5d5199865c8be6f9b98.png?v=13671939",
+          "https://cdn.shopify.com/mock-shop-production-media/clean-beauty/8cc4ebcc-f48f-463b-a480-9c9e2ced2914.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Bloom & Dew Botanicals"
+        },
+        "description": "A glass bottle containing facial cleanser, presented with soft lighting and subtle shadowing. This product is designed for personal skincare routines.",
+        "offers": {
+          "@type": "Offer",
+          "price": 25,
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Glass Bottle Facial Cleanser?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A glass bottle containing facial cleanser, presented with soft lighting and subtle shadowing. This product is designed for personal skincare routines."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Glass Bottle Facial Cleanser cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 25.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "0cd219e7-4473-4f0a-83b2-029b3f196d63",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Glass Bottle Facial Cleanser",
+        "url": "https://clean-beauty.hydrogen.mock.shop/products/glass-bottle-facial-cleanser",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/2e54ab4c18abb5d5199865c8be6f9b98.png?v=13671939",
+          "https://cdn.shopify.com/mock-shop-production-media/clean-beauty/8cc4ebcc-f48f-463b-a480-9c9e2ced2914.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Bloom & Dew Botanicals"
+        },
+        "description": "A glass bottle containing facial cleanser, presented with soft lighting and subtle shadowing. This product is designed for personal skincare routines.",
+        "offers": {
+          "@type": "Offer",
+          "price": 25,
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Glass Bottle Facial Cleanser?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A glass bottle containing facial cleanser, presented with soft lighting and subtle shadowing. This product is designed for personal skincare routines."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Glass Bottle Facial Cleanser cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 25.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  }
+]

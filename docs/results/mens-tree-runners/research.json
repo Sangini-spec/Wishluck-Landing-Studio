@@ -1,0 +1,379 @@
+{
+  "competitors": [
+    {
+      "title": "Allbirds Men's Tree Runners – 6 Sizes, Best Price",
+      "url": "https://myblacktree.com/products/mens-tree-runners-jet-black",
+      "status": "blocked",
+      "reason": "Product page for Allbirds Men's Tree Runners in Jet Black; directly matches the requested model family and colorway, and is a relevant product listing rather than a category/article page.",
+      "sections": [],
+      "error": "Page returned HTTP 403"
+    },
+    {
+      "title": "Allbirds - Men's Tree Runner - Jet Black (Black Sole)",
+      "url": "https://www.govx.com/ap/d042a4c9-db09-4b38-db10-08db2fa20c1a/mens-tree-runner--jet-black-black-sole",
+      "status": "crawled",
+      "reason": "Product page for Allbirds Men's Tree Runner - Jet Black (Black Sole); same shoe line and highly relevant to the requested Tree Runner product.",
+      "sections": [
+        "We Value Your Privacy"
+      ],
+      "analysis": {
+        "atc": false,
+        "faq": "Not observed.",
+        "hero": "Single large product image on white background with product title and membership prompt beside it.",
+        "media": "One main product image visible; no gallery, video, or lifestyle media observed.",
+        "trust": "Marketplace label plus shipping and returns notes; privacy/cookie notice and policy links shown.",
+        "videos": true,
+        "pricing": false,
+        "reviews": true,
+        "unusual": "Product is sold through a third-party site with shipping and returns handled there, not on GOVX.",
+        "urgency": "Not observed.",
+        "guarantee": false,
+        "atcPlacement": "No direct add-to-cart observed; primary action is join-signup button in right-side panel.",
+        "offerDisplay": "Membership-gated access with free sign-up callout and member login option.",
+        "sectionOrder": [
+          "top promo bar",
+          "header/navigation",
+          "hero product area",
+          "membership callout panel",
+          "shipping accordion",
+          "returns accordion",
+          "privacy/cookie notice"
+        ],
+        "headlineStyle": "Product-first headline with minimal supporting copy; trust/privacy header appears lower on page.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Allbirds Tree Runner Jet Black (White) Mens Shoes",
+      "url": "https://shopee.ph/Allbirds-Tree-Runner-Jet-Black-(White)-Mens-Shoes-i.494204962.28425064616",
+      "status": "crawled",
+      "reason": "Marketplace product listing for Allbirds Tree Runner Jet Black (White) men's shoes; same model family and closest colorway variant to the requested Jet Black with white sole.",
+      "sections": [],
+      "analysis": {
+        "atc": false,
+        "faq": "Not observed.",
+        "hero": "Blank/empty page area with only a small top text line visible.",
+        "media": "No product media or gallery visible; mostly blank white screen.",
+        "trust": "Not observed.",
+        "videos": true,
+        "pricing": false,
+        "reviews": false,
+        "unusual": "Extremely sparse view; content appears not loaded or cropped to an empty section.",
+        "urgency": "Not observed.",
+        "guarantee": false,
+        "atcPlacement": "Not observed.",
+        "offerDisplay": "Promos/vouchers mentioned in excerpt; no on-page pricing or discount blocks visible.",
+        "sectionOrder": [
+          "top page text only",
+          "blank content area"
+        ],
+        "headlineStyle": "Not enough visible headings detected; no clear headline hierarchy observed.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "AllBirds Mens Tree Runner Jet Black (Black) ABTR3MJBK – The Boot Shop",
+      "url": "https://bootshop.com/products/allbirds-tree-runner-jet-black-black-abtr3mjbk",
+      "status": "crawled",
+      "reason": "Actual product page for AllBirds Mens Tree Runner Jet Black (Black); relevant because it is the same Tree Runner model and a direct product listing.",
+      "sections": [
+        "The Boot Shop",
+        "AllBirds Mens Tree Runner Jet Black (Black) ABTR3MJBK",
+        "You May Also Like"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "not observed",
+        "hero": "Large single product image on left with product info and purchase controls on right",
+        "media": "One main product image visible; no gallery dots or video observed",
+        "trust": "Shop policy links in header/footer and Shop Pay payment option shown",
+        "videos": false,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "Size options shown as small inline buttons; Shop Pay emphasized as accelerated checkout",
+        "urgency": "not observed",
+        "guarantee": false,
+        "atcPlacement": "Primary add-to-cart button beside Shop Pay button below size and quantity selectors",
+        "offerDisplay": "Single price shown with shipping note; no visible discount callout",
+        "sectionOrder": [
+          "header navigation",
+          "product image",
+          "product title and price",
+          "shipping note",
+          "size selector",
+          "quantity selector",
+          "add to cart and Shop Pay",
+          "description and features",
+          "related products"
+        ],
+        "headlineStyle": "Centered product title with brand line above; serif-style emphasis",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Allbirds BLACK Men's Tree Runner - Sneakers",
+      "url": "https://www.namshi.com/saudi-en/buy-allbirds-men-s-tree-runner-jet-black-black-sole-sneakers/Z3094AA25DF4BBC120C66Z/p",
+      "status": "blocked",
+      "reason": "Product page for Allbirds Men's Tree Runner - Jet Black (Black Sole); directly relevant to the requested shoe model and color family.",
+      "sections": [],
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "title": "Allbirds Men's Size 11 Tree Runner Jet Black/White Sole- ...",
+      "url": "https://www.ebay.com/itm/314111507324",
+      "status": "blocked",
+      "reason": "Actual listing for Allbirds Men's Tree Runner in Jet Black/White Sole; same model and the requested white-sole colorway variant.",
+      "sections": [],
+      "error": "Page returned HTTP 403"
+    },
+    {
+      "title": "Tree Runner",
+      "url": "https://allbirdsnordic.com/collections/tree-runner",
+      "status": "crawled",
+      "reason": "Allbirds collection page specifically for Tree Runner variants, including Men's Tree Runner Jet Black (White Sole); relevant landing page for the exact product family.",
+      "sections": [
+        "Your cart is empty",
+        "Your cart",
+        "Estimated total",
+        "Country/region",
+        "Country/region",
+        "Collection: Tree Runner",
+        "Sort by:",
+        "6 products",
+        "Filter:",
+        "Filter and sort",
+        "Filter",
+        "6 products",
+        "Men's Tree Runner",
+        "Men's Tree Runner",
+        "Men's Tree Runner Go",
+        "Men's Tree Runner Go",
+        "Women's Tree Runner",
+        "Women's Tree Runner",
+        "Women's Tree Runner Go",
+        "Women's Tree Runner Go",
+        "Men's Tree Runner NZ",
+        "Men's Tree Runner NZ",
+        "Women's Tree Runner NZ",
+        "Women's Tree Runner NZ",
+        "The Allbirds Approach",
+        "Wear-All-Day Comfort",
+        "Sustainability In Every Step",
+        "Materials From The Earth"
+      ],
+      "analysis": {
+        "atc": false,
+        "faq": "not observed",
+        "hero": "Collection grid hero with large product imagery and a simple title; no single-product hero observed.",
+        "media": "Large clean product photos on white backgrounds with small color swatches; one lifestyle banner image visible in the filter area; popup uses a lifestyle image.",
+        "trust": "Country/region selector, account login, tax-included total, and marketing consent/footer policy text visible; no reviews observed.",
+        "videos": true,
+        "pricing": false,
+        "reviews": false,
+        "unusual": "Country/region gating prompt appears in excerpt; newsletter popup offers 10% extra off.",
+        "urgency": "not observed",
+        "guarantee": false,
+        "atcPlacement": "Product cards in grid; no visible add-to-cart button on collection view, likely product click first.",
+        "offerDisplay": "Prices shown per product in local currency; sale/regular price labels visible in excerpt, but no promo on page hero observed.",
+        "sectionOrder": [
+          "country/region selection prompt",
+          "cart status and checkout link",
+          "collection title",
+          "sort and product count",
+          "left-side filters",
+          "product grid",
+          "newsletter popup",
+          "brand story sections"
+        ],
+        "headlineStyle": "Large category title, minimal editorial style, product-led.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Allbirds TREE RUNNERS - Trainers - jet black white sole",
+      "url": "https://en.zalando.de/allbirds-trainers-jet-black-a8012o004-q11.html",
+      "status": "crawled",
+      "reason": "Product page for Allbirds TREE RUNNERS in jet black with white sole; matches the requested colorway and shoe model.",
+      "sections": [],
+      "analysis": {
+        "atc": false,
+        "faq": "not observed",
+        "hero": "Centered support/error message with large bold headline, explanatory subtext, and browser icons beneath.",
+        "media": "Minimal illustrative media using browser logos/icons rather than product imagery.",
+        "trust": "Brand header, help/contact footer links, and explicit privacy/security rationale in supporting text.",
+        "videos": false,
+        "pricing": false,
+        "reviews": false,
+        "unusual": "Cookie consent banner overlays bottom of page and browser compatibility warning dominates the screen.",
+        "urgency": "Strong immediate-action cue to upgrade browser or use the mobile app.",
+        "guarantee": false,
+        "atcPlacement": "not observed",
+        "offerDisplay": "not observed",
+        "sectionOrder": [
+          "top navigation/header",
+          "browser compatibility notice",
+          "supported browser icons",
+          "help/contact and company footer links",
+          "cookie consent banner"
+        ],
+        "headlineStyle": "Direct apology and instruction; large bold centered headline with sentence-case support tone.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Allbirds Men's Tree Runners",
+      "url": "https://www.ramakkos.com/allbirds-mens-tree-runners.html",
+      "status": "crawled",
+      "reason": "Product page for Allbirds Men's Tree Runners; relevant because it is the same model line and includes sustainability/material details associated with Tree Runner.",
+      "sections": [
+        "Menu",
+        "Allbirds Men's Tree Runners",
+        "Product description",
+        "Reviews",
+        "Related products",
+        "Recently viewed"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Not observed",
+        "hero": "Single-product PDP with large product image on left and purchase panel on right",
+        "media": "One main product image visible; no gallery or video observed",
+        "trust": "In stock label, shipping window, support contact, and site-level free shipping banner",
+        "videos": false,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Recall alert banner unrelated to product appears near top",
+        "urgency": "Stock status plus shipping estimate and site announcement bar",
+        "guarantee": false,
+        "atcPlacement": "Primary add to cart button in right-side buy box below size selection",
+        "offerDisplay": "Price shown in CAD with excl. tax note",
+        "sectionOrder": [
+          "header/navigation",
+          "promo bar",
+          "breadcrumb",
+          "product image and purchase panel",
+          "product description",
+          "reviews",
+          "related products",
+          "recently viewed"
+        ],
+        "headlineStyle": "Product-name led headline with small brand label above and bold price beneath",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Allbirds Men's Tree Runner - Samsclub.com",
+      "url": "https://www.samsclub.com/ip/allbirds-men-s-tree-runners-lightweight-breathable-eucalyptus-sneakers/17921866691",
+      "status": "crawled",
+      "reason": "Product page for Allbirds Men's Tree Runner; same shoe model and relevant to the requested sneaker.",
+      "sections": [
+        "Grocery",
+        "Thanksgiving",
+        "The Holiday Edit",
+        "Christmas Decor",
+        "Holiday Gift Guide",
+        "New Arrivals",
+        "New Member's Mark",
+        "New Apparel",
+        "Member's Mark",
+        "New Arrivals",
+        "Clothing & Accessories",
+        "Grocery",
+        "Member's Mark Essentials",
+        "Live Well Your Way",
+        "Wellness Routine",
+        "Daily Support",
+        "Healthy Alternatives",
+        "Clothing, Shoes & Accessories",
+        "Savings",
+        "Baby & Toddler",
+        "Home",
+        "Savings",
+        "Appliances",
+        "Shop By Brand",
+        "Household Essentials",
+        "Electronics & Gaming",
+        "Shop by Brand",
+        "Featured",
+        "Outdoor & Patio",
+        "Sam's Garage",
+        "Tires by Brand",
+        "Health & Wellness",
+        "Telehealth",
+        "Pharmacy",
+        "Featured Shops",
+        "Beauty",
+        "Personal Care",
+        "Jewelry",
+        "Savings",
+        "Sports & Fitness"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Not observed.",
+        "hero": "Single product hero with large main image and vertical thumbnail gallery.",
+        "media": "Multiple product photos with zoom control and alternate color swatches.",
+        "trust": "Star rating with 1 rating, shipping estimate, return/replace note, and price variance note.",
+        "videos": false,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "AI-generated smart summary module with bullet benefit statements.",
+        "urgency": "Shipping timing and order-by countdown shown; limited-time finance offer visible.",
+        "guarantee": true,
+        "atcPlacement": "Primary add to cart button in right-side purchase panel above fulfillment options.",
+        "offerDisplay": "Price shown prominently with per-pair unit text; no visible discount badge.",
+        "sectionOrder": [
+          "top navigation",
+          "product title and rating",
+          "price and add to cart panel",
+          "size and color selectors",
+          "shipping/pickup/delivery options",
+          "AI smart summary",
+          "shipping and return details"
+        ],
+        "headlineStyle": "Product-led title with brand name, product name, rating, and variant info near price.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Men's Tree Runner – Allbirds ReRun",
+      "url": "https://www.rerun.allbirds.com/products/mens-tree-runner_mens-tree-runners_jet-black-black",
+      "status": "blocked",
+      "reason": "Allbirds ReRun product page for Men's Tree Runner in Jet Black; relevant product landing page for the same model and color family.",
+      "sections": [],
+      "error": "The website hostname could not be resolved."
+    }
+  ],
+  "learnings": [
+    {
+      "id": "41798cae-316e-4847-85dc-9d0eb5fad0d2",
+      "text": "3 of 7 successfully crawled pages mention reviews or ratings. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://www.govx.com/ap/d042a4c9-db09-4b38-db10-08db2fa20c1a/mens-tree-runner--jet-black-black-sole",
+        "https://www.ramakkos.com/allbirds-mens-tree-runners.html",
+        "https://www.samsclub.com/ip/allbirds-men-s-tree-runners-lightweight-breathable-eucalyptus-sneakers/17921866691"
+      ],
+      "category": "Shoes"
+    },
+    {
+      "id": "d98f923b-dec6-4725-9dc6-83ec579f8879",
+      "text": "3 of 7 successfully crawled pages include an add-to-cart call to action. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://bootshop.com/products/allbirds-tree-runner-jet-black-black-abtr3mjbk",
+        "https://www.ramakkos.com/allbirds-mens-tree-runners.html",
+        "https://www.samsclub.com/ip/allbirds-men-s-tree-runners-lightweight-breathable-eucalyptus-sneakers/17921866691"
+      ],
+      "category": "Shoes"
+    },
+    {
+      "id": "b973f14e-fc8d-4034-a26f-061f1f76d938",
+      "text": "3 of 7 successfully crawled pages include video markup. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://www.govx.com/ap/d042a4c9-db09-4b38-db10-08db2fa20c1a/mens-tree-runner--jet-black-black-sole",
+        "https://shopee.ph/Allbirds-Tree-Runner-Jet-Black-(White)-Mens-Shoes-i.494204962.28425064616",
+        "https://allbirdsnordic.com/collections/tree-runner"
+      ],
+      "category": "Shoes"
+    }
+  ]
+}

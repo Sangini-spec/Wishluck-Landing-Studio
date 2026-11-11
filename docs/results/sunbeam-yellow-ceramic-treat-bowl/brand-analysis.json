@@ -1,0 +1,28 @@
+{
+  "product": "Sunbeam Yellow Ceramic Treat Bowl",
+  "category": "Pet Accessories",
+  "sourceUrl": "https://pets.hydrogen.mock.shop/products/sunbeam-yellow-ceramic-treat-bowl",
+  "brand": {
+    "primary": "#000000",
+    "secondary": "#ffffff",
+    "background": "#ffffff",
+    "text": "#000000",
+    "button": "#222222",
+    "headingFont": "system-ui, -apple-system, sans-serif",
+    "bodyFont": "system-ui, -apple-system, sans-serif",
+    "shopifyHeadingFont": "assistant_n4",
+    "shopifyBodyFont": "assistant_n4",
+    "headingSize": "72px",
+    "bodySize": "16px",
+    "headingWeight": "700",
+    "bodyWeight": "400",
+    "tone": "Bright, cheerful, playful, and clean.",
+    "radius": "8px",
+    "spacing": "0px",
+    "imageStyle": "Minimal product photography with a modern ecommerce layout; warm yellow bowl shown in simple styled scenes against softly colored backgrounds.",
+    "buttonStyle": "0px solid; none",
+    "evidence": "CSS/computed styles + vision analysis of actual screenshot. Product is a ceramic treat bowl for pets. Visuals emphasize the yellow glaze and a simple, contemporary presentation. The visible page style is mostly white with black text and minimal accents."
+  },
+  "aiCostEstimateUSD": 0.6266434999999999,
+  "warnings": []
+}

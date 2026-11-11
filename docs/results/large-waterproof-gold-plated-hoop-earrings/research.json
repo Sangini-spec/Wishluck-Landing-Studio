@@ -1,0 +1,707 @@
+{
+  "researchedAt": "2026-11-11T18:09:56.417Z",
+  "competitors": [
+    {
+      "title": "Water-Resistant | Non-Tarnish Waterproof Jewelry",
+      "url": "https://jenny-bird.com/collections/water-resistant",
+      "status": "crawled",
+      "reason": "Collection page for water-resistant/non-tarnish jewelry with waterproof gold hoop earrings, relevant to large waterproof gold-plated hoops.",
+      "sections": [
+        "Water-Resistant",
+        "Recommended For You",
+        "Select a Location",
+        "Shopping Internationally?",
+        "Selection Saved"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "FAQ-style questions about water resistance, shower/swim use, and hypoallergenic properties are shown below products.",
+        "hero": "Minimal category hero with large headline and short supporting subtext above product grid.",
+        "media": "Large product grid with mix of clean product cutouts and one lifestyle image; category pills and view toggle present.",
+        "trust": "Best seller badges, detailed FAQ content, live chat, text/email support, and currency/location selector.",
+        "videos": true,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "Location selection and international shopping prompts are prominent; wishlist gating via email/account is visible.",
+        "urgency": "Limited urgency seen only in promotional banners and sale-style navigation labels; no countdown observed.",
+        "guarantee": true,
+        "atcPlacement": "Product cards use inline Add to Bag; wishlist flow appears in header/account area.",
+        "offerDisplay": "Top announcement bars promote a free gift and first-purchase offer; no on-page discount pricing observed in hero.",
+        "sectionOrder": [
+          "announcement bar",
+          "header navigation",
+          "hero title and description",
+          "category tabs",
+          "view/sort/filter controls",
+          "product grid",
+          "recommended products row",
+          "long-form category content",
+          "FAQ section",
+          "support/contact",
+          "location selector"
+        ],
+        "headlineStyle": "Single bold category title with concise explanatory line beneath; clean editorial style.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Gold Waterproof Earrings | Tarnish Free Earrings",
+      "url": "https://orelia.com/collections/gold-waterproof-earrings",
+      "status": "crawled",
+      "reason": "Collection page explicitly for gold waterproof earrings and includes waterproof 18k gold plated hoop styles.",
+      "sections": [
+        "Gold Waterproof Earrings",
+        "LUXE Chubby Huggie Hoop Earrings",
+        "LUXE Mini Interlocking Stud Earrings",
+        "LUXE Pavé T-Bar Mid-Size Hoop Earrings",
+        "LUXE Double Crystal Drop Earrings",
+        "LUXE Heart & Chain Drop Earrings",
+        "LUXE Statement Textured Doorknocker Earrings",
+        "LUXE Statement Shell Earrings",
+        "LUXE Statement Starfish Earrings",
+        "LUXE Cross & Pavé Hoop Ear Stacking Set",
+        "LUXE Heart & Pavé Ear Stacking Set",
+        "LUXE Petite Starburst Huggie Hoop Earrings",
+        "LUXE Heart Charm Micro Hoop Earrings",
+        "LUXE Pavé Huggie Hoop Earrings - Gold",
+        "LUXE Statement Pearl Drop Hoop Earrings",
+        "LUXE Pearl Stud & Hoop Earring Pack",
+        "LUXE Polished Bamboo Large Hoop Earrings",
+        "LUXE Polished Bamboo Huggie Hoop Earrings",
+        "LUXE Tapered Dome Hoop Earrings - Gold",
+        "LUXE Tiny Tapered Hoop Earrings",
+        "LUXE Mid-Size Hoop Earrings - Gold",
+        "LUXE Huggie Hoop Earrings - Gold",
+        "LUXE Linear T-Bar Drop Hoop Earrings - Gold",
+        "LUXE Polished Crossover Hoop Earrings",
+        "LUXE Pearl Drop Hoop Earrings",
+        "LUXE Pavé & Tapered Hoop Earring Jewellery Set",
+        "LUXE Cross Earring & Necklace Jewellery Set",
+        "LUXE Crystal T-bar Jewellery Set",
+        "LUXE Pavé & Starburst Huggie Hoop Jewellery Set",
+        "Polished Illusion Huggie Hoop Earrings",
+        "Polished Micro Hoop Earrings",
+        "Clean Metal Micro Hoop Earrings",
+        "LUXE Molten Hoop Earrings & Bangle Jewellery Set",
+        "Your Bag",
+        "Mini Micro Hoop Earrings - Gold",
+        "Micro Star Collar Necklace",
+        "Mini Micro Hoop Earrings -  Silver",
+        "BACK TO BAG",
+        "BACK TO PACKAGING",
+        "BACK TO BAG"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Not observed.",
+        "hero": "Text-led category hero with short intro copy and a read-more link above product grid.",
+        "media": "Large product grid with clean white-background studio product images; multiple product angles on some cards.",
+        "trust": "Waterproof, sweat-proof, tarnish-resistant claims; product cards show material/plating and sold-out state on some items.",
+        "videos": true,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "Filter controls include material/style facets; category mix includes stacking sets and jewellery sets within the earrings page.",
+        "urgency": "Sale/discount messaging is present; some products marked sold out.",
+        "guarantee": false,
+        "atcPlacement": "Not observed; product grid shows a small bag icon on cards instead of a visible full add-to-cart button.",
+        "offerDisplay": "Top announcement bar shows sitewide discount code and free-shipping threshold; category page shows product prices.",
+        "sectionOrder": [
+          "top promo bar",
+          "header navigation",
+          "category hero title and description",
+          "breadcrumb",
+          "filter/sort controls",
+          "product grid"
+        ],
+        "headlineStyle": "All-caps category heading; minimal editorial subcopy.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Waterproof Earrings",
+      "url": "https://www.lovisa.com/collections/waterproof-earrings",
+      "status": "crawled",
+      "reason": "Collection page for waterproof earrings with gold plated hoop earrings, directly relevant.",
+      "sections": [
+        "Waterproof Earrings",
+        "I'm Looking For",
+        "style",
+        "colour",
+        "feature",
+        "material",
+        "Price",
+        "Size",
+        "Stone Cut",
+        "Piercing Type",
+        "Follow us on Instagram",
+        "United States",
+        "Canada",
+        "My Bag",
+        "Explore Top Categories to Start",
+        "Gift Card",
+        "Select 1 Free Gift"
+      ],
+      "analysis": {
+        "atc": false,
+        "faq": "Not observed.",
+        "hero": "Category hero with centered title and short descriptive paragraph; no product-specific hero image observed.",
+        "media": "Product grid with cutout/styled product photos and one promotional graphic tile.",
+        "trust": "Social icons, store locator, sign-in, and cookie consent banner visible; no ratings observed.",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Filter sidebar includes free-gift selection and product cards show spend threshold savings text.",
+        "urgency": "Limited-time wording and “today only” style promo messaging observed.",
+        "guarantee": false,
+        "atcPlacement": "Add-to-cart icon on product cards; cart icon in header.",
+        "offerDisplay": "Promo code label on product cards and a right-side sale tile with percentage-off offer.",
+        "sectionOrder": [
+          "top announcement bar",
+          "header/navigation",
+          "category hero",
+          "filter sidebar",
+          "sort controls",
+          "product grid",
+          "promotional offer tile",
+          "cookie consent banner"
+        ],
+        "headlineStyle": "Simple category heading with supporting benefit-focused subcopy.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Waterproof Hoop Earrings | Gold & Silver Hypoallergenic",
+      "url": "https://maidesiree.com/collections/hoop-earrings-waterproof-jewelry-gold-and-silver",
+      "status": "crawled",
+      "reason": "Collection page for waterproof hoop earrings in gold and silver, relevant to gold-plated hoops.",
+      "sections": [
+        "Hoop Earrings"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Not observed.",
+        "hero": "Large lifestyle hero image with centered collection title and short descriptive subtext overlaid.",
+        "media": "Single prominent hero image and product grid images on white backgrounds; no video observed.",
+        "trust": "Visible star ratings on product cards; claims of hypoallergenic, tarnish resistant, and waterproof in collection text.",
+        "videos": true,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "Currency and country selector is highly prominent; grid includes many products with mixed add-to-cart, choose options, and sold out labels.",
+        "urgency": "Sale announcement bar and multiple discounted items create light urgency; no countdown observed.",
+        "guarantee": false,
+        "atcPlacement": "Add to cart appears on product grid cards; some items use choose options or sold out states.",
+        "offerDisplay": "Top announcement bar with sale message and shipping thresholds; product tiles show sale price plus struck-through regular price when discounted.",
+        "sectionOrder": [
+          "announcement bar",
+          "header/navigation",
+          "hero banner",
+          "collection intro text",
+          "sort/filter controls",
+          "product grid"
+        ],
+        "headlineStyle": "All-caps category heading; minimal, centered, simple product-collection framing.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Waterproof Earrings",
+      "url": "https://www.harliandharpa.com/collections/waterproof-earrings",
+      "status": "crawled",
+      "reason": "Waterproof earrings collection featuring classic hoop earrings, relevant to the requested style.",
+      "sections": [
+        "Waterproof Earrings",
+        "FREQUENTLY ASKED QUESTIONS"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "FAQ section appears below the product grid with at least one question visible.",
+        "hero": "Large lifestyle banner with waterproof jewellery messaging and editorial imagery; no clear CTA observed in the screenshot crop.",
+        "media": "Editorial model photography in a multi-panel hero plus product grid images.",
+        "trust": "Claims shown include waterproof, tarnish-resistant, shower-safe, sweat-proof, and no fading; FAQ section present.",
+        "videos": false,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "Category page includes filtration by metal/color and a large assortment count; variant shortcuts to silver, rose gold, and gold appear.",
+        "urgency": "Limited-time urgency not observed; promotional shipping threshold and signup offer visible.",
+        "guarantee": false,
+        "atcPlacement": "Product cards in the grid show add-to-bag actions; no sticky ATC observed.",
+        "offerDisplay": "Complimentary shipping over $25 and a first-order 10% signup offer are visible; product grid shows sale prices on some items.",
+        "sectionOrder": [
+          "announcement bar",
+          "top navigation",
+          "hero banner",
+          "category intro copy",
+          "quick links/buttons",
+          "product grid controls",
+          "product grid",
+          "supporting editorial copy",
+          "FAQ"
+        ],
+        "headlineStyle": "Serif all-caps category heading with short supportive subcopy; benefit-led and product-led.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Waterproof Hoop Earrings - Classic Gold and Silver Hoops",
+      "url": "https://www.indieandharper.com/products/saige-hoop-earrings",
+      "status": "crawled",
+      "reason": "Product page for waterproof hoop earrings in gold plated options and multiple sizes, relevant to large hoops.",
+      "sections": [
+        "Classic Waterproof Hoop Earrings",
+        "The story behind it",
+        "Waterproof Stainless Steel",
+        "Made to be treasured",
+        "Discover More",
+        "Letters on stones, stars and new beginnings"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Visible product FAQ section with care, sizing, materials, waterproof use, gifting, and returns questions.",
+        "hero": "Large product image gallery beside purchase panel on product page.",
+        "media": "Single main lifestyle product image with additional gallery images and related/featured product visuals below.",
+        "trust": "Star rating with review count, secure checkout badges, free shipping, returns, warranty, and dispatch location shown.",
+        "videos": false,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Variant selector includes material and hoop size; wishlist and shop-pay style express checkout are prominent.",
+        "urgency": "Top announcement bar repeats limited promotional shipping and gift thresholds; next-day dispatch also highlighted.",
+        "guarantee": false,
+        "atcPlacement": "Primary add-to-cart button is above the fold next to a buy-with-shop button.",
+        "offerDisplay": "Price shown near title with installment/payment option, plus free shipping and free gift messaging in site banner.",
+        "sectionOrder": [
+          "announcement bar",
+          "header navigation",
+          "product hero/gallery",
+          "title, rating, price",
+          "payment/installment note",
+          "variant selectors",
+          "add to cart and express checkout",
+          "wishlist and secure checkout badges",
+          "shipping/returns/warranty trust row",
+          "description",
+          "meaning and symbolism",
+          "FAQ",
+          "details and care",
+          "care and gifting/about section",
+          "discover more content",
+          "related products",
+          "recently viewed",
+          "email signup/footer"
+        ],
+        "headlineStyle": "Simple product-first heading with elegant serif typography and short benefit line.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Waterproof Jewelry",
+      "url": "https://amyojewelry.com/collections/waterproof-jewelry",
+      "status": "crawled",
+      "reason": "Waterproof jewelry collection with gold hoop earrings listed, relevant to waterproof gold-plated hoops.",
+      "sections": [
+        "Waterproof Jewelry",
+        "Waterproof Jewelry"
+      ],
+      "analysis": {
+        "atc": false,
+        "faq": "Not observed.",
+        "hero": "Centered category hero with large title, short supporting line, and product grid below.",
+        "media": "Large square product imagery in grid; no lifestyle imagery visible.",
+        "trust": "Best seller badges; filter/navigation breadth; product-type and material labels.",
+        "videos": true,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "Strongly segmented filters by style, metal, category, closure, piercing, size, gemstone.",
+        "urgency": "Free shipping threshold shown; best seller tags used.",
+        "guarantee": false,
+        "atcPlacement": "Not observed; no add-to-cart button visible in screenshot.",
+        "offerDisplay": "No promo price shown in hero; free shipping threshold in top bar; product cards show prices.",
+        "sectionOrder": [
+          "top announcement bar",
+          "header navigation",
+          "category hero title and description",
+          "filter/sort row",
+          "product grid with badges, images, price, material"
+        ],
+        "headlineStyle": "All-caps, bold, minimal category headline repeated as page label.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Waterproof Gold Earrings, Huggies & Hoops | Tarnish Free",
+      "url": "https://graceandkin.com/collections/earrings",
+      "status": "crawled",
+      "reason": "Earrings collection with waterproof gold plated hoop earrings, relevant to the product type.",
+      "sections": [
+        "EARRINGS",
+        "Filter"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Not observed.",
+        "hero": "Split hero with large category title, short descriptor, paragraph copy, and a lifestyle/product image.",
+        "media": "Mixed editorial and product imagery; lifestyle close-up plus styled product shots in a grid.",
+        "trust": "Visible review count on product tiles and a review platform label; no star ratings observed in the excerpt.",
+        "videos": true,
+        "pricing": false,
+        "reviews": true,
+        "unusual": "Floating mystery-discount prompt appears on the page.",
+        "urgency": "Promotion banner and limited-stock style grid view; no explicit countdown observed.",
+        "guarantee": false,
+        "atcPlacement": "Product grid uses per-item add-to-cart buttons directly under each listing.",
+        "offerDisplay": "Top announcement bar shows a sitewide percentage discount code and a free-delivery threshold.",
+        "sectionOrder": [
+          "announcement bar",
+          "header/navigation",
+          "category hero",
+          "product grid",
+          "filter sidebar",
+          "floating discount prompt"
+        ],
+        "headlineStyle": "All-caps category heading with a bold subhead and explanatory body text.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    }
+  ],
+  "learnings": [
+    {
+      "id": "41205952-1167-4d03-a61f-59487b2116fc",
+      "text": "3 of 8 successfully crawled pages mention reviews or ratings. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://www.lovisa.com/collections/waterproof-earrings",
+        "https://www.indieandharper.com/products/saige-hoop-earrings",
+        "https://graceandkin.com/collections/earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "f526d5ec-d616-4d7e-b5c8-5a3b789a1b60",
+      "text": "6 of 8 successfully crawled pages include an add-to-cart call to action. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://jenny-bird.com/collections/water-resistant",
+        "https://orelia.com/collections/gold-waterproof-earrings",
+        "https://maidesiree.com/collections/hoop-earrings-waterproof-jewelry-gold-and-silver",
+        "https://www.harliandharpa.com/collections/waterproof-earrings",
+        "https://www.indieandharper.com/products/saige-hoop-earrings",
+        "https://graceandkin.com/collections/earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "ba24d5e4-8762-43fd-8df7-4fc4317a8ffa",
+      "text": "6 of 8 successfully crawled pages include video markup. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://jenny-bird.com/collections/water-resistant",
+        "https://orelia.com/collections/gold-waterproof-earrings",
+        "https://www.lovisa.com/collections/waterproof-earrings",
+        "https://maidesiree.com/collections/hoop-earrings-waterproof-jewelry-gold-and-silver",
+        "https://amyojewelry.com/collections/waterproof-jewelry",
+        "https://graceandkin.com/collections/earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "fc336e21-2f0d-4e33-88a8-625e6ccd0d99",
+      "text": "Observed hero: Minimal category hero with large headline and short supporting subtext above product grid.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://jenny-bird.com/collections/water-resistant"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "37ce45bb-41fe-4596-a35b-89170883ffed",
+      "text": "Observed atcPlacement: Product cards use inline Add to Bag; wishlist flow appears in header/account area.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://jenny-bird.com/collections/water-resistant"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "748f8825-2585-448a-a959-ab76e7a011b2",
+      "text": "Observed offerDisplay: Top announcement bars promote a free gift and first-purchase offer; no on-page discount pricing observed in hero.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://jenny-bird.com/collections/water-resistant"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "60859bd4-4c87-41b8-915b-218cc5376256",
+      "text": "Observed media: Large product grid with mix of clean product cutouts and one lifestyle image; category pills and view toggle present.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://jenny-bird.com/collections/water-resistant"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "7ffaac08-2c60-45df-8b0f-c76d5db42b12",
+      "text": "Observed sectionOrder: announcement bar → header navigation → hero title and description → category tabs → view/sort/filter controls → product grid → recommended products row → long-form category content → FAQ section → support/contact → location selector. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://jenny-bird.com/collections/water-resistant"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "befa0234-cf6a-4568-9821-ab14d779dcc8",
+      "text": "Observed hero: Text-led category hero with short intro copy and a read-more link above product grid.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://orelia.com/collections/gold-waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "9c848263-7251-41a4-973e-82f7fbd76895",
+      "text": "Observed offerDisplay: Top announcement bar shows sitewide discount code and free-shipping threshold; category page shows product prices.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://orelia.com/collections/gold-waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "f25fc259-ddb6-4865-a876-6f6507ea25f9",
+      "text": "Observed media: Large product grid with clean white-background studio product images; multiple product angles on some cards.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://orelia.com/collections/gold-waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "c7963132-e807-46a4-b68d-5442c2c16689",
+      "text": "Observed sectionOrder: top promo bar → header navigation → category hero title and description → breadcrumb → filter/sort controls → product grid. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://orelia.com/collections/gold-waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "85c31feb-2933-4e06-8357-e306b8102f68",
+      "text": "Observed hero: Category hero with centered title and short descriptive paragraph; no product-specific hero image observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.lovisa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "fdccbe26-c740-4d4b-ac09-9e46b04d79a4",
+      "text": "Observed atcPlacement: Add-to-cart icon on product cards; cart icon in header.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.lovisa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "40b9eea1-3011-4569-b089-53c67f543c4b",
+      "text": "Observed offerDisplay: Promo code label on product cards and a right-side sale tile with percentage-off offer.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.lovisa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "bb9a7203-b794-4a03-9155-f775d67facaa",
+      "text": "Observed media: Product grid with cutout/styled product photos and one promotional graphic tile.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.lovisa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "e1400204-6644-44ca-beb2-e09abc2d7fd4",
+      "text": "Observed sectionOrder: top announcement bar → header/navigation → category hero → filter sidebar → sort controls → product grid → promotional offer tile → cookie consent banner. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.lovisa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "fe382e83-2842-43e8-b6b8-c25916d83cdf",
+      "text": "Observed hero: Large lifestyle hero image with centered collection title and short descriptive subtext overlaid.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://maidesiree.com/collections/hoop-earrings-waterproof-jewelry-gold-and-silver"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "314cd132-be3a-45bd-ac39-33bdda371be2",
+      "text": "Observed atcPlacement: Add to cart appears on product grid cards; some items use choose options or sold out states.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://maidesiree.com/collections/hoop-earrings-waterproof-jewelry-gold-and-silver"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "48753562-0afa-4589-b57b-67cd98f08467",
+      "text": "Observed offerDisplay: Top announcement bar with sale message and shipping thresholds; product tiles show sale price plus struck-through regular price when discounted.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://maidesiree.com/collections/hoop-earrings-waterproof-jewelry-gold-and-silver"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "dbbe75f3-f4fc-428f-9a3a-022ee7b8ee22",
+      "text": "Observed media: Single prominent hero image and product grid images on white backgrounds; no video observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://maidesiree.com/collections/hoop-earrings-waterproof-jewelry-gold-and-silver"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "cc695aa2-45a6-4990-819a-54a5707ecf88",
+      "text": "Observed sectionOrder: announcement bar → header/navigation → hero banner → collection intro text → sort/filter controls → product grid. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://maidesiree.com/collections/hoop-earrings-waterproof-jewelry-gold-and-silver"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "333e945f-95fe-474f-9bd5-253f94f07cc9",
+      "text": "Observed hero: Large lifestyle banner with waterproof jewellery messaging and editorial imagery; no clear CTA observed in the screenshot crop.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.harliandharpa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "fb83b635-c833-4bd4-ac30-09c1a0203e63",
+      "text": "Observed atcPlacement: Product cards in the grid show add-to-bag actions; no sticky ATC observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.harliandharpa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "e023fa9f-53ad-41a1-b7da-8274d00769a0",
+      "text": "Observed offerDisplay: Complimentary shipping over $25 and a first-order 10% signup offer are visible; product grid shows sale prices on some items.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.harliandharpa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "7b553fc1-9f95-4541-90d5-3580cb1e1d26",
+      "text": "Observed media: Editorial model photography in a multi-panel hero plus product grid images.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.harliandharpa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "52ab0aae-09a5-4736-bf0e-a56151d1b3ba",
+      "text": "Observed sectionOrder: announcement bar → top navigation → hero banner → category intro copy → quick links/buttons → product grid controls → product grid → supporting editorial copy → FAQ. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.harliandharpa.com/collections/waterproof-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "2d3324d0-6c48-429f-abd7-66ff5123fe7f",
+      "text": "Observed hero: Large product image gallery beside purchase panel on product page.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.indieandharper.com/products/saige-hoop-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "928388df-1e0b-44b6-9af6-79996750b5dc",
+      "text": "Observed atcPlacement: Primary add-to-cart button is above the fold next to a buy-with-shop button.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.indieandharper.com/products/saige-hoop-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "269379bb-249c-4a53-8582-58114b5880fa",
+      "text": "Observed offerDisplay: Price shown near title with installment/payment option, plus free shipping and free gift messaging in site banner.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.indieandharper.com/products/saige-hoop-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "4737bcb0-6579-4180-937e-634273885f3d",
+      "text": "Observed media: Single main lifestyle product image with additional gallery images and related/featured product visuals below.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.indieandharper.com/products/saige-hoop-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "23806c5e-b4af-4693-b888-fc1196bc03de",
+      "text": "Observed sectionOrder: announcement bar → header navigation → product hero/gallery → title, rating, price → payment/installment note → variant selectors → add to cart and express checkout → wishlist and secure checkout badges → shipping/returns/warranty trust row → description → meaning and symbolism → FAQ → details and care → care and gifting/about section → discover more content → related products → recently viewed → email signup/footer. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.indieandharper.com/products/saige-hoop-earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "7d89e787-7d8c-4c73-9fbd-f19c7437cea5",
+      "text": "Observed hero: Centered category hero with large title, short supporting line, and product grid below.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://amyojewelry.com/collections/waterproof-jewelry"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "22a319db-b4f3-489b-8c6e-5b15d72fa2df",
+      "text": "Observed offerDisplay: No promo price shown in hero; free shipping threshold in top bar; product cards show prices.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://amyojewelry.com/collections/waterproof-jewelry"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "9ba15097-e276-4785-b650-7e2ca168c896",
+      "text": "Observed media: Large square product imagery in grid; no lifestyle imagery visible.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://amyojewelry.com/collections/waterproof-jewelry"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "914b3cf7-5e98-45e8-97ad-31646ed2c33d",
+      "text": "Observed sectionOrder: top announcement bar → header navigation → category hero title and description → filter/sort row → product grid with badges, images, price, material. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://amyojewelry.com/collections/waterproof-jewelry"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "5fcbec3d-13b5-4166-bfb0-dc6a7090019b",
+      "text": "Observed hero: Split hero with large category title, short descriptor, paragraph copy, and a lifestyle/product image.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://graceandkin.com/collections/earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "1b00fca5-dc90-48fa-8ea6-fba00b1996c8",
+      "text": "Observed atcPlacement: Product grid uses per-item add-to-cart buttons directly under each listing.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://graceandkin.com/collections/earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "6d4988ef-3b24-498b-9524-9b09f2695095",
+      "text": "Observed offerDisplay: Top announcement bar shows a sitewide percentage discount code and a free-delivery threshold.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://graceandkin.com/collections/earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "202f8c0a-97d0-4e70-9a87-e3e636739932",
+      "text": "Observed media: Mixed editorial and product imagery; lifestyle close-up plus styled product shots in a grid.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://graceandkin.com/collections/earrings"
+      ],
+      "category": "Accessories"
+    },
+    {
+      "id": "a54270a6-8399-460f-9cfc-8497994466dc",
+      "text": "Observed sectionOrder: announcement bar → header/navigation → category hero → product grid → filter sidebar → floating discount prompt. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://graceandkin.com/collections/earrings"
+      ],
+      "category": "Accessories"
+    }
+  ]
+}

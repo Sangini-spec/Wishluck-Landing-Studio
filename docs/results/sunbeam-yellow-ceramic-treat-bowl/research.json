@@ -1,0 +1,664 @@
+{
+  "researchedAt": "2026-11-11T17:29:43.308Z",
+  "competitors": [
+    {
+      "title": "Buy Dog Feeders Online | Dog Bowls at Best Price in India",
+      "url": "https://kanineindia.com/collections/bowls-feeders",
+      "status": "crawled",
+      "reason": "Indian pet brand collection page with ceramic dog bowls; relevant for a ceramic treat bowl use case and aligns with pet bowl shopping in India.",
+      "sections": [],
+      "analysis": {
+        "atc": false,
+        "faq": "not observed",
+        "hero": "blank/white screenshot; no visible product or banner detected",
+        "media": "not observed",
+        "trust": "not observed",
+        "videos": false,
+        "pricing": false,
+        "reviews": false,
+        "unusual": "entire visible area is blank white; no discernible page content",
+        "urgency": "not observed",
+        "guarantee": false,
+        "atcPlacement": "not observed",
+        "offerDisplay": "not observed",
+        "sectionOrder": [
+          "not observed"
+        ],
+        "headlineStyle": "not observed",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Classic Ceramic Pet Bowl for Cats & Dogs | RAHORACO",
+      "url": "https://rahoracopet.com/products/classic-ceramic-pet-bowl",
+      "status": "crawled",
+      "reason": "Direct product page for a ceramic pet bowl for cats and dogs; relevant to a stable, easy-clean bowl concept.",
+      "sections": [
+        "Country/Region",
+        "Country/Region",
+        "Classic Ceramic Pet Bowl",
+        "You may also like",
+        "Your cart is empty",
+        "Your cart is empty",
+        "Search"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Not observed.",
+        "hero": "Large product imagery with a split-gallery product focus and clean white space.",
+        "media": "Multiple product images plus lifestyle shot; no video observed.",
+        "trust": "Customer reviews visible; shipping and returns details shown; product care and material notes included.",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Region/language selector and review modal text appear in the screenshot; returns policy and shipping timing are detailed.",
+        "urgency": "Not observed.",
+        "guarantee": false,
+        "atcPlacement": "Primary add-to-cart button in the right-side buy box near variant selectors and quantity control.",
+        "offerDisplay": "Price shown near title; no visible discount or bundle offer.",
+        "sectionOrder": [
+          "header/navigation",
+          "product gallery",
+          "title and price",
+          "variant selectors",
+          "quantity and add to cart",
+          "short product description",
+          "collapsible product details",
+          "reviews",
+          "related products",
+          "cart/search overlays"
+        ],
+        "headlineStyle": "Single product title with price directly beneath; minimalist luxury styling.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Ceramic Dog Bowl | Terra\n    \n    \n    \n      – Doganics®",
+      "url": "https://doganicscare.com/products/ceramic-dog-bowl-terra",
+      "status": "crawled",
+      "reason": "Direct ceramic dog bowl product page with stability-focused positioning; relevant to a weighty ceramic bowl for pets.",
+      "sections": [
+        "Language",
+        "Language",
+        "Language",
+        "Currency",
+        "Ceramic Dog Bowl | Terra",
+        "Shipping policy",
+        "Returns & Refunds",
+        "14-day right to cancel",
+        "How to return your items",
+        "Condition of returned goods",
+        "Exceptions to the right to cancel",
+        "Refunds",
+        "Damaged, defective or incorrect items",
+        "Exchanges",
+        "30-Day Happiness Guarantee",
+        "Model withdrawal form",
+        "Contact us",
+        "Ceramic Dog Bowl | Terra",
+        "Stackable Design Option",
+        "Perfectly Sized for All Needs",
+        "Designed & Made In Barcelona"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Not observed.",
+        "hero": "Large product image on left with product details on right; simple above-the-fold layout.",
+        "media": "One main image with thumbnail strip below; no video observed.",
+        "trust": "Shipping policy and returns links visible; 30-day happiness guarantee and contact email shown in policy text.",
+        "videos": true,
+        "pricing": false,
+        "reviews": false,
+        "unusual": "Variant selector uses size options; sold-out notify-me behavior appears in text excerpts.",
+        "urgency": "Free shipping threshold banner and sale badge shown; no countdown observed.",
+        "guarantee": true,
+        "atcPlacement": "Add to cart placed directly beside quantity selector in the main product area.",
+        "offerDisplay": "Price shown with struck-through compare-at price and small percent-off badge; taxes and shipping note shown.",
+        "sectionOrder": [
+          "announcement bar",
+          "header/navigation",
+          "product hero",
+          "price and discount",
+          "variant selection",
+          "quantity and add to cart",
+          "description/sizing/shipping tabs",
+          "feature highlights",
+          "shipping and returns policy content"
+        ],
+        "headlineStyle": "Clear product-name headline with minimal supporting text; benefit-led subheads below.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Buy Pet Bowls online in India",
+      "url": "https://www.myntra.com/pet-feeders",
+      "status": "crawled",
+      "reason": "Marketplace category page featuring pet bowls, including a ceramic anti-skid bowl; relevant though broader than a single product.",
+      "sections": [
+        "Oops! Something went wrong"
+      ],
+      "analysis": {
+        "atc": false,
+        "faq": "not observed",
+        "hero": "Plain error page with centered message on white background",
+        "media": "not observed",
+        "trust": "not observed",
+        "videos": false,
+        "pricing": false,
+        "reviews": false,
+        "unusual": "error-state page instead of ecommerce content",
+        "urgency": "not observed",
+        "guarantee": false,
+        "atcPlacement": "not observed",
+        "offerDisplay": "not observed",
+        "sectionOrder": [
+          "headline",
+          "supporting text"
+        ],
+        "headlineStyle": "single large centered headline with brief supporting line",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Stoneware Pet Bowls & Feeders",
+      "url": "https://stonewareoutlet.com/collections/pet-bowls-feeders",
+      "status": "crawled",
+      "reason": "Collection page for stoneware pet bowls and feeders; relevant material category for a ceramic-style pet bowl.",
+      "sections": [
+        "Country",
+        "Country",
+        "Country",
+        "Stoneware Pet Bowls & Feeders",
+        "Filters",
+        "Pet Feeder ~ Large Pet Bowl",
+        "Pet Feeder ~ Medium Pet Bowl",
+        "Pet Feeder ~ Small Pet Bowl",
+        "Pet Feeder ~ Large Dog Bowl",
+        "Pet Feeder ~ Medium Dog Bowl",
+        "Hand-Painted Dog Bowl",
+        "Personalized Dog Bowl",
+        "Pet Feeder ~ Small Dog Bowl",
+        "Pet Feeder ~ Small Kitty Bowl",
+        "Pet Feeder ~ Automatic Watering Dish",
+        "Pet Feeder ~ Cavy",
+        "Personalized Cat Bowl",
+        "Hand-Painted Cat Bowl",
+        "You recently viewed",
+        "Added to your cart:",
+        "Compare products"
+      ],
+      "analysis": {
+        "atc": false,
+        "faq": "Not observed.",
+        "hero": "Collection landing with large product grid and category intro; product images lead the page.",
+        "media": "Large product photography on white backgrounds; multiple product variants displayed in grid.",
+        "trust": "Star ratings and review counts shown on product cards; in-store pickup note in header.",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Compare toggle and product comparison feature on collection page; chat widget visible.",
+        "urgency": "Pre-order labels shown on some products.",
+        "guarantee": false,
+        "atcPlacement": "Not observed on collection cards; product cards show quick shop and choose options.",
+        "offerDisplay": "Individual product prices shown on cards; no discount or bundle offer observed.",
+        "sectionOrder": [
+          "top utility/header",
+          "breadcrumb",
+          "category headline and description",
+          "filters and sort bar",
+          "product grid",
+          "recently viewed",
+          "compare products"
+        ],
+        "headlineStyle": "Simple category headline with one short supporting paragraph.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Wholesale Ceramic Pet Bowl, Pet Jar and Other Pet Supplies",
+      "url": "https://www.kedali.com/product-category/wholesale-ceramic-pet-supplies",
+      "status": "crawled",
+      "reason": "Wholesale ceramic pet bowl and pet supply category with ceramic bowl specifications; relevant for ceramic bowl sourcing, though B2B.",
+      "sections": [
+        "Wholesale Ceramic Pet Bowls, Pet Jars and Pet Supplies",
+        "Partner Directly with the Ceramic Manufacturer. Premium Quality. Clear Factory Pricing. Full OEM & ODM Services.",
+        "Kedali | Leading Ceramic Kitchenware and Tableware Manufacturer & Supplier Since 1992",
+        "Ceramic Tableware Process Production Flow",
+        "Partner Brands",
+        "Our Certifications",
+        "Contact Usfor A Free Quote",
+        "Contact Usfor A Free Quote",
+        "Search for interested"
+      ],
+      "analysis": {
+        "atc": false,
+        "faq": "Not observed.",
+        "hero": "Large hero banner with centered product-category title, short supporting paragraph, and prominent quote CTA in the top navigation.",
+        "media": "Category grid with product cards, a process flow section, partner brands, certifications, and contact visuals; product images appear in tiles.",
+        "trust": "Manufacturing since 1992, certifications shown, factory scale and output mentioned, and partner brand/social-proof sections present.",
+        "videos": true,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "Sidebar category navigation and floating contact icons; bilingual language selector visible.",
+        "urgency": "Low urgency; contact now language appears, but no countdowns, stock pressure, or limited-time messaging observed.",
+        "guarantee": false,
+        "atcPlacement": "Top navigation quote button plus repeated contact/quote CTAs in body sections and contact form area.",
+        "offerDisplay": "Factory-direct pricing, bulk orders, and OEM/ODM services highlighted; no visible discount or promo pricing observed.",
+        "sectionOrder": [
+          "top nav with quote CTA",
+          "hero banner",
+          "product category sidebar and product grid",
+          "brand/manufacturer credibility block",
+          "process flow section",
+          "partner brands",
+          "certifications",
+          "contact quote form"
+        ],
+        "headlineStyle": "B2B manufacturer-led, keyword-heavy headline; benefit stack with factory pricing, quality, and OEM/ODM in the subhead.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Ceramic Paw Print Pet Treat Jar with Figural Dog Lid",
+      "url": "https://www.worldmarket.com/p/ceramic-paw-print-pet-treat-jar-with-figural-dog-lid-626140.html",
+      "status": "crawled",
+      "reason": "Direct treat jar product page; relevant because it is a ceramic pet treat container, adjacent to the requested treat bowl use case.",
+      "sections": [
+        "Ceramic Paw Print Pet Treat Jar with Figural Dog Lid",
+        "Why You'll Love It",
+        "Specifications",
+        "Dimensions",
+        "Shipping & Returns",
+        "Ratings & Reviews",
+        "Tag #WorldMarket",
+        "Tag #WorldMarketFinds",
+        "You May Also Like",
+        "null",
+        "Manage Preferences"
+      ],
+      "analysis": {
+        "atc": false,
+        "faq": "Shipping & Returns section visible; no separate FAQ observed.",
+        "hero": "Large product image on left with title, price, stock status and CTA on right.",
+        "media": "Single main product photo with carousel arrow; no video or gallery count observed.",
+        "trust": "Be the first to review; shipping/free-shipping and member promo callouts; store location and sign-in in header.",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Product page includes strong sitewide promo bars and a fallback similar-products CTA instead of ATC.",
+        "urgency": "Out of stock message; limited promo banners and seasonal clearance messaging in header.",
+        "guarantee": false,
+        "atcPlacement": "No add-to-cart visible; primary action is a full-width \"see similar products\" button because item is out of stock.",
+        "offerDisplay": "Sale price shown with strikethrough original price; separate reward and promo callouts in header and sidebar.",
+        "sectionOrder": [
+          "breadcrumbs",
+          "product gallery",
+          "product title and SKU",
+          "price and sale display",
+          "stock status and alerts",
+          "primary CTA fallback",
+          "benefit/promo callouts",
+          "why you'll love it",
+          "specifications",
+          "dimensions",
+          "shipping & returns",
+          "ratings & reviews",
+          "social tags",
+          "related products"
+        ],
+        "headlineStyle": "Product-name first, descriptive and object-specific; simple utility sections below.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Custom Hand-Painted Personalized Treat Jar - AKC Shop",
+      "url": "https://shop.akc.org/products/dog-originalpersonalized-treatjar",
+      "status": "crawled",
+      "reason": "Direct personalized treat jar product page; relevant as a pet treat container, though not a bowl.",
+      "sections": [
+        "Celebrate your dog’s special qualities by registering them with the AKC! Declare Your Love and Register",
+        "Free Shipping on Orders $75+",
+        "Celebrate your dog’s special qualities by registering them with the AKC! Declare Your Love and Register",
+        "Free Shipping on Orders $75+",
+        "Celebrate your dog’s special qualities by registering them with the AKC! Declare Your Love and Register",
+        "Free Shipping on Orders $75+",
+        "Celebrate your dog’s special qualities by registering them with the AKC! Declare Your Love and Register",
+        "Free Shipping on Orders $75+",
+        "Custom Hand-Painted Personalized Treat Jar",
+        "Additional Info",
+        "Benefits",
+        "Why We Like It",
+        "Good For",
+        "Specs",
+        "Delivery Info",
+        "Recommended Products",
+        "Recently Viewed"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "not observed",
+        "hero": "Large product image left, product form right, price visible, add-to-cart below options.",
+        "media": "One main product image with thumbnail strip below; no video observed.",
+        "trust": "Seller attribution, charity-impact note, and delivery timing text visible; no reviews observed.",
+        "videos": true,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "Customization starts with file upload plus multiple product options; includes multiple dog-name fields.",
+        "urgency": "Delivery timing warning and holiday cutoff message indicate time sensitivity.",
+        "guarantee": false,
+        "atcPlacement": "Add to Cart placed in the main product form below configuration fields.",
+        "offerDisplay": "Price shown as a single amount; free shipping banner sitewide; no discount visible.",
+        "sectionOrder": [
+          "sitewide promo bar",
+          "header/navigation",
+          "breadcrumb",
+          "product title and price",
+          "configuration form",
+          "add to cart",
+          "additional info",
+          "description",
+          "benefits",
+          "why we like it",
+          "good for",
+          "specs",
+          "delivery info",
+          "recommended products",
+          "recently viewed"
+        ],
+        "headlineStyle": "Product title centered on customization and personalization; utility-led headline hierarchy.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    }
+  ],
+  "learnings": [
+    {
+      "id": "28637187-a5c5-444d-8d5f-faba2085da7a",
+      "text": "3 of 8 successfully crawled pages mention reviews or ratings. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://rahoracopet.com/products/classic-ceramic-pet-bowl",
+        "https://stonewareoutlet.com/collections/pet-bowls-feeders",
+        "https://www.worldmarket.com/p/ceramic-paw-print-pet-treat-jar-with-figural-dog-lid-626140.html"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "30c584ce-c41e-461f-85ac-b17ce4e38aeb",
+      "text": "3 of 8 successfully crawled pages include an add-to-cart call to action. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://rahoracopet.com/products/classic-ceramic-pet-bowl",
+        "https://doganicscare.com/products/ceramic-dog-bowl-terra",
+        "https://shop.akc.org/products/dog-originalpersonalized-treatjar"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "48a0f06d-15b5-4f45-9a53-e2b1be461787",
+      "text": "6 of 8 successfully crawled pages include video markup. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://rahoracopet.com/products/classic-ceramic-pet-bowl",
+        "https://doganicscare.com/products/ceramic-dog-bowl-terra",
+        "https://stonewareoutlet.com/collections/pet-bowls-feeders",
+        "https://www.kedali.com/product-category/wholesale-ceramic-pet-supplies",
+        "https://www.worldmarket.com/p/ceramic-paw-print-pet-treat-jar-with-figural-dog-lid-626140.html",
+        "https://shop.akc.org/products/dog-originalpersonalized-treatjar"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "eabbe4ae-d107-43ee-bcea-feee4731f884",
+      "text": "Observed hero: blank/white screenshot; no visible product or banner detected. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://kanineindia.com/collections/bowls-feeders"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "d9fac04f-4a75-4f98-b207-6e210645ce85",
+      "text": "Observed hero: Large product imagery with a split-gallery product focus and clean white space.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://rahoracopet.com/products/classic-ceramic-pet-bowl"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "8b00cd96-3d50-4d8d-9d65-20bc18c925e6",
+      "text": "Observed atcPlacement: Primary add-to-cart button in the right-side buy box near variant selectors and quantity control.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://rahoracopet.com/products/classic-ceramic-pet-bowl"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "85eb62f0-fca9-43bc-8cb9-0306dac5b09b",
+      "text": "Observed offerDisplay: Price shown near title; no visible discount or bundle offer.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://rahoracopet.com/products/classic-ceramic-pet-bowl"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "9ae8c7db-f35d-4aa5-85d4-4bb4c499dc01",
+      "text": "Observed media: Multiple product images plus lifestyle shot; no video observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://rahoracopet.com/products/classic-ceramic-pet-bowl"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "173a4683-7d12-4d65-b78b-056ce8ae0c67",
+      "text": "Observed sectionOrder: header/navigation → product gallery → title and price → variant selectors → quantity and add to cart → short product description → collapsible product details → reviews → related products → cart/search overlays. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://rahoracopet.com/products/classic-ceramic-pet-bowl"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "d9a315be-ad40-4a72-8077-c0a486d4ebb4",
+      "text": "Observed hero: Large product image on left with product details on right; simple above-the-fold layout.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://doganicscare.com/products/ceramic-dog-bowl-terra"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "9102155b-c0b5-4ea3-9482-34ae8c4f398c",
+      "text": "Observed atcPlacement: Add to cart placed directly beside quantity selector in the main product area.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://doganicscare.com/products/ceramic-dog-bowl-terra"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "73029cd5-d38a-4da1-9b09-b2809094d415",
+      "text": "Observed offerDisplay: Price shown with struck-through compare-at price and small percent-off badge; taxes and shipping note shown.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://doganicscare.com/products/ceramic-dog-bowl-terra"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "110998c6-3abb-4c1a-baf0-e5836907ea17",
+      "text": "Observed media: One main image with thumbnail strip below; no video observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://doganicscare.com/products/ceramic-dog-bowl-terra"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "a8d090bb-e11e-4273-b171-abe748043725",
+      "text": "Observed sectionOrder: announcement bar → header/navigation → product hero → price and discount → variant selection → quantity and add to cart → description/sizing/shipping tabs → feature highlights → shipping and returns policy content. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://doganicscare.com/products/ceramic-dog-bowl-terra"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "3d496f56-c62a-442e-9fd3-b98a44ef0509",
+      "text": "Observed hero: Plain error page with centered message on white background. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.myntra.com/pet-feeders"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "870041f6-917f-477e-a393-bd5ac1ddf961",
+      "text": "Observed sectionOrder: headline → supporting text. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.myntra.com/pet-feeders"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "39434fc3-9d75-453a-b821-62b3490e95b3",
+      "text": "Observed hero: Collection landing with large product grid and category intro; product images lead the page.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://stonewareoutlet.com/collections/pet-bowls-feeders"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "6ca71c31-b2cb-440c-99b0-bdfe9c39fc40",
+      "text": "Observed offerDisplay: Individual product prices shown on cards; no discount or bundle offer observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://stonewareoutlet.com/collections/pet-bowls-feeders"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "50b3dd21-83ae-415b-bb6d-f8a8de8a39ae",
+      "text": "Observed media: Large product photography on white backgrounds; multiple product variants displayed in grid.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://stonewareoutlet.com/collections/pet-bowls-feeders"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "e91811ae-3e29-43a3-bd22-095a26224672",
+      "text": "Observed sectionOrder: top utility/header → breadcrumb → category headline and description → filters and sort bar → product grid → recently viewed → compare products. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://stonewareoutlet.com/collections/pet-bowls-feeders"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "28018cc7-ebd5-4bfa-aec6-3f5a2baac73f",
+      "text": "Observed hero: Large hero banner with centered product-category title, short supporting paragraph, and prominent quote CTA in the top navigation.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.kedali.com/product-category/wholesale-ceramic-pet-supplies"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "7539e7a6-9eb9-4085-99ed-9248faff37bc",
+      "text": "Observed atcPlacement: Top navigation quote button plus repeated contact/quote CTAs in body sections and contact form area.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.kedali.com/product-category/wholesale-ceramic-pet-supplies"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "eff19832-76e4-4f4c-bc77-7bf186991ed1",
+      "text": "Observed offerDisplay: Factory-direct pricing, bulk orders, and OEM/ODM services highlighted; no visible discount or promo pricing observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.kedali.com/product-category/wholesale-ceramic-pet-supplies"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "b0de892d-4b68-466a-91c1-684252578c05",
+      "text": "Observed media: Category grid with product cards, a process flow section, partner brands, certifications, and contact visuals; product images appear in tiles.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.kedali.com/product-category/wholesale-ceramic-pet-supplies"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "08ccb025-8531-492b-b96a-43b15e33848a",
+      "text": "Observed sectionOrder: top nav with quote CTA → hero banner → product category sidebar and product grid → brand/manufacturer credibility block → process flow section → partner brands → certifications → contact quote form. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.kedali.com/product-category/wholesale-ceramic-pet-supplies"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "c55828f6-8781-42c4-914e-edb83db3c664",
+      "text": "Observed hero: Large product image on left with title, price, stock status and CTA on right.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.worldmarket.com/p/ceramic-paw-print-pet-treat-jar-with-figural-dog-lid-626140.html"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "221b109e-1c37-489b-b110-edc86fed9af3",
+      "text": "Observed atcPlacement: No add-to-cart visible; primary action is a full-width \"see similar products\" button because item is out of stock.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.worldmarket.com/p/ceramic-paw-print-pet-treat-jar-with-figural-dog-lid-626140.html"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "920e5d7a-de00-45e2-baa7-249f779e037a",
+      "text": "Observed offerDisplay: Sale price shown with strikethrough original price; separate reward and promo callouts in header and sidebar.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.worldmarket.com/p/ceramic-paw-print-pet-treat-jar-with-figural-dog-lid-626140.html"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "2ee432e4-ad3b-48f7-a6ed-45c239df2eb1",
+      "text": "Observed media: Single main product photo with carousel arrow; no video or gallery count observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.worldmarket.com/p/ceramic-paw-print-pet-treat-jar-with-figural-dog-lid-626140.html"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "5036a93d-c471-4107-95f8-5cb6bc1aa3af",
+      "text": "Observed sectionOrder: breadcrumbs → product gallery → product title and SKU → price and sale display → stock status and alerts → primary CTA fallback → benefit/promo callouts → why you'll love it → specifications → dimensions → shipping & returns → ratings & reviews → social tags → related products. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.worldmarket.com/p/ceramic-paw-print-pet-treat-jar-with-figural-dog-lid-626140.html"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "0b61e4c2-dc78-452c-a001-9c5715976080",
+      "text": "Observed hero: Large product image left, product form right, price visible, add-to-cart below options.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://shop.akc.org/products/dog-originalpersonalized-treatjar"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "176da0fd-c6e0-4fcb-b38d-a4366cf175da",
+      "text": "Observed atcPlacement: Add to Cart placed in the main product form below configuration fields.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://shop.akc.org/products/dog-originalpersonalized-treatjar"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "c145960f-a877-4179-9818-191eaf206046",
+      "text": "Observed offerDisplay: Price shown as a single amount; free shipping banner sitewide; no discount visible.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://shop.akc.org/products/dog-originalpersonalized-treatjar"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "dc2ab351-1ae9-45d2-892b-10509ed1bacb",
+      "text": "Observed media: One main product image with thumbnail strip below; no video observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://shop.akc.org/products/dog-originalpersonalized-treatjar"
+      ],
+      "category": "Pet Accessories"
+    },
+    {
+      "id": "2e1f41ef-8be5-4823-bda2-19e48793c98a",
+      "text": "Observed sectionOrder: sitewide promo bar → header/navigation → breadcrumb → product title and price → configuration form → add to cart → additional info → description → benefits → why we like it → good for → specs → delivery info → recommended products → recently viewed. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://shop.akc.org/products/dog-originalpersonalized-treatjar"
+      ],
+      "category": "Pet Accessories"
+    }
+  ]
+}

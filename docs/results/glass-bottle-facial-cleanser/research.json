@@ -1,0 +1,903 @@
+{
+  "researchedAt": "2026-11-11T17:17:31.541Z",
+  "competitors": [
+    {
+      "title": "Minimalist - Honest, Authentic & Affordable Beauty Products",
+      "url": "https://beminimalist.co/",
+      "status": "crawled",
+      "reason": "Relevant Indian D2C skincare brand page with cleanser products, including a facial cleanser suitable for a glass-bottle cleanser concept.",
+      "sections": [
+        "Our Best Sellers",
+        "Shop by Category",
+        "Shop by Concerns",
+        "New Launches",
+        "The future of personal care is here",
+        "Transparency",
+        "Efficacy",
+        "Affordable",
+        "Only the best",
+        "Minimalist Trust Circle",
+        "Download Our App",
+        "Company Overview",
+        "Quick Links",
+        "Contact Us",
+        "Login with OTP",
+        "Enter OTP",
+        "Enter Account Details"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Not observed.",
+        "hero": "Large image-led hero with product lifestyle shot, new-launch framing, big central product name and size callout, primary CTA button.",
+        "media": "Product imagery dominates; hero uses lifestyle plus packshot, and collections use carousel-style cards.",
+        "trust": "Trust built through transparency, efficacy, affordable positioning, in-house labs, and a trust-circle rewards concept.",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Login flow via OTP, app-only reward messaging, and explicit GST/tax update notice.",
+        "urgency": "Promotional bar and repeated offer messaging create ongoing urgency; limited-time claim not observed.",
+        "guarantee": false,
+        "atcPlacement": "Add to cart appears on product cards in best-seller and launch sections rather than a single fixed hero CTA.",
+        "offerDisplay": "Multiple stacked promos shown in utility bar and page text, including app-first-order reward, bundle savings, freebies, buy-more-get-more, and free sample message.",
+        "sectionOrder": [
+          "announcement bar",
+          "top navigation",
+          "hero slider",
+          "our best sellers",
+          "shop by category",
+          "shop by concerns",
+          "new launches",
+          "brand/value statements",
+          "trust circle",
+          "app download",
+          "company/footer links",
+          "login modal"
+        ],
+        "headlineStyle": "Short category-led headlines with prominent percentage/size emphasis and plain benefit support.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Regenerating Cleanser – Tata Harper Skincare",
+      "url": "https://tataharperskincare.com/products/regenerating-cleanser",
+      "status": "crawled",
+      "reason": "Direct cleanser product page, relevant to facial cleanser landing-page examples even though not Indian D2C.",
+      "sections": [
+        "Regenerating Cleanser",
+        "Hydrating Floral Essence",
+        "Repairative Moisturizer",
+        "Resurfacing Mask",
+        "Clinically proven to make skin look brighter, smoother, more hydrated, and pores look smaller in one use1",
+        "A gentle yet transformative cleanse that boosts radiance, hydrates, and refines texture for a fresh, healthy-looking glow.",
+        "A gentle yet transformative cleanse that boosts radiance, hydrates, and refines texture for a fresh, healthy-looking glow.",
+        "Regenerating Cleanser",
+        "Regenerating Cleanser",
+        "Find a Solution That’s Right for You",
+        "Regenerating Cleanser",
+        "Clarifying Cleanser",
+        "Nourishing Oil Cleanser",
+        "Superkind Softening Cleanser",
+        "FAQs",
+        "You May Also Like",
+        "Regenerating Cleanser",
+        "Crème Supreme",
+        "Rejuvenating Serum",
+        "Water-Lock Moisturizer",
+        "Resurfacing Mask",
+        "Brightening Eye Gel",
+        "Hydrating Floral Essence",
+        "Repairative Moisturizer",
+        "Resurfacing Serum",
+        "Clarifying Cleanser",
+        "Refillable Restorative Eye Crème",
+        "Revitalizing Body Oil",
+        "Winter Nourishment Ritual",
+        "Good to Glow Essentials",
+        "Daily Routine",
+        "Holiday Glow Getter",
+        "Radiance Revealed",
+        "Double Cleanse Duo",
+        "Crème Supreme Home & Away Duo",
+        "Instant Glow Facial Kit",
+        "Superkind Soothing Essentials",
+        "Instant Glow Facial Ritual",
+        "The Prep & Glow Duo",
+        "Instant Radiance Ritual"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "FAQ section present below main product content.",
+        "hero": "Single-product hero with large packshot and purchase box beside it.",
+        "media": "Primary product image; gallery media count not observed.",
+        "trust": "Clinical results, review counts, certifications, and free-shipping threshold are shown.",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Size selector uses three variants and subscription has a most-popular delivery cadence.",
+        "urgency": "Free ground shipping on $50+ and subscription savings are shown; no countdown observed.",
+        "guarantee": false,
+        "atcPlacement": "Large primary add-to-bag button placed directly below pricing options.",
+        "offerDisplay": "One-time purchase and subscribe-and-save shown together with crossed-out higher recurring price.",
+        "sectionOrder": [
+          "top shipping bar",
+          "header navigation",
+          "breadcrumbs",
+          "hero product image and title",
+          "size selector",
+          "purchase options",
+          "add to bag CTA",
+          "use it with cross-sell",
+          "description",
+          "product details and ingredients",
+          "how to use",
+          "clinical results",
+          "key benefits",
+          "compare products",
+          "FAQs",
+          "recommended products"
+        ],
+        "headlineStyle": "Luxury serif product name with smaller functional subhead.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Botanic Tree - Your Face Wash & Natural Skin Care Line",
+      "url": "https://botanictree.com/",
+      "status": "crawled",
+      "reason": "Brand landing page featuring multiple facial cleanser products, directly relevant to cleanser shopping intent.",
+      "sections": [
+        "Country/region",
+        "Item added to your cart",
+        "Exfoliating Face Wash & Skin Care",
+        "Find Your Formula, Feel the Difference",
+        "Glycolic Acid Exfoliating Facial Cleanser",
+        "Vitamin C Face Wash",
+        "Botanic Tree Men's Face Wash with Glycolic Acid & Activated Charcoal (6oz.)",
+        "Botanic Tree Hydrating Exfoliating Cleanser with Glycolic Acid, Ceramides & Peptides",
+        "Botanic Tree Kombucha & Glycolic Acid exfoliating face wash for Aging skin",
+        "Him and Her Bundle",
+        "Glycolic Acid and Vitamin C Double Cleansing Duo",
+        "Self Tanner",
+        "Glycolic Acid and Vitamin C Double Cleansing Duo",
+        "Vitamin C Face Wash",
+        "Botanic Tree Kombucha & Glycolic Acid exfoliating face wash for Aging skin",
+        "Glycolic Acid and Vitamin C Double Cleansing Duo",
+        "Glycolic Acid Exfoliating Facial Cleanser",
+        "Vitamin C Face Wash",
+        "Glycolic Acid Exfoliating Facial Cleanser",
+        "Self Tanner",
+        "Glycolic Acid and Vitamin C Double Cleansing Duo",
+        "Botanic Tree Men's Face Wash with Glycolic Acid & Activated Charcoal (6oz.)",
+        "See the Glow, Hear the Stories",
+        "Most Loved, Most Trusted",
+        "Glycolic Acid Exfoliating Facial Cleanser",
+        "Botanic Tree Men's Face Wash with Glycolic Acid & Activated Charcoal (6oz.)",
+        "Botanic Tree Hydrating Exfoliating Cleanser with Glycolic Acid, Ceramides & Peptides",
+        "Real Women. Real Results.",
+        "Life changing",
+        "Acne prone skin results",
+        "Best thing of my life",
+        "Not Sure Where To Start?",
+        "Build Your Perfect Routine",
+        "What's your skin type?",
+        "Your main skin concerns (pick up to 3):",
+        "How strong should exfoliation be?",
+        "Do you want a self-tanner / glow product?",
+        "Who is the product for?",
+        "Perfect! We've got your routine ready",
+        "Join the Journey to Balanced Skin"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "Not observed.",
+        "hero": "Split-screen hero with product image, star/social proof, short benefit-led subtitle, and one primary CTA.",
+        "media": "One lifestyle product hero image, recurring social-proof/UGC-style testimonials, and press/logo strip.",
+        "trust": "15,000+ stories claim, star ratings on product cards, testimonial section, and media-logo strip.",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Skin-type/formula finder flow with quiz-like recommendation path and multiple repeated recommendation CTAs.",
+        "urgency": "Black Friday date window, sitewide sale messaging, and repeated sold-out/sale labels on product listings.",
+        "guarantee": false,
+        "atcPlacement": "Primary CTA in hero; product grid uses Add to cart links/buttons under each item.",
+        "offerDisplay": "Free shipping banner plus sitewide Black Friday percentage-off promo; product cards show sale pricing and some struck-through original price.",
+        "sectionOrder": [
+          "Announcement bar",
+          "Header/navigation",
+          "Hero",
+          "Press/logo strip",
+          "Skin-shift selector/product finder",
+          "Product grid",
+          "UGC/testimonials",
+          "Best-loved products",
+          "Long-form testimonials",
+          "Quiz/recommendation flow",
+          "Email signup/footer"
+        ],
+        "headlineStyle": "Large editorial serif headline with a concise supporting line; values-led and skin-concern oriented.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Elevn™ | Indian Botanicals Face Cleanser - Elevn™",
+      "url": "https://www.elevn.care/product/elevn-indian-botanicals-face-cleanser",
+      "status": "blocked",
+      "reason": "Direct product page for a face cleanser from an Indian brand; relevant to a facial cleanser product and skincare routine use.",
+      "sections": [],
+      "error": "Page returned HTTP 429"
+    },
+    {
+      "title": "Buy Kind to Skin Refreshing Facial Wash, 150ml | Simple Skincare",
+      "url": "https://www.simpleskincare.in/products/simple-kind-to-skin-refreshing-facial-wash-150ml",
+      "status": "crawled",
+      "reason": "Direct product page for a facial wash/cleanser with detailed product information; relevant to personal skincare cleansing.",
+      "sections": [
+        "Simple Kind to Skin Refreshing Facial Wash, 150ml",
+        "About the product",
+        "What's Special",
+        "Ingredients",
+        "Benefits",
+        "How to Use",
+        "Reviews",
+        "FAQs",
+        "Product details",
+        "You May Also Like",
+        "Join our\n        Simple Squad",
+        "Checkmark icon                                                                                                     \n\n          Added to your cart:",
+        "Privacy Notice",
+        "#yourdataisyours",
+        "Ways in which we collect your personal data",
+        "When and why we collect “special categories of personal data”",
+        "How do we protect children’s privacy?",
+        "Profiling",
+        "Automated decision-making",
+        "International data transfers",
+        "Additional Privacy Terms or Notices",
+        "Cookie Notice",
+        "#yourdataisyours",
+        "Duration of the cookie we use",
+        "Notice Updates"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "FAQs included in-page with multiple expandable questions and answers.",
+        "hero": "Product page hero with large packshot, thumbnail gallery, rating, price, and delivery/pincode check.",
+        "media": "Single main product image with vertical thumbnail gallery; no video observed.",
+        "trust": "Verified rating count, feature icon row, dermatology/hypoallergenic/non-comedogenic claims, and privacy/cookie notices.",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Pincode delivery checker and extensive privacy/legal content on same page; subscription offer with sign-up discount shown.",
+        "urgency": "Delivery date options and stock/location messaging shown; urgency label present in excerpt.",
+        "guarantee": false,
+        "atcPlacement": "Primary CTA is above the fold beside price; shows as a large action button.",
+        "offerDisplay": "Price shown prominently with MRP/tax note; bundles and related items shown below.",
+        "sectionOrder": [
+          "hero product summary",
+          "delivery check",
+          "bundles/related products",
+          "about the product",
+          "special features",
+          "ingredients",
+          "benefits",
+          "how to use",
+          "reviews",
+          "faqs",
+          "product details",
+          "recommendations",
+          "email signup",
+          "privacy notice",
+          "cookie notice"
+        ],
+        "headlineStyle": "Straight product-name headline with short subheadline focused on cleansing and skin type.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Cleanser for Oily & Dry Skin Face, Men & Women at Best Price",
+      "url": "https://thedermaco.com/collections/face-cleanser",
+      "status": "crawled",
+      "reason": "Indian D2C face cleanser collection page; relevant to facial cleanser shopping and skincare routines.",
+      "sections": [
+        "Item added to your cart",
+        "Download App",
+        "Face Cleansers",
+        "Filter",
+        "Getting Clear and Healthy Skin with Safe & Effective Face Cleanser",
+        "Why Is Using Face Cleanser Important for Your Skin?",
+        "Choosing the Idea Face Cleanser for Every Skin Type",
+        "Product recommendation:",
+        "Cleanser Vs Face Wash: Knowing the Key Differences",
+        "Dive into Dermatologically-Tested Formulations with The Derma Co",
+        "Your Cart",
+        "Your cart is empty",
+        "Get Personalized Skincare Help",
+        "Get a call",
+        "Your request has been confirmed",
+        "Submitting..."
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "FAQ section is present with multiple common cleanser questions.",
+        "hero": "Large hero banner with product imagery and one primary CTA.",
+        "media": "Hero banner with model and packshots; product grid uses packshots and short benefit callouts.",
+        "trust": "Ratings, review counts, dermatologically tested and clinically framed messaging, plus FAQ support.",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Extensive filtering by concern and skin type; app download and free skin assessment are also prominent.",
+        "urgency": "Promotional bars and deal labels create urgency; no countdown observed.",
+        "guarantee": false,
+        "atcPlacement": "Product cards use add-to-cart in the grid; cart state and mini-cart feedback are visible.",
+        "offerDisplay": "Top promo bar plus product-level deal badges, percent-off pricing, and bundle/freebie messaging.",
+        "sectionOrder": [
+          "top promo bar",
+          "header navigation",
+          "page title",
+          "hero banner",
+          "filter/sort controls",
+          "product grid",
+          "FAQ",
+          "footer"
+        ],
+        "headlineStyle": "Benefit-led skincare headline with science-backed framing and clear-skin outcome.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Face Cleansers India — Rice Water, AHA-BHA & Acne Wash",
+      "url": "https://letshyphen.com/collections/face-cleanser",
+      "status": "crawled",
+      "reason": "Indian D2C cleanser collection page with multiple face cleanser products; relevant to the requested product category.",
+      "sections": [
+        "Your cart is empty",
+        "Your cart (0 items)",
+        "Subtotal",
+        "Collection:Face Cleanser",
+        "Filters",
+        "Sort by",
+        "Filter and sort",
+        "Filters",
+        "5 products",
+        "Sort by",
+        "5 products",
+        "10% FERMENTED RICE WATER CLEANSER - 1% VIT C & 0.5% GLYCOLIC ACID",
+        "10% fermented rice water cleanser - 1% vit c & 0.5% glycolic acid",
+        "Rice Water Cleanser for Brightening",
+        "Rice water cleanser for brightening",
+        "Clarifying Acne Cleanser with 2% Salicylic Acid - 100 ml",
+        "Clarifying acne cleanser with 2% salicylic acid - 100 ml",
+        "Moisturizing Cream Cleanser With Ceramides For Dry Skin - 100 ml",
+        "Moisturizing cream cleanser with ceramides for dry skin - 100 ml",
+        "Oil Control & Exfoliating Cleanser with 2% AHA BHA - 100 ml",
+        "Oil control & exfoliating cleanser with 2% aha bha - 100 ml",
+        "Sunscreen",
+        "All I Need Sunscreen SPF 50 PA++++ | 50 ml",
+        "All i need sunscreen spf 50 pa++++ | 50 ml",
+        "Filter Shield Sunscreen Max Defence SPF 50 PA++++ | 40ml",
+        "Filter shield sunscreen max defence spf 50 pa++++ | 40ml",
+        "ULTRA LIGHT WATER SUNSCREEN SPF 50 PA ++++ | 50 ml",
+        "Ultra light water sunscreen spf 50 pa ++++ | 50 ml",
+        "Fluid Cooling Sunscreen SPF 50 PA++++ | 50 ml",
+        "Fluid cooling sunscreen spf 50 pa++++ | 50 ml"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "not observed",
+        "hero": "Large lifestyle product banner with one prominent cleanser hero and a second bottle; price-bundle callouts shown directly in banner.",
+        "media": "Hero lifestyle imagery plus pack shots; collection grid uses product images and small badge labels.",
+        "trust": "Visible star ratings on product cards; labels such as Trending, BestSeller, New, and testing/filter claims on some items.",
+        "videos": true,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "App-install and copy-copied checkout coupon messaging appear in the screenshot; collection has 5 products with heavy filter taxonomy.",
+        "urgency": "Promotional pricing and bundle codes shown; no explicit countdown observed.",
+        "guarantee": false,
+        "atcPlacement": "Add to cart buttons appear on each product card in the collection grid.",
+        "offerDisplay": "Bundle offers shown prominently as Buy 2 and Buy 3 price promos; product cards show MRP/sale price format.",
+        "sectionOrder": [
+          "top announcement bar",
+          "header navigation",
+          "hero banner",
+          "bundle offer strip",
+          "collection title",
+          "left filter sidebar",
+          "sort control",
+          "product grid",
+          "footer/app promo area"
+        ],
+        "headlineStyle": "All-caps benefit-led headline with ingredient/supporting claim line beneath; short supporting subheads on product cards.",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Clean and Clear® India - Face Washes for All Skin Types",
+      "url": "https://www.cleanandclear.in/",
+      "status": "blocked",
+      "reason": "Indian brand landing page for face washes and cleansers; relevant to facial cleansing products.",
+      "sections": [],
+      "error": "robots.txt unavailable (403); crawling skipped."
+    },
+    {
+      "title": "Best Face Cleansers for All Skin Types",
+      "url": "https://www.cosmoshine.co.in/cleanser",
+      "status": "blocked",
+      "reason": "India-based skincare store landing page for face cleansers; relevant to facial cleanser shopping.",
+      "sections": [],
+      "error": "Page returned HTTP 403"
+    },
+    {
+      "title": "Buy Face Wash Online on Tira Website & App",
+      "url": "https://www.tirabeauty.com/collection/skin-cleansers-and-exfoliators-face-washes-and-cleansers",
+      "status": "blocked",
+      "reason": "Relevant cleanser shopping collection with face wash and cleanser products, including direct product listings.",
+      "sections": [],
+      "error": "Page returned HTTP 403"
+    },
+    {
+      "title": "Buy The Face Shop Face Wash Online",
+      "url": "https://www.nykaa.com/dp/the-face-shop-face-wash",
+      "status": "crawled",
+      "reason": "Product page for a face wash/cleanser, relevant to the skincare cleansing category.",
+      "sections": [
+        "topbrands",
+        "#",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z",
+        "brands_Popular",
+        "brands_Exclusive",
+        "brands_Featured",
+        "brands_Launches",
+        "What's New",
+        "Women",
+        "Men",
+        "Kids",
+        "Home",
+        "House Of Nykaa",
+        "Beauty book",
+        "BEAUTY BUYING GUIDES"
+      ],
+      "analysis": {
+        "atc": false,
+        "faq": "not observed",
+        "hero": "category listing page with product grid and sign-in modal overlay",
+        "media": "product thumbnails in a multi-column grid; no video observed",
+        "trust": "bestseller and most reordered labels plus star ratings and review counts",
+        "videos": true,
+        "pricing": true,
+        "reviews": false,
+        "unusual": "persistent login/signup popup over shopping results",
+        "urgency": "not observed",
+        "guarantee": false,
+        "atcPlacement": "not observed",
+        "offerDisplay": "discount percentages, crossed-out price, and complimentary gift messaging on product cards",
+        "sectionOrder": [
+          "promo bar",
+          "main header/navigation",
+          "subcategory navigation",
+          "search and sign-in area",
+          "page title with count",
+          "left filter sidebar",
+          "product grid",
+          "login/signup modal",
+          "help/chat widget"
+        ],
+        "headlineStyle": "category-led headline with product count; utility/navigation focused",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    },
+    {
+      "title": "Buy Face wash and Cleanser Online In India",
+      "url": "https://in.innisfree.com/collections/cleansers",
+      "status": "crawled",
+      "reason": "Brand collection page for face wash and cleansers in India; relevant to facial cleanser products.",
+      "sections": [
+        "Trending Now",
+        "Popular Products",
+        "Product Results",
+        "Face Wash & Cleansers",
+        "Refined By\n                    \n                        \n                            Clear all",
+        "Sort by:",
+        "Shop the look",
+        "Choose Options"
+      ],
+      "analysis": {
+        "atc": true,
+        "faq": "not observed",
+        "hero": "Large lifestyle banner with product packshot; promotional discount message visible",
+        "media": "Single large hero image plus product card imagery; no video observed",
+        "trust": "No reviews visible; tax-inclusive pricing shown",
+        "videos": true,
+        "pricing": true,
+        "reviews": true,
+        "unusual": "Search and shopping utilities prominent; filters, sort, view and cart count visible; zero-results text appears in excerpt",
+        "urgency": "Trending/Popular merchandising labels; no countdown or stock urgency observed",
+        "guarantee": false,
+        "atcPlacement": "Add to cart shown on product cards and product listing",
+        "offerDisplay": "Discount shown as percentage off; price repeated with regular and sale labels",
+        "sectionOrder": [
+          "top navigation and search",
+          "hero promotional banner",
+          "breadcrumb",
+          "category title and filter chip",
+          "product listing/grid",
+          "sorting and filter controls"
+        ],
+        "headlineStyle": "All-caps, short category/product-led headings; promotional phrasing used in hero",
+        "detectionMethod": "HTML/text heuristics; positional interpretation needs visual review"
+      }
+    }
+  ],
+  "learnings": [
+    {
+      "id": "8bb4ff68-e87c-41da-86fa-6a82b9a61929",
+      "text": "6 of 8 successfully crawled pages mention reviews or ratings. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://beminimalist.co/",
+        "https://tataharperskincare.com/products/regenerating-cleanser",
+        "https://botanictree.com/",
+        "https://www.simpleskincare.in/products/simple-kind-to-skin-refreshing-facial-wash-150ml",
+        "https://thedermaco.com/collections/face-cleanser",
+        "https://in.innisfree.com/collections/cleansers"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "e822a0a9-cebb-4e58-85d6-55b36f6c640a",
+      "text": "7 of 8 successfully crawled pages include an add-to-cart call to action. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://beminimalist.co/",
+        "https://tataharperskincare.com/products/regenerating-cleanser",
+        "https://botanictree.com/",
+        "https://www.simpleskincare.in/products/simple-kind-to-skin-refreshing-facial-wash-150ml",
+        "https://thedermaco.com/collections/face-cleanser",
+        "https://letshyphen.com/collections/face-cleanser",
+        "https://in.innisfree.com/collections/cleansers"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "719407b8-8c67-47ef-b6c0-a4234c9f69ec",
+      "text": "8 of 8 successfully crawled pages include video markup. Detection is based on captured HTML/text, not a performance claim.",
+      "sources": [
+        "https://beminimalist.co/",
+        "https://tataharperskincare.com/products/regenerating-cleanser",
+        "https://botanictree.com/",
+        "https://www.simpleskincare.in/products/simple-kind-to-skin-refreshing-facial-wash-150ml",
+        "https://thedermaco.com/collections/face-cleanser",
+        "https://letshyphen.com/collections/face-cleanser",
+        "https://www.nykaa.com/dp/the-face-shop-face-wash",
+        "https://in.innisfree.com/collections/cleansers"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "5485acea-5d72-4812-a954-24f9177b2993",
+      "text": "Observed hero: Large image-led hero with product lifestyle shot, new-launch framing, big central product name and size callout, primary CTA button.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://beminimalist.co/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "db24eb75-ea2d-4705-8a50-e37a00c962a8",
+      "text": "Observed atcPlacement: Add to cart appears on product cards in best-seller and launch sections rather than a single fixed hero CTA.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://beminimalist.co/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "60ce81ad-83b8-4a65-a6fb-1f1e6676c099",
+      "text": "Observed offerDisplay: Multiple stacked promos shown in utility bar and page text, including app-first-order reward, bundle savings, freebies, buy-more-get-more, and free sample message.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://beminimalist.co/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "41797db4-05d7-475c-a1cd-fe46ab82752f",
+      "text": "Observed media: Product imagery dominates; hero uses lifestyle plus packshot, and collections use carousel-style cards.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://beminimalist.co/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "402ade68-4a68-44b2-bde4-8a39785f53b4",
+      "text": "Observed sectionOrder: announcement bar → top navigation → hero slider → our best sellers → shop by category → shop by concerns → new launches → brand/value statements → trust circle → app download → company/footer links → login modal. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://beminimalist.co/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "3e0cfc9d-1d29-47fa-9c74-e1198b9afeea",
+      "text": "Observed hero: Single-product hero with large packshot and purchase box beside it.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://tataharperskincare.com/products/regenerating-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "c331e62e-f392-4efe-bbb8-087af2284938",
+      "text": "Observed atcPlacement: Large primary add-to-bag button placed directly below pricing options.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://tataharperskincare.com/products/regenerating-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "3de4a786-ccd8-4640-83cf-3ba50051eb75",
+      "text": "Observed offerDisplay: One-time purchase and subscribe-and-save shown together with crossed-out higher recurring price.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://tataharperskincare.com/products/regenerating-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "d2b9ef92-3572-4147-be7c-801111ff8701",
+      "text": "Observed sectionOrder: top shipping bar → header navigation → breadcrumbs → hero product image and title → size selector → purchase options → add to bag CTA → use it with cross-sell → description → product details and ingredients → how to use → clinical results → key benefits → compare products → FAQs → recommended products. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://tataharperskincare.com/products/regenerating-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "f4506d13-cf18-4de2-9f84-bdf90b69f76d",
+      "text": "Observed hero: Split-screen hero with product image, star/social proof, short benefit-led subtitle, and one primary CTA.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://botanictree.com/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "0f19b27e-a9b4-4ed6-945b-8acd8925d151",
+      "text": "Observed atcPlacement: Primary CTA in hero; product grid uses Add to cart links/buttons under each item.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://botanictree.com/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "5af0ecca-1753-476e-b697-eda5a9c6edf2",
+      "text": "Observed offerDisplay: Free shipping banner plus sitewide Black Friday percentage-off promo; product cards show sale pricing and some struck-through original price.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://botanictree.com/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "510920c3-a4b6-48d5-b7dd-f41f502ec889",
+      "text": "Observed media: One lifestyle product hero image, recurring social-proof/UGC-style testimonials, and press/logo strip.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://botanictree.com/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "56c13e08-c21a-4a9a-bb37-12d3eac24f64",
+      "text": "Observed sectionOrder: Announcement bar → Header/navigation → Hero → Press/logo strip → Skin-shift selector/product finder → Product grid → UGC/testimonials → Best-loved products → Long-form testimonials → Quiz/recommendation flow → Email signup/footer. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://botanictree.com/"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "e73aa782-515f-46ba-ab73-fdfe59249ae0",
+      "text": "Observed hero: Product page hero with large packshot, thumbnail gallery, rating, price, and delivery/pincode check.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.simpleskincare.in/products/simple-kind-to-skin-refreshing-facial-wash-150ml"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "b0ac2fe2-06b3-4c12-aac1-9198631c6935",
+      "text": "Observed atcPlacement: Primary CTA is above the fold beside price; shows as a large action button.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.simpleskincare.in/products/simple-kind-to-skin-refreshing-facial-wash-150ml"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "85a54c1a-1627-4598-afd2-4c0f23153aec",
+      "text": "Observed offerDisplay: Price shown prominently with MRP/tax note; bundles and related items shown below.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.simpleskincare.in/products/simple-kind-to-skin-refreshing-facial-wash-150ml"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "73a1e9a8-3086-475b-ab99-8477d38266c4",
+      "text": "Observed media: Single main product image with vertical thumbnail gallery; no video observed.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.simpleskincare.in/products/simple-kind-to-skin-refreshing-facial-wash-150ml"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "2684ea95-8a0d-4752-9c35-87ce567ec926",
+      "text": "Observed sectionOrder: hero product summary → delivery check → bundles/related products → about the product → special features → ingredients → benefits → how to use → reviews → faqs → product details → recommendations → email signup → privacy notice → cookie notice. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.simpleskincare.in/products/simple-kind-to-skin-refreshing-facial-wash-150ml"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "2ae5f358-35f1-4c60-b97d-02432f92c4e1",
+      "text": "Observed hero: Large hero banner with product imagery and one primary CTA.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://thedermaco.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "0cd7b01f-70d0-4d6b-9d11-ca0da9c38503",
+      "text": "Observed atcPlacement: Product cards use add-to-cart in the grid; cart state and mini-cart feedback are visible.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://thedermaco.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "57c01fd3-59d5-4f83-a555-f74cd9314053",
+      "text": "Observed offerDisplay: Top promo bar plus product-level deal badges, percent-off pricing, and bundle/freebie messaging.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://thedermaco.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "b43da939-cae5-4c5c-b70e-29935e4e91a4",
+      "text": "Observed media: Hero banner with model and packshots; product grid uses packshots and short benefit callouts.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://thedermaco.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "f1db059f-a596-4b27-8cf4-5cb43a74f3d3",
+      "text": "Observed sectionOrder: top promo bar → header navigation → page title → hero banner → filter/sort controls → product grid → FAQ → footer. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://thedermaco.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "873579e9-dac4-425b-818b-4b37de83e2d3",
+      "text": "Observed hero: Large lifestyle product banner with one prominent cleanser hero and a second bottle; price-bundle callouts shown directly in banner.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://letshyphen.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "62bf865a-d13a-4122-928b-41d4eb1318bf",
+      "text": "Observed atcPlacement: Add to cart buttons appear on each product card in the collection grid.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://letshyphen.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "88ba1bea-6c99-45c8-ac44-611d54100378",
+      "text": "Observed offerDisplay: Bundle offers shown prominently as Buy 2 and Buy 3 price promos; product cards show MRP/sale price format.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://letshyphen.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "54ceba34-704a-4c53-ac0a-709fee73c5a9",
+      "text": "Observed media: Hero lifestyle imagery plus pack shots; collection grid uses product images and small badge labels.. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://letshyphen.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "1f76de01-a5d8-4619-be7f-9f844c1ecbba",
+      "text": "Observed sectionOrder: top announcement bar → header navigation → hero banner → bundle offer strip → collection title → left filter sidebar → sort control → product grid → footer/app promo area. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://letshyphen.com/collections/face-cleanser"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "00ea85b9-8041-4dba-bd92-3dd33c2fa90b",
+      "text": "Observed hero: category listing page with product grid and sign-in modal overlay. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.nykaa.com/dp/the-face-shop-face-wash"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "d320949a-bec5-43db-a231-7da8106e9f7c",
+      "text": "Observed offerDisplay: discount percentages, crossed-out price, and complimentary gift messaging on product cards. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.nykaa.com/dp/the-face-shop-face-wash"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "0a0bba8d-9ed8-4d29-a536-b228a404797c",
+      "text": "Observed media: product thumbnails in a multi-column grid; no video observed. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.nykaa.com/dp/the-face-shop-face-wash"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "942125a3-efdf-43c8-a648-f8118a0e63c0",
+      "text": "Observed sectionOrder: promo bar → main header/navigation → subcategory navigation → search and sign-in area → page title with count → left filter sidebar → product grid → login/signup modal → help/chat widget. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://www.nykaa.com/dp/the-face-shop-face-wash"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "2ade2b8b-6f59-4d55-91a3-595633919e30",
+      "text": "Observed hero: Large lifestyle banner with product packshot; promotional discount message visible. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://in.innisfree.com/collections/cleansers"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "c8550679-fb07-4d91-bbc3-5c3896578ea8",
+      "text": "Observed atcPlacement: Add to cart shown on product cards and product listing. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://in.innisfree.com/collections/cleansers"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "d58db02d-1ea6-4b89-a466-e9fb3ef661f0",
+      "text": "Observed offerDisplay: Discount shown as percentage off; price repeated with regular and sale labels. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://in.innisfree.com/collections/cleansers"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "b4e35384-ba38-417b-a244-b5a2690bcf2f",
+      "text": "Observed media: Single large hero image plus product card imagery; no video observed. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://in.innisfree.com/collections/cleansers"
+      ],
+      "category": "Beauty"
+    },
+    {
+      "id": "39139f86-a7b7-40df-b441-e72d20676c87",
+      "text": "Observed sectionOrder: top navigation and search → hero promotional banner → breadcrumb → category title and filter chip → product listing/grid → sorting and filter controls. Adapt the design pattern, never the competitor's product claims or assets.",
+      "sources": [
+        "https://in.innisfree.com/collections/cleansers"
+      ],
+      "category": "Beauty"
+    }
+  ]
+}

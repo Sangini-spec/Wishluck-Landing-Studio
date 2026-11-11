@@ -1,0 +1,30 @@
+{
+  "product": "Glass Bottle Facial Cleanser",
+  "category": "Beauty",
+  "sourceUrl": "https://clean-beauty.hydrogen.mock.shop/products/glass-bottle-facial-cleanser",
+  "brand": {
+    "primary": "#000000",
+    "secondary": "#ffffff",
+    "background": "#ffffff",
+    "text": "#000000",
+    "button": "#222222",
+    "headingFont": "system-ui, -apple-system, sans-serif",
+    "bodyFont": "system-ui, -apple-system, sans-serif",
+    "shopifyHeadingFont": "assistant_n4",
+    "shopifyBodyFont": "assistant_n4",
+    "headingSize": "72px",
+    "bodySize": "16px",
+    "headingWeight": "700",
+    "bodyWeight": "400",
+    "tone": "Minimal, clean, and skincare-focused; calm premium feel with soft product presentation.",
+    "radius": "8px",
+    "spacing": "0px",
+    "imageStyle": "Studio-style product photography with soft lighting, subtle shadowing, and a simple neutral background.",
+    "buttonStyle": "0px solid; none",
+    "evidence": "CSS/computed styles + vision analysis of actual screenshot. Product appears to be a facial cleanser in a glass bottle. The page uses a very minimal layout with strong black typography and white space. No material, dimensions, or audience details are confirmed beyond skincare use. Secondary colour selected from visible page background."
+  },
+  "aiCostEstimateUSD": 0.214455,
+  "warnings": [
+    "Research coverage: 7 of the target 8 competitor pages could be captured. Review blocked sources before using these findings."
+  ]
+}

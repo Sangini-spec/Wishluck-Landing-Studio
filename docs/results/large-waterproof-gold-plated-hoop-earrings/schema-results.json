@@ -1,0 +1,262 @@
+[
+  {
+    "designId": "f50cabc4-3ee7-4d2d-b503-48cc3903df55",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Large Waterproof Gold-Plated Hoop Earrings",
+        "url": "https://jewelry-dropship.hydrogen.mock.shop/products/large-waterproof-gold-plated-hoop-earrings",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/a78966488a0b638c8dd0a664da9ff298.png?v=13126614",
+          "https://cdn.shopify.com/mock-shop-production-media/jewelry-dropship/23367338-27b0-41fc-b294-b78cd62f38d7.png",
+          "https://cdn.shopify.com/mock-shop-production-media/jewelry-dropship/b1bdb4c5-8faa-4289-bcc9-128bb6bb7e7e.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Glimmerly"
+        },
+        "description": "These large hoop earrings are crafted from gold-plated metal and are designed to be waterproof. Their sophisticated design and durable construction make them a luxurious addition to any jewelry collection.",
+        "offers": {
+          "@type": "Offer",
+          "price": 75,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Large Waterproof Gold-Plated Hoop Earrings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "These large hoop earrings are crafted from gold-plated metal and are designed to be waterproof. Their sophisticated design and durable construction make them a luxurious addition to any jewelry collection."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Large Waterproof Gold-Plated Hoop Earrings cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 75.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "bc6dfeca-8f0c-401d-8e30-ef516594e0d4",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Large Waterproof Gold-Plated Hoop Earrings",
+        "url": "https://jewelry-dropship.hydrogen.mock.shop/products/large-waterproof-gold-plated-hoop-earrings",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/a78966488a0b638c8dd0a664da9ff298.png?v=13126614",
+          "https://cdn.shopify.com/mock-shop-production-media/jewelry-dropship/23367338-27b0-41fc-b294-b78cd62f38d7.png",
+          "https://cdn.shopify.com/mock-shop-production-media/jewelry-dropship/b1bdb4c5-8faa-4289-bcc9-128bb6bb7e7e.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Glimmerly"
+        },
+        "description": "These large hoop earrings are crafted from gold-plated metal and are designed to be waterproof. Their sophisticated design and durable construction make them a luxurious addition to any jewelry collection.",
+        "offers": {
+          "@type": "Offer",
+          "price": 75,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Large Waterproof Gold-Plated Hoop Earrings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "These large hoop earrings are crafted from gold-plated metal and are designed to be waterproof. Their sophisticated design and durable construction make them a luxurious addition to any jewelry collection."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Large Waterproof Gold-Plated Hoop Earrings cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 75.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "268cc0ba-1fcc-4ca5-9971-0a3e4e5feae9",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Large Waterproof Gold-Plated Hoop Earrings",
+        "url": "https://jewelry-dropship.hydrogen.mock.shop/products/large-waterproof-gold-plated-hoop-earrings",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/a78966488a0b638c8dd0a664da9ff298.png?v=13126614",
+          "https://cdn.shopify.com/mock-shop-production-media/jewelry-dropship/23367338-27b0-41fc-b294-b78cd62f38d7.png",
+          "https://cdn.shopify.com/mock-shop-production-media/jewelry-dropship/b1bdb4c5-8faa-4289-bcc9-128bb6bb7e7e.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Glimmerly"
+        },
+        "description": "These large hoop earrings are crafted from gold-plated metal and are designed to be waterproof. Their sophisticated design and durable construction make them a luxurious addition to any jewelry collection.",
+        "offers": {
+          "@type": "Offer",
+          "price": 75,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Large Waterproof Gold-Plated Hoop Earrings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "These large hoop earrings are crafted from gold-plated metal and are designed to be waterproof. Their sophisticated design and durable construction make them a luxurious addition to any jewelry collection."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Large Waterproof Gold-Plated Hoop Earrings cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 75.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  },
+  {
+    "designId": "5868f00d-84b5-4c56-b71c-326ad6e24122",
+    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "checks": {
+      "jsonParses": true,
+      "productPresent": true,
+      "productNamePresent": true,
+      "offerCurrency": true,
+      "offerPrice": true,
+      "faqPresent": true,
+      "faqAnswersPresent": true,
+      "singleH1": true
+    },
+    "parseErrors": [],
+    "jsonLd": [
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Large Waterproof Gold-Plated Hoop Earrings",
+        "url": "https://jewelry-dropship.hydrogen.mock.shop/products/large-waterproof-gold-plated-hoop-earrings",
+        "image": [
+          "https://cdn.shopify.com/s/files/1/0926/5994/1398/files/a78966488a0b638c8dd0a664da9ff298.png?v=13126614",
+          "https://cdn.shopify.com/mock-shop-production-media/jewelry-dropship/23367338-27b0-41fc-b294-b78cd62f38d7.png",
+          "https://cdn.shopify.com/mock-shop-production-media/jewelry-dropship/b1bdb4c5-8faa-4289-bcc9-128bb6bb7e7e.png"
+        ],
+        "brand": {
+          "@type": "Brand",
+          "name": "Glimmerly"
+        },
+        "description": "These large hoop earrings are crafted from gold-plated metal and are designed to be waterproof. Their sophisticated design and durable construction make them a luxurious addition to any jewelry collection.",
+        "offers": {
+          "@type": "Offer",
+          "price": 75,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Large Waterproof Gold-Plated Hoop Earrings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "These large hoop earrings are crafted from gold-plated metal and are designed to be waterproof. Their sophisticated design and durable construction make them a luxurious addition to any jewelry collection."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Large Waterproof Gold-Plated Hoop Earrings cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The listed price is USD 75.00."
+            }
+          }
+        ]
+      }
+    ],
+    "googleRichResults": {
+      "status": "not_verified",
+      "testUrl": "https://search.google.com/test/rich-results"
+    }
+  }
+]
