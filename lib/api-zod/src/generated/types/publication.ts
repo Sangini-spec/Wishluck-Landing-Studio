@@ -26,4 +26,9 @@ export interface Publication {
   helpUrl?: string;
   error?: string;
   themeName?: string;
+  method?: string;
+  themeId?: string;
+  verified?: boolean;
+  livePublished?: boolean;
+  previousLiveThemeId?: string;
 }

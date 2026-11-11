@@ -8,7 +8,16 @@ import { ctaFor, headingFor, headingSizeFor, heroImageWant, pad2, palette, planS
 import { designFamilies } from "./design-plan";
 import {standaloneTheme} from "./theme-package";
 
-export const rootDir = existsSync(path.resolve(process.cwd(),"shopify")) ? process.cwd() : path.resolve(process.cwd(),"../..");
+function workspaceRoot(){
+  let directory=process.cwd();
+  while(!existsSync(path.join(directory,"shopify"))){
+    const parent=path.dirname(directory);
+    if(parent===directory)throw new Error("Cannot locate the Wishluck theme source directory.");
+    directory=parent;
+  }
+  return directory;
+}
+export const rootDir = workspaceRoot();
 export const escapeHtml=(v:unknown)=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]!);
 export function contrastText(hex:string){
   const rgb=hex.replace("#","");

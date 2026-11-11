@@ -247,6 +247,45 @@ paths:
           content:
             application/json:
               schema: { type: array, items: { $ref: "#/components/schemas/Theme" } }
+  /shopify/cli:
+    get:
+      operationId: getCliPublishingStatus
+      responses:
+        "200":
+          description: Store-specific Theme Access readiness and saved uploads
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CliPublishingStatus" }
+  /shopify/cli/uploads:
+    post:
+      operationId: uploadCliTheme
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CliUploadInput" }
+      responses:
+        "200":
+          description: New unpublished theme upload and file-readback result
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Publication" }
+  /shopify/cli/uploads/{id}/activate:
+    post:
+      operationId: activateCliTheme
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CliActivateInput" }
+      responses:
+        "200":
+          description: Explicitly confirmed live-theme replacement and verification
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Publication" }
   /shopify/publish:
     post:
       operationId: publishDesign
@@ -539,6 +578,33 @@ components:
         title: { type: string }
         handle: { type: string }
         status: { type: string }
+    CliUploadInput:
+      type: object
+      required: [designId, expectedShop, confirmUnpublishedUpload]
+      properties:
+        designId: { type: string }
+        expectedShop: { type: string }
+        confirmUnpublishedUpload: { type: boolean }
+    CliActivateInput:
+      type: object
+      required: [expectedShop, themeId, expectedLiveThemeId, confirmReplaceLiveTheme]
+      properties:
+        expectedShop: { type: string }
+        themeId: { type: string }
+        expectedLiveThemeId: { type: string }
+        confirmReplaceLiveTheme: { type: boolean }
+    CliPublishingStatus:
+      type: object
+      required: [shop, configured, authenticated, credentialKey, uploads, livePublishingEnabled]
+      properties:
+        shop: { type: string }
+        configured: { type: boolean }
+        authenticated: { type: boolean }
+        credentialKey: { type: string }
+        livePublishingEnabled: { type: boolean }
+        currentLiveThemeId: { type: string }
+        message: { type: string }
+        uploads: { type: array, items: { $ref: "#/components/schemas/Publication" } }
     Publication:
       type: object
       required: [id, designId, title, status, createdAt]
@@ -561,6 +627,11 @@ components:
         helpUrl: { type: string }
         error: { type: string }
         themeName: { type: string }
+        method: { type: string }
+        themeId: { type: string }
+        verified: { type: boolean }
+        livePublished: { type: boolean }
+        previousLiveThemeId: { type: string }
     Connection:
       type: object
       required: [configured, connected, shop, message, missing]

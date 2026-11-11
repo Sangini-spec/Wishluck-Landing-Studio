@@ -26,6 +26,9 @@ import type {
 
 import type {
   BrandProfile,
+  CliActivateInput,
+  CliPublishingStatus,
+  CliUploadInput,
   Connection,
   Dashboard,
   DeletionResult,
@@ -1828,6 +1831,266 @@ export function useListThemes<TData = Awaited<ReturnType<typeof listThemes>>, TE
 
 
 
+
+export const getGetCliPublishingStatusUrl = () => {
+
+
+
+
+  return `/api/shopify/cli`
+}
+
+export const getCliPublishingStatus = async ( options?: Parameters<typeof customFetch>[1]): Promise<CliPublishingStatus> => {
+
+  return customFetch<CliPublishingStatus>(getGetCliPublishingStatusUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getGetCliPublishingStatusQueryKey = () => {
+    return [
+    `/api/shopify/cli`
+    ] as const;
+    }
+
+
+export const getGetCliPublishingStatusQueryOptions = <TData = Awaited<ReturnType<typeof getCliPublishingStatus>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCliPublishingStatus>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetCliPublishingStatusQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getCliPublishingStatus>>> = ({ signal }) => getCliPublishingStatus({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getCliPublishingStatus>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetCliPublishingStatusQueryResult = NonNullable<Awaited<ReturnType<typeof getCliPublishingStatus>>>
+export type GetCliPublishingStatusQueryError = ErrorType<unknown>
+
+
+export function useGetCliPublishingStatus<TData = Awaited<ReturnType<typeof getCliPublishingStatus>>, TError = ErrorType<unknown>>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCliPublishingStatus>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getCliPublishingStatus>>,
+          TError,
+          Awaited<ReturnType<typeof getCliPublishingStatus>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetCliPublishingStatus<TData = Awaited<ReturnType<typeof getCliPublishingStatus>>, TError = ErrorType<unknown>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCliPublishingStatus>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getCliPublishingStatus>>,
+          TError,
+          Awaited<ReturnType<typeof getCliPublishingStatus>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetCliPublishingStatus<TData = Awaited<ReturnType<typeof getCliPublishingStatus>>, TError = ErrorType<unknown>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCliPublishingStatus>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useGetCliPublishingStatus<TData = Awaited<ReturnType<typeof getCliPublishingStatus>>, TError = ErrorType<unknown>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getCliPublishingStatus>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetCliPublishingStatusQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getUploadCliThemeUrl = () => {
+
+
+
+
+  return `/api/shopify/cli/uploads`
+}
+
+export const uploadCliTheme = async (cliUploadInput: CliUploadInput, options?: Parameters<typeof customFetch>[1]): Promise<Publication> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<Publication>(getUploadCliThemeUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(cliUploadInput)
+  }
+);}
+
+
+
+
+
+export const getUploadCliThemeMutationKey = () => ['uploadCliTheme'] as const;
+
+export const getUploadCliThemeMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof uploadCliTheme>>, TError,UploadCliThemeMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof uploadCliTheme>>, TError,UploadCliThemeMutationVariables, TContext> => {
+
+const mutationKey = getUploadCliThemeMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof uploadCliTheme>>, UploadCliThemeMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  uploadCliTheme(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UploadCliThemeMutationResult = NonNullable<Awaited<ReturnType<typeof uploadCliTheme>>>
+    export type UploadCliThemeMutationBody = BodyType<CliUploadInput>
+    export type UploadCliThemeMutationError = ErrorType<unknown>
+    export type UploadCliThemeMutationVariables = {data: BodyType<CliUploadInput>}
+
+    export const useUploadCliTheme = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof uploadCliTheme>>, TError,UploadCliThemeMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof uploadCliTheme>>,
+        TError,
+        UploadCliThemeMutationVariables,
+        TContext
+      > => {
+      return useMutation(getUploadCliThemeMutationOptions(options), queryClient);
+    }
+
+export const getActivateCliThemeUrl = (id: string,) => {
+
+
+
+
+  return `/api/shopify/cli/uploads/${id}/activate`
+}
+
+export const activateCliTheme = async (id: string,
+    cliActivateInput: CliActivateInput, options?: Parameters<typeof customFetch>[1]): Promise<Publication> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<Publication>(getActivateCliThemeUrl(id),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(cliActivateInput)
+  }
+);}
+
+
+
+
+
+export const getActivateCliThemeMutationKey = () => ['activateCliTheme'] as const;
+
+export const getActivateCliThemeMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof activateCliTheme>>, TError,ActivateCliThemeMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof activateCliTheme>>, TError,ActivateCliThemeMutationVariables, TContext> => {
+
+const mutationKey = getActivateCliThemeMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof activateCliTheme>>, ActivateCliThemeMutationVariables> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  activateCliTheme(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ActivateCliThemeMutationResult = NonNullable<Awaited<ReturnType<typeof activateCliTheme>>>
+    export type ActivateCliThemeMutationBody = BodyType<CliActivateInput>
+    export type ActivateCliThemeMutationError = ErrorType<unknown>
+    export type ActivateCliThemeMutationVariables = {id: string;data: BodyType<CliActivateInput>}
+
+    export const useActivateCliTheme = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof activateCliTheme>>, TError,ActivateCliThemeMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof activateCliTheme>>,
+        TError,
+        ActivateCliThemeMutationVariables,
+        TContext
+      > => {
+      return useMutation(getActivateCliThemeMutationOptions(options), queryClient);
+    }
 
 export const getPublishDesignUrl = () => {
 

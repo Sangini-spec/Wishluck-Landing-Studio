@@ -163,7 +163,12 @@ export const GetDashboardResponse = zod.object({
   "variantMap": zod.record(zod.string(), zod.string()).optional(),
   "helpUrl": zod.string().optional(),
   "error": zod.string().optional(),
-  "themeName": zod.string().optional()
+  "themeName": zod.string().optional(),
+  "method": zod.string().optional(),
+  "themeId": zod.string().optional(),
+  "verified": zod.boolean().optional(),
+  "livePublished": zod.boolean().optional(),
+  "previousLiveThemeId": zod.string().optional()
 }))
 })
 
@@ -1386,6 +1391,113 @@ export const ListThemesResponseItem = zod.object({
 export const ListThemesResponse = zod.array(ListThemesResponseItem)
 
 
+export const GetCliPublishingStatusResponse = zod.object({
+  "shop": zod.string(),
+  "configured": zod.boolean(),
+  "authenticated": zod.boolean(),
+  "credentialKey": zod.string(),
+  "livePublishingEnabled": zod.boolean(),
+  "currentLiveThemeId": zod.string().optional(),
+  "message": zod.string().optional(),
+  "uploads": zod.array(zod.object({
+  "id": zod.string(),
+  "designId": zod.string(),
+  "title": zod.string(),
+  "status": zod.string(),
+  "createdAt": zod.string(),
+  "previewUrl": zod.string().optional(),
+  "editorUrl": zod.string().optional(),
+  "shop": zod.string().optional(),
+  "productId": zod.string().optional(),
+  "productHandle": zod.string().optional(),
+  "productStatus": zod.string().optional(),
+  "imported": zod.boolean().optional(),
+  "adminUrl": zod.string().optional(),
+  "warnings": zod.array(zod.string()).optional(),
+  "variantMap": zod.record(zod.string(), zod.string()).optional(),
+  "helpUrl": zod.string().optional(),
+  "error": zod.string().optional(),
+  "themeName": zod.string().optional(),
+  "method": zod.string().optional(),
+  "themeId": zod.string().optional(),
+  "verified": zod.boolean().optional(),
+  "livePublished": zod.boolean().optional(),
+  "previousLiveThemeId": zod.string().optional()
+}))
+})
+
+
+export const UploadCliThemeBody = zod.object({
+  "designId": zod.string(),
+  "expectedShop": zod.string(),
+  "confirmUnpublishedUpload": zod.boolean()
+})
+
+export const UploadCliThemeResponse = zod.object({
+  "id": zod.string(),
+  "designId": zod.string(),
+  "title": zod.string(),
+  "status": zod.string(),
+  "createdAt": zod.string(),
+  "previewUrl": zod.string().optional(),
+  "editorUrl": zod.string().optional(),
+  "shop": zod.string().optional(),
+  "productId": zod.string().optional(),
+  "productHandle": zod.string().optional(),
+  "productStatus": zod.string().optional(),
+  "imported": zod.boolean().optional(),
+  "adminUrl": zod.string().optional(),
+  "warnings": zod.array(zod.string()).optional(),
+  "variantMap": zod.record(zod.string(), zod.string()).optional(),
+  "helpUrl": zod.string().optional(),
+  "error": zod.string().optional(),
+  "themeName": zod.string().optional(),
+  "method": zod.string().optional(),
+  "themeId": zod.string().optional(),
+  "verified": zod.boolean().optional(),
+  "livePublished": zod.boolean().optional(),
+  "previousLiveThemeId": zod.string().optional()
+})
+
+
+export const ActivateCliThemeParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+export const ActivateCliThemeBody = zod.object({
+  "expectedShop": zod.string(),
+  "themeId": zod.string(),
+  "expectedLiveThemeId": zod.string(),
+  "confirmReplaceLiveTheme": zod.boolean()
+})
+
+export const ActivateCliThemeResponse = zod.object({
+  "id": zod.string(),
+  "designId": zod.string(),
+  "title": zod.string(),
+  "status": zod.string(),
+  "createdAt": zod.string(),
+  "previewUrl": zod.string().optional(),
+  "editorUrl": zod.string().optional(),
+  "shop": zod.string().optional(),
+  "productId": zod.string().optional(),
+  "productHandle": zod.string().optional(),
+  "productStatus": zod.string().optional(),
+  "imported": zod.boolean().optional(),
+  "adminUrl": zod.string().optional(),
+  "warnings": zod.array(zod.string()).optional(),
+  "variantMap": zod.record(zod.string(), zod.string()).optional(),
+  "helpUrl": zod.string().optional(),
+  "error": zod.string().optional(),
+  "themeName": zod.string().optional(),
+  "method": zod.string().optional(),
+  "themeId": zod.string().optional(),
+  "verified": zod.boolean().optional(),
+  "livePublished": zod.boolean().optional(),
+  "previousLiveThemeId": zod.string().optional()
+})
+
+
 export const PublishDesignBody = zod.object({
   "expectedShop": zod.string().optional(),
   "designId": zod.string(),
@@ -1415,7 +1527,12 @@ export const PublishDesignResponse = zod.object({
   "variantMap": zod.record(zod.string(), zod.string()).optional(),
   "helpUrl": zod.string().optional(),
   "error": zod.string().optional(),
-  "themeName": zod.string().optional()
+  "themeName": zod.string().optional(),
+  "method": zod.string().optional(),
+  "themeId": zod.string().optional(),
+  "verified": zod.boolean().optional(),
+  "livePublished": zod.boolean().optional(),
+  "previousLiveThemeId": zod.string().optional()
 })
 
 

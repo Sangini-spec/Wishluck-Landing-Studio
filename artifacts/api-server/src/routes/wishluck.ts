@@ -19,6 +19,8 @@ import { shopifyStatus,connectShopify,themes,publish,admin,publishingContext,ver
 import {deleteRuns,deleteMemory,deletePublications} from "../lib/deletion";
 import {savedStores,withStoreLock} from "../lib/shopify-selection";
 import {SwitchShopifyStoreBody} from "@workspace/api-zod";
+import {GetCliPublishingStatusResponse,UploadCliThemeBody,ActivateCliThemeBody} from "@workspace/api-zod";
+import {cliStatus,uploadCliTheme,activateCliTheme} from "../lib/shopify-cli";
 import { preview } from "../lib/preview";
 import { compile,zipDesign } from "../lib/compiler";
 import { objectStorageClient } from "../lib/objectStorage";
@@ -129,6 +131,21 @@ router.get("/designs/:id/download",async(req,res)=>{
   res.set({"Content-Type":"application/zip","Content-Disposition":`attachment; filename="wishluck-${design.id.slice(0,8)}.zip"`}).send(zip);
 });
 router.post("/designs/:id/quality",async(req,res)=>{res.json(await audit(idParam(req.params.id)));});
+router.get("/shopify/cli",async(_req,res)=>res.json(GetCliPublishingStatusResponse.parse(await cliStatus())));
+router.post("/shopify/cli/uploads",async(req,res)=>{
+  const body=UploadCliThemeBody.parse(req.body);
+  if(!body.confirmUnpublishedUpload)throw new AppError(400,"Confirm creating a separate unpublished theme.");
+  const {run}=await getDesign(body.designId);
+  res.json(PublishDesignResponse.parse(await withRunLock(run.id,()=>withStoreLock(()=>uploadCliTheme(body.designId,body.expectedShop)))));
+});
+router.post("/shopify/cli/uploads/:id/activate",async(req,res)=>{
+  const body=ActivateCliThemeBody.parse(req.body);
+  if(!body.confirmReplaceLiveTheme)throw new AppError(400,"Explicit confirmation is required to replace the live storefront.");
+  const p=(await publications()).find(row=>row.id===idParam(req.params.id));
+  if(!p)throw new AppError(404,"CLI upload not found.");
+  const {run}=await getDesign(p.designId);
+  res.json(PublishDesignResponse.parse(await withRunLock(run.id,()=>withStoreLock(()=>activateCliTheme(p.id,body)))));
+});
 router.get("/shopify/status",async(_req,res)=>{res.json(GetShopifyStatusResponse.parse(await verifiedShopifyStatus()));});
 router.post("/shopify/connect",async(_req,res)=>{res.json(GetShopifyStatusResponse.parse(await connectShopify()));});
 router.get("/shopify/themes",async(_req,res)=>{res.json(ListThemesResponse.parse(await themes()));});

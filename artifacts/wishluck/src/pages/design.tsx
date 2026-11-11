@@ -8,6 +8,7 @@ import { Btn, ErrorState, Sk, StatusPill, Notice, Tag, EmptyState } from "@/comp
 import { useToast } from "@/hooks/use-toast";
 import { errMsg, invalidateRun, isActive, ago } from "@/lib/run-utils";
 import { cn } from "@/lib/utils";
+import {CliPublishing} from "@/components/cli-publishing";
 
 const DEVICES = [
   { key: "mobile", w: 360, icon: Smartphone },
@@ -162,9 +163,10 @@ export default function DesignPage() {
         <div className="flex flex-wrap gap-2">
           <a href={d.downloadUrl} download data-testid="link-download" className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3.5 text-[13px] font-medium hover:bg-muted"><Download className="h-4 w-4" /> Theme ZIP</a>
           <Btn data-testid="button-regenerate" variant="outline" disabled={regen.isPending} onClick={() => regen.mutate({ id: d.id }, { ...done("New design version created"), onSuccess: (next) => { invalidateRun(qc, run.id); navigate(`/designs/${next.id}`); toast({title:"New design version created"}); } })}>{regen.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />} Regenerate</Btn>
-          <Btn data-testid="button-publish" variant="seal" onClick={() => setPubOpen(true)}><Send className="h-4 w-4" /> Publish</Btn>
+          <Btn data-testid="button-publish" variant="outline" title="Custom-app Theme API route; use Theme Access publishing below for CLI uploads." onClick={() => setPubOpen(true)}><Send className="h-4 w-4" /> Legacy API upload</Btn>
         </div>
       </header>
+      <CliPublishing design={d}/>
       <Notice icon={<Download className="h-3.5 w-3.5" />}>
         Download a complete theme ZIP, then in Shopify go to Online Store → Themes → Import theme → Upload ZIP. Keep it unpublished and open Customize. Select a product page, or choose a homepage product under Theme settings → Landing page preview. No live-theme publication or product reassignment is required. This is a store upload, not a Theme Store submission.
       </Notice>

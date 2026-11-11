@@ -211,6 +211,11 @@ export interface Publication {
   helpUrl?: string;
   error?: string;
   themeName?: string;
+  method?: string;
+  themeId?: string;
+  verified?: boolean;
+  livePublished?: boolean;
+  previousLiveThemeId?: string;
 }
 
 export interface Dashboard {
@@ -299,6 +304,30 @@ export interface PublishingContext {
   sameStore: boolean;
   canImport: boolean;
   products: StoreProduct[];
+}
+
+export interface CliUploadInput {
+  designId: string;
+  expectedShop: string;
+  confirmUnpublishedUpload: boolean;
+}
+
+export interface CliActivateInput {
+  expectedShop: string;
+  themeId: string;
+  expectedLiveThemeId: string;
+  confirmReplaceLiveTheme: boolean;
+}
+
+export interface CliPublishingStatus {
+  shop: string;
+  configured: boolean;
+  authenticated: boolean;
+  credentialKey: string;
+  livePublishingEnabled: boolean;
+  currentLiveThemeId?: string;
+  message?: string;
+  uploads: Publication[];
 }
 
 export interface Connection {
