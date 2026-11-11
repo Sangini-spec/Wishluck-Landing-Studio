@@ -9,6 +9,7 @@ import { AppError } from "./domain";
 import { admin } from "./shopify";
 import type { Brand } from "./domain";
 import { missingFacts,cleanProductSpecs } from "./facts";
+import {productFromHtml,normaliseProductJson} from "./product-source";
 
 const strip = (text: string) => load(text || "").text().trim();
 export async function analyseProduct(run: Run) {
@@ -56,23 +57,29 @@ export async function analyseProduct(run: Run) {
     } catch { /* Invalid merchant schema is not treated as source evidence. */ }
   });
   const structured = jsonld.find(p => p["@type"] === "Product" || Array.isArray(p["@type"]) && p["@type"].includes("Product"));
-  const jsUrl = `${url.origin}/products/${encodeURIComponent(handle)}.js`;
-  let raw: any=adminRaw;
-  try {
-    if(!raw){
-    await permitted(jsUrl);
-    const response = await safeFetch(jsUrl);
-    if (!response.ok) throw new Error(`Shopify product endpoint returned ${response.status}`);
-    raw = await response.json();
-    if (!raw.title || !Array.isArray(raw.variants)) throw new Error("Invalid Shopify product response");
+  const embedded=productFromHtml(evidence.html,handle,structured);
+  let raw:any=adminRaw??(embedded.headless?embedded.raw:undefined);
+  if(!raw){
+    // Preserve localisation prefixes. Headless/Hydrogen uses its public form
+    // data instead of pretending it implements the classic Ajax endpoint.
+    const base=new URL(url);base.search="";base.hash="";
+    base.pathname=base.pathname.replace(/\/+$/,"");
+    for(const extension of [".js",".json"]){
+      try{
+        const endpoint=base.href+extension;
+        await permitted(endpoint);
+        const response=await safeFetch(endpoint);
+        if(!response.ok)continue;
+        const candidate=normaliseProductJson(await response.json(),extension===".json");
+        if(candidate?.variants.length){raw=candidate;break;}
+      }catch{/* Continue through public, product-specific sources. */}
     }
-  } catch (e) {
-    run.warnings.push(`Product JSON unavailable: ${e instanceof Error ? e.message : "unknown error"}. Using public structured data; cart requires verified variant IDs.`);
+    raw??=embedded.raw;
   }
   if (!raw && !structured) throw new AppError(422,"No public Shopify product data found. Password-protected stores need a public preview or connected store access.");
   const title = String(raw?.title ?? structured?.name ?? $("h1").first().text()).trim();
   const offer = Array.isArray(structured?.offers) ? structured?.offers[0] : structured?.offers;
-  let currency = String(adminCurrency ?? offer?.priceCurrency ?? "");
+  let currency = String(adminCurrency ?? raw?.currency ?? offer?.priceCurrency ?? "");
   if (!currency) {
     const matchCurrency = evidence.html.match(/Shopify\.currency\s*=\s*\{\s*["']?active["']?\s*:\s*["']([A-Z]{3})/);
     currency = matchCurrency?.[1] ?? $('meta[property="product:price:currency"]').attr("content") ?? "XXX";
@@ -117,7 +124,8 @@ export async function analyseProduct(run: Run) {
   };
   product.specs=cleanProductSpecs(product.specs);
   product.missingFacts=missingFacts(product);
-  if (!variants.length) run.warnings.push("Variant IDs could not be verified. Shopify cart and publishing must not be claimed working.");
+  run.warnings=run.warnings.filter(w=>!/^Product JSON unavailable:|^Variant IDs could not be verified\.|^The source does not expose purchase options\.|^Currency was not found;/.test(w));
+  if (!variants.length) run.warnings.push("The source does not expose purchase options. You can create designs; choose or import a product in your connected store when uploading.");
   if (currency === "XXX") run.warnings.push("Currency was not found; it is marked unknown, not guessed.");
   run.product = product;
   await event(run,"analysing_brand","Computed styles extracted. Analysing brand screenshot and sourced product facts.");

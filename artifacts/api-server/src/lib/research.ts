@@ -6,13 +6,12 @@ import { askJson, aiReady } from "./ai";
 import { event } from "./store";
 import { AppError, type Run, type Competitor } from "./domain";
 import { search } from "./search";
-import {createHash} from "node:crypto";
+import {reviewedInputKey,sameReviewedInputs} from "./research-identity";
 import {researchQueue,reusableCaptures,isCommerceReference} from "./research-queue";
 export async function research(run: Run) {
   if (!run.product) throw new AppError(409,"Analyse a product first.");
   const p = run.product;
-  const inputKey=createHash("sha256").update(JSON.stringify({product:run.product,brand:run.brand})).digest("hex");
-  const previous=reusableCaptures(run.competitors,run.researchKey===inputKey);
+  const previous=reusableCaptures(run.competitors,sameReviewedInputs(run));
   run.status = "researching";
   await event(run,"finding_competitors",`Searching for ${p.category} competitors, with preference for Indian D2C brands.`);
   const ownHost = new URL(run.url).hostname;
@@ -103,7 +102,7 @@ export async function research(run: Run) {
   for (const l of run.learnings) await db.insert(learningsTable).values({id:l.id,runId:run.id,category:p.category,data:l});
   if (successful.length < 8) run.warnings.push(`Research coverage: ${successful.length} of the target 8 competitor pages could be captured. Review blocked sources before using these findings.`);
   run.status = "researched";
-  run.researchKey=createHash("sha256").update(JSON.stringify({product:run.product,brand:run.brand})).digest("hex");
+  run.researchKey=reviewedInputKey(run);
   run.researchedAt=new Date().toISOString();
   await event(run,"review",`Research saved: ${successful.length} successful sources and ${run.learnings.length} linked observations.`);
 }

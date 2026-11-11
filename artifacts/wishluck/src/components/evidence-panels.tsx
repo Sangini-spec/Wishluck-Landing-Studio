@@ -11,13 +11,15 @@ const eyebrow = "font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-
 export function ScoresPanel({ design }: { design: Design }) {
   return (
     <div className="panel p-4" data-testid="panel-scores">
-      <div className="mb-3 flex items-baseline justify-between"><span className={eyebrow}>Content scores</span><span className="font-mono text-[10px] text-muted-foreground">local check, not Lighthouse</span></div>
+      <div className="mb-3 flex items-baseline justify-between"><span className={eyebrow}>Local page checks</span><span className="font-mono text-[10px] text-muted-foreground">passed / total</span></div>
       <dl className="grid grid-cols-3 divide-x divide-border rounded-lg border border-border">
-        {(["seo", "aeo", "geo"] as const).map((k) => (
+        {(["seo", "aeo", "geo"] as const).map((k) => {
+          const checks=design.checks.filter(c=>c.category.toLowerCase()===k);
+          return (
           <div key={k} className="px-2 py-2 text-center" data-testid={`text-score-${k}`}>
-            <dd className="font-mono text-lg tabular-nums">{Math.round(design.scores[k])}</dd>
+            <dd className="font-mono text-lg tabular-nums">{checks.filter(c=>c.status==="passed").length}<span className="text-xs text-muted-foreground">/{checks.length}</span></dd>
             <dt className="font-mono text-[9.5px] uppercase tracking-wider text-muted-foreground">{k}</dt>
-          </div>))}
+          </div>);})}
       </dl>
     </div>
   );

@@ -80,6 +80,14 @@ test("unavailable galleries or source reviews cannot become fabricated content s
   const ask=async<T>(_prompt:string,schema:z.ZodType<T>)=>({value:schema.parse(copy),estimatedCost:0});
   await assert.rejects(planResearchDesign(run,0,content(),emptyContext,ask),/quality checks/);
 });
+test("the planning schema excludes specifications when no verified product specs exist",async()=>{
+  const run=runFixture();run.product!.specs={};
+  const copy=response(run),node=copy.visualPlan.composition.sections[0]!;
+  copy.visualPlan.composition.sections.push({...node,kind:"specs",title:"Details"});
+  await assert.rejects(planResearchDesign(run,0,content(),emptyContext,async<T>(_prompt:string,schema:z.ZodType<T>)=>({
+    value:schema.parse(copy),estimatedCost:0,
+  })),/quality checks/);
+});
 test("repair feedback identifies the exact nearest rendered structure",async()=>{
   const run=runFixture(),copy=response(run),previous=content();
   previous.visualPlan=composedVisualPlan({...copy.visualPlan,composition:{

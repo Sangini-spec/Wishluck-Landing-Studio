@@ -27,6 +27,15 @@ test("current research is reused, but corrections and explicit refresh trigger f
   await researchThenGenerate(run,true,services);
   assert.equal(researches,2);assert.equal(generations,3);
 });
+test("research identity survives JSON storage property reordering",()=>{
+  const run=fixture(8);run.product!.specs={Materials:"Ceramic",Capacity:"200 ml"};
+  run.researchKey=researchKey(run);
+  run.product=Object.fromEntries(Object.entries(run.product!).reverse()) as typeof run.product;
+  run.product!.specs={Capacity:"200 ml",Materials:"Ceramic"};
+  assert.equal(researchIsCurrent(run),true);
+  run.product!.specs.Capacity="300 ml";
+  assert.equal(researchIsCurrent(run),false);
+});
 test("insufficient captures or missing search never generate a fallback",async()=>{
   const run=fixture();let generated=false;
   const services={searchReady:()=>true,research:async(r:Run)=>{r.competitors=fixture(7).competitors;},generate:async()=>{generated=true;}};

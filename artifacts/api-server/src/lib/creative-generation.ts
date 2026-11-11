@@ -1,7 +1,7 @@
 import {z} from "zod";
-import {askJson,aiReady} from "./ai";
+import {askJson,askDesignJson,aiReady} from "./ai";
 import {AppError,type Run,type DesignContent} from "./domain";
-import {creativePlanSchema,compositionSchema,surfaces} from "./composition-plan";
+import {creativePlanSchema,compositionSchema,surfaces,contentKinds} from "./composition-plan";
 import {composedVisualPlan} from "./design-plan";
 import {designResearch,influenceSchema,validateInfluences} from "./research-evidence";
 import {compare,fingerprint} from "./fingerprints";
@@ -46,7 +46,7 @@ function compose(result:Copy,base:DesignContent,run:Run):DesignContent{
     visualPlan,sections:visualPlan.sections,composition:"composed",imagePosition:visualPlan.composition!.hero.mediaSide,
     colorUse:visualPlan.colorStrategy,ctaPlacement:kinds.includes("purchase")?"hero-repeat-sticky":"hero-and-sticky",generationMode:"ai"};
 }
-export async function planResearchDesign(run:Run,index:number,base:DesignContent,context:Awaited<ReturnType<typeof categoryContext>>,ask=askJson){
+export async function planResearchDesign(run:Run,index:number,base:DesignContent,context:Awaited<ReturnType<typeof categoryContext>>,ask=askDesignJson,copyAsk=ask===askDesignJson?askJson:ask){
   if(!aiReady())throw new AppError(503,"AI design generation is not connected. No template fallback was generated.");
   const research=designResearch(run);
   if(research.length<8)throw new AppError(409,"Complete competitor research before generating a design.");
@@ -56,15 +56,17 @@ export async function planResearchDesign(run:Run,index:number,base:DesignContent
     throw new AppError(409,"Review the product title and description before generating a campaign page. Missing specifications and policies will remain explicitly unverified.");
   // Keep strategy, rejected layouts and technical instructions out of the
   // copywriter's context. A fresh layout never requires rewriting valid copy.
-  const campaignCopy=await writeCampaignCopy(run,index,ask);
+  const campaignCopy=await writeCampaignCopy(run,index,copyAsk);
   const latest=context.designs.filter(d=>d.fingerprint.schemaVersion===3).slice(0,3);
   const recentHeroes=latest.map(d=>d.fingerprint.hero as Record<string,unknown>);
   const heroModes=compositionSchema.shape.hero.shape.layout.options.filter(mode=>!recentHeroes.some(hero=>hero.layout===mode));
   const allowedModes=heroModes.length?heroModes:compositionSchema.shape.hero.shape.layout.options;
   const allowedSurfaces=recentHeroes.length===3&&recentHeroes.every(hero=>["paper","muted"].includes(String(hero.surface)))
     ?["ink","brand"] as const:surfaces;
+  const supported=brief.supportedSections.filter(kind=>kind!=="benefits"||campaignCopy.benefits.length>0);
+  const node=compositionSchema.shape.sections.element.extend({kind:z.enum(supported as [typeof contentKinds[number],...typeof contentKinds[number][]])});
   const outputSchema=copySchema.pick({visualPlan:true,researchInfluences:true}).extend({visualPlan:creativePlanSchema.extend({composition:compositionSchema.extend({
-    sections:compositionSchema.shape.sections.min(Math.max(4,brief.requiredSections.length)),
+    sections:z.array(node).min(Math.max(4,brief.requiredSections.length)).max(7),
     hero:compositionSchema.shape.hero.extend({
       layout:z.enum(allowedModes as [typeof allowedModes[number],...typeof allowedModes[number][]]),
       surface:z.enum(allowedSurfaces as unknown as [typeof surfaces[number],...typeof surfaces[number][]]),
@@ -116,6 +118,6 @@ ${attempt?`The previous proposal was rejected: ${problem}. Previous structural p
     }
   }
   throw new AppError(502,/structural difference/.test(problem)
-    ?"The proposed pages were still too similar to saved designs. No repetitive result was saved. Refresh competitor research before retrying."
+    ?"The proposed pages were still too similar to saved designs. Existing designs are safe; retry to finish the remaining designs."
     :`A design did not pass its quality checks. Existing designs were kept.${problem.trim().startsWith("[")?" Retry to finish the remaining designs.":` ${problem.slice(0,300)}`}`);
 }

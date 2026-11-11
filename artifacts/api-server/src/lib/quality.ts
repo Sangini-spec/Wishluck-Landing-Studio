@@ -46,6 +46,13 @@ export function checkDesign(design:Design,c:DesignContent,p:Product,brand:Brand|
   rendered("product-schema","SEO","Product JSON-LD matches local product and price",jsonValid&&!!product&&product.name===p.title&&
     Number.isFinite(p.price)&&p.currency!=="XXX"&&Number(product?.offers?.price)===p.price&&product?.offers?.priceCurrency===p.currency,
     "Local JSON and source-value consistency only. Google Rich Results validation is separate.");
+  const titleLength=$?.("title").text().trim().length??0,descriptionLength=$?.("meta[name='description']").attr("content")?.trim().length??0;
+  rendered("snippet-quality","SEO","Search snippet has useful title and description lengths",titleLength>=25&&titleLength<=70&&descriptionLength>=80&&descriptionLength<=165,
+    "Local editorial guideline: title 25–70 characters and description 80–165. Presence alone is not useful snippet copy or a ranking guarantee.");
+  const factualDetails=Object.keys(brief.verifiedSpecs).length;
+  const editorialWords=normal([c.subheading,c.story,...c.benefits.map(b=>b.text)].join(" ")).split(/\s+/).length;
+  rendered("product-depth","SEO","Substantive product detail beyond name and price",factualDetails>=2&&editorialWords>=60,
+    "At least two verified product details and 60 words of explanatory copy. Repeating a product name, price or generic selling language is not substantive product information.");
   rendered("faq","AEO","Useful FAQ answers are actually rendered",visibleFaq.length>=2&&visibleFaq.every(item=>!!item.question&&!!item.answer),
     "At least two real product questions with visible, non-empty answers; add verified product facts when information is missing.");
   rendered("faq-direct","AEO","Answers are concise and stand alone",visibleFaq.length>0&&visibleFaq.every(item=>item.answer.length<=700&&!/not (?:provided|verified|available) in (?:the )?source|cannot verify|refer to (?:the )?description/i.test(item.answer)),
@@ -56,6 +63,9 @@ export function checkDesign(design:Design,c:DesignContent,p:Product,brand:Brand|
   const grounded=c.faqs.length>0&&c.faqs.every(item=>brief.questions.some(source=>normal(source.answer)===normal(item.answer)));
   if(grounded)check("faq-evidence","AEO","FAQ answers trace to source or merchant facts",true,"Answers match the current design's saved factual product snapshot.");
   else pending("faq-evidence","AEO","FAQ answer grounding needs review","Legacy or paraphrased answers are not certified factual by their presence. Review the Product facts and regenerate to use source-backed answers.");
+  const substantiveAnswers=brief.questions.filter(source=>!["description","price"].includes(source.factKey)&&c.faqs.some(item=>normal(item.question)===normal(source.question)&&normal(item.answer)===normal(source.answer)));
+  rendered("faq-depth","AEO","Answers cover specific buying questions beyond identity and price",substantiveAnswers.length>=2&&visibleFaq.length>=4,
+    "Require at least two verified detail, use, contents or policy answers, plus at least four visible questions. Two automatically inserted identity/price answers do not establish answer quality.");
   const specEntries=Object.entries(brief.verifiedSpecs);
   rendered("specs","GEO","Verified specification table is visible",!!$&&$(".wl-sec-specs dl").length>0&&specEntries.length>0&&specEntries.every(([key,value])=>$(".wl-sec-specs dt").toArray().some(element=>normal($(element).text())===normal(key))&&text.includes(normal(value))),
     "Save verified product specifications, then regenerate; a hidden or omitted table does not count.");
@@ -69,7 +79,7 @@ export function checkDesign(design:Design,c:DesignContent,p:Product,brand:Brand|
   const sections=c.visualPlan?.composition?.sections.map(section=>section.kind)??c.sections;
   check("campaign","CONTENT","Complete product campaign, not only a product description",brief.requiredSections.every(kind=>sections.includes(kind))&&sections.filter(kind=>["story","benefits","specs","gallery","reviews"].includes(kind)).length>=2&&!!c.story.trim()&&!!c.subheading.trim(),
     `Required for these facts: ${brief.requiredSections.join(", ")}. Each must contribute useful content and an obvious purchase journey.`);
-  check("variants","CONTENT","Verified source price and variant identifiers",p.variants.length>0&&p.variants.every(v=>/^\d+$/.test(v.id))&&p.currency!=="XXX",
+  check("variants","CONTENT","Verified source price and variant identifiers",p.variants.length>0&&p.variants.every(v=>/^(?:\d+|gid:\/\/shopify\/ProductVariant\/\d+)$/.test(v.id))&&p.currency!=="XXX",
     "Source identifiers are needed for source-store cart tests. Importing into another store binds its own identifiers; real cart behaviour is verified separately.");
   pending("copy-grounding","CONTENT","Review narrative and benefit claims against source facts",
     "The campaign brief constrains the model, but automatic checks do not certify every paraphrased marketing claim. Review the story and benefits before approval; source-backed FAQ answers are checked separately.");

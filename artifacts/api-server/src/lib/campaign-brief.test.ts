@@ -57,3 +57,12 @@ test("repeat purchase imagery keeps descriptive alt text rather than an empty de
   const result=checkDesign(design,c,product,brand);
   assert.equal(result.checks.find(check=>check.key==="alt")?.status,"passed");
 });
+test("identity and price FAQs plus basic markup cannot earn perfect answer or search readiness",()=>{
+  const p={...product,specs:{},reviews:[]},brief=campaignBrief(p,brand);
+  const c={...content(),specs:{},faqs:brief.questions.map(({question,answer})=>({question,answer})),productSnapshot:p};
+  const result=checkDesign(design,c,p,brand);
+  assert.equal(result.checks.find(check=>check.key==="faq-depth")?.status,"failed");
+  assert.equal(result.checks.find(check=>check.key==="product-depth")?.status,"failed");
+  assert.ok(result.scores.aeo<100);
+  assert.ok(result.scores.seo<100);
+});
