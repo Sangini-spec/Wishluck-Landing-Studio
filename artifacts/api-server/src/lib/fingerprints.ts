@@ -1,7 +1,9 @@
 import type { Brand, Design, DesignContent } from "./domain";
 import {resolvePlan} from "./render-plan";
+import {composedFingerprint,compositionSimilarity} from "./composition-fingerprint";
 
 export function fingerprint(content: DesignContent, brand: Brand) {
+  if(content.visualPlan?.composition)return composedFingerprint(content.visualPlan);
   return {
     ...(content.visualPlan?{schemaVersion:2,designFamily:content.visualPlan.family,...content.visualPlan,typeTreatment:content.visualPlan.typography,sections:undefined}:{}),
     sectionOrder:content.sections,heroType:content.composition,imagePosition:content.imagePosition,
@@ -18,6 +20,7 @@ function sequenceSimilarity(a: string[], b: string[]) {
   return dp[a.length]![b.length]! / Math.max(a.length,b.length,1);
 }
 export function similarity(a: Record<string,unknown>, b: Record<string,unknown>) {
+  if(a.schemaVersion===3||b.schemaVersion===3)return compositionSimilarity(a,b);
   if(a.schemaVersion===2||b.schemaVersion===2){
     const project=(fp:Record<string,unknown>)=>{
       if(fp.schemaVersion===2)return fp;

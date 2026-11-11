@@ -4,7 +4,7 @@ export const influenceSchema=z.object({
   // The model's JSON-schema subset does not support format:uri. Exact source
   // membership is enforced below, which also rejects invented or invalid URLs.
   sourceUrl:z.string(),observation:z.string().min(8).max(350),application:z.string().min(8).max(350),
-  planFields:z.array(z.enum(["family","heroScale","imageTreatment","colorStrategy","contentRhythm","typography","detailLayout","alignment","accentPlacement","sections","headingSize","sectionSpacing"])).min(1).max(4),
+  planFields:z.array(z.enum(["family","heroScale","imageTreatment","colorStrategy","contentRhythm","typography","detailLayout","alignment","accentPlacement","sections","headingSize","sectionSpacing","composition"])).min(1).max(4),
 });
 export function designResearch(run:Run){
   return run.competitors.filter(c=>c.status==="crawled"&&c.analysis).map(c=>({url:c.url,observations:c.analysis,sections:c.sections}));

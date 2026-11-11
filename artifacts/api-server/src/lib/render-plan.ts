@@ -67,7 +67,7 @@ const HEADS: Record<VisualPlan["family"], Record<Exclude<SectionKey,"hero">, str
   journal:{story:"Field notes",benefits:"What we noticed",specs:"The particulars",faq:"Letters and answers",reviews:"Readers write",gallery:"Contact sheet",purchase:"Where to get it"},
 };
 export const headingFor = (p: VisualPlan, k: Exclude<SectionKey,"hero">) => HEADS[p.family][k];
-export const ctaFor = (p: VisualPlan) => ({ atelier:"Choose your size", kinetic:"Go to cart", gallery:"Select a variant", dossier:"Open order form", panorama:"Choose yours", mosaic:"Pick a variant", catalogue:"Choose options", journal:"Choose your variant" })[p.family];
+export const ctaFor = (p: VisualPlan) => p.composition ? "Choose your options" : ({ atelier:"Choose your size", kinetic:"Go to cart", gallery:"Select a variant", dossier:"Open order form", panorama:"Choose yours", mosaic:"Pick a variant", catalogue:"Choose options", journal:"Choose your variant" })[p.family];
 
 /** Caption derived only from the real file name of a real image; never invents a view. Mirrors Liquid logic. */
 const VIEWS: [string,string][] = [["_LEFT","Left"],["_RIGHT","Right"],["_FRONT","Front"],["_BACK","Back"],["_TOP","Top"],["_BOTTOM","Bottom"],["_SIDE","Side"]];
@@ -136,3 +136,21 @@ export function toneFor(plan: VisualPlan, pal: Palette, key: SectionKey, i: numb
 }
 export const flipFor = (plan: VisualPlan, i: number) => plan.contentRhythm === "alternating" && i % 2 === 0;
 export const storyImageIndex = (p: Product) => (p.images.length >= 2 ? 2 : p.images.length ? 1 : 0);
+
+// ---------- composition (new composed plans; legacy plans never reach these) ----------
+type Comp = NonNullable<VisualPlan["composition"]>;
+export type HeroComp = Comp["hero"];
+export type SecComp = Comp["sections"][number];
+export type Surface = HeroComp["surface"];
+/** Section spec for a kind; deterministic fallback keeps a composed page renderable if a kind is missing. */
+export function secSpec(p: VisualPlan, k: Exclude<SectionKey,"hero">): SecComp {
+  return p.composition?.sections.find(s => s.kind === k) ?? { kind: k, layout: "stack", surface: "paper", headingPlacement: "above", columns: 2, width: "contained", spacing: spacingFor(p), title: HEADS.catalogue[k] };
+}
+/** Composed pages store one light base tone; CSS surface classes (wl-sf-*) derive paper/muted/ink/brand from it. */
+export const baseTone = (p: VisualPlan, br: Brand) => palette({ ...p, colorStrategy: "light" }, br).a;
+/** Effective background per surface. Mirrors the Liquid `case s.surface` and wishluck-composition.css. */
+export const surfaceColor = (t: Tone, s: Surface) => s === "muted" ? t.secondary : s === "ink" ? t.text_color : s === "brand" ? t.primary : t.background;
+export const heroCx = (p: VisualPlan, h: HeroComp) =>
+  `wl-cx wl-img-${p.imageTreatment} wl-ty-${p.typography} wl-hx-${h.layout} wl-ms-${h.mediaSide} wl-ir-${h.imageRatio} wl-sf-${h.surface} wl-ha-${h.alignment} wl-cw-${h.contentWidth}`;
+export const secCx = (p: VisualPlan, s: SecComp) =>
+  `wl-cx wl-img-${p.imageTreatment} wl-ty-${p.typography} wl-sx-${s.layout} wl-sf-${s.surface} wl-hp-${s.headingPlacement} wl-c-${s.columns} wl-w-${s.width}`;
