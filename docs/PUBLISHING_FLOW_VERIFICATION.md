@@ -35,3 +35,15 @@ The user approved investigating Shopify CLI + Theme Access after the custom app'
 - Existing live theme `167122272354` remained live, and application-controlled live activation stayed disabled. Neither native Shopify Publish nor the CLI live-publish command was run.
 - Do not claim a completed native editor/cart/Lighthouse test without authorized storefront/editor access and actual results.
 - Five products across two categories, Google Rich Results evidence, repeated-product generation evidence and the submission recording are separate original-assignment gates; this publishing check alone does not satisfy them.
+
+## Authorized storefront continuation — 2026-11-11
+
+The merchant supplied the store-specific storefront-viewing password through Secrets. Authorized requests now reach the actual product route with its native cart form and Product schema, without disabling protection or using Theme Access/staff credentials as a storefront password.
+
+- Real mobile Lighthouse: **Performance 96, SEO 100, Accessibility 96**. All exceeded the assignment targets.
+- Persisted report: `/api/evidence/be35db1d-67b6-421b-afd8-97a99d6da4af`.
+- Native markup: one H1, no Liquid error, Product and FAQPage JSON-LD parsed without errors.
+- The selected seed product has one available variant. Shopify accepted its real variant ID through `/cart/add.js` with HTTP 200. The isolated test cart was subsequently cleared and verified empty.
+- Sanitized HTTP evidence: `generated-artifacts/storefront-verification/167127318626.json`. The verification script is opt-in, uses its own ephemeral session, and never purchases or changes products/themes.
+- All 34 backend unit checks passed, including per-store credential isolation and cross-origin cookie protections. Native Chrome cookies are origin scoped; global Cookie extra headers are not used.
+- Staff/editor authentication remains separate. Font/color/image/block editing and interactive cart/responsive acceptance in the native editor have not been verified. No live theme activation or Google Rich Results validation is claimed.
