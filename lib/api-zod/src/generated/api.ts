@@ -168,7 +168,12 @@ export const GetDashboardResponse = zod.object({
   "themeId": zod.string().optional(),
   "verified": zod.boolean().optional(),
   "livePublished": zod.boolean().optional(),
-  "previousLiveThemeId": zod.string().optional()
+  "previousLiveThemeId": zod.string().optional(),
+  "remoteRole": zod.string().optional(),
+  "checkedAt": zod.string().optional(),
+  "templateSuffix": zod.string().optional(),
+  "templateAssigned": zod.boolean().optional(),
+  "previousTemplateSuffix": zod.string().optional()
 }))
 })
 
@@ -1422,7 +1427,12 @@ export const GetCliPublishingStatusResponse = zod.object({
   "themeId": zod.string().optional(),
   "verified": zod.boolean().optional(),
   "livePublished": zod.boolean().optional(),
-  "previousLiveThemeId": zod.string().optional()
+  "previousLiveThemeId": zod.string().optional(),
+  "remoteRole": zod.string().optional(),
+  "checkedAt": zod.string().optional(),
+  "templateSuffix": zod.string().optional(),
+  "templateAssigned": zod.boolean().optional(),
+  "previousTemplateSuffix": zod.string().optional()
 }))
 })
 
@@ -1430,7 +1440,12 @@ export const GetCliPublishingStatusResponse = zod.object({
 export const UploadCliThemeBody = zod.object({
   "designId": zod.string(),
   "expectedShop": zod.string(),
-  "confirmUnpublishedUpload": zod.boolean()
+  "confirmUnpublishedUpload": zod.boolean(),
+  "productMode": zod.enum(['source', 'existing', 'import', 'none']).optional(),
+  "productId": zod.string().optional(),
+  "confirmTemplateAssignment": zod.boolean().optional(),
+  "confirmProductImport": zod.boolean().optional(),
+  "confirmCurrencyMismatch": zod.boolean().optional()
 })
 
 export const UploadCliThemeResponse = zod.object({
@@ -1456,7 +1471,12 @@ export const UploadCliThemeResponse = zod.object({
   "themeId": zod.string().optional(),
   "verified": zod.boolean().optional(),
   "livePublished": zod.boolean().optional(),
-  "previousLiveThemeId": zod.string().optional()
+  "previousLiveThemeId": zod.string().optional(),
+  "remoteRole": zod.string().optional(),
+  "checkedAt": zod.string().optional(),
+  "templateSuffix": zod.string().optional(),
+  "templateAssigned": zod.boolean().optional(),
+  "previousTemplateSuffix": zod.string().optional()
 })
 
 
@@ -1494,7 +1514,53 @@ export const ActivateCliThemeResponse = zod.object({
   "themeId": zod.string().optional(),
   "verified": zod.boolean().optional(),
   "livePublished": zod.boolean().optional(),
-  "previousLiveThemeId": zod.string().optional()
+  "previousLiveThemeId": zod.string().optional(),
+  "remoteRole": zod.string().optional(),
+  "checkedAt": zod.string().optional(),
+  "templateSuffix": zod.string().optional(),
+  "templateAssigned": zod.boolean().optional(),
+  "previousTemplateSuffix": zod.string().optional()
+})
+
+
+export const CheckCliPublicationParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+export const CheckCliPublicationBody = zod.object({
+  "expectedShop": zod.string(),
+  "runAudit": zod.boolean().optional()
+})
+
+export const CheckCliPublicationResponse = zod.object({
+  "id": zod.string(),
+  "designId": zod.string(),
+  "title": zod.string(),
+  "status": zod.string(),
+  "createdAt": zod.string(),
+  "previewUrl": zod.string().optional(),
+  "editorUrl": zod.string().optional(),
+  "shop": zod.string().optional(),
+  "productId": zod.string().optional(),
+  "productHandle": zod.string().optional(),
+  "productStatus": zod.string().optional(),
+  "imported": zod.boolean().optional(),
+  "adminUrl": zod.string().optional(),
+  "warnings": zod.array(zod.string()).optional(),
+  "variantMap": zod.record(zod.string(), zod.string()).optional(),
+  "helpUrl": zod.string().optional(),
+  "error": zod.string().optional(),
+  "themeName": zod.string().optional(),
+  "method": zod.string().optional(),
+  "themeId": zod.string().optional(),
+  "verified": zod.boolean().optional(),
+  "livePublished": zod.boolean().optional(),
+  "previousLiveThemeId": zod.string().optional(),
+  "remoteRole": zod.string().optional(),
+  "checkedAt": zod.string().optional(),
+  "templateSuffix": zod.string().optional(),
+  "templateAssigned": zod.boolean().optional(),
+  "previousTemplateSuffix": zod.string().optional()
 })
 
 
@@ -1532,7 +1598,12 @@ export const PublishDesignResponse = zod.object({
   "themeId": zod.string().optional(),
   "verified": zod.boolean().optional(),
   "livePublished": zod.boolean().optional(),
-  "previousLiveThemeId": zod.string().optional()
+  "previousLiveThemeId": zod.string().optional(),
+  "remoteRole": zod.string().optional(),
+  "checkedAt": zod.string().optional(),
+  "templateSuffix": zod.string().optional(),
+  "templateAssigned": zod.boolean().optional(),
+  "previousTemplateSuffix": zod.string().optional()
 })
 
 

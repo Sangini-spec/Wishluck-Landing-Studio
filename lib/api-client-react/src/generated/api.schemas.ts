@@ -216,6 +216,11 @@ export interface Publication {
   verified?: boolean;
   livePublished?: boolean;
   previousLiveThemeId?: string;
+  remoteRole?: string;
+  checkedAt?: string;
+  templateSuffix?: string;
+  templateAssigned?: boolean;
+  previousTemplateSuffix?: string;
 }
 
 export interface Dashboard {
@@ -306,10 +311,30 @@ export interface PublishingContext {
   products: StoreProduct[];
 }
 
+export type CliUploadInputProductMode = typeof CliUploadInputProductMode[keyof typeof CliUploadInputProductMode];
+
+
+export const CliUploadInputProductMode = {
+  source: 'source',
+  existing: 'existing',
+  import: 'import',
+  none: 'none',
+} as const;
+
 export interface CliUploadInput {
   designId: string;
   expectedShop: string;
   confirmUnpublishedUpload: boolean;
+  productMode?: CliUploadInputProductMode;
+  productId?: string;
+  confirmTemplateAssignment?: boolean;
+  confirmProductImport?: boolean;
+  confirmCurrencyMismatch?: boolean;
+}
+
+export interface CliCheckInput {
+  expectedShop: string;
+  runAudit?: boolean;
 }
 
 export interface CliActivateInput {

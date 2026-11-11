@@ -31,4 +31,9 @@ export interface Publication {
   verified?: boolean;
   livePublished?: boolean;
   previousLiveThemeId?: string;
+  remoteRole?: string;
+  checkedAt?: string;
+  templateSuffix?: string;
+  templateAssigned?: boolean;
+  previousTemplateSuffix?: string;
 }

@@ -8,8 +8,12 @@ import {randomUUID} from "node:crypto";
 import {AppError,type Publication} from "./domain";
 import {compile} from "./compiler";
 import {standaloneTheme} from "./theme-package";
-import {getDesign,savePublication,publications} from "./store";
+import {getDesign,savePublication,publications,saveDesign} from "./store";
 import {shopifyConfig} from "./shopify-auth";
+import {admin,publishingContext} from "./shopify";
+import {preparePublicationProduct} from "./publication-product";
+import type {CliUploadInput} from "@workspace/api-zod";
+import {db,feedbackTable} from "@workspace/db";
 
 const exec=promisify(execFile);
 const require=createRequire(import.meta.url);
@@ -114,23 +118,49 @@ export async function cliStatus(){
   const result={shop,configured,authenticated:false,livePublishingEnabled:process.env.SHOPIFY_CLI_ALLOW_LIVE_PUBLISH==="true",credentialKey:shop?cliSecretKey(shop):"",uploads:(await publications()).filter(p=>p.method==="theme-access-cli"&&p.shop===shop),
     currentLiveThemeId:undefined as string|undefined,message:undefined as string|undefined};
   if(configured){
-    try{const list=await cliThemes(shop);result.authenticated=true;result.currentLiveThemeId=list.find((t:any)=>["live","main"].includes(t.role))?.id;}
+    try{
+      const list=await cliThemes(shop);result.authenticated=true;result.currentLiveThemeId=list.find((t:any)=>["live","main"].includes(t.role))?.id;
+      // Native Shopify publishing is an external writer. Derive current role on
+      // every status fetch so reloads/other browser sessions see the real state.
+      result.uploads=result.uploads.map(p=>{
+        const theme=list.find((t:any)=>t.id===p.themeId);
+        return {...p,remoteRole:theme?.role??"missing",livePublished:!!theme&&["live","main"].includes(theme.role)};
+      });
+    }
     catch(error){result.message=error instanceof Error?error.message:"Theme Access authentication failed.";}
   }
   return result;
 }
-export async function uploadCliTheme(designId:string,expectedShop:string){
+export async function uploadCliTheme(designId:string,expectedShop:string,options?:CliUploadInput){
   const shop=currentStore(expectedShop);
-  const {design,content,run}=await getDesign(designId);
+  const {design,content,run,category}=await getDesign(designId);
   if(!run.product||!run.brand||design.status==="rejected")throw new AppError(409,"A non-rejected design with product and brand data is required.");
-  const files=standaloneTheme(compile(design,content,run.product,run.brand));
+  const mode=options?.productMode??"none";
+  if(mode!=="none"&&!["approved","published"].includes(design.status))throw new AppError(409,"Approve this design before publishing it to a store product.");
+  // Validate a complete package before any product import or theme creation.
+  standaloneTheme(compile(design,content,run.product,run.brand));
   const id=randomUUID(),base=await mkdtemp(path.join(tmpdir(),"wishluck-cli-theme-"));
   const p:Publication={id,designId,title:run.product.title,status:"uploading",createdAt:new Date().toISOString(),shop,method:"theme-access-cli",verified:false,livePublished:false,
-    warnings:["Uploaded theme only: no products are created, activated or reassigned. Select a matching store product in the theme editor."]};
+    warnings:[]};
   await savePublication(p);
   try{
     const before=await cliThemes(shop);
     p.previousLiveThemeId=before.find((t:any)=>["live","main"].includes(t.role))?.id;
+    const context=mode==="none"?null:await publishingContext(designId);
+    if(context&&context.shop!==shop)throw new AppError(409,"The destination store changed.");
+    const target=context?await preparePublicationProduct(admin,run.product,content,run.id,context,options!):null;
+    const files=standaloneTheme(compile(design,target?.content??content,target?.product??run.product,run.brand));
+    if(target){
+      const settings=JSON.parse(files["config/settings_data.json"]);
+      settings.current.preview_product=target.native.handle;
+      files["config/settings_data.json"]=JSON.stringify(settings,null,2);
+      Object.assign(p,{title:target.product.title,productId:target.native.id,productHandle:target.native.handle,productStatus:target.native.status,
+        imported:target.imported,previousTemplateSuffix:target.native.templateSuffix??"",templateSuffix:`wl-${design.id.slice(0,8)}`,templateAssigned:false});
+      p.adminUrl=`https://${shop}/admin/products/${target.native.id.split("/").pop()}`;
+      if(target.native.status!=="ACTIVE")p.warnings!.push("This product remains a draft. Shopify may require authorized draft-preview access; cart acceptance cannot be proven for a draft. Activate products only through your own explicit Shopify action.");
+      if(!options?.confirmTemplateAssignment)p.warnings!.push("Preview only: no global product template suffix or SEO fields were changed. The new theme uses this design as its default product template.");
+      await savePublication(p);
+    }else p.warnings!.push("Theme-only preview. Select a store product in the editor; no product was created or reassigned.");
     const directory=path.join(base,"theme");
     await writeDirectory(files,directory);
     const result=await runThemeCli(shop,["push","--unpublished","--nodelete","--theme",`Wishluck ${design.id.slice(0,8)} ${id.slice(0,6)}`,"--path",directory,"--strict","--json"]);
@@ -141,11 +171,43 @@ export async function uploadCliTheme(designId:string,expectedShop:string){
     await verifyCliFiles(shop,theme.id,files,path.join(base,"readback"));
     const after=await cliThemes(shop);
     if(before.some((t:any)=>!after.some((v:any)=>v.id===t.id&&v.role===t.role&&v.name===t.name)))throw new AppError(502,"Existing theme roles or names changed during upload. Review the store before proceeding.");
-    p.verified=true;p.status="published";
+    if(target){
+      const suffix=p.templateSuffix!;
+      if(options?.confirmTemplateAssignment){
+        const assigned=await admin("mutation($product:ProductUpdateInput!){productUpdate(product:$product){product{id templateSuffix} userErrors{field message}}}",
+          {product:{id:target.native.id,templateSuffix:suffix,seo:{title:target.content.headline.slice(0,70),description:target.content.subheading.slice(0,160)}}});
+        if(assigned.productUpdate.userErrors?.length)throw new AppError(422,assigned.productUpdate.userErrors.map((e:any)=>e.message).join("; "));
+        const readback=await admin("query($id:ID!){product(id:$id){id templateSuffix}}",{id:target.native.id});
+        if(readback.product?.templateSuffix!==suffix)throw new AppError(502,"Uploaded theme is intact, but product template assignment could not be verified.");
+        p.templateAssigned=true;
+      }
+      const nativePreview=target.native.status==="DRAFT"?target.native.onlineStorePreviewUrl:null;
+      p.previewUrl=nativePreview?`${nativePreview}${nativePreview.includes("?")?"&":"?"}preview_theme_id=${theme.id}`:`https://${shop}/products/${encodeURIComponent(target.native.handle)}?preview_theme_id=${theme.id}`;
+      const path=nativePreview?new URL(nativePreview).pathname+new URL(nativePreview).search:`/products/${encodeURIComponent(target.native.handle)}`;
+      p.editorUrl=`${theme.editorUrl}?template=product.${suffix}&previewPath=${encodeURIComponent(path)}`;
+      if(design.status!=="published"){
+        await db.insert(feedbackTable).values({id:randomUUID(),designId,category,action:"published",reason:"Verified CLI publication to a new unpublished Shopify theme."});
+        design.status="published";await saveDesign(design,content,category);
+      }
+    }
+    p.verified=true;p.status="published";p.remoteRole="unpublished";p.checkedAt=new Date().toISOString();
   }catch(error){p.status="failed";p.error=error instanceof Error?error.message:"CLI upload failed";}
   finally{await rm(base,{recursive:true,force:true});}
   await savePublication(p);
   return p;
+}
+export async function checkCliPublication(publicationId:string,expectedShop:string){
+  const shop=currentStore(expectedShop),p=(await publications()).find(p=>p.id===publicationId);
+  if(!p||p.method!=="theme-access-cli"||p.shop!==shop||!p.themeId)throw new AppError(404,"No CLI publication for this store was found.");
+  const target=(await cliThemes(shop)).find((t:any)=>t.id===p.themeId);
+  if(!target)throw new AppError(404,"The theme is no longer in Shopify. No automatic re-upload or live replacement was attempted.");
+  p.remoteRole=target.role;p.livePublished=["main","live"].includes(target.role);p.checkedAt=new Date().toISOString();
+  if(p.productId&&p.templateAssigned){
+    const result=await admin("query($id:ID!){product(id:$id){id status templateSuffix}}",{id:p.productId});
+    p.productStatus=result.product?.status;
+    if(!result.product||result.product.templateSuffix!==p.templateSuffix)throw new AppError(409,"The product/template assignment changed in Shopify. Review it in the editor before continuing.");
+  }
+  await savePublication(p);return p;
 }
 export function assertLiveConfirmation(input:{confirmReplaceLiveTheme:boolean;expectedShop:string;themeId:string},p:Publication,shop:string){
   if(!input.confirmReplaceLiveTheme||input.expectedShop!==shop||p.shop!==shop||input.themeId!==p.themeId)throw new AppError(400,"Explicit confirmation for this exact store and theme is required to replace the live storefront.");

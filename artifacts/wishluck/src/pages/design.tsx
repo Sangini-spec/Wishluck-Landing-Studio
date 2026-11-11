@@ -163,10 +163,10 @@ export default function DesignPage() {
         <div className="flex flex-wrap gap-2">
           <a href={d.downloadUrl} download data-testid="link-download" className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3.5 text-[13px] font-medium hover:bg-muted"><Download className="h-4 w-4" /> Theme ZIP</a>
           <Btn data-testid="button-regenerate" variant="outline" disabled={regen.isPending} onClick={() => regen.mutate({ id: d.id }, { ...done("New design version created"), onSuccess: (next) => { invalidateRun(qc, run.id); navigate(`/designs/${next.id}`); toast({title:"New design version created"}); } })}>{regen.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />} Regenerate</Btn>
-          <Btn data-testid="button-publish" variant="outline" title="Custom-app Theme API route; use Theme Access publishing below for CLI uploads." onClick={() => setPubOpen(true)}><Send className="h-4 w-4" /> Legacy API upload</Btn>
+          <Btn data-testid="button-publish" variant="seal" disabled={!["approved","published"].includes(d.status)} title={!["approved","published"].includes(d.status)?"Approve this design before publishing":"Upload through CLI and open Shopify’s editor"} onClick={() => setPubOpen(true)}><Send className="h-4 w-4" /> Publish to Shopify</Btn>
         </div>
       </header>
-      <CliPublishing design={d}/>
+      <CliPublishing design={d} open={pubOpen} onOpenChange={setPubOpen}/>
       <Notice icon={<Download className="h-3.5 w-3.5" />}>
         Download a complete theme ZIP, then in Shopify go to Online Store → Themes → Import theme → Upload ZIP. Keep it unpublished and open Customize. Select a product page, or choose a homepage product under Theme settings → Landing page preview. No live-theme publication or product reassignment is required. This is a store upload, not a Theme Store submission.
       </Notice>
@@ -197,6 +197,7 @@ export default function DesignPage() {
               <div className="mb-2"><StatusPill status={lh.status} /></div>
               {lh.error ? <p className="text-xs text-destructive">{lh.error}</p> : <div className="grid grid-cols-3 gap-2 text-center">{([["Perf", lh.performance], ["SEO", lh.seo], ["A11y", lh.accessibility]] as const).map(([k, v]) => <div key={k} className="rounded-lg bg-muted py-2"><div className="font-display text-2xl">{v ?? "—"}</div><div className="font-mono text-[10px] uppercase text-muted-foreground">{k}</div></div>)}</div>}
               {lh.testedAt && <p className="mt-2 text-[11px] text-muted-foreground">Tested {ago(lh.testedAt)}</p>}</>}
+            {lh?.url&&<a href={lh.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-xs underline">Open Lighthouse report<ExternalLink className="h-3 w-3"/></a>}
           </div>
         </aside>
       </div>
@@ -212,7 +213,6 @@ export default function DesignPage() {
                   <div><div className="text-[13.5px]">{c.label}</div>{c.detail && <div className="text-xs text-muted-foreground">{c.detail}</div>}</div>
                 </li>))}</ul></div>))}</div>}
       </section>
-      <PublishDialog design={d} open={pubOpen} onOpenChange={setPubOpen} />
     </>
   );
 }

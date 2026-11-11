@@ -5,9 +5,15 @@
  * Wishluck Shopify landing page studio
  * OpenAPI spec version: 1.0.0
  */
+import type { CliUploadInputProductMode } from './cliUploadInputProductMode';
 
 export interface CliUploadInput {
   designId: string;
   expectedShop: string;
   confirmUnpublishedUpload: boolean;
+  productMode?: CliUploadInputProductMode;
+  productId?: string;
+  confirmTemplateAssignment?: boolean;
+  confirmProductImport?: boolean;
+  confirmCurrencyMismatch?: boolean;
 }

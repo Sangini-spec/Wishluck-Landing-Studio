@@ -173,9 +173,19 @@ This is an interpretable structural heuristic, not perceptual proof or a guarant
 
 ### Publishing external products into the connected store
 
+**Current primary route: Shopify CLI + Theme Access.** The main **Publish to Shopify** button calls `/api/shopify/cli/uploads`, never silently falls back to the blocked `themeFilesUpsert` route, and creates a new unpublished standalone theme. This is an intentional change from the assignment's Admin-API file-upload example: the supplied custom app lacks Shopify's protected theme-file exemption, while the separately authorized Theme Access route has passed a real upload and remote readback. Product reads, explicit template/SEO assignment and assignment verification still use the installed Admin app.
+
+Approve a design, choose its destination product (or explicitly import/reuse a draft), then confirm the new unpublished upload. The product's template and SEO fields change **only** if the separate global-assignment checkbox is checked. Without it, the complete new theme's default product template supports previewing without altering the product. Only select a different product if you want its actual facts/media substituted for the source product.
+
+The frontend reserves a tab on the confirmation click, waits for CLI validation/upload/readback, then navigates that tab to the returned theme editor. Popup-blocked browsers retain visible editor/preview links. Failed uploads close the temporary tab and display the actual failure rather than claiming success. Published design status, publication history and a positive category-memory signal are persisted after a verified product-bound publication.
+
+Real Lighthouse is queued automatically against the exact product preview after publication. Return from the Shopify editor to check remote theme role/template assignment and queue another audit; **Check Shopify & run audit** is also available. Password/login/setup pages and incomplete Lighthouse results are explicitly rejected, not scored. Actual report links and scores appear on the design page. Final live activation is performed by the merchant inside Shopify; the application does not click Shopify's Publish button or enable its owner-disabled live-activation API.
+
+Store-specific Theme Access passwords remain in project Secrets. Each CLI subprocess has an isolated temporary home and working directory, receives only its selected store's credential, preserves platform-created files and is never pointed at an existing merchant theme for write tests. Failed-history deletion removes local records only, never Shopify themes or products.
+
 The publishing dialog reads the authenticated store identity and product catalogue directly. Foreign-store variant IDs cannot be reused. Merchants can explicitly import a draft copy or select an existing store product; importing requires rights consent and a separate currency-mismatch confirmation where applicable (no invented FX conversion).
 
-Draft imports copy source product facts, images and genuine variant prices into new store IDs. They do not activate products, publish sales channels, copy source inventory, ratings or store policies. A per-run handle plus source-URL metafield prevents duplicate imports. Theme uploads are attempted before automatic import, avoiding orphan products when Shopify refuses theme writes. Existing-product publishing adapts content to the selected product's actual facts.
+Draft imports copy source product facts, images and genuine variant prices into new store IDs. They do not activate products, publish sales channels, copy source inventory, ratings or store policies. A per-run handle plus source-URL metafield prevents duplicate imports. The CLI path validates the package and store authentication before preparing the destination; an explicitly requested draft may remain if a later upload fails, and is reused on retry. Existing-product publishing adapts content to the selected product's actual facts.
 
 The configured app authenticated successfully, and an approved draft import was verified with seven new variant IDs and four READY images. A real upload to the unpublished Horizon theme was denied because Shopify requires a theme-file API exemption in addition to the installed `write_themes` scope. The app surfaces the request link and manual ZIP option; it must not claim successful native publishing until that permission is granted and upload/assignment/cart checks pass. The MAIN theme was not modified.
 
@@ -234,7 +244,7 @@ Job status is persistent, but the worker queue is in-process. On restart unfinis
 
 Verified so far: full workspace TypeScript checks, workflow startup, running dashboard capture, database-backed summary/settings responses, real custom-app authentication, theme listing and product/variant/image reads.
 
-Not verified: completed product-generation runs, live competitor research, five-product/two-category matrix, actual publishing, native theme-editor edits, all-variant carts, Lighthouse targets, Google tests or screen recording. See [the live status register](docs/IMPLEMENTATION_STATUS.md).
+Verified publishing evidence now includes a real frontend-to-CLI unpublished upload, file readback, selected-product assignment, automatic editor-tab navigation, persisted history and automatic audit triggering. Native editor changes are blocked by Shopify sign-in; Lighthouse is blocked by the password-protected storefront and has not produced target scores. The five-product/two-category matrix, all-variant carts, Google tests and submission recording are not yet accepted. See [publishing verification](docs/PUBLISHING_FLOW_VERIFICATION.md) and [the live status register](docs/IMPLEMENTATION_STATUS.md).
 
 The final HR submission additionally needs a GitHub/GitLab link with meaningful commit history, reviewer theme-editor access, five-product evidence and a genuine 5–7 minute recording. Source code and a demo script alone do not satisfy those obligations.
 

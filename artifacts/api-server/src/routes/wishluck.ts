@@ -6,7 +6,7 @@ import {
   CreateRunBody,GetRunParams,UpdateBrandBody,UpdateProductBody,SubmitFeedbackBody,PublishDesignBody,
   GetRunResponse,GetDashboardResponse,ListRunsResponse,GetSettingsResponse,GetMemoryResponse,GetShopifyStatusResponse,ListThemesResponse,PublishDesignResponse,
 } from "@workspace/api-zod";
-import { getRun,listRuns,saveRun,getDesign,saveDesign,categoryContext,publications,event } from "../lib/store";
+import { getRun,listRuns,saveRun,getDesign,saveDesign,categoryContext,publications,event,savePublication } from "../lib/store";
 import { analyseProduct } from "../lib/analysis";
 import { research } from "../lib/research";
 import { searchReady,searchProvider } from "../lib/search";
@@ -19,12 +19,12 @@ import { shopifyStatus,connectShopify,themes,publish,admin,publishingContext,ver
 import {deleteRuns,deleteMemory,deletePublications} from "../lib/deletion";
 import {savedStores,withStoreLock} from "../lib/shopify-selection";
 import {SwitchShopifyStoreBody} from "@workspace/api-zod";
-import {GetCliPublishingStatusResponse,UploadCliThemeBody,ActivateCliThemeBody} from "@workspace/api-zod";
-import {cliStatus,uploadCliTheme,activateCliTheme} from "../lib/shopify-cli";
+import {GetCliPublishingStatusResponse,UploadCliThemeBody,ActivateCliThemeBody,CheckCliPublicationBody} from "@workspace/api-zod";
+import {cliStatus,uploadCliTheme,activateCliTheme,checkCliPublication} from "../lib/shopify-cli";
 import { preview } from "../lib/preview";
 import { compile,zipDesign } from "../lib/compiler";
 import { objectStorageClient } from "../lib/objectStorage";
-import { audit } from "../lib/audit";
+import { queueAudit } from "../lib/audit";
 import { missingFacts } from "../lib/facts";
 
 const router:IRouter=Router();
@@ -130,13 +130,27 @@ router.get("/designs/:id/download",async(req,res)=>{
   const zip=await zipDesign(compile(design,content,run.product,run.brand));
   res.set({"Content-Type":"application/zip","Content-Disposition":`attachment; filename="wishluck-${design.id.slice(0,8)}.zip"`}).send(zip);
 });
-router.post("/designs/:id/quality",async(req,res)=>{res.json(await audit(idParam(req.params.id)));});
+router.post("/designs/:id/quality",async(req,res)=>{res.json(await queueAudit(idParam(req.params.id)));});
 router.get("/shopify/cli",async(_req,res)=>res.json(GetCliPublishingStatusResponse.parse(await cliStatus())));
 router.post("/shopify/cli/uploads",async(req,res)=>{
   const body=UploadCliThemeBody.parse(req.body);
   if(!body.confirmUnpublishedUpload)throw new AppError(400,"Confirm creating a separate unpublished theme.");
   const {run}=await getDesign(body.designId);
-  res.json(PublishDesignResponse.parse(await withRunLock(run.id,()=>withStoreLock(()=>uploadCliTheme(body.designId,body.expectedShop)))));
+  const p=await withRunLock(run.id,()=>withStoreLock(()=>uploadCliTheme(body.designId,body.expectedShop,body)));
+  if(p.status==="published"&&p.productId){
+    try{await queueAudit(p.designId,p.id);}
+    catch{p.warnings??=[];p.warnings.push("Upload verified; automatic Lighthouse could not be queued. Use Run audit to retry.");await savePublication(p);}
+  }
+  res.json(PublishDesignResponse.parse(p));
+});
+router.post("/shopify/cli/uploads/:id/check",async(req,res)=>{
+  const body=CheckCliPublicationBody.parse(req.body),id=idParam(req.params.id);
+  const original=(await publications()).find(p=>p.id===id);
+  if(!original)throw new AppError(404,"Publication not found.");
+  const {run}=await getDesign(original.designId);
+  const p=await withRunLock(run.id,()=>withStoreLock(()=>checkCliPublication(id,body.expectedShop)));
+  if(body.runAudit&&p.productId)await queueAudit(p.designId,p.id);
+  res.json(PublishDesignResponse.parse(p));
 });
 router.post("/shopify/cli/uploads/:id/activate",async(req,res)=>{
   const body=ActivateCliThemeBody.parse(req.body);

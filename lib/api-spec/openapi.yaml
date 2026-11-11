@@ -286,6 +286,22 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/Publication" }
+  /shopify/cli/uploads/{id}/check:
+    post:
+      operationId: checkCliPublication
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CliCheckInput" }
+      responses:
+        "200":
+          description: Refreshed Shopify theme role and product assignment; quality audit queued
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Publication" }
   /shopify/publish:
     post:
       operationId: publishDesign
@@ -585,6 +601,17 @@ components:
         designId: { type: string }
         expectedShop: { type: string }
         confirmUnpublishedUpload: { type: boolean }
+        productMode: { type: string, enum: [source, existing, import, none] }
+        productId: { type: string }
+        confirmTemplateAssignment: { type: boolean }
+        confirmProductImport: { type: boolean }
+        confirmCurrencyMismatch: { type: boolean }
+    CliCheckInput:
+      type: object
+      required: [expectedShop]
+      properties:
+        expectedShop: { type: string }
+        runAudit: { type: boolean }
     CliActivateInput:
       type: object
       required: [expectedShop, themeId, expectedLiveThemeId, confirmReplaceLiveTheme]
@@ -632,6 +659,11 @@ components:
         verified: { type: boolean }
         livePublished: { type: boolean }
         previousLiveThemeId: { type: string }
+        remoteRole: { type: string }
+        checkedAt: { type: string }
+        templateSuffix: { type: string }
+        templateAssigned: { type: boolean }
+        previousTemplateSuffix: { type: string }
     Connection:
       type: object
       required: [configured, connected, shop, message, missing]
