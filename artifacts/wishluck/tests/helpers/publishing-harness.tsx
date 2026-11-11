@@ -5,6 +5,7 @@ import {createRoot, type Root} from "react-dom/client";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import type {CliPublishingStatus, Design, Publication, PublishingJob, PublishingContext} from "@workspace/api-client-react";
 import {CliPublishing} from "../../src/components/cli-publishing";
+import {Toaster} from "../../src/components/ui/toaster";
 
 export const shop = "store-a.myshopify.com";
 export const pendingKey = "wishluck:pending-upload:design-1";
@@ -74,6 +75,7 @@ export class PublishingHarness {
   client!: QueryClient;
   root?: Root;
   host?: HTMLElement;
+  updateDesign!: (value: Design) => void;
 
   constructor() {
     localStorage.clear();
@@ -139,9 +141,12 @@ export class PublishingHarness {
     this.host = document.createElement("div");
     document.body.append(this.host);
     this.root = createRoot(this.host);
+    const harness = this;
     function Screen() {
       const [open, setOpen] = useState(initialOpen);
-      return <CliPublishing design={currentDesign} open={open} onOpenChange={setOpen}/>;
+      const [shownDesign, setDesign] = useState(currentDesign);
+      harness.updateDesign = setDesign;
+      return <><CliPublishing design={shownDesign} open={open} onOpenChange={setOpen}/><Toaster/></>;
     }
     await act(async () => { this.root!.render(<QueryClientProvider client={this.client}><Screen/></QueryClientProvider>); });
     await until(() => {

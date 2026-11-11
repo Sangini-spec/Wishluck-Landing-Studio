@@ -1,5 +1,5 @@
 import {dom} from "./helpers/dom";
-import {test} from "node:test";
+import {test, type TestContext} from "node:test";
 import assert from "node:assert/strict";
 import {act} from "react";
 import {
@@ -8,6 +8,8 @@ import {
   historyKey, storageAreas, storageMethods,
 } from "./helpers/publishing-harness";
 
+// Control only the return flow's four-second delay. Query notifications and DOM
+// settling keep their real timers, so advancing this clock cannot mask a poll.
 async function confirmUpload(h: PublishingHarness) {
   await until(() => assert.equal((element("select-cli-product-mode") as HTMLSelectElement).value, "source"));
   await act(async () => { (element("checkbox-cli-upload") as HTMLInputElement).click(); });
@@ -44,6 +46,41 @@ async function exerciseHistory(h: PublishingHarness) {
   await h.poll();
   assert.ok(element(receiptId));
   assert.ok(element(jobId));
+}
+
+function returnCheckClock(t: TestContext) {
+  const realSetTimeout = globalThis.setTimeout;
+  const realClearTimeout = globalThis.clearTimeout;
+  type Handle = ReturnType<typeof setTimeout>;
+  const scheduled = new Map<Handle, {at: number; run: () => void}>();
+  let now = 0, sequence = 0;
+  t.mock.method(globalThis, "setTimeout", (callback: () => void, delay?: number, ...args: unknown[]) => {
+    if (delay !== 4000) return realSetTimeout(callback, delay, ...args);
+    const handle = {returnCheckTimer: ++sequence} as unknown as Handle;
+    scheduled.set(handle, {at: now + delay, run: callback});
+    return handle;
+  });
+  t.mock.method(globalThis, "clearTimeout", (handle: Handle) => {
+    if (!scheduled.delete(handle)) realClearTimeout(handle);
+  });
+  return {
+    async advance(ms: number) {
+      const end = now + ms;
+      await act(async () => {
+        while (true) {
+          const next = [...scheduled].filter(([, timer]) => timer.at <= end)
+            .sort((a, b) => a[1].at - b[1].at)[0];
+          if (!next) break;
+          const [handle, timer] = next;
+          now = timer.at;
+          scheduled.delete(handle);
+          timer.run();
+        }
+        now = end;
+      });
+      await settle();
+    },
+  };
 }
 
 const storageFaults = storageAreas.flatMap(area => storageMethods.map(method => `${area}.${method}` as const));
@@ -169,6 +206,7 @@ for (const {name, value} of [
     assert.deepEqual(h.requests.filter(r => r.method !== "GET").map(r => r.path), [`/api/shopify/cli/uploads/${publication.id}/check`]);
   });
 }
+
 
 test("Reload restores a queued upload, polls it, and redirects only after verification", async t => {
   const h = new PublishingHarness(); t.after(() => h.dispose());
@@ -304,6 +342,108 @@ test("Back with a retained page checks once on focus and never reopens the edito
   assert.equal(h.checks.length, 1);
   assert.equal(h.redirects.length, 1);
   assert.equal(h.uploadPosts.length, 0);
+  assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
+});
+
+test("A hidden Back restoration waits for visible focus, then checks the saved receipt only once", async t => {
+  const clock = returnCheckClock(t);
+  const h = new PublishingHarness(); t.after(() => h.dispose());
+  let hidden = true;
+  const previous = Object.getOwnPropertyDescriptor(document, "hidden");
+  Object.defineProperty(document, "hidden", {configurable: true, get: () => hidden});
+  t.after(() => {
+    if (previous) Object.defineProperty(document, "hidden", previous);
+    else Reflect.deleteProperty(document, "hidden");
+  });
+  h.complete();
+  const savedReturn = JSON.stringify({id: publication.id, shop: publication.shop});
+  sessionStorage.setItem(returnKey, savedReturn);
+  await h.mount();
+  await act(async () => { dom.dispatchEvent(new dom.Event("focus")); });
+  await clock.advance(12000);
+  assert.equal(h.checks.length, 0);
+  assert.equal(sessionStorage.getItem(returnKey), savedReturn);
+  assert.equal(h.uploadPosts.length, 0);
+  assert.equal(h.redirects.length, 0);
+
+  hidden = false;
+  await act(async () => { dom.dispatchEvent(new dom.Event("focus")); });
+  await until(() => assert.equal(h.checks.length, 1));
+  assert.deepEqual(h.checks[0], {
+    method: "POST", path: `/api/shopify/cli/uploads/${publication.id}/check`,
+    body: {expectedShop: publication.shop, runAudit: true},
+  });
+  assert.equal(sessionStorage.getItem(returnKey), null);
+  await act(async () => {
+    dom.dispatchEvent(new dom.Event("focus"));
+    dom.dispatchEvent(new dom.Event("focus"));
+  });
+  await clock.advance(12000);
+  await h.poll();
+  assert.equal(h.checks.length, 1);
+  assert.equal(h.uploadPosts.length, 0);
+  assert.equal(h.redirects.length, 0);
+  assert.equal(sessionStorage.getItem(pendingKey), null);
+});
+
+test("Returning during a Lighthouse audit waits and checks once when the audit finishes without another focus", async t => {
+  const clock = returnCheckClock(t);
+  const h = new PublishingHarness(); t.after(() => h.dispose());
+  h.complete();
+  const savedReturn = JSON.stringify({id: publication.id, shop: publication.shop});
+  sessionStorage.setItem(returnKey, savedReturn);
+  await h.mount(false, {...design, lighthouse: {status: "running"}});
+  await act(async () => {
+    dom.dispatchEvent(new dom.Event("focus"));
+    dom.dispatchEvent(new dom.Event("focus"));
+  });
+  await clock.advance(8000);
+  assert.equal(h.checks.length, 0);
+  assert.equal(sessionStorage.getItem(returnKey), savedReturn);
+  assert.equal(h.uploadPosts.length, 0);
+  assert.equal(h.redirects.length, 0);
+  await act(async () => { h.updateDesign(design); });
+  await clock.advance(3999);
+  assert.equal(h.checks.length, 0);
+  await clock.advance(1);
+  await until(() => assert.equal(h.checks.length, 1));
+  assert.deepEqual(h.checks[0].body, {expectedShop: publication.shop, runAudit: true});
+  assert.equal(sessionStorage.getItem(returnKey), null);
+  await act(async () => { dom.dispatchEvent(new dom.Event("focus")); });
+  await clock.advance(12000);
+  await h.poll();
+  assert.equal(h.checks.length, 1);
+  assert.equal(h.uploadPosts.length, 0);
+  assert.equal(h.redirects.length, 0);
+  assert.equal(sessionStorage.getItem(pendingKey), null);
+});
+
+test("A failed return check explains the failure without retrying, uploading, or reopening Shopify", async t => {
+  const clock = returnCheckClock(t);
+  const h = new PublishingHarness(); t.after(() => h.dispose());
+  h.complete();
+  h.failures.add(`/api/shopify/cli/uploads/${publication.id}/check`);
+  sessionStorage.setItem(returnKey, JSON.stringify({id: publication.id, shop: publication.shop}));
+  await h.mount();
+  await until(() => assert.match(document.body.textContent!, /Shopify check needs attention/));
+  assert.match(document.body.textContent!, /Temporary offline polling failure/);
+  assert.equal(h.checks.length, 1);
+  assert.deepEqual(h.checks[0].body, {expectedShop: publication.shop, runAudit: true});
+  assert.equal(sessionStorage.getItem(returnKey), null);
+  assert.ok(element(`cli-upload-${publication.id}`));
+  assert.equal((element(`button-cli-check-${publication.id}`) as HTMLButtonElement).disabled, false);
+  await act(async () => {
+    dom.dispatchEvent(new dom.Event("focus"));
+    dom.dispatchEvent(new dom.Event("focus"));
+  });
+  await clock.advance(12000);
+  await h.poll();
+  await h.unmount();
+  await h.mount();
+  assert.equal(h.checks.length, 1);
+  assert.equal(h.uploadPosts.length, 0);
+  assert.equal(h.redirects.length, 0);
+  assert.equal(sessionStorage.getItem(pendingKey), null);
   assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
 });
 
