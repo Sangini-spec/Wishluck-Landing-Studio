@@ -2,6 +2,7 @@ import { build } from "esbuild";
 import { readdir, mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
 import { spawnSync } from "node:child_process";
+import {createRequire} from "node:module";
 
 // Bundle TS tests only; leave packages external and generated files out of Git.
 const outdir = resolve("../../generated-artifacts/render-regression/tests");
@@ -16,5 +17,9 @@ await build({ entryPoints: entries.map(f => `src/lib/${f}`), outdir, bundle: tru
 const { symlink, lstat } = await import("node:fs/promises");
 const link = resolve(outdir, "../node_modules");
 try { await lstat(link); } catch { await symlink(resolve("node_modules"), link, "dir"); }
-const result = spawnSync(process.execPath, ["--test", "--test-concurrency=1", ...entries.map(f => resolve(outdir, f.replace(/\.ts$/, ".mjs")))], { stdio: "inherit" });
+// External workspace packages expose TypeScript source. Enable the existing
+// workspace TS loader for those imports, including extensionless schema paths.
+const workspaceRequire=createRequire(resolve("../../scripts/package.json"));
+const tsLoader=workspaceRequire.resolve("tsx/esm");
+const result = spawnSync(process.execPath, ["--import",tsLoader,"--test", "--test-concurrency=1", ...entries.map(f => resolve(outdir, f.replace(/\.ts$/, ".mjs")))], { stdio: "inherit" });
 process.exit(result.status ?? 1);

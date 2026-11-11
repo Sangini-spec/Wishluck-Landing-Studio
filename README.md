@@ -199,12 +199,18 @@ Images from another store must first be uploaded/selected in the merchant's Shop
 4. Compile namespaced Liquid, CSS/JS and JSON.
 5. Reject filename conflicts; never overwrite a pre-existing file silently.
 6. Upload through `themeFilesUpsert`; inspect `userErrors`, poll any returned job.
-7. Query file existence, then assign `productUpdate` template suffix and SEO fields.
+7. Verify filenames and Shopify MD5 readback against compiled content, then assign `productUpdate` template suffix and SEO fields.
 8. Verify the returned suffix; record preview/editor links or actionable errors.
 
-File existence verification is implemented; byte-for-byte file readback and automatic rollback after a partially successful upload are not. A failed job may leave unassigned files on the selected non-live theme. Template assignment is intentionally not performed automatically during this build session.
+Content verification uses Shopify's MD5 checksums. Automatic rollback after a partially successful upload is not implemented; a failed job may leave unassigned files on the selected non-live theme. Template assignment is intentionally not performed automatically during diagnostic checks.
 
-ZIP export preserves `sections/`, `assets/`, `templates/` for manual upload; it is not falsely counted as API publishing.
+### Standalone theme ZIPs
+
+**Theme ZIP** exports a complete, separate theme: layout, metadata in `config/settings_schema.json`, current settings and a preset in `config/settings_data.json`, default home/product templates, namespaced product template, generated sections/assets, basic store-page templates and locale data. JSON, metadata, section references and required layout placeholders are validated before download.
+
+To use it, open the store's **Online Store → Themes → Import theme → Upload ZIP**. Keep the theme unpublished and choose **Customize**. Select a product page in the editor to see the generated design as the default product template; no global product-template reassignment is needed. For a homepage preview, choose a matching store product under **Theme settings → Landing page preview → Homepage preview product**. Products, media, variants and inventory are not imported by the ZIP. Draft products may require Shopify's admin product-preview flow.
+
+This is a merchant theme upload, **not** the Partner Dashboard's **Submit theme** flow for public Theme Store distribution. The export does not claim marketplace certification, bypass Shopify review, or count as verified Shopify publishing. The additive API compiler remains separate: global layouts, config and default templates from the standalone shell are never included in a single-design API upload to an existing theme.
 
 ## SEO / AEO / GEO and QA
 

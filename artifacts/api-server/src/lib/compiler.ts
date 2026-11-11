@@ -6,6 +6,7 @@ import {cleanProductSpecs,isProductFact} from "./facts";
 import { trustFacts } from "./facts";
 import { ctaFor, headingFor, headingSizeFor, heroImageWant, pad2, palette, planSections, resolvePlan, spacingFor, toneFor, flipFor, type Tone } from "./render-plan";
 import { designFamilies } from "./design-plan";
+import {standaloneTheme} from "./theme-package";
 
 export const rootDir = existsSync(path.resolve(process.cwd(),"shopify")) ? process.cwd() : path.resolve(process.cwd(),"../..");
 export const escapeHtml=(v:unknown)=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]!);
@@ -129,7 +130,6 @@ export function compile(design:Design,c:DesignContent,p:Product,b:Brand):Record<
 }
 export async function zipDesign(files:Record<string,string>){
   const zip=new JSZip();
-  for(const[name,content]of Object.entries(files))zip.file(name,content);
-  zip.file("UPLOAD-INSTRUCTIONS.txt","Upload assets/, sections/, templates/ to a DUPLICATED or UNPUBLISHED Dawn theme. Assign this product template only after checking live-theme consequences. Images render from the assigned product's own media (product.images); override any image with the native image picker. Preview HTML is not Liquid execution. Verify cart, schema and Lighthouse on Shopify before use.");
+  for(const[name,content]of Object.entries(standaloneTheme(files)))zip.file(name,content);
   return zip.generateAsync({type:"nodebuffer"});
 }

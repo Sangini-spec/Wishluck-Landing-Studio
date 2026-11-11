@@ -160,11 +160,14 @@ export default function DesignPage() {
         <div><div className="mb-2 flex items-center gap-2"><StatusPill status={d.status} /><span className="font-mono text-[11px] text-muted-foreground">v{d.version} · {ago(d.createdAt)}</span></div>
           <h1 className="font-display text-4xl md:text-[44px]">{d.name}</h1><p className="mt-1 max-w-2xl text-sm text-muted-foreground"><b className="font-medium text-foreground">{d.direction}.</b> {d.description}</p></div>
         <div className="flex flex-wrap gap-2">
-          <a href={d.downloadUrl} download data-testid="link-download" className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3.5 text-[13px] font-medium hover:bg-muted"><Download className="h-4 w-4" /> ZIP</a>
+          <a href={d.downloadUrl} download data-testid="link-download" className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3.5 text-[13px] font-medium hover:bg-muted"><Download className="h-4 w-4" /> Theme ZIP</a>
           <Btn data-testid="button-regenerate" variant="outline" disabled={regen.isPending} onClick={() => regen.mutate({ id: d.id }, { ...done("New design version created"), onSuccess: (next) => { invalidateRun(qc, run.id); navigate(`/designs/${next.id}`); toast({title:"New design version created"}); } })}>{regen.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />} Regenerate</Btn>
           <Btn data-testid="button-publish" variant="seal" onClick={() => setPubOpen(true)}><Send className="h-4 w-4" /> Publish</Btn>
         </div>
       </header>
+      <Notice icon={<Download className="h-3.5 w-3.5" />}>
+        Download a complete theme ZIP, then in Shopify go to Online Store → Themes → Import theme → Upload ZIP. Keep it unpublished and open Customize. Select a product page, or choose a homepage product under Theme settings → Landing page preview. No live-theme publication or product reassignment is required. This is a store upload, not a Theme Store submission.
+      </Notice>
       {d.warnings.length > 0 && <div className="mb-4 space-y-2">{d.warnings.map((w, i) => <Notice key={i} icon={<AlertTriangle className="h-3.5 w-3.5 text-[hsl(var(--amber))]" />}>{w}</Notice>)}</div>}
 
       <div className="grid gap-6 xl:grid-cols-[1fr_340px]">
