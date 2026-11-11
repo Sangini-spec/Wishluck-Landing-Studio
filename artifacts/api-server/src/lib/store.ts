@@ -62,7 +62,7 @@ export async function categoryContext(category: string) {
   return { designs: designs.map(d => d.data as Design), feedback, learnings: learnings.map(l => l.data as Learning) };
 }
 export async function publications(): Promise<Publication[]> {
-  const rows = await db.select().from(publicationsTable).orderBy(desc(publicationsTable.createdAt)).limit(100);
+  const rows = await db.select().from(publicationsTable).orderBy(desc(publicationsTable.createdAt));
   return rows.map(row => row.data as Publication);
 }
 export async function getPublication(id:string):Promise<Publication|undefined>{

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { DetailDisclosure } from "@/components/detail-disclosure";
 import { Link, useParams } from "wouter";
 import { useQueryClient } from "@tanstack/react-query";
 import { Search, Sparkles, Loader2, ExternalLink, AlertTriangle, Plus, Trash2, Save, Globe, Quote, LayoutTemplate, ArrowUpRight, ImageOff, Info } from "lucide-react";
@@ -265,19 +266,22 @@ function Research({ run }: { run: Run }) {
               </div>
               <div className="p-4">
                 <div className="flex items-start justify-between gap-2"><div className="min-w-0"><div className="truncate font-medium">{c.title}</div><a href={c.url} target="_blank" rel="noreferrer" className="font-mono text-xs text-muted-foreground hover:underline">{host(c.url)}</a></div><StatusPill status={c.status} /></div>
-                <p className="mt-2 text-[13px] text-muted-foreground">{c.reason}</p>
                 {c.error && <p className="mt-2 text-xs text-destructive">{c.error}</p>}
+                <DetailDisclosure className="mt-3" label="Research details">
+                <p className="text-[13px] text-muted-foreground">{c.reason}</p>
                 {c.sections.length > 0 && <div className="mt-3 flex flex-wrap gap-1">{c.sections.map((s) => <Tag key={s}>{s}</Tag>)}</div>}
-                {c.analysis && Object.keys(c.analysis).length > 0 && <details className="mt-3 rounded-lg border border-border" open><summary className="cursor-pointer px-3 py-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">Conversion breakdown</summary><div className="border-t border-border px-3 py-2"><AnalysisView value={c.analysis} /></div></details>}
+                {c.analysis && Object.keys(c.analysis).length > 0 && <div className="mt-3 rounded-lg border border-border"><div className="px-3 py-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-muted-foreground">Conversion breakdown</div><div className="border-t border-border px-3 py-2"><AnalysisView value={c.analysis} /></div></div>}
                 {c.htmlUrl && <a href={c.htmlUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-xs hover:underline">Captured HTML <ExternalLink className="h-3 w-3" /></a>}
+                </DetailDisclosure>
               </div>
             </article>))}</div>}
       </section>
       <section>
         <h3 className="mb-3 font-display text-2xl">Sourced learnings</h3>
         {run.learnings.length === 0 ? <p className="text-sm text-muted-foreground">No learnings yet. Each learning will cite the competitor pages it came from.</p> :
-          <ul className="panel divide-y divide-border">{run.learnings.map((l) => (
-            <li key={l.id} className="flex gap-3 p-4"><Quote className="mt-1 h-3.5 w-3.5 shrink-0 text-[hsl(var(--seal))]" /><div><p className="text-[14px]">{l.text}</p><div className="mt-1.5 flex flex-wrap items-center gap-2"><Tag>{l.category}</Tag>{l.sources.map((s) => <a key={s} href={s} target="_blank" rel="noreferrer" className="font-mono text-[11px] text-muted-foreground hover:underline">{host(s)}</a>)}</div></div></li>))}</ul>}
+          <DetailDisclosure label={`View all ${run.learnings.length} sourced learnings`}>
+          <ul className="divide-y divide-border">{run.learnings.map((l) => (
+            <li key={l.id} className="flex gap-3 p-4"><Quote className="mt-1 h-3.5 w-3.5 shrink-0 text-[hsl(var(--seal))]" /><div><p className="text-[14px]">{l.text}</p><div className="mt-1.5 flex flex-wrap items-center gap-2"><Tag>{l.category}</Tag>{l.sources.map((s) => <a key={s} href={s} target="_blank" rel="noreferrer" className="font-mono text-[11px] text-muted-foreground hover:underline">{host(s)}</a>)}</div></div></li>))}</ul></DetailDisclosure>}
       </section>
     </div>
   );

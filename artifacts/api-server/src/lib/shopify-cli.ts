@@ -135,8 +135,9 @@ function currentStore(expectedShop:string){
 }
 export async function cliStatus(){
   const shop=shopifyConfig().shop;
+  const storePublications=(await publications()).filter(p=>p.shop===shop);
   const configured=!!shop&&(()=>{try{cliCredential(shop);return true;}catch{return false;}})();
-  const result={shop,configured,authenticated:false,livePublishingEnabled:process.env.SHOPIFY_CLI_ALLOW_LIVE_PUBLISH==="true",credentialKey:shop?cliSecretKey(shop):"",uploads:(await publications()).filter(p=>p.method==="theme-access-cli"&&p.shop===shop),
+  const result={shop,configured,authenticated:false,livePublishingEnabled:process.env.SHOPIFY_CLI_ALLOW_LIVE_PUBLISH==="true",credentialKey:shop?cliSecretKey(shop):"",uploads:storePublications.filter(p=>p.method==="theme-access-cli"),
     jobs:(await durableJobs()).filter(j=>j.shop===shop),
     currentLiveThemeId:undefined as string|undefined,message:undefined as string|undefined};
   if(configured){
@@ -144,14 +145,13 @@ export async function cliStatus(){
       const list=await cliThemes(shop);result.authenticated=true;result.currentLiveThemeId=list.find((t:any)=>["live","main"].includes(t.role))?.id;
       // Native Shopify publishing is an external writer. Derive current role on
       // every status fetch so reloads/other browser sessions see the real state.
-      for(const p of result.uploads){
-        const theme=list.find((t:any)=>t.id===p.themeId);
+      for(const p of storePublications){
+        const theme=list.find((t:any)=>t.id===p.themeId?.split("/").at(-1));
         if(!p.themeId||p.status==="uploading")continue;
         const latest=await getPublication(p.id);if(latest)Object.assign(p,latest);
-        const previous=JSON.stringify({role:p.remoteRole,live:p.livePublished,state:p.lifecycleStatus});
         p.remoteRole=theme?.role??"missing";p.livePublished=!!theme&&["live","main"].includes(theme.role);
         p.checkedAt=new Date().toISOString();recordPublicationState(p);
-        if(previous!==JSON.stringify({role:p.remoteRole,live:p.livePublished,state:p.lifecycleStatus}))await savePublication(p);
+        await savePublication(p);
       }
     }
     catch(error){result.message=error instanceof Error?error.message:"Theme Access authentication failed.";}
@@ -346,7 +346,10 @@ export async function checkCliPublication(publicationId:string,expectedShop:stri
   const shop=currentStore(expectedShop),p=(await publications()).find(p=>p.id===publicationId);
   if(!p||p.method!=="theme-access-cli"||p.shop!==shop||!p.themeId)throw new AppError(404,"No CLI publication for this store was found.");
   const target=(await cliThemes(shop)).find((t:any)=>t.id===p.themeId);
-  if(!target)throw new AppError(404,"The theme is no longer in Shopify. No automatic re-upload or live replacement was attempted.");
+  if(!target){
+    p.remoteRole="missing";p.livePublished=false;p.checkedAt=new Date().toISOString();
+    recordPublicationState(p);await savePublication(p);return p;
+  }
   p.remoteRole=target.role;p.livePublished=["main","live"].includes(target.role);p.checkedAt=new Date().toISOString();
   // Read-only comparison: an editor visit alone is NOT evidence of an edit.
   const base=await mkdtemp(path.join(tmpdir(),"wishluck-edit-check-"));
@@ -377,11 +380,17 @@ export async function checkCliPublication(publicationId:string,expectedShop:stri
   }
   await savePublication(p);return p;
 }
-let lastLifecycleRefresh=0,lifecycleRefresh:Promise<void>|undefined;
+const lifecycleRefreshes=new Map<string,Promise<void>>();
 export async function refreshPublicationRoles(){
-  if(Date.now()-lastLifecycleRefresh<30000)return;
-  if(!lifecycleRefresh)lifecycleRefresh=cliStatus().then(()=>{lastLifecycleRefresh=Date.now();}).catch(()=>{lastLifecycleRefresh=Date.now();}).finally(()=>{lifecycleRefresh=undefined;});
-  await lifecycleRefresh;
+  const shop=shopifyConfig().shop??"";
+  let pending=lifecycleRefreshes.get(shop);
+  if(!pending){
+    pending=cliStatus().then(status=>{
+      if(status.configured&&!status.authenticated)throw new AppError(503,"Shopify status could not be refreshed. Retry to verify publication counts.");
+    }).finally(()=>{lifecycleRefreshes.delete(shop);});
+    lifecycleRefreshes.set(shop,pending);
+  }
+  await pending;
 }
 export function assertLiveConfirmation(input:{confirmReplaceLiveTheme:boolean;expectedShop:string;themeId:string},p:Publication,shop:string){
   if(!input.confirmReplaceLiveTheme||input.expectedShop!==shop||p.shop!==shop||input.themeId!==p.themeId)throw new AppError(400,"Explicit confirmation for this exact store and theme is required to replace the live storefront.");

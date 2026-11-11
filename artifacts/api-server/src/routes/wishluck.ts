@@ -30,6 +30,7 @@ import { objectStorageClient } from "../lib/objectStorage";
 import { queueAudit } from "../lib/audit";
 import { missingFacts } from "../lib/facts";
 import {discoverProducts} from "../lib/product-discovery";
+import {publicationCounts,publicationState} from "../lib/publication-status";
 import {DiscoverStoreProductsBody,DiscoverStoreProductsResponse} from "@workspace/api-zod";
 
 const router:IRouter=Router();
@@ -42,8 +43,8 @@ router.get("/dashboard",async(_req,res)=>{
   await refreshPublicationRoles();
   const [runs,pubs]=await Promise.all([listRuns(),publications()]);
   const memories=await Promise.all([...new Set(runs.flatMap(r=>r.product?[r.product.category]:[]))].map(categoryContext));
-  res.json(GetDashboardResponse.parse({totalRuns:runs.length,totalDesigns:runs.reduce((n,r)=>n+r.designs.length,0),publishedCount:pubs.filter(p=>p.livePublished===true).length,
-    categories:memories.filter(c=>c.designs.length||c.learnings.length).length,recentRuns:runs.slice(0,5),publications:pubs}));
+  res.json(GetDashboardResponse.parse({totalRuns:runs.length,totalDesigns:runs.reduce((n,r)=>n+r.designs.length,0),publishedCount:publicationCounts(pubs).published,
+    categories:memories.filter(c=>c.designs.length||c.learnings.length).length,recentRuns:runs.slice(0,5),publications:pubs.map(p=>({...p,status:publicationState(p)}))}));
 });
 router.get("/runs",async(_req,res)=>{res.json(ListRunsResponse.parse(await listRuns()));});
 router.delete("/runs/:id",async(req,res)=>res.json(await deleteRuns(idParam(req.params.id))));
@@ -160,7 +161,7 @@ router.post("/shopify/cli/uploads/:id/check",async(req,res)=>{
   if(!original)throw new AppError(404,"Publication not found.");
   const {run}=await getDesign(original.designId);
   const p=await withRunLock(run.id,()=>withStoreLock(()=>checkCliPublication(id,body.expectedShop)));
-  if(body.runAudit&&p.productId)await queueAudit(p.designId,p.id);
+  if(body.runAudit&&p.productId&&publicationState(p)!=="deleted")await queueAudit(p.designId,p.id);
   res.json(PublishDesignResponse.parse(p));
 });
 router.post("/shopify/cli/uploads/:id/activate",async(req,res)=>{

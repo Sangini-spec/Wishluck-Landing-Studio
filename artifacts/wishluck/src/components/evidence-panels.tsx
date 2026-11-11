@@ -11,16 +11,20 @@ const eyebrow = "font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-
 export function ScoresPanel({ design }: { design: Design }) {
   return (
     <div className="panel p-4" data-testid="panel-scores">
-      <div className="mb-3 flex items-baseline justify-between"><span className={eyebrow}>Local page checks</span><span className="font-mono text-[10px] text-muted-foreground">passed / total</span></div>
-      <dl className="grid grid-cols-3 divide-x divide-border rounded-lg border border-border">
-        {(["seo", "aeo", "geo"] as const).map((k) => {
-          const checks=design.checks.filter(c=>c.category.toLowerCase()===k);
-          return (
-          <div key={k} className="px-2 py-2 text-center" data-testid={`text-score-${k}`}>
-            <dd className="font-mono text-lg tabular-nums">{checks.filter(c=>c.status==="passed").length}<span className="text-xs text-muted-foreground">/{checks.length}</span></dd>
-            <dt className="font-mono text-[9.5px] uppercase tracking-wider text-muted-foreground">{k}</dt>
-          </div>);})}
-      </dl>
+      <div className="mb-4 flex items-baseline justify-between"><span className={eyebrow}>Scores</span><span className="text-[10px] text-muted-foreground">Local check coverage</span></div>
+      <div className="grid grid-cols-4 gap-1">
+        {(["overall", "seo", "aeo", "geo"] as const).map(k => {
+          const score = Math.max(0, Math.min(100, Math.round(design.scores[k])));
+          const color = score >= 90 ? "hsl(var(--jade))" : score >= 60 ? "hsl(var(--amber))" : "hsl(var(--destructive))";
+          return <div key={k} className="flex flex-col items-center gap-2" data-testid={`text-score-${k}`}>
+            <div role="meter" aria-label={`${k.toUpperCase()} local check coverage`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={score}
+              className="grid h-12 w-12 place-items-center rounded-full p-[3px]" style={{background:`conic-gradient(${color} ${score}%, hsl(var(--muted)) 0)`}}>
+              <span className="grid h-full w-full place-items-center rounded-full bg-card font-mono text-[12px] tabular-nums">{score}%</span>
+            </div>
+            <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground">{k}</span>
+          </div>;
+        })}
+      </div>
     </div>
   );
 }

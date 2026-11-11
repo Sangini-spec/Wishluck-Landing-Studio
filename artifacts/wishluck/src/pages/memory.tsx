@@ -4,6 +4,7 @@ import { useGetMemory,deleteCategoryMemory } from "@workspace/api-client-react";
 import {DeleteMenu} from "@/components/delete-menu";
 import { PageHeader, EmptyState, ErrorState, Sk, Tag } from "@/components/bits";
 import { errMsg, host } from "@/lib/run-utils";
+import { DetailDisclosure } from "@/components/detail-disclosure";
 
 export default function Memory() {
   const { data, isLoading, error, refetch } = useGetMemory();
@@ -17,7 +18,7 @@ export default function Memory() {
           <section key={c.category} data-testid={`card-category-${c.category}`} className="panel rise overflow-hidden" style={{ animationDelay: `${i * 50}ms` }}>
             <div className="flex flex-wrap items-end justify-between gap-4 border-b border-border p-5">
               <h2 className="font-display text-3xl">{c.category || "Uncategorised"}</h2>
-              <div className="flex gap-6 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-4 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
                 <span><b className="text-foreground tabular-nums">{c.runCount}</b> runs</span>
                 <span><b className="text-foreground tabular-nums">{c.designCount}</b> designs</span>
                 <span><b className="text-[hsl(var(--jade))] tabular-nums">{c.approvedCount}</b> approved</span>
@@ -25,6 +26,7 @@ export default function Memory() {
                 <DeleteMenu label={`${c.category} category memory`} title={`Delete ${c.category} memory?`} description="Permanently clear this category’s learnings and feedback, and stop using its existing design fingerprints for future generation. Your runs, saved designs and Shopify store are kept. New research or generation can build fresh memory." onDelete={()=>deleteCategoryMemory(c.category)}/>
               </div>
             </div>
+            <DetailDisclosure className="m-4" label={`View category details · ${c.learnings.length} learnings · ${c.fingerprints.length} design fingerprints`}>
             <div className="grid md:grid-cols-[1.4fr_1fr]">
               <div className="p-5 md:border-r md:border-border">
                 <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">Learnings</div>
@@ -40,6 +42,7 @@ export default function Memory() {
                 ))}</ul> : <p className="text-sm text-muted-foreground">No designs yet.</p>}
               </div>
             </div>
+            </DetailDisclosure>
           </section>))}</div>}
     </>
   );
