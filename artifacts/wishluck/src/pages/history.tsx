@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
 import { History as HIcon, Send, ExternalLink } from "lucide-react";
-import { useListRuns, useGetDashboard } from "@workspace/api-client-react";
+import { useListRuns, useGetDashboard,deletePublication,clearPublications,clearRuns } from "@workspace/api-client-react";
+import {DeleteMenu} from "@/components/delete-menu";
 import { PageHeader, EmptyState, ErrorState, Sk, StatusPill } from "@/components/bits";
 import { RunRow } from "@/components/run-row";
 import { ago, errMsg } from "@/lib/run-utils";
@@ -28,6 +29,9 @@ export default function HistoryPage() {
           ))}
         </div>
         {tab === "runs" && <input data-testid="input-search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Filter by URL, title, category" className="h-9 w-full rounded-lg border border-input bg-card px-3 text-sm outline-none focus:ring-2 focus:ring-ring/30 sm:w-72" />}
+        <DeleteMenu label={tab==="runs"?"run history":"publication history"} title={tab==="runs"?"Delete all run history?":"Clear publication history?"}
+          description={tab==="runs"?"Permanently delete ALL runs, generated designs, learnings, feedback and publication records in this workspace, including runs hidden by filters. This cannot be undone. Shopify products and themes are not changed.":"Permanently delete all local publication history. Runs, saved designs, category memory and actual Shopify products and themes are kept. This cannot be undone."}
+          onDelete={()=>tab==="runs"?clearRuns():clearPublications()} disabled={tab==="runs"?!runs.data?.length:!pubs.length}/>
       </div>
       {tab === "runs" ? (
         runs.error ? <ErrorState message={errMsg(runs.error)} onRetry={() => runs.refetch()} />
@@ -45,7 +49,7 @@ export default function HistoryPage() {
                   <tr key={p.id} data-testid={`row-publication-${p.id}`} className="border-b border-border last:border-0">
                     <td className="px-4 py-3"><div className="font-medium">{p.title}</div><Link href={`/designs/${p.designId}`} className="text-xs text-muted-foreground hover:underline">{designName(p.designId) ?? "Open design"}</Link>{p.error && <div className="mt-1 text-xs text-destructive">{p.error}</div>}</td>
                     <td className="px-4 text-muted-foreground">{p.themeName ?? "—"}</td>
-                    <td className="px-4"><StatusPill status={p.status} /></td>
+                    <td className="px-4"><div className="flex items-center gap-2"><StatusPill status={p.status}/><DeleteMenu label={`${p.title} publication`} title="Delete this publication record?" description="Remove this local publication history entry. The design, category memory, and actual Shopify product and theme remain unchanged." onDelete={()=>deletePublication(p.id)} disabled={p.status==="uploading"}/></div></td>
                     <td className="px-4 text-muted-foreground">{ago(p.createdAt)}</td>
                     <td className="px-4"><div className="flex gap-3 text-xs">{p.previewUrl && <a href={p.previewUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">Preview <ExternalLink className="h-3 w-3" /></a>}{p.editorUrl && <a href={p.editorUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">Editor <ExternalLink className="h-3 w-3" /></a>}</div></td>
                   </tr>))}</tbody>

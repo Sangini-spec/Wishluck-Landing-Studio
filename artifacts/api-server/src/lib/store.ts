@@ -1,5 +1,6 @@
 import { db, runsTable, designsTable, feedbackTable, learningsTable, publicationsTable } from "@workspace/db";
-import { desc, eq, inArray } from "drizzle-orm";
+import { desc, eq, inArray,and,gt } from "drizzle-orm";
+import {preference} from "./preferences";
 import type { Run, Design, DesignContent, Publication, Learning } from "./domain";
 import { AppError } from "./domain";
 
@@ -40,10 +41,12 @@ export async function saveDesign(design: Design, content: DesignContent, categor
   await db.insert(designsTable).values(row).onConflictDoUpdate({ target: designsTable.id, set: row });
 }
 export async function categoryContext(category: string) {
+  const reset=await preference<string>(`memory:${category}`);
+  const since=reset?new Date(reset):undefined;
   const [designs, feedback, learnings] = await Promise.all([
-    db.select().from(designsTable).where(eq(designsTable.category, category)).orderBy(desc(designsTable.createdAt)).limit(100),
-    db.select().from(feedbackTable).where(eq(feedbackTable.category, category)).orderBy(desc(feedbackTable.createdAt)).limit(30),
-    db.select().from(learningsTable).where(eq(learningsTable.category, category)).orderBy(desc(learningsTable.createdAt)).limit(50),
+    db.select().from(designsTable).where(and(eq(designsTable.category, category),since?gt(designsTable.createdAt,since):undefined)).orderBy(desc(designsTable.createdAt)).limit(100),
+    db.select().from(feedbackTable).where(and(eq(feedbackTable.category, category),since?gt(feedbackTable.createdAt,since):undefined)).orderBy(desc(feedbackTable.createdAt)).limit(30),
+    db.select().from(learningsTable).where(and(eq(learningsTable.category, category),since?gt(learningsTable.createdAt,since):undefined)).orderBy(desc(learningsTable.createdAt)).limit(50),
   ]);
   return { designs: designs.map(d => d.data as Design), feedback, learnings: learnings.map(l => l.data as Learning) };
 }

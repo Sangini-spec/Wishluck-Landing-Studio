@@ -57,6 +57,77 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/Run" }
+    delete:
+      operationId: deleteRun
+      responses:
+        "200":
+          description: Run and related local records removed
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DeletionResult" }
+  /history/runs:
+    delete:
+      operationId: clearRuns
+      responses:
+        "200":
+          description: All runs and related local records removed
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DeletionResult" }
+  /publications/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    delete:
+      operationId: deletePublication
+      responses:
+        "200":
+          description: Local publication record removed; Shopify is unchanged
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DeletionResult" }
+  /history/publications:
+    delete:
+      operationId: clearPublications
+      responses:
+        "200":
+          description: Publication history cleared; Shopify is unchanged
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DeletionResult" }
+  /memory/{category}:
+    parameters:
+      - { name: category, in: path, required: true, schema: { type: string } }
+    delete:
+      operationId: deleteCategoryMemory
+      responses:
+        "200":
+          description: Category learnings and feedback cleared; existing designs excluded from future memory
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/DeletionResult" }
+  /shopify/store:
+    post:
+      operationId: switchShopifyStore
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/StoreConnectionInput" }
+      responses:
+        "200":
+          description: Verified store selected
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Connection" }
+  /shopify/stores:
+    get:
+      operationId: listShopifyStores
+      responses:
+        "200":
+          description: Previously verified store identities; no credentials
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/Connection" } }
   /runs/{id}/brand:
     parameters:
       - { name: id, in: path, required: true, schema: { type: string } }
@@ -221,6 +292,16 @@ paths:
               schema: { type: array, items: { $ref: "#/components/schemas/MemoryCategory" } }
 components:
   schemas:
+    DeletionResult:
+      type: object
+      required: [deleted]
+      properties:
+        deleted: { type: integer }
+    StoreConnectionInput:
+      type: object
+      required: [shop]
+      properties:
+        shop: { type: string, pattern: "^[a-zA-Z0-9][a-zA-Z0-9-]*\\.myshopify\\.com$" }
     HealthStatus:
       type: object
       required: [status]
@@ -429,6 +510,7 @@ components:
       type: object
       required: [designId, themeId, confirmTemplateAssignment]
       properties:
+        expectedShop: { type: string }
         designId: { type: string }
         themeId: { type: string }
         confirmTemplateAssignment: { type: boolean }
@@ -487,6 +569,7 @@ components:
         connected: { type: boolean }
         shop: { type: string }
         name: { type: string }
+        primaryDomain: { type: string }
         message: { type: string }
         missing: { type: array, items: { type: string } }
     Theme:

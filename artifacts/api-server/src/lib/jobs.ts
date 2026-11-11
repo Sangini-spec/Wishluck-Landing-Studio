@@ -13,6 +13,11 @@ export function enqueue(id:string,work:(run:Run)=>Promise<unknown>){
   active.add(id);queue.push({id,work});drain();
 }
 export const isActive=(id:string)=>active.has(id);
+export async function withRunLocks<T>(ids:string[],work:()=>Promise<T>){
+  if(ids.some(id=>active.has(id)))throw new AppError(409,"Wait for processing or publishing to finish before deleting this data.");
+  ids.forEach(id=>active.add(id));
+  try{return await work();}finally{ids.forEach(id=>active.delete(id));}
+}
 export async function withRunLock<T>(id:string,work:()=>Promise<T>){
   if(active.has(id))throw new AppError(409,"This run already has an active job.");
   active.add(id);

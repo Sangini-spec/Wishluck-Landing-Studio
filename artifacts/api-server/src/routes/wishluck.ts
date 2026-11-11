@@ -15,7 +15,10 @@ import { publicUrl } from "../lib/network";
 import { enqueue,isActive,withRunLock } from "../lib/jobs";
 import { AppError,type Run } from "../lib/domain";
 import { aiReady } from "../lib/ai";
-import { shopifyStatus,connectShopify,themes,publish,admin,publishingContext } from "../lib/shopify";
+import { shopifyStatus,connectShopify,themes,publish,admin,publishingContext,verifiedShopifyStatus,switchShopifyStore } from "../lib/shopify";
+import {deleteRuns,deleteMemory,deletePublications} from "../lib/deletion";
+import {savedStores,withStoreLock} from "../lib/shopify-selection";
+import {SwitchShopifyStoreBody} from "@workspace/api-zod";
 import { preview } from "../lib/preview";
 import { compile,zipDesign } from "../lib/compiler";
 import { objectStorageClient } from "../lib/objectStorage";
@@ -26,10 +29,21 @@ const router:IRouter=Router();
 const idParam=(raw:unknown)=>GetRunParams.parse({id:raw}).id;
 router.get("/dashboard",async(_req,res)=>{
   const [runs,pubs]=await Promise.all([listRuns(),publications()]);
+  const memories=await Promise.all([...new Set(runs.flatMap(r=>r.product?[r.product.category]:[]))].map(categoryContext));
   res.json(GetDashboardResponse.parse({totalRuns:runs.length,totalDesigns:runs.reduce((n,r)=>n+r.designs.length,0),publishedCount:pubs.filter(p=>p.status==="published").length,
-    categories:new Set(runs.flatMap(r=>r.product?[r.product.category]:[])).size,recentRuns:runs.slice(0,5),publications:pubs}));
+    categories:memories.filter(c=>c.designs.length||c.learnings.length).length,recentRuns:runs.slice(0,5),publications:pubs}));
 });
 router.get("/runs",async(_req,res)=>{res.json(ListRunsResponse.parse(await listRuns()));});
+router.delete("/runs/:id",async(req,res)=>res.json(await deleteRuns(idParam(req.params.id))));
+router.delete("/history/runs",async(_req,res)=>res.json(await deleteRuns()));
+router.delete("/memory/:category",async(req,res)=>res.json(await deleteMemory(String(req.params.category))));
+router.delete("/publications/:id",async(req,res)=>res.json(await deletePublications(idParam(req.params.id))));
+router.delete("/history/publications",async(_req,res)=>res.json(await deletePublications()));
+router.get("/shopify/stores",async(_req,res)=>res.json(await savedStores()));
+router.post("/shopify/store",async(req,res)=>{
+  const {shop}=SwitchShopifyStoreBody.parse(req.body);
+  res.json(await switchShopifyStore(shop.toLowerCase()));
+});
 router.post("/runs",async(req,res)=>{
   const input=CreateRunBody.parse(req.body);
   const url=await publicUrl(input.url);
@@ -115,12 +129,12 @@ router.get("/designs/:id/download",async(req,res)=>{
   res.set({"Content-Type":"application/zip","Content-Disposition":`attachment; filename="wishluck-${design.id.slice(0,8)}.zip"`}).send(zip);
 });
 router.post("/designs/:id/quality",async(req,res)=>{res.json(await audit(idParam(req.params.id)));});
-router.get("/shopify/status",(_req,res)=>{res.json(GetShopifyStatusResponse.parse(shopifyStatus()));});
+router.get("/shopify/status",async(_req,res)=>{res.json(GetShopifyStatusResponse.parse(await verifiedShopifyStatus()));});
 router.post("/shopify/connect",async(_req,res)=>{res.json(GetShopifyStatusResponse.parse(await connectShopify()));});
 router.get("/shopify/themes",async(_req,res)=>{res.json(ListThemesResponse.parse(await themes()));});
 router.get("/shopify/products",async(_req,res)=>{res.json(await admin("query{products(first:50){nodes{id title handle variants(first:100){nodes{id title price availableForSale}} images(first:10){nodes{url altText}}}}}"));});
 router.get("/designs/:id/publishing",async(req,res)=>{res.json(await publishingContext(idParam(req.params.id)));});
-router.post("/shopify/publish",async(req,res)=>{const body=PublishDesignBody.parse(req.body);res.json(PublishDesignResponse.parse(await publish(body.designId,body.themeId,body.confirmTemplateAssignment,body)));});
+router.post("/shopify/publish",async(req,res)=>{const body=PublishDesignBody.parse(req.body);const {run}=await getDesign(body.designId);res.json(PublishDesignResponse.parse(await withRunLock(run.id,()=>withStoreLock(()=>publish(body.designId,body.themeId,body.confirmTemplateAssignment,body)))));});
 router.get("/shopify/publish/:id/status",async(req,res)=>{const p=(await publications()).find(p=>p.id===idParam(req.params.id));if(!p)throw new AppError(404,"Publication not found");res.json(p);});
 router.get("/settings",async(_req,res)=>{
   let database="Unavailable";try{await db.execute(sql`select 1`);database="Connected · PostgreSQL";}catch{/* Keep integration status available during a database outage. */}
@@ -134,7 +148,7 @@ router.get("/memory",async(_req,res)=>{
     const context=await categoryContext(category);
     return{category,runCount:runs.filter(r=>r.product?.category===category).length,designCount:context.designs.length,approvedCount:context.designs.filter(d=>["approved","published"].includes(d.status)).length,rejectedCount:context.designs.filter(d=>d.status==="rejected").length,learnings:context.learnings,fingerprints:context.designs};
   }));
-  res.json(GetMemoryResponse.parse(data));
+  res.json(GetMemoryResponse.parse(data.filter(c=>c.designCount>0||c.learnings.length>0)));
 });
 router.get("/evidence/:id",async(req,res)=>{
   const [record]=await db.select().from(artifactsTable).where(eq(artifactsTable.id,idParam(req.params.id)));

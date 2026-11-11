@@ -2,6 +2,7 @@ import { useState, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
 import { LayoutGrid, Plus, BookMarked, History, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {ConnectedStore} from "./connected-store";
 
 const NAV = [
   { href: "/", label: "Overview", icon: LayoutGrid },
@@ -40,6 +41,7 @@ function Nav({ onNav }: { onNav?: () => void }) {
             {n.label}
           </Link>
         ))}
+        <ConnectedStore/>
       </nav>
     </div>
   );

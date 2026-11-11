@@ -11,6 +11,7 @@ export interface Connection {
   connected: boolean;
   shop: string;
   name?: string;
+  primaryDomain?: string;
   message: string;
   missing: string[];
 }

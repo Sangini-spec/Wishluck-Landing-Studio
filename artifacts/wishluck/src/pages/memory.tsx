@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { BookMarked, Quote } from "lucide-react";
-import { useGetMemory } from "@workspace/api-client-react";
+import { useGetMemory,deleteCategoryMemory } from "@workspace/api-client-react";
+import {DeleteMenu} from "@/components/delete-menu";
 import { PageHeader, EmptyState, ErrorState, Sk, Tag } from "@/components/bits";
 import { errMsg, host } from "@/lib/run-utils";
 
@@ -21,6 +22,7 @@ export default function Memory() {
                 <span><b className="text-foreground tabular-nums">{c.designCount}</b> designs</span>
                 <span><b className="text-[hsl(var(--jade))] tabular-nums">{c.approvedCount}</b> approved</span>
                 <span><b className="text-destructive tabular-nums">{c.rejectedCount}</b> rejected</span>
+                <DeleteMenu label={`${c.category} category memory`} title={`Delete ${c.category} memory?`} description="Permanently clear this category’s learnings and feedback, and stop using its existing design fingerprints for future generation. Your runs, saved designs and Shopify store are kept. New research or generation can build fresh memory." onDelete={()=>deleteCategoryMemory(c.category)}/>
               </div>
             </div>
             <div className="grid md:grid-cols-[1.4fr_1fr]">

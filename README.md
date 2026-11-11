@@ -71,7 +71,13 @@ The frontend build and dev commands need the workflow-provided `PORT` and `BASE_
 
 This assignment supplies an existing custom app and dev store. No replacement store is provisioned. With `SHOPIFY_CONNECTOR_NAME` blank, the backend exchanges `SHOPIFY_CLIENT_ID` and `SHOPIFY_CLIENT_SECRET` using Shopify's documented client-credentials grant. The token is cached only in server memory, refreshes before expiry and retries authentication once on a 401. Concurrent renewals share one promise. The browser never sees secrets or access tokens.
 
-This grant requires app and store to belong to the same Shopify organisation. Credential presence is not authentication success: use **Connect Shopify** inside the publish dialog.
+This grant requires app and store to belong to the same Shopify organisation. The sidebar verifies and shows the actual store name and domain. **Connect another store** accepts another myshopify.com domain, verifies access using the same installed app, and only then saves the active selection. Failed verification keeps the current store. Previously verified stores can be selected again; credentials remain server-side and token caches are scoped by store. Active selection persists across restarts and takes precedence over the initial configured domain. Switching is blocked while publishing; publish requests also check their expected destination.
+
+### Deleting workspace data
+
+Three-dot menus provide confirmed deletion from recent runs, category memory, run history and publication history. Deleting a run transactionally removes its designs, feedback, learnings, captured-evidence records and local publication records. Shopify products and theme files are never deleted. Stored evidence bytes are not purged by this local-record operation.
+
+Deleting category memory clears learnings and feedback and excludes older design fingerprints from future generation, while preserving runs and designs in history. New research or generation can build fresh memory. Clearing publication history only removes local audit entries; it does not unpublish designs or alter Shopify. Bulk run-history deletion explicitly includes all runs, even those hidden by a filter. Active processing/publishing is protected from deletion.
 
 If the user explicitly chooses an already-authorised managed connector, `SHOPIFY_CONNECTOR_NAME=shopify` or `shopify-store` uses the provided server-only proxy helper instead. That path has not been verified in this build.
 

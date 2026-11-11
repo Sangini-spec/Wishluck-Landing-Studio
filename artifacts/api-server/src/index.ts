@@ -1,6 +1,7 @@
 import app from "./app";
 import { logger } from "./lib/logger";
 import { recoverInterruptedJobs } from "./lib/store";
+import {initialiseStoreSelection} from "./lib/shopify-selection";
 
 const rawPort = process.env["PORT"];
 
@@ -16,7 +17,7 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-recoverInterruptedJobs().then(()=>app.listen(port, (err) => {
+Promise.all([recoverInterruptedJobs(),initialiseStoreSelection()]).then(()=>app.listen(port, (err) => {
   if (err) {
     logger.error({ err }, "Error listening on port");
     process.exit(1);

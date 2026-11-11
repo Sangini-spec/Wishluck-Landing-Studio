@@ -8,6 +8,7 @@
 import type { PublishInputProductMode } from './publishInputProductMode';
 
 export interface PublishInput {
+  expectedShop?: string;
   designId: string;
   themeId: string;
   confirmTemplateAssignment: boolean;

@@ -564,6 +564,73 @@ export const GetRunResponse = zod.object({
 })
 
 
+export const DeleteRunParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+export const DeleteRunResponse = zod.object({
+  "deleted": zod.number().int()
+})
+
+
+export const ClearRunsResponse = zod.object({
+  "deleted": zod.number().int()
+})
+
+
+export const DeletePublicationParams = zod.object({
+  "id": zod.coerce.string()
+})
+
+export const DeletePublicationResponse = zod.object({
+  "deleted": zod.number().int()
+})
+
+
+export const ClearPublicationsResponse = zod.object({
+  "deleted": zod.number().int()
+})
+
+
+export const DeleteCategoryMemoryParams = zod.object({
+  "category": zod.coerce.string()
+})
+
+export const DeleteCategoryMemoryResponse = zod.object({
+  "deleted": zod.number().int()
+})
+
+
+export const switchShopifyStoreBodyShopRegExp = new RegExp('^[a-zA-Z0-9][a-zA-Z0-9-]*\\.myshopify\\.com$');
+
+
+export const SwitchShopifyStoreBody = zod.object({
+  "shop": zod.string().regex(switchShopifyStoreBodyShopRegExp)
+})
+
+export const SwitchShopifyStoreResponse = zod.object({
+  "configured": zod.boolean(),
+  "connected": zod.boolean(),
+  "shop": zod.string(),
+  "name": zod.string().optional(),
+  "primaryDomain": zod.string().optional(),
+  "message": zod.string(),
+  "missing": zod.array(zod.string())
+})
+
+
+export const ListShopifyStoresResponseItem = zod.object({
+  "configured": zod.boolean(),
+  "connected": zod.boolean(),
+  "shop": zod.string(),
+  "name": zod.string().optional(),
+  "primaryDomain": zod.string().optional(),
+  "message": zod.string(),
+  "missing": zod.array(zod.string())
+})
+export const ListShopifyStoresResponse = zod.array(ListShopifyStoresResponseItem)
+
+
 export const UpdateBrandParams = zod.object({
   "id": zod.coerce.string()
 })
@@ -1294,6 +1361,7 @@ export const GetShopifyStatusResponse = zod.object({
   "connected": zod.boolean(),
   "shop": zod.string(),
   "name": zod.string().optional(),
+  "primaryDomain": zod.string().optional(),
   "message": zod.string(),
   "missing": zod.array(zod.string())
 })
@@ -1304,6 +1372,7 @@ export const ConnectShopifyResponse = zod.object({
   "connected": zod.boolean(),
   "shop": zod.string(),
   "name": zod.string().optional(),
+  "primaryDomain": zod.string().optional(),
   "message": zod.string(),
   "missing": zod.array(zod.string())
 })
@@ -1318,6 +1387,7 @@ export const ListThemesResponse = zod.array(ListThemesResponseItem)
 
 
 export const PublishDesignBody = zod.object({
+  "expectedShop": zod.string().optional(),
   "designId": zod.string(),
   "themeId": zod.string(),
   "confirmTemplateAssignment": zod.boolean(),
@@ -1377,6 +1447,7 @@ export const GetSettingsResponse = zod.object({
   "connected": zod.boolean(),
   "shop": zod.string(),
   "name": zod.string().optional(),
+  "primaryDomain": zod.string().optional(),
   "message": zod.string(),
   "missing": zod.array(zod.string())
 }),

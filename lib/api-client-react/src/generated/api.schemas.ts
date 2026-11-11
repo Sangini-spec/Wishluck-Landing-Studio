@@ -5,6 +5,15 @@
  * Wishluck Shopify landing page studio
  * OpenAPI spec version: 1.0.0
  */
+export interface DeletionResult {
+  deleted: number;
+}
+
+export interface StoreConnectionInput {
+  /** @pattern ^[a-zA-Z0-9][a-zA-Z0-9-]*\.myshopify\.com$ */
+  shop: string;
+}
+
 export interface HealthStatus {
   status: string;
 }
@@ -263,6 +272,7 @@ export const PublishInputProductMode = {
 } as const;
 
 export interface PublishInput {
+  expectedShop?: string;
   designId: string;
   themeId: string;
   confirmTemplateAssignment: boolean;
@@ -296,6 +306,7 @@ export interface Connection {
   connected: boolean;
   shop: string;
   name?: string;
+  primaryDomain?: string;
   message: string;
   missing: string[];
 }

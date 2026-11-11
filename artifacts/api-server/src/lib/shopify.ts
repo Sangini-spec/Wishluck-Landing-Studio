@@ -10,9 +10,11 @@ import type { Connection, Theme } from "@workspace/api-zod";
 import { shopifyConfig, customAdmin } from "./shopify-auth";
 import { importDraft, mappedProduct, productFields } from "./shopify-products";
 import type { PublishInput, PublishingContext } from "@workspace/api-zod";
+import {rememberStore,selectStore,withStoreLock} from "./shopify-selection";
 
 const exec = promisify(execFile);
 let connection:Connection={configured:false,connected:false,shop:"",message:"Shopify access has not been verified. Test the connection to your existing custom app.",missing:[]};
+let lastVerified=0;
 export const shopifyStatus=()=>({...connection,...shopifyConfig(),message:connection.connected?connection.message:"Credentials are checked for presence only. Test connection to verify actual Shopify access."});
 export async function admin(query:string,variables:Record<string,unknown>={}):Promise<any>{
   // Use the installed custom app requested by the assignment. An authorised
@@ -30,11 +32,27 @@ export async function admin(query:string,variables:Record<string,unknown>={}):Pr
   }
 }
 export async function connectShopify(){
+  const requestedShop=shopifyConfig().shop;
   try{
     const data=await admin("query { shop { name myshopifyDomain primaryDomain { url } } }");
-    connection={configured:true,connected:true,shop:data.shop.myshopifyDomain,name:data.shop.name,message:"Live Shopify Admin API connection verified.",missing:[]};
+    const verified:Connection={configured:true,connected:true,shop:data.shop.myshopifyDomain,name:data.shop.name,primaryDomain:data.shop.primaryDomain.url,message:"Live Shopify Admin API connection verified.",missing:[]};
+    if(requestedShop===shopifyConfig().shop){connection=verified;lastVerified=Date.now();await rememberStore(verified);}
   }catch(e){connection={...connection,connected:false,message:e instanceof Error?e.message:"Connection failed"};}
   return connection;
+}
+export async function verifiedShopifyStatus(){
+  if(Date.now()-lastVerified>60000){await connectShopify();lastVerified=Date.now();}
+  return shopifyStatus();
+}
+export async function switchShopifyStore(shop:string){
+  return withStoreLock(async()=>{
+    if(["shopify","shopify-store"].includes(process.env.SHOPIFY_CONNECTOR_NAME??""))throw new AppError(409,"This managed connection must be reconnected through its Shopify connection settings.");
+    const data=await customAdmin("query { shop { name myshopifyDomain primaryDomain { url } } }",{},0,shop);
+    if(data.shop.myshopifyDomain.toLowerCase()!==shop.toLowerCase())throw new AppError(409,"Shopify returned a different store. The current connection was not changed.");
+    const verified:Connection={configured:true,connected:true,shop:data.shop.myshopifyDomain,name:data.shop.name,primaryDomain:data.shop.primaryDomain.url,message:"Live Shopify Admin API connection verified.",missing:[]};
+    await selectStore(verified);connection=verified;lastVerified=Date.now();
+    return verified;
+  });
 }
 export async function themes():Promise<Theme[]>{
   if(!connection.connected)await connectShopify();
@@ -61,6 +79,7 @@ export async function publish(designId:string,themeId:string,confirm:boolean,opt
   const theme=allThemes.find(t=>t.id===themeId);
   if(!theme||!["unpublished","development"].includes(theme.role))throw new AppError(400,"Select an unpublished or development theme. Live themes are never writable here.");
   const context=await publishingContext(designId);
+  if(options.expectedShop&&options.expectedShop!==context.shop)throw new AppError(409,"The connected Shopify store changed. Reopen the publishing dialog and review the destination again.");
   const mode=options.productMode??"source";
   if(!context.sameStore&&mode==="source")throw new AppError(409,`This source product is on ${context.sourceHost}; your connected store is ${context.shop}. Choose a product in your store or explicitly import a draft copy.`);
   if(mode==="import"&&!options.confirmProductImport)throw new AppError(400,"Confirm that you have the rights to import the source product and images into your store as a draft.");

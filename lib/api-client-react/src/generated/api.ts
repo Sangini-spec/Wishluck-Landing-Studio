@@ -28,6 +28,7 @@ import type {
   BrandProfile,
   Connection,
   Dashboard,
+  DeletionResult,
   Design,
   FeedbackInput,
   HealthStatus,
@@ -39,6 +40,7 @@ import type {
   Run,
   RunInput,
   Settings,
+  StoreConnectionInput,
   Theme
 } from './api.schemas';
 
@@ -519,6 +521,523 @@ export function useGetRun<TData = Awaited<ReturnType<typeof getRun>>, TError = E
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
 
   const queryOptions = getGetRunQueryOptions(id,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+
+export const getDeleteRunUrl = (id: string,) => {
+
+
+
+
+  return `/api/runs/${id}`
+}
+
+export const deleteRun = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<DeletionResult> => {
+
+  return customFetch<DeletionResult>(getDeleteRunUrl(id),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getDeleteRunMutationKey = () => ['deleteRun'] as const;
+
+export const getDeleteRunMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRun>>, TError,DeleteRunMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteRun>>, TError,DeleteRunMutationVariables, TContext> => {
+
+const mutationKey = getDeleteRunMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteRun>>, DeleteRunMutationVariables> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteRun(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteRunMutationResult = NonNullable<Awaited<ReturnType<typeof deleteRun>>>
+
+    export type DeleteRunMutationError = ErrorType<unknown>
+    export type DeleteRunMutationVariables = {id: string}
+
+    export const useDeleteRun = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRun>>, TError,DeleteRunMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof deleteRun>>,
+        TError,
+        DeleteRunMutationVariables,
+        TContext
+      > => {
+      return useMutation(getDeleteRunMutationOptions(options), queryClient);
+    }
+
+export const getClearRunsUrl = () => {
+
+
+
+
+  return `/api/history/runs`
+}
+
+export const clearRuns = async ( options?: Parameters<typeof customFetch>[1]): Promise<DeletionResult> => {
+
+  return customFetch<DeletionResult>(getClearRunsUrl(),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getClearRunsMutationKey = () => ['clearRuns'] as const;
+
+export const getClearRunsMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof clearRuns>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof clearRuns>>, TError,void, TContext> => {
+
+const mutationKey = getClearRunsMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof clearRuns>>, void> = () => {
+
+
+          return  clearRuns(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ClearRunsMutationResult = NonNullable<Awaited<ReturnType<typeof clearRuns>>>
+
+    export type ClearRunsMutationError = ErrorType<unknown>
+
+
+    export const useClearRuns = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof clearRuns>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof clearRuns>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getClearRunsMutationOptions(options), queryClient);
+    }
+
+export const getDeletePublicationUrl = (id: string,) => {
+
+
+
+
+  return `/api/publications/${id}`
+}
+
+export const deletePublication = async (id: string, options?: Parameters<typeof customFetch>[1]): Promise<DeletionResult> => {
+
+  return customFetch<DeletionResult>(getDeletePublicationUrl(id),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getDeletePublicationMutationKey = () => ['deletePublication'] as const;
+
+export const getDeletePublicationMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePublication>>, TError,DeletePublicationMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deletePublication>>, TError,DeletePublicationMutationVariables, TContext> => {
+
+const mutationKey = getDeletePublicationMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deletePublication>>, DeletePublicationMutationVariables> = (props) => {
+          const {id} = props ?? {};
+
+          return  deletePublication(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeletePublicationMutationResult = NonNullable<Awaited<ReturnType<typeof deletePublication>>>
+
+    export type DeletePublicationMutationError = ErrorType<unknown>
+    export type DeletePublicationMutationVariables = {id: string}
+
+    export const useDeletePublication = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePublication>>, TError,DeletePublicationMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof deletePublication>>,
+        TError,
+        DeletePublicationMutationVariables,
+        TContext
+      > => {
+      return useMutation(getDeletePublicationMutationOptions(options), queryClient);
+    }
+
+export const getClearPublicationsUrl = () => {
+
+
+
+
+  return `/api/history/publications`
+}
+
+export const clearPublications = async ( options?: Parameters<typeof customFetch>[1]): Promise<DeletionResult> => {
+
+  return customFetch<DeletionResult>(getClearPublicationsUrl(),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getClearPublicationsMutationKey = () => ['clearPublications'] as const;
+
+export const getClearPublicationsMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof clearPublications>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof clearPublications>>, TError,void, TContext> => {
+
+const mutationKey = getClearPublicationsMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof clearPublications>>, void> = () => {
+
+
+          return  clearPublications(requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ClearPublicationsMutationResult = NonNullable<Awaited<ReturnType<typeof clearPublications>>>
+
+    export type ClearPublicationsMutationError = ErrorType<unknown>
+
+
+    export const useClearPublications = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof clearPublications>>, TError,void, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof clearPublications>>,
+        TError,
+        void,
+        TContext
+      > => {
+      return useMutation(getClearPublicationsMutationOptions(options), queryClient);
+    }
+
+export const getDeleteCategoryMemoryUrl = (category: string,) => {
+
+
+
+
+  return `/api/memory/${category}`
+}
+
+export const deleteCategoryMemory = async (category: string, options?: Parameters<typeof customFetch>[1]): Promise<DeletionResult> => {
+
+  return customFetch<DeletionResult>(getDeleteCategoryMemoryUrl(category),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+
+export const getDeleteCategoryMemoryMutationKey = () => ['deleteCategoryMemory'] as const;
+
+export const getDeleteCategoryMemoryMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCategoryMemory>>, TError,DeleteCategoryMemoryMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteCategoryMemory>>, TError,DeleteCategoryMemoryMutationVariables, TContext> => {
+
+const mutationKey = getDeleteCategoryMemoryMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCategoryMemory>>, DeleteCategoryMemoryMutationVariables> = (props) => {
+          const {category} = props ?? {};
+
+          return  deleteCategoryMemory(category,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteCategoryMemoryMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCategoryMemory>>>
+
+    export type DeleteCategoryMemoryMutationError = ErrorType<unknown>
+    export type DeleteCategoryMemoryMutationVariables = {category: string}
+
+    export const useDeleteCategoryMemory = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteCategoryMemory>>, TError,DeleteCategoryMemoryMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof deleteCategoryMemory>>,
+        TError,
+        DeleteCategoryMemoryMutationVariables,
+        TContext
+      > => {
+      return useMutation(getDeleteCategoryMemoryMutationOptions(options), queryClient);
+    }
+
+export const getSwitchShopifyStoreUrl = () => {
+
+
+
+
+  return `/api/shopify/store`
+}
+
+export const switchShopifyStore = async (storeConnectionInput: StoreConnectionInput, options?: Parameters<typeof customFetch>[1]): Promise<Connection> => {
+
+    const getHeaders = (h?: NonNullable<RequestInit['headers']>): Record<string, string | readonly string[]> => {
+    if (!h) return {};
+    if (h instanceof Headers) return Object.fromEntries(h.entries());
+    if (Symbol.iterator in h) {
+      return Object.fromEntries(
+        Array.from(h as Iterable<Iterable<string>>, (entry) => Array.from(entry) as [string, string]),
+      );
+    }
+    const headers: Record<string, string | readonly string[]> = {};
+    for (const [name, value] of Object.entries<string | readonly string[] | undefined>(h)) {
+      if (value !== undefined) headers[name] = value;
+    }
+    return headers;
+  };
+return customFetch<Connection>(getSwitchShopifyStoreUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...getHeaders(options?.headers) },
+    body: JSON.stringify(storeConnectionInput)
+  }
+);}
+
+
+
+
+
+export const getSwitchShopifyStoreMutationKey = () => ['switchShopifyStore'] as const;
+
+export const getSwitchShopifyStoreMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof switchShopifyStore>>, TError,SwitchShopifyStoreMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof switchShopifyStore>>, TError,SwitchShopifyStoreMutationVariables, TContext> => {
+
+const mutationKey = getSwitchShopifyStoreMutationKey();
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof switchShopifyStore>>, SwitchShopifyStoreMutationVariables> = (props) => {
+          const {data} = props ?? {};
+
+          return  switchShopifyStore(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SwitchShopifyStoreMutationResult = NonNullable<Awaited<ReturnType<typeof switchShopifyStore>>>
+    export type SwitchShopifyStoreMutationBody = BodyType<StoreConnectionInput>
+    export type SwitchShopifyStoreMutationError = ErrorType<unknown>
+    export type SwitchShopifyStoreMutationVariables = {data: BodyType<StoreConnectionInput>}
+
+    export const useSwitchShopifyStore = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof switchShopifyStore>>, TError,SwitchShopifyStoreMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof switchShopifyStore>>,
+        TError,
+        SwitchShopifyStoreMutationVariables,
+        TContext
+      > => {
+      return useMutation(getSwitchShopifyStoreMutationOptions(options), queryClient);
+    }
+
+export const getListShopifyStoresUrl = () => {
+
+
+
+
+  return `/api/shopify/stores`
+}
+
+export const listShopifyStores = async ( options?: Parameters<typeof customFetch>[1]): Promise<Connection[]> => {
+
+  return customFetch<Connection[]>(getListShopifyStoresUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListShopifyStoresQueryKey = () => {
+    return [
+    `/api/shopify/stores`
+    ] as const;
+    }
+
+
+export const getListShopifyStoresQueryOptions = <TData = Awaited<ReturnType<typeof listShopifyStores>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listShopifyStores>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListShopifyStoresQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listShopifyStores>>> = ({ signal }) => listShopifyStores({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listShopifyStores>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type ListShopifyStoresQueryResult = NonNullable<Awaited<ReturnType<typeof listShopifyStores>>>
+export type ListShopifyStoresQueryError = ErrorType<unknown>
+
+
+export function useListShopifyStores<TData = Awaited<ReturnType<typeof listShopifyStores>>, TError = ErrorType<unknown>>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listShopifyStores>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listShopifyStores>>,
+          TError,
+          Awaited<ReturnType<typeof listShopifyStores>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListShopifyStores<TData = Awaited<ReturnType<typeof listShopifyStores>>, TError = ErrorType<unknown>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listShopifyStores>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof listShopifyStores>>,
+          TError,
+          Awaited<ReturnType<typeof listShopifyStores>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useListShopifyStores<TData = Awaited<ReturnType<typeof listShopifyStores>>, TError = ErrorType<unknown>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listShopifyStores>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+
+export function useListShopifyStores<TData = Awaited<ReturnType<typeof listShopifyStores>>, TError = ErrorType<unknown>>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listShopifyStores>>, TError, TData>>, request?: SecondParameter<typeof customFetch>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getListShopifyStoresQueryOptions(options)
 
   const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
 
