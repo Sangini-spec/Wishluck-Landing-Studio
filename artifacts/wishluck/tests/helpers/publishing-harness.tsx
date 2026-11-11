@@ -9,6 +9,11 @@ import {CliPublishing} from "../../src/components/cli-publishing";
 export const shop = "store-a.myshopify.com";
 export const pendingKey = "wishluck:pending-upload:design-1";
 export const returnKey = "wishluck:editor-return:design-1";
+export const historyKey = "wishluck:publication-history:design-1";
+export const storageAreas = ["sessionStorage", "localStorage"] as const;
+export const storageMethods = ["getItem", "setItem", "removeItem"] as const;
+type StorageArea = typeof storageAreas[number];
+type StorageMethod = typeof storageMethods[number];
 export const pending = {id: "upload-1", designId: "design-1", shop};
 const createdAt = "2026-11-11T00:00:00Z";
 export const publication: Publication = {
@@ -63,6 +68,9 @@ export class PublishingHarness {
   requests: {method: string; path: string; body?: unknown}[] = [];
   unexpected: string[] = [];
   redirects: {url: string; savedPending: string | null; savedReturn: string | null}[] = [];
+  storageFailures = new Set<`${StorageArea}.${StorageMethod}`>();
+  storageCalls: {area: StorageArea; method: StorageMethod; key: string; failed: boolean}[] = [];
+  private restoreStorage: (() => void)[] = [];
   client!: QueryClient;
   root?: Root;
   host?: HTMLElement;
@@ -70,9 +78,28 @@ export class PublishingHarness {
   constructor() {
     localStorage.clear();
     sessionStorage.clear();
+    // Snapshot backing storage without making the navigation spy itself throw.
+    const readSession = sessionStorage.getItem.bind(sessionStorage);
     dom.location.assign = (url: string) => {
-      this.redirects.push({url, savedPending: sessionStorage.getItem(pendingKey), savedReturn: sessionStorage.getItem(returnKey)});
+      this.redirects.push({url, savedPending: readSession(pendingKey), savedReturn: readSession(returnKey)});
     };
+    for (const area of storageAreas) {
+      const storage = globalThis[area];
+      for (const method of storageMethods) {
+        const original = storage[method].bind(storage);
+        Object.defineProperty(storage, method, {configurable: true, value: (key: string, value?: string) => {
+          const failed = this.storageFailures.has(`${area}.${method}`);
+          this.storageCalls.push({area, method, key, failed});
+          if (failed) throw new dom.DOMException("Browser storage is unavailable", "SecurityError");
+          return original(key, value!);
+        }});
+        this.restoreStorage.push(() => {
+          // Happy DOM's Storage proxy hides method descriptors and intercepts
+          // deletion; explicitly restore the callable rather than deleting it.
+          Object.defineProperty(storage, method, {configurable: true, value: original});
+        });
+      }
+    }
     // The generated hooks and customFetch run unchanged. Only HTTP is replaced.
     setOfflineFetch(async (input, init) => {
       const url = new URL(String(input), dom.location.href);
@@ -137,9 +164,14 @@ export class PublishingHarness {
     }
   }
   async dispose() {
-    await this.unmount();
-    setOfflineFetch(denyFetch);
-    await dom.happyDOM.abort();
+    try {
+      await this.unmount();
+    } finally {
+      for (const restore of this.restoreStorage.reverse()) restore();
+      this.restoreStorage = [];
+      setOfflineFetch(denyFetch);
+      await dom.happyDOM.abort();
+    }
     assert.deepEqual(this.unexpected, [], "Every request must have an explicit offline mock");
   }
 }

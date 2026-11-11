@@ -5,7 +5,170 @@ import {act} from "react";
 import {
   PublishingHarness, pending, pendingKey, returnKey, publication, job, design,
   element, clickText, until, settle,
+  historyKey, storageAreas, storageMethods,
 } from "./helpers/publishing-harness";
+
+async function confirmUpload(h: PublishingHarness) {
+  await until(() => assert.equal((element("select-cli-product-mode") as HTMLSelectElement).value, "source"));
+  await act(async () => { (element("checkbox-cli-upload") as HTMLInputElement).click(); });
+  await until(() => assert.equal((element("button-cli-confirm-upload") as HTMLButtonElement).disabled, false));
+  await act(async () => { element("button-cli-confirm-upload").click(); });
+  await until(() => assert.ok(element("publishing-progress")));
+  assert.equal(h.uploadPosts.length, 1);
+}
+
+async function exerciseHistory(h: PublishingHarness) {
+  const receiptId = `cli-upload-${publication.id}`, jobId = `publishing-job-${job.id}`;
+  await until(() => assert.ok(element(receiptId)));
+  await act(async () => {
+    document.querySelector<HTMLButtonElement>(`[aria-label="Hide publication ${publication.id}"]`)!.click();
+  });
+  assert.equal(document.querySelector(`[data-testid="${receiptId}"]`), null);
+  assert.ok(element(jobId));
+  await act(async () => {
+    document.querySelector<HTMLButtonElement>(`[aria-label="Hide job ${job.id}"]`)!.click();
+  });
+  assert.equal(document.querySelector(`[data-testid="${jobId}"]`), null);
+  await clickText("Show hidden records");
+  assert.ok(element(receiptId));
+  assert.ok(element(jobId));
+  await clickText("Hide history");
+  assert.equal(element("button-hide-publication-history").getAttribute("aria-expanded"), "false");
+  assert.equal(document.querySelector(`[data-testid="${receiptId}"]`), null);
+  await clickText("Show history");
+  assert.ok(element(receiptId));
+  const checksBefore = h.checks.length;
+  await act(async () => { element(`button-cli-check-${publication.id}`).click(); });
+  await until(() => assert.equal(h.checks.length, checksBefore + 1));
+  assert.deepEqual(h.checks.at(-1)?.body, {expectedShop: pending.shop, runAudit: true});
+  await h.poll();
+  assert.ok(element(receiptId));
+  assert.ok(element(jobId));
+}
+
+const storageFaults = storageAreas.flatMap(area => storageMethods.map(method => `${area}.${method}` as const));
+for (const fault of [...storageFaults, "all"] as const) {
+  for (const dismiss of [false, true]) {
+    test(`${fault} throws: confirmed upload ${dismiss ? "can stay in Wishluck" : "still opens after verification"} and history works`, async t => {
+      const h = new PublishingHarness(); t.after(() => h.dispose());
+      if (fault === "localStorage.getItem" || fault === "all") {
+        localStorage.setItem(historyKey, JSON.stringify({collapsed: true, hidden: [`publication:${publication.id}`]}));
+      }
+      for (const failure of fault === "all" ? storageFaults : [fault]) h.storageFailures.add(failure);
+      h.jobs = [];
+      await h.mount(true);
+      assert.equal(h.uploadPosts.length, 0, "Storage failures never start an upload");
+      await confirmUpload(h);
+      h.status.uploads = [{...publication, verified: false, status: "uploading"}];
+      h.jobs = [{...job, status: "running", phase: "verifying"}];
+      await h.poll();
+      await until(() => assert.match(element("publishing-progress").textContent!, /Verifying uploaded files/));
+      assert.equal(h.redirects.length, 0, "Unverified uploads must not navigate");
+      if (dismiss) {
+        await clickText("Stay in Wishluck");
+        assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
+      }
+      h.complete();
+      await h.poll();
+      await until(() => assert.ok(element(`cli-upload-${publication.id}`)));
+      assert.equal(h.redirects.length, dismiss ? 0 : 1);
+      if (!dismiss) {
+        assert.equal(h.redirects[0].url, publication.editorUrl);
+        // Even if return-marker writes/removals throw, this visit retains a
+        // read-only check in memory. No restoration/remount guarantee is implied.
+        await act(async () => { dom.dispatchEvent(new dom.Event("focus")); });
+        await until(() => assert.equal(h.checks.length, 1));
+      }
+      await exerciseHistory(h);
+      await h.poll();
+      assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
+      assert.equal(h.redirects.length, dismiss ? 0 : 1);
+      assert.equal(h.uploadPosts.length, 1, "History and polling never duplicate the confirmed upload");
+      for (const failure of fault === "all" ? storageFaults : [fault]) {
+        const [area, method] = failure.split(".");
+        // History updates use setItem, never removeItem: deletion of local
+        // preferences must not be required for hide/show to keep working.
+        const calls = h.storageCalls.filter(call => call.area === area && call.method === method);
+        // The restoration effect reads local history first, so its exception
+        // also skips session reads when both stores are unavailable.
+        if (failure === "localStorage.removeItem" || (fault === "all" && failure === "sessionStorage.getItem")) {
+          assert.equal(calls.length, 0);
+        }
+        else assert.ok(calls.some(call => call.failed), `${failure} exception branch was exercised`);
+      }
+    });
+  }
+}
+
+test("A failed pending-marker removal cancels auto-open for this visit despite stale storage", async t => {
+  const h = new PublishingHarness(); t.after(() => h.dispose());
+  h.savePending();
+  h.storageFailures.add("sessionStorage.removeItem");
+  await h.mount();
+  assert.ok(element("publishing-progress"));
+  await clickText("Stay in Wishluck");
+  assert.deepEqual(JSON.parse(sessionStorage.getItem(pendingKey)!), pending, "The failed removal leaves backing storage untouched");
+  h.complete();
+  await h.poll();
+  await exerciseHistory(h);
+  assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
+  assert.equal(h.redirects.length, 0);
+  assert.equal(h.uploadPosts.length, 0);
+});
+
+const malformedRecords = [
+  {name: "null", value: null},
+  {name: "boolean", value: true},
+  {name: "number", value: 42},
+  {name: "string", value: "not a record"},
+  {name: "array", value: []},
+  {name: "empty object", value: {}},
+  {name: "missing receipt identity", value: {shop: pending.shop, designId: design.id}},
+  {name: "missing store", value: {id: pending.id, designId: design.id}},
+  {name: "empty identity", value: {...pending, id: ""}},
+  {name: "empty store", value: {...pending, shop: ""}},
+];
+for (const {name, value} of malformedRecords) {
+  test(`Valid JSON with ${name} is ignored as saved upload/return intent`, async t => {
+    const h = new PublishingHarness(); t.after(() => h.dispose());
+    h.savePending(value);
+    h.savePending(value, returnKey);
+    h.complete();
+    await h.mount();
+    await act(async () => { dom.dispatchEvent(new dom.Event("focus")); });
+    await h.poll();
+    assert.ok(element("publication-history"));
+    assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
+    assert.equal(h.redirects.length, 0);
+    assert.equal(h.checks.length, 0);
+    await exerciseHistory(h);
+    assert.equal(h.uploadPosts.length, 0);
+    assert.equal(h.redirects.length, 0);
+  });
+}
+
+for (const {name, value} of [
+  ...malformedRecords.slice(0, 6),
+  {name: "non-array hidden records", value: {collapsed: "true", hidden: {length: 2}}},
+  {name: "mixed hidden records", value: {collapsed: 1, hidden: [null, 42, {}, `publication:${publication.id}`]}},
+]) {
+  test(`History with ${name} remains usable without changing server receipts`, async t => {
+    const h = new PublishingHarness(); t.after(() => h.dispose());
+    localStorage.setItem(historyKey, JSON.stringify(value));
+    h.complete();
+    await h.mount();
+    assert.equal(element("button-hide-publication-history").getAttribute("aria-expanded"), "true");
+    if (name === "mixed hidden records") {
+      assert.equal(document.querySelector(`[data-testid="cli-upload-${publication.id}"]`), null);
+      await clickText("Show hidden records");
+    }
+    await exerciseHistory(h);
+    assert.equal(h.uploadPosts.length, 0);
+    assert.equal(h.redirects.length, 0);
+    assert.deepEqual(h.status.uploads, [publication]);
+    assert.deepEqual(h.requests.filter(r => r.method !== "GET").map(r => r.path), [`/api/shopify/cli/uploads/${publication.id}/check`]);
+  });
+}
 
 test("Reload restores a queued upload, polls it, and redirects only after verification", async t => {
   const h = new PublishingHarness(); t.after(() => h.dispose());
