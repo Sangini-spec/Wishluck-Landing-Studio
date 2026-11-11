@@ -14,8 +14,11 @@ function runFixture(){
 }
 function response(run:Run){
   const c=content();
-  return {headline:"An honest object",subheading:c.subheading,story:c.story,benefits:c.benefits,faqs:c.faqs,
-    visualPlan:planFixture(),researchInfluences:[0,1].map(i=>({sourceUrl:run.competitors[i]!.url,observation:"A restrained purchase panel beside large product imagery.",application:"Split the hero into media and a concise purchase column.",planFields:["composition"]}))};
+  const visualPlan=planFixture(),node=visualPlan.composition.sections[0]!;
+  visualPlan.composition.sections.push({...node,kind:"purchase",title:"Choose your option"});
+  if(Object.keys(run.product!.specs).length)visualPlan.composition.sections.push({...node,kind:"specs",title:"The product facts"});
+  return {headline:"An honest object",subheading:c.subheading,story:c.story,benefits:c.benefits,
+    visualPlan,researchInfluences:[0,1].map(i=>({sourceUrl:run.competitors[i]!.url,observation:"A restrained purchase panel beside large product imagery.",application:"Split the hero into media and a concise purchase column.",planFields:["composition"]}))};
 }
 const emptyContext={designs:[],learnings:[],feedback:[]};
 test("AI planning consumes every captured reference and persists their applied decisions",async()=>{
@@ -28,8 +31,27 @@ test("AI planning consumes every captured reference and persists their applied d
   };
   const result=await planResearchDesign(run,0,content(),emptyContext,ask);
   assert.equal(calls,1);assert.equal(result.content.composition,"composed");
-  assert.equal(result.content.visualPlan?.composition?.sections.length,3);
+   assert.equal(result.content.visualPlan?.composition?.sections.length,copy.visualPlan.composition.sections.length);
   assert.equal(result.influences.length,2);assert.equal(run.aiCost,.01);
+});
+test("campaign composition cannot omit its verified specification table or repeat purchase action",async()=>{
+  const run=runFixture(),copy=response(run);
+  copy.visualPlan.composition.sections=copy.visualPlan.composition.sections.filter(section=>section.kind!=="purchase");
+  let calls=0;
+  await assert.rejects(planResearchDesign(run,0,content(),emptyContext,async<T>(_prompt:string,schema:z.ZodType<T>)=>{
+    calls++;return {value:schema.parse(copy),estimatedCost:0};
+  }),/unchanged/);
+  assert.equal(calls,3);
+});
+test("storefront copy and merchant rationale cannot expose the generator's internal retries",async()=>{
+  for(const internal of ["storefront","rationale"]){
+    const run=runFixture(),copy=response(run);
+    if(internal==="storefront")copy.subheading="The page explains what is confirmed and shows the design.";
+    else copy.visualPlan.rationale="This replaces the rejected rail-led structure.";
+    await assert.rejects(planResearchDesign(run,0,content(),emptyContext,async<T>(_prompt:string,schema:z.ZodType<T>)=>({
+      value:schema.parse(copy),estimatedCost:0,
+    })),/unchanged/);
+  }
 });
 test("invented references are rejected, never replaced with a preset",async()=>{
   const run=runFixture(),copy=response(run);copy.researchInfluences[0]!.sourceUrl="https://invented.example/product";

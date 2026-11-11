@@ -39,13 +39,14 @@ export async function generateOne(run:Run,index:number,version=1,_legacyFamilies
     previewUrl:`/api/designs/${id}/preview`,downloadUrl:`/api/designs/${id}/download`,
     warnings,lighthouse:{status:"not_run"},researchInfluences:influences,
   };
-  Object.assign(design,checkDesign(design,content,p));
+  Object.assign(design,checkDesign(design,content,p,b));
   await saveDesign(design,content,p.category);
   return design;
 }
 export async function generate(run:Run){
   if(!run.product||!run.brand)throw new AppError(409,"Analyse a product first.");
   run.status="generating";
+  run.error=null;
   await event(run,"retrieving_memory",`Reading saved research, merchant feedback and page structures for ${run.product.category}.`);
   for(let i=0;i<4;i++){
     await event(run,"generating_designs",`Composing research-led concept ${i+1} of 4.`);

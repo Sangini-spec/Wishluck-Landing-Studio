@@ -7,6 +7,7 @@ import { PageHeader, StatusPill, Btn, ErrorState, Sk, Notice, Tag, EmptyState } 
 import { useToast } from "@/hooks/use-toast";
 import { errMsg, invalidateRun, isActive, stamp, host, ago } from "@/lib/run-utils";
 import { cn } from "@/lib/utils";
+import { readinessLabel } from "@/lib/evidence";
 
 const TABS = ["Product", "Brand", "Research", "Designs", "Activity"] as const;
 type TabT = typeof TABS[number];
@@ -99,7 +100,7 @@ function ProductEditor({ run }: { run: Run }) {
             <a href={p.sourceUrl} target="_blank" rel="noreferrer" className="flex items-center gap-1 pt-1 text-xs text-muted-foreground hover:text-foreground">Source page <ExternalLink className="h-3 w-3" /></a>
           </div>
         </div>
-        {p.missingFacts.length > 0 && <div className="rounded-xl border border-[hsl(var(--amber)/0.3)] bg-[hsl(var(--amber)/0.05)] p-4"><div className={cn(lbl, "text-[hsl(var(--amber))]")}>Missing facts</div><ul className="list-disc space-y-1 pl-4 text-[13px]">{p.missingFacts.map((f) => <li key={f}>{f}</li>)}</ul><p className="mt-2 text-xs text-muted-foreground">Pages will not invent these. Add verified values as specs to include them.</p></div>}
+        {p.missingFacts.length > 0 && <div className="rounded-xl border border-[hsl(var(--amber)/0.3)] bg-[hsl(var(--amber)/0.05)] p-4"><div className={cn(lbl, "text-[hsl(var(--amber))]")}>Missing facts · {p.missingFacts.length}</div><ul className="space-y-1.5 text-[13px]">{p.missingFacts.map((f) => { const added = existingKeys.has(f.trim().toLowerCase()); return <li key={f} className="flex items-center justify-between gap-2"><span className={cn(added && "text-muted-foreground line-through")}>{f}</span>{added ? <span className="font-mono text-[10px] uppercase text-[hsl(var(--jade))]">In specs</span> : <button data-testid={`button-add-missing-${f.toLowerCase().replace(/\s+/g, "-")}`} onClick={() => setSpecs([...specs, [f, ""]])} className="inline-flex items-center gap-1 rounded-md border border-border bg-card px-2 py-0.5 text-[11px] hover:border-[hsl(var(--seal)/0.4)]"><Plus className="h-3 w-3" />Add spec</button>}</li>; })}</ul><p className="mt-2 text-xs text-muted-foreground">Pages will not invent these, and related content checks stay failed until you add a verified value and save. Leave it out if you cannot confirm it.</p></div>}
         <Notice tone="muted" icon={<Info className="h-3.5 w-3.5" />}>Saved edits are recorded as merchant-confirmed source corrections. Only enter facts you can verify; leave anything unknown empty.</Notice>
       </aside>
 
@@ -293,7 +294,7 @@ function Designs({ run }: { run: Run }) {
         <div className="p-4">
           <div className="flex items-center justify-between gap-2"><div className="truncate font-medium">{d.name}</div><StatusPill status={d.status} /></div>
           <div className="mt-0.5 text-xs text-muted-foreground">{d.direction} · v{d.version}</div>
-          <div className="mt-3 flex items-center justify-between font-mono text-[11px] text-muted-foreground"><span>Score {Math.round(d.scores.overall)}</span><span>{d.comparedCount?`${Math.round(d.uniqueness)}% layout difference`:"New baseline"}</span><ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" /></div>
+          <div className="mt-3 flex items-center justify-between font-mono text-[11px] text-muted-foreground"><span data-testid={`text-readiness-${d.id}`}>{readinessLabel(d.scores.overall)}</span><span>{d.comparedCount?`${Math.round(d.uniqueness)}% layout difference`:"New baseline"}</span><ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" /></div>
         </div>
       </Link>))}</div>
   );

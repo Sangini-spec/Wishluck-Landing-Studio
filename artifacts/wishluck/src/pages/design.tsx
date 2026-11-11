@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams, useLocation } from "wouter";
 import { useQueryClient } from "@tanstack/react-query";
-import { Smartphone, Tablet, Monitor, Download, ThumbsUp, ThumbsDown, RefreshCw, Gauge, Send, Loader2, ArrowLeft, Info, ShoppingCart, Check, X, CircleDashed, ExternalLink, AlertTriangle } from "lucide-react";
+import { Smartphone, Tablet, Monitor, Download, ThumbsUp, ThumbsDown, RefreshCw, Send, Loader2, ArrowLeft, Info, ShoppingCart, CircleDashed, ExternalLink, AlertTriangle } from "lucide-react";
 import { useListRuns, useSubmitFeedback, useRegenerateDesign, useAuditDesign, useGetShopifyStatus, useListThemes, usePublishDesign, useConnectShopify, useGetPublishingContext, getGetPublishingContextQueryKey, getListThemesQueryKey, getGetShopifyStatusQueryKey, type Design } from "@workspace/api-client-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Btn, ErrorState, Sk, StatusPill, Notice, Tag, EmptyState } from "@/components/bits";
 import { useToast } from "@/hooks/use-toast";
 import { errMsg, invalidateRun, isActive, ago } from "@/lib/run-utils";
 import { cn } from "@/lib/utils";
+import { ReadinessPanel, LighthousePanel, EvidenceChecks } from "@/components/evidence-panels";
 import {CliPublishing} from "@/components/cli-publishing";
 
 const DEVICES = [
@@ -45,17 +46,6 @@ function Preview({ design }: { design: Design }) {
         <Notice tone="muted" icon={<Info className="h-3.5 w-3.5" />}>This preview is server-rendered HTML that approximates the Shopify sections. It is not actual Liquid rendering; exact output depends on your theme.</Notice>
         <Notice tone="amber" icon={<ShoppingCart className="h-3.5 w-3.5" />}>Cart is unavailable in local preview. Add to cart and checkout are only testable on Shopify after publishing to a theme.</Notice>
       </div>
-    </div>
-  );
-}
-
-function ScoreRing({ label, v }: { label: string; v: number }) {
-  const r = 22, c = 2 * Math.PI * r, val = Math.max(0, Math.min(100, v));
-  return (
-    <div className="flex flex-col items-center">
-      <svg width="56" height="56" className="-rotate-90"><circle cx="28" cy="28" r={r} fill="none" stroke="hsl(var(--muted))" strokeWidth="4" /><circle cx="28" cy="28" r={r} fill="none" stroke={val >= 80 ? "hsl(var(--jade))" : val >= 50 ? "hsl(var(--amber))" : "hsl(var(--destructive))"} strokeWidth="4" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - val / 100)} style={{ transition: "stroke-dashoffset .8s" }} /></svg>
-      <div className="-mt-[38px] mb-[14px] font-mono text-sm tabular-nums">{Math.round(val)}</div>
-      <div className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
     </div>
   );
 }
@@ -151,8 +141,6 @@ export default function DesignPage() {
   if (runs.isLoading) return <div className="space-y-4"><Sk className="h-12 w-1/2" /><Sk className="h-[600px]" /></div>;
   if (!found) return <EmptyState icon={<CircleDashed className="h-5 w-5" />} title="Design not found" body="It may have been regenerated under a new id." action={<Link href="/history" className="text-sm underline">Browse history</Link>} />;
   const { run, design: d } = found;
-  const groups = d.checks.reduce<Record<string, typeof d.checks>>((a, c) => { (a[c.category] ||= []).push(c); return a; }, {});
-  const lh = d.lighthouse;
 
   return (
     <>
@@ -185,34 +173,14 @@ export default function DesignPage() {
             </div>
             <p className="mt-2 text-[11.5px] text-muted-foreground">Feedback is saved to category memory and shapes future runs.</p>
           </div>
-          <div className="panel p-4">
-            <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">Scores</div>
-            <div className="grid grid-cols-4">{(["overall", "seo", "aeo", "geo"] as const).map((k) => <ScoreRing key={k} label={k} v={d.scores[k]} />)}</div>
-            <div className="mt-4 border-t border-border pt-3 text-[13px]"><div className="flex justify-between"><span className="text-muted-foreground">Layout difference</span><span className="font-mono">{d.comparedCount?`${Math.round(d.uniqueness)}%`:"New baseline"}</span></div>
-              <div className="mt-1 text-xs text-muted-foreground">Compared against {d.comparedCount ?? 0} prior designs{d.closestDesign ? `; closest: ${d.closestDesign}` : ""}.</div></div>
-          </div>
-          <div className="panel p-4">
-            <div className="mb-3 flex items-center justify-between"><span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">Lighthouse</span>
-              <Btn data-testid="button-audit" variant="ghost" className="h-7 px-2 text-xs" disabled={audit.isPending} onClick={() => audit.mutate({ id: d.id }, done("Audit finished"))}>{audit.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Gauge className="h-3.5 w-3.5" />} Run audit</Btn></div>
-            {!lh ? <p className="text-[13px] text-muted-foreground">Not audited yet.</p> : <>
-              <div className="mb-2"><StatusPill status={lh.status} /></div>
-              {lh.error ? <p className="text-xs text-destructive">{lh.error}</p> : <div className="grid grid-cols-3 gap-2 text-center">{([["Perf", lh.performance], ["SEO", lh.seo], ["A11y", lh.accessibility]] as const).map(([k, v]) => <div key={k} className="rounded-lg bg-muted py-2"><div className="font-display text-2xl">{v ?? "—"}</div><div className="font-mono text-[10px] uppercase text-muted-foreground">{k}</div></div>)}</div>}
-              {lh.testedAt && <p className="mt-2 text-[11px] text-muted-foreground">Tested {ago(lh.testedAt)}</p>}</>}
-            {lh?.url&&<a href={lh.url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-xs underline">Open Lighthouse report<ExternalLink className="h-3 w-3"/></a>}
-          </div>
+          <ReadinessPanel design={d} />
+          <LighthousePanel design={d} auditing={audit.isPending} onAudit={() => audit.mutate({ id: d.id }, done("Audit finished"))} />
         </aside>
       </div>
 
       <section className="mt-10">
-        <h2 className="mb-3 font-display text-2xl">Checks</h2>
-        {d.checks.length === 0 ? <p className="text-sm text-muted-foreground">No checks recorded.</p> :
-          <div className="grid gap-4 md:grid-cols-2">{Object.entries(groups).map(([cat, cs]) => (
-            <div key={cat} className="panel"><div className="border-b border-border px-4 py-2.5 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">{cat}</div>
-              <ul className="divide-y divide-border">{cs.map((c) => (
-                <li key={c.key} data-testid={`check-${c.key}`} className="flex gap-3 px-4 py-2.5">
-                  {c.status === "passed" ? <Check className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--jade))]" /> : c.status === "failed" ? <X className="mt-0.5 h-4 w-4 shrink-0 text-destructive" /> : <CircleDashed className="mt-0.5 h-4 w-4 shrink-0 text-[hsl(var(--amber))]" />}
-                  <div><div className="text-[13.5px]">{c.label}</div>{c.detail && <div className="text-xs text-muted-foreground">{c.detail}</div>}</div>
-                </li>))}</ul></div>))}</div>}
+        <h2 className="mb-1 font-display text-2xl">Evidence</h2><p className="mb-4 text-sm text-muted-foreground">Content readiness, measured Lighthouse results and external verification are tracked separately.</p>
+        <EvidenceChecks checks={d.checks} />
       </section>
     </>
   );

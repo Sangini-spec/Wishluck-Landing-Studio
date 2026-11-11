@@ -4,6 +4,14 @@ import {preference} from "./preferences";
 import type { Run, Design, DesignContent, Publication, Learning } from "./domain";
 import { AppError } from "./domain";
 import {designUploadState} from "./publication-status";
+import {checkDesign} from "./quality";
+
+function assessedDesign(data:Record<string,unknown>,rawContent:Record<string,unknown>,run:Run){
+  const design=data as unknown as Design,content=rawContent as unknown as DesignContent;
+  const product=content.productSnapshot??run.product;
+  if(!product)return design;
+  return {...design,...checkDesign(design,content,product,content.brandSnapshot??run.brand??undefined)};
+}
 
 export async function listRuns(): Promise<Run[]> {
   const [rows, designs,uploads] = await Promise.all([
@@ -11,14 +19,14 @@ export async function listRuns(): Promise<Run[]> {
     db.select().from(designsTable).orderBy(desc(designsTable.createdAt)),
     publications(),
   ]);
-  return rows.map(row => ({ ...row.data, designs: designs.filter(d => d.runId === row.id).map(d => designUploadState(d.data as Design,uploads)) }) as Run);
+  return rows.map(row => ({ ...row.data, designs: designs.filter(d => d.runId === row.id).map(d => designUploadState(assessedDesign(d.data,d.content,row.data as Run),uploads)) }) as Run);
 }
 export async function getRun(id: string): Promise<Run> {
   const [row] = await db.select().from(runsTable).where(eq(runsTable.id, id));
   if (!row) throw new AppError(404, "Run not found");
   const designs = await db.select().from(designsTable).where(eq(designsTable.runId, id)).orderBy(desc(designsTable.createdAt));
   const uploads=await publications();
-  return { ...row.data, designs: designs.map(d => designUploadState(d.data as Design,uploads)) } as Run;
+  return { ...row.data, designs: designs.map(d => designUploadState(assessedDesign(d.data,d.content,row.data as Run),uploads)) } as Run;
 }
 export async function saveRun(run: Run) {
   const data = { ...run, designs: [] };
@@ -36,7 +44,7 @@ export async function getDesign(id: string) {
   if (!row) throw new AppError(404, "Design not found");
   const content=row.content as unknown as DesignContent;
   const run=await getRun(row.runId);
-  return { design: row.data as Design, content, category: row.category,
+  return { design: assessedDesign(row.data,row.content,run), content, category: row.category,
     run:{...run,product:content.productSnapshot??run.product,brand:content.brandSnapshot??run.brand} };
 }
 export async function saveDesign(design: Design, content: DesignContent, category: string) {

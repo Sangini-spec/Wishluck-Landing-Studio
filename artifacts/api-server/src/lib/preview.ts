@@ -16,7 +16,7 @@ export function preview(_design: Design, c: DesignContent, p: Product, b: Brand)
   const plan = resolvePlan(c);
   const ctx: Ctx = { c, p, b, plan, pal: palette(plan, b), format };
   const productSchema = { "@context": "https://schema.org", "@type": "Product", name: p.title, url: p.sourceUrl, image: p.images, brand: { "@type": "Brand", name: p.brand }, description: p.description,
-    ...(p.currency !== "XXX" && p.price !== undefined ? { offers: { "@type": "Offer", price: p.price, priceCurrency: p.currency, availability: `https://schema.org/${p.variants.some(v => v.available) ? "InStock" : "OutOfStock"}` } } : {}),
+    ...(p.currency !== "XXX" && p.price !== undefined ? { offers: { "@type": "Offer", price: p.price, priceCurrency: p.currency, ...(p.variants.length?{availability: `https://schema.org/${p.variants.some(v => v.available) ? "InStock" : "OutOfStock"}`}:{}) } } : {}),
     ...(p.rating && p.reviewCount ? { aggregateRating: { "@type": "AggregateRating", ratingValue: p.rating, reviewCount: p.reviewCount } } : {}) };
   const keys = planSections(plan, c).filter(k => !(k === "reviews" && !(p.reviews ?? []).length) && !(k === "gallery" && p.images.length < 2));
   const html = keys.map((k, i) => k === "hero" ? heroHtml(ctx) : sectionHtml(ctx, k, i)).join("\n");
