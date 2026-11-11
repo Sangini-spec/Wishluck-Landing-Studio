@@ -1,6 +1,6 @@
 # Shopify publishing workflow verification
 
-The original HR assignment in `docs/source` remains authoritative. Its embedded diagram specifies generated designs → SEO/AEO/GEO + QA → dashboard pick → Shopify template. This document tracks the publishing continuation, not completion of the entire assignment.
+The original HR assignment supplied privately by the owner remains authoritative; its attachment is not republished. Its embedded diagram specifies generated designs → SEO/AEO/GEO + QA → dashboard pick → Shopify template. This document tracks the publishing continuation, not completion of the entire assignment.
 
 ## Intentional adapter change
 
