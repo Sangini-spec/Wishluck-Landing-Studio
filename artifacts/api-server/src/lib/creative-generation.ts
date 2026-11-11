@@ -7,6 +7,8 @@ import {designResearch,influenceSchema,validateInfluences} from "./research-evid
 import {compare,fingerprint} from "./fingerprints";
 import {categoryContext} from "./store";
 import {campaignBrief} from "./campaign-brief";
+import {writeCampaignCopy,assertCustomerCopy} from "./campaign-copy";
+import {logger} from "./logger";
 
 const copySchema=z.object({
   headline:z.string().max(180).describe("Customer-facing product value proposition."),
@@ -28,9 +30,7 @@ function compose(result:Copy,base:DesignContent,run:Run):DesignContent{
   if(kinds.filter(kind=>["story","benefits","specs","gallery","reviews"].includes(kind)).length<brief.minimumExplanatorySections)
     throw new Error("Include at least two substantive explanatory or proof sections in addition to FAQ and purchase. Do not return a product-description-only page.");
   if(!result.headline.trim()||!result.subheading.trim()||!result.story.trim())throw new Error("Write a complete customer-facing value proposition, introduction and product story.");
-  const copy=[result.headline,result.subheading,result.story,...result.benefits.flatMap(item=>[item.title,item.text])].join(" ");
-  if(/product.s confirmed|presented here with|this (?:landing page|design|page)|the page (?:explains|shows|presents|keeps|uses|includes)|what.s confirmed|what is confirmed|verified source facts/i.test(copy))
-    throw new Error("Write customer-facing campaign copy, not commentary about the design or source verification.");
+  assertCustomerCopy(result,nodes.map(node=>node.title));
   if(/rejected (?:proposal|design|layout|rail|split|stack|concept)|previous (?:proposal|rejection)|retry attempt/i.test(result.visualPlan.rationale))
     throw new Error("Explain only the final campaign strategy and its actual research references. Do not discuss rejected ideas or internal retries in the rationale.");
   for(const node of nodes){
@@ -54,13 +54,16 @@ export async function planResearchDesign(run:Run,index:number,base:DesignContent
   const brief=campaignBrief(run.product,run.brand??undefined);
   if(!brief.product.title.trim()||!brief.product.description)
     throw new AppError(409,"Review the product title and description before generating a campaign page. Missing specifications and policies will remain explicitly unverified.");
+  // Keep strategy, rejected layouts and technical instructions out of the
+  // copywriter's context. A fresh layout never requires rewriting valid copy.
+  const campaignCopy=await writeCampaignCopy(run,index,ask);
   const latest=context.designs.filter(d=>d.fingerprint.schemaVersion===3).slice(0,3);
   const recentHeroes=latest.map(d=>d.fingerprint.hero as Record<string,unknown>);
   const heroModes=compositionSchema.shape.hero.shape.layout.options.filter(mode=>!recentHeroes.some(hero=>hero.layout===mode));
   const allowedModes=heroModes.length?heroModes:compositionSchema.shape.hero.shape.layout.options;
   const allowedSurfaces=recentHeroes.length===3&&recentHeroes.every(hero=>["paper","muted"].includes(String(hero.surface)))
     ?["ink","brand"] as const:surfaces;
-  const outputSchema=copySchema.extend({visualPlan:creativePlanSchema.extend({composition:compositionSchema.extend({
+  const outputSchema=copySchema.pick({visualPlan:true,researchInfluences:true}).extend({visualPlan:creativePlanSchema.extend({composition:compositionSchema.extend({
     sections:compositionSchema.shape.sections.min(Math.max(4,brief.requiredSections.length)),
     hero:compositionSchema.shape.hero.extend({
       layout:z.enum(allowedModes as [typeof allowedModes[number],...typeof allowedModes[number][]]),
@@ -72,7 +75,9 @@ export async function planResearchDesign(run:Run,index:number,base:DesignContent
     try{
       const result=await ask(`You are an ecommerce art director composing concept ${index+1} from REAL market research.
 There are NO finished page families or four preset directions. You compose a page from independently editable native Shopify primitives. Do not simply repeat the visual arrangement of the saved pages.
-Return the required JSON schema. visualPlan contains name, rationale, typography, imageTreatment, headingSize, sectionSpacing, and composition.
+Return only the visual plan and researchInfluences. Product copy has already been written by the brand's copywriter; do not write or critique copy.
+Finished storefront copy: ${JSON.stringify(campaignCopy)}
+visualPlan contains name, rationale, typography, imageTreatment, headingSize, sectionSpacing, and composition.
 COMPOSITION: hero chooses layout split|stack|offset|rail|showcase, mediaSide left|right, mediaShare 35–70 in steps of5, imageRatio square|portrait|landscape, imageCount 1–${Math.min(4,run.product.images.length)}, surface paper|ink|brand|muted, alignment start|center, contentWidth compact|balanced|wide.
 For this concept use one of these still-distinct hero geometries: ${JSON.stringify(allowedModes)}. Hero surfaces available for this concept: ${JSON.stringify(allowedSurfaces)}. These constraints prevent a batch of near-identical first screens; they do not prescribe the rest of the page.
 Start with the factual CAMPAIGN BRIEF below, then choose the visual composition. Optimise content completeness and useful answers before decoration. This is a full conversion-focused campaign, not a catalogue hero plus description.
@@ -81,6 +86,7 @@ Compose ${Math.max(4,brief.requiredSections.length)}–7 individually different 
 Include every requiredSections entry from the brief. Choose the order and independent structure for a coherent selling strategy, not a shuffled preset. FAQs are populated automatically from the brief's verified answers; do not generate FAQ answers.
 Include at least two substantive sections from story, benefits, specifications, real gallery or verified reviews, in addition to FAQ and purchase. More sections are not automatically better: each must add real information rather than repeating the same description.
 Use each content kind at most once. Include faq, but its position is your decision. Do not include reviews without actual verified source reviews; gallery requires multiple source images; omit specs when no actual specifications exist. Never use an empty content section.
+Available product benefits: ${campaignCopy.benefits.length}. If zero, omit benefits; use the factual story and real image gallery instead. Section titles are finished customer-facing words, never labels explaining the website.
 The hero always contains real price/variants/quantity/cart; keep purchasing easy to find. Make genuine structural choices across the WHOLE page: image and purchase arrangement, editorial versus dense sections, full-width versus restrained passages, independently positioned headings, distinct media proportions and contrast transitions. Do not create a monochrome wall of repeated two-column boxes. Use the brand's actual fonts and brand-derived colors; preserve image visibility, not decorative cropping.
 Every design must apply 2–4 concrete observations from at least TWO captured competitor URLs in researchInfluences. planFields may cite composition, typography, imageTreatment, headingSize, sectionSpacing. State what was observed and exactly how your composition applies it. Research changes the composition, not merely the description. Do NOT copy any competitor's wording, logos, photos or code.
 Creative text limits: name80, rationale400, headline180, subheading500, story2500characters; benefits title100/text500; FAQ question160/answer700; influence observation/application250. headingSize integer30–80; sectionSpacing EVEN12–100.
@@ -96,7 +102,7 @@ ${attempt?`The previous proposal was rejected: ${problem}. Previous structural p
         outputSchema,undefined,true);
       run.aiCost=(run.aiCost??0)+result.estimatedCost;
       validateInfluences(run,result.value.researchInfluences);
-      const content=compose(result.value,base,run);
+      const content=compose({...campaignCopy,...result.value},base,run);
       previousProposal=fingerprint(content,run.brand!);
       const comparison=compare(previousProposal as Record<string,unknown>,context.designs);
       if(comparison.uniqueness<38){
@@ -104,9 +110,12 @@ ${attempt?`The previous proposal was rejected: ${problem}. Previous structural p
         throw new Error(`Only ${comparison.uniqueness}% structural difference from an existing page; minimum38%. Closest rendered design: ${JSON.stringify(nearest?.fingerprint)}. The next concept must deliberately contrast this exact page, not just the last proposal: change at least three visible hero decisions and independently recompose at least two content sections (layout, heading position, width or surface). Consider image-led gallery and purchase sections where the actual source supports them. Use a different captured research observation to justify each major change. Keep factual purchase controls and brand fidelity.`);
       }
       return {content,influences:result.value.researchInfluences};
-    }catch(error){problem=error instanceof Error?error.message:"The proposed design was invalid.";}
+    }catch(error){
+      problem=error instanceof Error?error.message:"The proposed design was invalid.";
+      logger.warn({runId:run.id,concept:index+1,attempt:attempt+1,reason:problem.slice(0,2000)},"Design planning attempt rejected");
+    }
   }
   throw new AppError(502,/structural difference/.test(problem)
     ?"The proposed pages were still too similar to saved designs. No repetitive result was saved. Refresh competitor research before retrying."
-    :"AI could not complete a valid, evidence-based page. Your product, research and saved designs are unchanged.");
+    :`A design did not pass its quality checks. Existing designs were kept.${problem.trim().startsWith("[")?" Retry to finish the remaining designs.":` ${problem.slice(0,300)}`}`);
 }

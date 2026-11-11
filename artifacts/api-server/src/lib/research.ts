@@ -7,9 +7,12 @@ import { event } from "./store";
 import { AppError, type Run, type Competitor } from "./domain";
 import { search } from "./search";
 import {createHash} from "node:crypto";
+import {researchQueue,reusableCaptures,isCommerceReference} from "./research-queue";
 export async function research(run: Run) {
   if (!run.product) throw new AppError(409,"Analyse a product first.");
   const p = run.product;
+  const inputKey=createHash("sha256").update(JSON.stringify({product:run.product,brand:run.brand})).digest("hex");
+  const previous=reusableCaptures(run.competitors,run.researchKey===inputKey);
   run.status = "researching";
   await event(run,"finding_competitors",`Searching for ${p.category} competitors, with preference for Indian D2C brands.`);
   const ownHost = new URL(run.url).hostname;
@@ -20,10 +23,11 @@ export async function research(run: Run) {
   ];
   if(aiReady()){
     try{
-      const planned=await askJson(`Create exactly three web search queries to find genuinely competing independent product brands, preferably Indian D2C, for category ${JSON.stringify(p.category)}. Source product context:${JSON.stringify({title:p.title,brand:p.brand,description:p.description.slice(0,1800)})}. Search by generic product category and factual attributes, NOT the exact source SKU or source brand: resellers of the same product are not competitors. Exclude marketplaces and the source brand. Return JSON {queries:[string,string,string]}. No URLs or invented competitor names.`,z.object({queries:z.array(z.string().min(8).max(220)).length(3)}));
+      const planned=await askJson(`Create exactly three commercial-intent web search queries for competing actual products, preferably Indian D2C, for category ${JSON.stringify(p.category)}. Source product context:${JSON.stringify({title:p.title,brand:p.brand,description:p.description.slice(0,1800)})}. Each query must target the specific generic product TYPE (for example facial cleanser, not broad beauty brands), use buy/price/official intent and avoid directories, blogs and lists of brands. Search by generic product type and factual attributes, NOT the exact source SKU or source brand: resellers of the same product are not competitors. Exclude marketplaces and the source brand. Return JSON {queries:[string,string,string]}. No URLs or invented competitor names.`,z.object({queries:z.array(z.string().min(8).max(220)).length(3)}));
       queries=planned.value.queries;run.aiCost=(run.aiCost??0)+planned.estimatedCost;
     }catch{/* The category queries remain genuine provider searches. */}
   }
+  queries.push(`${p.title} ${p.category} buy official price -blog -directory -manufacturer -site:${ownHost}`);
   const results = [];
   for(const query of queries){
     results.push(...await search(query));
@@ -34,11 +38,12 @@ export async function research(run: Run) {
     try {
       const u = new URL(r.url);
       const sourceBrand=p.brand.toLowerCase().replace(/[^a-z0-9]/g,"");
-      if (u.protocol !== "https:" || u.hostname === ownHost || hosts.has(u.hostname) || (sourceBrand.length>=4&&u.hostname.replace(/[^a-z0-9]/g,"").includes(sourceBrand)) || /(amazon\.|flipkart\.|ebay\.|shopee\.|samsclub\.|govx\.|zalando\.|namshi\.|youtube\.|instagram\.|pinterest\.|facebook\.)/.test(u.hostname)) return false;
+      if (u.protocol !== "https:" || !isCommerceReference(r.url) || u.hostname === ownHost || hosts.has(u.hostname) || (sourceBrand.length>=4&&u.hostname.replace(/[^a-z0-9]/g,"").includes(sourceBrand)) || /(amazon\.|flipkart\.|ebay\.|shopee\.|samsclub\.|govx\.|zalando\.|namshi\.|youtube\.|instagram\.|pinterest\.|facebook\.)/.test(u.hostname)) return false;
       hosts.add(u.hostname); return true;
     } catch { return false; }
   }).slice(0,24);
-  let selected = candidates.map(r => ({url:r.url,title:r.title,reason:`Search relevance to ${p.category} and ${p.title}; Indian commercial-intent query. Relevance requires evidence review.`}));
+  const fallback = candidates.map(r => ({url:r.url,title:r.title,reason:`Search relevance to ${p.category} and ${p.title}; Indian commercial-intent query. Relevance requires evidence review.`}));
+  let selected = fallback;
   if (aiReady() && candidates.length) {
     try {
       const ranking = await askJson(`Select up to 20 relevant actual product or landing pages from these exact search results for ${JSON.stringify({title:p.title,category:p.category,description:p.description.slice(0,2000)})}. Prefer Indian D2C brands where relevant, not unrelated marketplace/category articles. Return JSON {pages:[{url,reason}]}. Do not invent any URLs. Results:${JSON.stringify(candidates)}`,z.object({pages:z.array(z.object({url:z.string(),reason:z.string()}))}));
@@ -46,8 +51,10 @@ export async function research(run: Run) {
       run.aiCost = (run.aiCost ?? 0) + ranking.estimatedCost;
     } catch { run.warnings.push("AI relevance ranking unavailable; search ranking used and relevance needs review."); }
   }
-  run.competitors = [];
-  for (const r of selected) {
+  // Explicit research still obtains fresh evidence. Partial retries reuse good
+  // captures; a failed refresh cannot erase an already usable research set.
+  run.competitors = previous.length<8?[...previous]:[];
+  for (const r of researchQueue(selected,fallback,run.competitors)) {
     if (run.competitors.filter(c => c.status === "crawled").length >= 8) break;
     const c: Competitor = {id:randomUUID(),...r,status:"crawling",sections:[]};
     run.competitors.push(c);
@@ -72,6 +79,13 @@ export async function research(run: Run) {
       }
     } catch (e) { c.status="blocked";c.error=e instanceof Error ? e.message : "Crawl failed"; }
     await event(run,"extracting_patterns",`${new URL(c.url).hostname}: ${c.status}`);
+  }
+  for(const old of previous){
+    if(run.competitors.filter(c=>c.status==="crawled").length>=8)break;
+    if(!run.competitors.some(c=>c.status==="crawled"&&new URL(c.url).hostname===new URL(old.url).hostname)){
+      run.competitors=run.competitors.filter(c=>c.url!==old.url);
+      run.competitors.push(old);
+    }
   }
   const successful = run.competitors.filter(c => c.status==="crawled");
   run.learnings = [];

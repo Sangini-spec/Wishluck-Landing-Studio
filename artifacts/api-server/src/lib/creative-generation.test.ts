@@ -25,14 +25,18 @@ test("AI planning consumes every captured reference and persists their applied d
   const run=runFixture(),copy=response(run);let calls=0;
   const ask=async<T>(prompt:string,schema:z.ZodType<T>)=>{
     calls++;
-    for(const source of run.competitors)assert.ok(prompt.includes(source.url));
-    assert.match(prompt,/NO finished page families/);
+    if(!prompt.startsWith("CAMPAIGN COPY")){
+      for(const source of run.competitors)assert.ok(prompt.includes(source.url));
+      assert.match(prompt,/NO finished page families/);
+    }else{
+      assert.ok(!prompt.includes("Saved page structures"));
+    }
     return {value:schema.parse(copy),estimatedCost:.01};
   };
   const result=await planResearchDesign(run,0,content(),emptyContext,ask);
-  assert.equal(calls,1);assert.equal(result.content.composition,"composed");
+  assert.equal(calls,2);assert.equal(result.content.composition,"composed");
    assert.equal(result.content.visualPlan?.composition?.sections.length,copy.visualPlan.composition.sections.length);
-  assert.equal(result.influences.length,2);assert.equal(run.aiCost,.01);
+  assert.equal(result.influences.length,2);assert.equal(run.aiCost,.02);
 });
 test("campaign composition cannot omit its verified specification table or repeat purchase action",async()=>{
   const run=runFixture(),copy=response(run);
@@ -40,8 +44,8 @@ test("campaign composition cannot omit its verified specification table or repea
   let calls=0;
   await assert.rejects(planResearchDesign(run,0,content(),emptyContext,async<T>(_prompt:string,schema:z.ZodType<T>)=>{
     calls++;return {value:schema.parse(copy),estimatedCost:0};
-  }),/unchanged/);
-  assert.equal(calls,3);
+  }),/quality checks/);
+  assert.equal(calls,4);
 });
 test("storefront copy and merchant rationale cannot expose the generator's internal retries",async()=>{
   for(const internal of ["storefront","rationale"]){
@@ -50,31 +54,31 @@ test("storefront copy and merchant rationale cannot expose the generator's inter
     else copy.visualPlan.rationale="This replaces the rejected rail-led structure.";
     await assert.rejects(planResearchDesign(run,0,content(),emptyContext,async<T>(_prompt:string,schema:z.ZodType<T>)=>({
       value:schema.parse(copy),estimatedCost:0,
-    })),/unchanged/);
+    })),/quality checks/);
   }
 });
 test("invented references are rejected, never replaced with a preset",async()=>{
   const run=runFixture(),copy=response(run);copy.researchInfluences[0]!.sourceUrl="https://invented.example/product";
   let calls=0;
   const ask=async<T>(_prompt:string,schema:z.ZodType<T>)=>{calls++;return {value:schema.parse(copy),estimatedCost:0};};
-  await assert.rejects(planResearchDesign(run,0,content(),emptyContext,ask),/No new|unchanged|saved designs are unchanged/);
-  assert.equal(calls,3);
+  await assert.rejects(planResearchDesign(run,0,content(),emptyContext,ask),/quality checks/);
+  assert.equal(calls,4);
 });
 test("repetitive composed pages are rejected after bounded, research-led repair attempts",async()=>{
   const run=runFixture(),copy=response(run);
   const first=await planResearchDesign(run,0,content(),emptyContext,async<T>(_prompt:string,schema:z.ZodType<T>)=>({value:schema.parse(copy),estimatedCost:0}));
   const previous={...emptyContext,designs:[{...design,id:"saved",fingerprint:fingerprint(first.content,brand)}]};
   let calls=0;
-  const ask=async<T>(prompt:string,schema:z.ZodType<T>)=>{calls++;if(calls>1)assert.match(prompt,/previous proposal was rejected/);return {value:schema.parse(copy),estimatedCost:0};};
-  await assert.rejects(planResearchDesign(run,1,content(),previous,ask),/too similar|unchanged/);
-  assert.equal(calls,3);
+  const ask=async<T>(prompt:string,schema:z.ZodType<T>)=>{calls++;if(calls>2)assert.match(prompt,/previous proposal was rejected/);return {value:schema.parse(copy),estimatedCost:0};};
+  await assert.rejects(planResearchDesign(run,1,content(),previous,ask),/too similar|quality checks/);
+  assert.equal(calls,4);
 });
 test("unavailable galleries or source reviews cannot become fabricated content sections",async()=>{
   const run=runFixture(),copy=response(run);
   copy.visualPlan.composition.sections[0]!.kind="reviews";
   run.product!.reviews=[];
   const ask=async<T>(_prompt:string,schema:z.ZodType<T>)=>({value:schema.parse(copy),estimatedCost:0});
-  await assert.rejects(planResearchDesign(run,0,content(),emptyContext,ask),/unchanged/);
+  await assert.rejects(planResearchDesign(run,0,content(),emptyContext,ask),/quality checks/);
 });
 test("repair feedback identifies the exact nearest rendered structure",async()=>{
   const run=runFixture(),copy=response(run),previous=content();
@@ -85,9 +89,9 @@ test("repair feedback identifies the exact nearest rendered structure",async()=>
   let calls=0;
   const ask=async<T>(prompt:string,schema:z.ZodType<T>)=>{
     calls++;
-    if(calls>1)assert.match(prompt,/Closest rendered design:.*"layout":"stack"/);
+    if(calls>2)assert.match(prompt,/Closest rendered design:.*"layout":"stack"/);
     return {value:schema.parse(copy),estimatedCost:0};
   };
   await assert.rejects(planResearchDesign(run,1,content(),context,ask),/too similar/);
-  assert.equal(calls,3);
+  assert.equal(calls,4);
 });

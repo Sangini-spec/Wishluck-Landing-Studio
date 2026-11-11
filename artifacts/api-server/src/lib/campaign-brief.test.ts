@@ -51,3 +51,9 @@ test("a failed or incomplete Lighthouse run never becomes a passing local or ext
   const d={...design,lighthouse:{status:"completed",performance:99,seo:69,accessibility:99}} as typeof design;
   assert.equal(checkDesign(d,content(),product,brand).checks.find(check=>check.key==="lighthouse")?.status,"failed");
 });
+test("repeat purchase imagery keeps descriptive alt text rather than an empty description",()=>{
+  const c=content();c.visualPlan={...resolvePlan(c),sections:["hero","story","faq","purchase"]};
+  c.sections=["hero","story","faq","purchase"];
+  const result=checkDesign(design,c,product,brand);
+  assert.equal(result.checks.find(check=>check.key==="alt")?.status,"passed");
+});

@@ -114,7 +114,7 @@
   {%- when 'purchase' -%}
     {%- assign v = product.selected_or_first_available_variant -%}
     <div class="wl-buy" data-wl-reveal>
-      {% if product.featured_image %}<figure class="wl-buy-fig">{{ product.featured_image | image_url: width: 480 | image_tag: widths: '160,320,480', sizes: '128px', loading: 'lazy', alt: '' }}</figure>{% endif %}
+      {% if product.featured_image %}<figure class="wl-buy-fig">{{ product.featured_image | image_url: width: 480 | image_tag: widths: '160,320,480', sizes: '128px', loading: 'lazy', alt: product.title }}</figure>{% endif %}
       <div class="wl-buy-name"><p class="wl-kicker"><span>{{ product.vendor | escape }}</span></p><p class="wl-buy-title">{{ product.title | escape }}</p></div>
       <p class="wl-buy-price">{{ v.price | money }}</p>
       <a class="wl-btn" href="#wl-product-purchase">{{ s.button_label | escape }}<span class="wl-arrow" aria-hidden="true"></span></a>

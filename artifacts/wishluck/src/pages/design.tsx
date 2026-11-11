@@ -8,7 +8,7 @@ import { Btn, ErrorState, Sk, StatusPill, Notice, Tag, EmptyState } from "@/comp
 import { useToast } from "@/hooks/use-toast";
 import { errMsg, invalidateRun, isActive, ago } from "@/lib/run-utils";
 import { cn } from "@/lib/utils";
-import { ReadinessPanel, LighthousePanel, EvidenceChecks } from "@/components/evidence-panels";
+import { ScoresPanel, LighthousePanel } from "@/components/evidence-panels";
 import {CliPublishing} from "@/components/cli-publishing";
 
 const DEVICES = [
@@ -147,7 +147,7 @@ export default function DesignPage() {
       <Link href={`/runs/${run.id}`} className="mb-4 inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"><ArrowLeft className="h-3.5 w-3.5" /> {run.product?.title ?? "Back to run"}</Link>
       <header className="rise mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div><div className="mb-2 flex items-center gap-2"><StatusPill status={d.status} /><span className="font-mono text-[11px] text-muted-foreground">v{d.version} · {ago(d.createdAt)}</span></div>
-          <h1 className="font-display text-4xl md:text-[44px]">{d.name}</h1><p className="mt-1 max-w-2xl text-sm text-muted-foreground"><b className="font-medium text-foreground">{d.direction}.</b> {d.description}</p></div>
+          <h1 className="font-display text-4xl md:text-[44px]">{d.name}</h1></div>
         <div className="flex flex-wrap gap-2">
           <a href={d.downloadUrl} download data-testid="link-download" className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3.5 text-[13px] font-medium hover:bg-muted"><Download className="h-4 w-4" /> Theme ZIP</a>
           <Btn data-testid="button-regenerate" variant="outline" disabled={regen.isPending} onClick={() => regen.mutate({ id: d.id }, { ...done("New design version created"), onSuccess: (next) => { invalidateRun(qc, run.id); navigate(`/designs/${next.id}`); toast({title:"New design version created"}); } })}>{regen.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />} Regenerate</Btn>
@@ -160,10 +160,6 @@ export default function DesignPage() {
       <div className="grid gap-6 xl:grid-cols-[1fr_340px]">
         <Preview design={d} />
         <aside className="space-y-4">
-          {!!d.researchInfluences?.length&&<section className="panel space-y-3 p-4" data-testid="research-applied">
-            <h2 className="font-display text-xl">Research applied</h2>
-            {d.researchInfluences.map((influence,i)=><div key={i} className="border-t border-border pt-3 text-sm"><p className="font-medium">{influence.observation}</p><p className="mt-1 text-muted-foreground">{influence.application}</p><a href={influence.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs underline">View reference</a></div>)}
-          </section>}
           <div className="panel p-4">
             <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">Feedback</div>
             <textarea data-testid="input-feedback-reason" rows={3} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="What should change, or why it works" className="w-full rounded-lg border border-input bg-background p-2.5 text-[13px] outline-none focus:ring-2 focus:ring-[hsl(var(--seal)/0.15)]" />
@@ -173,15 +169,11 @@ export default function DesignPage() {
             </div>
             <p className="mt-2 text-[11.5px] text-muted-foreground">Feedback is saved to category memory and shapes future runs.</p>
           </div>
-          <ReadinessPanel design={d} />
+          <ScoresPanel design={d} />
           <LighthousePanel design={d} auditing={audit.isPending} onAudit={() => audit.mutate({ id: d.id }, done("Audit finished"))} />
         </aside>
       </div>
 
-      <section className="mt-10">
-        <h2 className="mb-1 font-display text-2xl">Evidence</h2><p className="mb-4 text-sm text-muted-foreground">Content readiness, measured Lighthouse results and external verification are tracked separately.</p>
-        <EvidenceChecks checks={d.checks} />
-      </section>
     </>
   );
 }

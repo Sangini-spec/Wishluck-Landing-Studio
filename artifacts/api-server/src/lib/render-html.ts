@@ -85,7 +85,7 @@ export function sectionHtml(x: Ctx, key: Exclude<SectionKey, "hero">, i: number)
   } else if (key === "purchase") {
     const v = p.variants.find(v => v.available) ?? p.variants[0];
     const price = v?.price ?? p.price;
-    body = `<div class="wl-buy" data-wl-reveal>${p.images[0] ? `<figure class="wl-buy-fig"><img src="${e(p.images[0])}" alt="" loading="lazy" width="320" height="320"></figure>` : ""}<div class="wl-buy-name"><p class="wl-kicker"><span>${e(p.brand)}</span></p><p class="wl-buy-title">${e(p.title)}</p></div><p class="wl-buy-price">${price === undefined ? "" : e(format(price))}</p><a class="wl-btn" href="#wl-product-purchase">${e(ctaFor(plan))}${arrow}</a></div>`;
+    body = `<div class="wl-buy" data-wl-reveal>${p.images[0] ? `<figure class="wl-buy-fig"><img src="${e(p.images[0])}" alt="${e(p.title)}" loading="lazy" width="320" height="320"></figure>` : ""}<div class="wl-buy-name"><p class="wl-kicker"><span>${e(p.brand)}</span></p><p class="wl-buy-title">${e(p.title)}</p></div><p class="wl-buy-price">${price === undefined ? "" : e(format(price))}</p><a class="wl-btn" href="#wl-product-purchase">${e(ctaFor(plan))}${arrow}</a></div>`;
   }
   const heading = sc ? sc.title : headingFor(plan, key);
   const cls = sc ? secCx(plan, sc) + darkBg(surfaceColor(t, sc.surface)) : planClasses(plan, flipFor(plan, i)) + dark(t);

@@ -1,10 +1,12 @@
 import {randomUUID} from "node:crypto";
 import {AppError,type Run,type Design,type DesignContent} from "./domain";
-import {categoryContext,event,saveDesign} from "./store";
+import {categoryContext,event,saveDesign,getDesign} from "./store";
 import {fingerprint,compare} from "./fingerprints";
 import {checkDesign} from "./quality";
 import {cleanProductSpecs,missingFacts} from "./facts";
 import {planResearchDesign} from "./creative-generation";
+import {assertCustomerCopy} from "./campaign-copy";
+import {unfinishedBatchStart} from "./generation-batch";
 
 // Keep the fourth argument compatible with old internal callers. Modern
 // composition is constrained by rendered page history, never by preset families.
@@ -43,15 +45,22 @@ export async function generateOne(run:Run,index:number,version=1,_legacyFamilies
   await saveDesign(design,content,p.category);
   return design;
 }
-export async function generate(run:Run){
+export async function generate(run:Run,services={generateOne,getDesign,event}){
   if(!run.product||!run.brand)throw new AppError(409,"Analyse a product first.");
   run.status="generating";
   run.error=null;
-  await event(run,"retrieving_memory",`Reading saved research, merchant feedback and page structures for ${run.product.category}.`);
-  for(let i=0;i<4;i++){
-    await event(run,"generating_designs",`Composing research-led concept ${i+1} of 4.`);
-    await generateOne(run,i);
+  const since=unfinishedBatchStart(run);
+  let completed=0;
+  if(since)for(const design of run.designs.filter(d=>d.createdAt>=since&&d.status!=="rejected")){
+    const {content}=await services.getDesign(design.id);
+    if(JSON.stringify(content.productSnapshot)!==JSON.stringify(run.product)||JSON.stringify(content.brandSnapshot)!==JSON.stringify(run.brand))continue;
+    try{assertCustomerCopy(content,content.visualPlan?.composition?.sections.map(s=>s.title));completed++;}catch{/* Never count old planning text as a completed campaign. */}
+  }
+  if(!since)await services.event(run,"retrieving_memory",`Reading saved research, merchant feedback and page structures for ${run.product.category}.`);
+  for(let i=Math.min(completed,4);i<4;i++){
+    await services.event(run,"generating_designs",`Creating design ${i+1} of 4.`);
+    await services.generateOne(run,i);
   }
   run.status="ready";
-  await event(run,"ready","Four independently composed designs saved with research references and local technical checks. External Shopify checks remain unverified.");
+  await services.event(run,"ready","Four independently composed designs saved with research references and local technical checks. External Shopify checks remain unverified.");
 }
