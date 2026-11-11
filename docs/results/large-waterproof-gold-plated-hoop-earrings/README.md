@@ -1,39 +1,40 @@
 # Large Waterproof Gold-Plated Hoop Earrings
 
 - Category: Accessories
-- Public source: https://jewelry-dropship.hydrogen.mock.shop/products/large-waterproof-gold-plated-hoop-earrings
-- Saved designs: 4; four are captured below.
-- Successfully crawled competitors: 8.
-- Recorded cumulative AI estimate: $0.2535. This can include multiple batches; it is not a billing statement or a universal per-batch price.
+- [Public product source](https://jewelry-dropship.hydrogen.mock.shop/products/large-waterproof-gold-plated-hoop-earrings)
+- **4 saved designs** and **12 responsive captures**.
+- 8 linked research sources.
+- Recorded cumulative AI estimate: **$0.2535** across this run's recorded work.
 
-## Four design directions at all required widths
+## Design scores and responsive previews
 
-These are real dashboard HTML previews, **not screenshots of executed native Liquid in Shopify**. No cart was submitted. All captured views had no detected horizontal overflow and no unloaded product images; that is narrower than certifying every possible layout interaction.
+Overall/SEO/AEO/GEO values are saved **local page-check coverage** percentages. These dashboard HTML previews show four directions at each required width.
 
-| Design | Mobile 360px | Tablet 768px | Desktop 1440px |
-|---|---|---|---|
-| Editorial Rail with Mid-Page Answer Block | [Image](design-1-360.jpg) | [Image](design-1-768.jpg) | [Image](design-1-1440.jpg) |
-| Offset Editorial with Mid-Page Recommit | [Image](design-2-360.jpg) | [Image](design-2-768.jpg) | [Image](design-2-1440.jpg) |
-| Showcase Contrast with Answer-First Flow | [Image](design-3-360.jpg) | [Image](design-3-768.jpg) | [Image](design-3-1440.jpg) |
-| High-Contrast Product Storyline | [Image](design-4-360.jpg) | [Image](design-4-768.jpg) | [Image](design-4-1440.jpg) |
+| Design | Overall | SEO | AEO | GEO | Mobile 360px | Tablet 768px | Desktop 1440px |
+|---|---:|---:|---:|---:|---|---|---|
+| Editorial Rail with Mid-Page Answer Block | 61% | 78% | 80% | 17% | [Preview](design-1-360.jpg) | [Preview](design-1-768.jpg) | [Preview](design-1-1440.jpg) |
+| Offset Editorial with Mid-Page Recommit | 65% | 89% | 80% | 17% | [Preview](design-2-360.jpg) | [Preview](design-2-768.jpg) | [Preview](design-2-1440.jpg) |
+| Showcase Contrast with Answer-First Flow | 61% | 78% | 80% | 17% | [Preview](design-3-360.jpg) | [Preview](design-3-768.jpg) | [Preview](design-3-1440.jpg) |
+| High-Contrast Product Storyline | 65% | 89% | 80% | 17% | [Preview](design-4-360.jpg) | [Preview](design-4-768.jpg) | [Preview](design-4-1440.jpg) |
 
-## Provenance and reproducible results
+![Saved Overall, SEO, AEO and GEO percentages](design-scores.jpg)
 
-- [Brand analysis and cost](brand-analysis.json)
-- [Competitors, reasons, conversion observations and linked learnings](research.json)
-- [All saved design fingerprints, differences and local checks](design-fingerprints.json)
+## Research and design data
+
+- [Brand analysis and recorded cost](brand-analysis.json)
+- [Research sources, observations and linked learnings](research.json)
+- [All design fingerprints and saved checks](design-fingerprints.json)
 - [Responsive capture measurements](responsive-results.json)
-- [Local JSON-LD parse/shape and H1 results](schema-results.json)
-- [Current tracked Shopify records and unsigned links](shopify-results.json)
+- [Structured-data JSON and local validation results](schema-results.json)
+- [Tracked Shopify records and unsigned links](shopify-results.json)
 
-Local schema results are not Google Rich Results Test certification. External Google validation and comprehensive native all-variant/editor acceptance are **not verified** for this product.
+## Measured Shopify Lighthouse reports
 
-## Existing Shopify Lighthouse evidence
+Lighthouse measures storefront performance, SEO and accessibility separately from the local design scores above. Report links preserve the recorded scores and timestamps with private access details sanitized.
 
-### Archived report 1
+### Large Waterproof Gold-Plated Hoop Earrings — report 1
 
-- [Screenshot](lighthouse-1.jpg) · [Sanitized interactive report](lighthouse-1.html) · [Scores, targets and failed audits](lighthouse-1-summary.json)
-- Measured 2026-11-11T18:17:44.554Z: **93 performance / 69 SEO / 97 accessibility**.
-- Targets: 85 / 95 / 90. Not all numerical targets passed.
-- The report flags **is-crawlable** on the protected draft preview; SEO 69 is retained rather than silently converted to 95+. Protection was not disabled.
+**93 performance / 69 SEO / 97 accessibility**, recorded 2026-11-11T18:17:44.554Z.
+
+[Score screenshot](lighthouse-1.jpg) · [Interactive report](lighthouse-1.html) · [Measurement data](lighthouse-1-summary.json)
 

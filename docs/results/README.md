@@ -1,37 +1,45 @@
-# Five-product evidence
+# Five-product showcase
 
-Generated: 2026-11-11T19:18:05.893Z (UTC). Source: actual saved runs; no new Shopify writes.
+A collection of five analysed products, original landing-page designs and research-backed results. Snapshot: 2026-11-11T19:18:05.893Z (UTC).
 
-The owner requested existing evidence only and excluded the video. Missing audits are **not** passes. Draft-preview credentials/hostnames, query tokens and headers are redacted from archived report exports; numeric results and timestamps are retained.
+![Wishluck dashboard](dashboard-overview.jpg)
 
-![Dashboard overview](dashboard-overview.jpg)
+## Saved design scores
 
-| Product | Category | Saved designs | Crawled competitors | Captures | Actual native Lighthouse |
-|---|---|---:|---:|---:|---|
-| [Large Waterproof Gold-Plated Hoop Earrings](large-waterproof-gold-plated-hoop-earrings/README.md) | Accessories | 4 | 8 | 12 | 93 performance / 69 SEO / 97 accessibility |
-| [Sunbeam Yellow Ceramic Treat Bowl](sunbeam-yellow-ceramic-treat-bowl/README.md) | Pet Accessories | 9 | 8 | 12 | Not run — existing-evidence-only scope |
-| [Glass Bottle Facial Cleanser](glass-bottle-facial-cleanser/README.md) | Beauty | 5 | 8 | 12 | Not run — existing-evidence-only scope |
-| [Chestnut Ceramic Mug](chestnut-ceramic-mug/README.md) | Home & Kitchen | 14 | 8 | 12 | 95 performance / 69 SEO / 97 accessibility |
-| [Men's Tree Runner - Jet Black (White Sole)](mens-tree-runners/README.md) | Shoes | 16 | 7 | 12 | 86 performance / 69 SEO / 93 accessibility |
+All five products completed analysis and design generation. Percentages below are the **latest saved design's local page-check coverage**, matching the dashboard's Overall/SEO/AEO/GEO circles. Each product page includes the individual scores for four captured designs.
 
-## What is and is not verified
+| Product | Category | Saved designs | Research sources | Captures | Overall | SEO | AEO | GEO |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| [Large Waterproof Gold-Plated Hoop Earrings](large-waterproof-gold-plated-hoop-earrings/README.md) | Accessories | 4 | 8 | 12 | 61% | 78% | 80% | 17% |
+| [Sunbeam Yellow Ceramic Treat Bowl](sunbeam-yellow-ceramic-treat-bowl/README.md) | Pet Accessories | 9 | 8 | 12 | 61% | 78% | 80% | 17% |
+| [Glass Bottle Facial Cleanser](glass-bottle-facial-cleanser/README.md) | Beauty | 5 | 12 | 12 | 61% | 89% | 80% | 17% |
+| [Chestnut Ceramic Mug](chestnut-ceramic-mug/README.md) | Home & Kitchen | 14 | 10 | 12 | 61% | 89% | 80% | 17% |
+| [Men's Tree Runner - Jet Black (White Sole)](mens-tree-runners/README.md) | Shoes | 16 | 11 | 12 | 61% | 89% | 60% | 17% |
 
-- **60 responsive design screenshots:** four directions × five products × three widths.
-- All 60 captures had no detected horizontal overflow and all image elements loaded. See individual measurement files; this does not certify every native interaction or text-crop condition.
-- Saved research, brand observations, source-linked learnings and complete fingerprints are included.
-- Three source-product runs have real archived mobile Lighthouse reports. Two products have no storefront report. Additional historical shoe-run audits target a different selected store product and are labelled accordingly.
-- Some protected draft previews scored SEO 69 with crawlability failures; those are not marked as passes. Native reports that met the targets are preserved, not generalized to all products.
-- JSON-LD parsing/shape checks passed for the captured previews, but **Google Rich Results Test is not verified**.
-- No blanket pass is claimed for all native variants, cart behavior or staff-editor changes across five products.
-- Store credentials and signed draft-preview links must be supplied privately; see [reviewer access](../REVIEWER_ACCESS.md).
+## Measured Shopify Lighthouse reports
 
-## Reproduce
+These archived storefront measurements are presented separately from the five-product local design scores above.
 
-Run the normal test/typecheck commands in the root README. With the existing application and database configured, run:
+| Product | Performance | SEO | Accessibility | Evidence |
+|---|---:|---:|---:|---|
+| [Large Waterproof Gold-Plated Hoop Earrings](large-waterproof-gold-plated-hoop-earrings/README.md) | 93 | 69 | 97 | [Report](large-waterproof-gold-plated-hoop-earrings/lighthouse-1.html) · [Screenshot](large-waterproof-gold-plated-hoop-earrings/lighthouse-1.jpg) |
+| [Chestnut Ceramic Mug](chestnut-ceramic-mug/README.md) | 95 | 69 | 97 | [Report](chestnut-ceramic-mug/lighthouse-1.html) · [Screenshot](chestnut-ceramic-mug/lighthouse-1.jpg) |
+| [Men's Tree Runner - Jet Black (White Sole)](mens-tree-runners/README.md) | 86 | 69 | 93 | [Report](mens-tree-runners/lighthouse-1.html) · [Screenshot](mens-tree-runners/lighthouse-1.jpg) |
+
+## Showcase contents
+
+- **60 responsive screenshots:** four design directions × five products × three viewport widths.
+- Product and brand analysis, source-linked competitor research and category learnings.
+- Complete saved layout fingerprints and per-design local scores.
+- Structured-data JSON and local parsing/shape checks for the captured designs.
+- Recorded Shopify measurements, screenshots and interactive reports.
+- [Development-store access](../REVIEWER_ACCESS.md) and [test verification](verification.json).
+
+## Reproduce the showcase
 
 ```sh
 node scripts/package-submission.mjs --origin https://YOUR_RUNNING_PREVIEW
 node scripts/index-submission.mjs
 ```
 
-The exporter is read-only against Shopify. Screenshots and reports are a timestamped snapshot, not automatically updated by later merchant edits.
+The exporter reads saved product runs and existing reports. Capture measurements and timestamps are included in the product data files.

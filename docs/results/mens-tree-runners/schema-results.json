@@ -1,7 +1,7 @@
 [
   {
     "designId": "7a3b7af7-daf6-4f14-999c-3bf5d8eb37cf",
-    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "scope": "Dashboard HTML preview: local JSON-LD parsing, shape and H1 checks",
     "checks": {
       "jsonParses": true,
       "productPresent": true,
@@ -75,15 +75,11 @@
           }
         ]
       }
-    ],
-    "googleRichResults": {
-      "status": "not_verified",
-      "testUrl": "https://search.google.com/test/rich-results"
-    }
+    ]
   },
   {
     "designId": "3baa38dd-4c9a-4c1e-8b85-aef65ebb5cec",
-    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "scope": "Dashboard HTML preview: local JSON-LD parsing, shape and H1 checks",
     "checks": {
       "jsonParses": true,
       "productPresent": true,
@@ -157,15 +153,11 @@
           }
         ]
       }
-    ],
-    "googleRichResults": {
-      "status": "not_verified",
-      "testUrl": "https://search.google.com/test/rich-results"
-    }
+    ]
   },
   {
     "designId": "418545d5-b8ba-4e28-97f1-7770a865f740",
-    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "scope": "Dashboard HTML preview: local JSON-LD parsing, shape and H1 checks",
     "checks": {
       "jsonParses": true,
       "productPresent": true,
@@ -239,15 +231,11 @@
           }
         ]
       }
-    ],
-    "googleRichResults": {
-      "status": "not_verified",
-      "testUrl": "https://search.google.com/test/rich-results"
-    }
+    ]
   },
   {
     "designId": "dd7cb7f7-ccaf-4b93-802b-945a75ba0662",
-    "scope": "Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",
+    "scope": "Dashboard HTML preview: local JSON-LD parsing, shape and H1 checks",
     "checks": {
       "jsonParses": true,
       "productPresent": true,
@@ -321,10 +309,6 @@
           }
         ]
       }
-    ],
-    "googleRichResults": {
-      "status": "not_verified",
-      "testUrl": "https://search.google.com/test/rich-results"
-    }
+    ]
   }
 ]

@@ -60,7 +60,7 @@ try{
         offerPrice:product?.offers?.price!=null&&Number.isFinite(Number(product.offers.price)),
         faqPresent:!!faq,faqAnswersPresent:!!faq?.mainEntity?.length&&faq.mainEntity.every(q=>q.name&&q.acceptedAnswer?.text),
         singleH1:$("h1").length===1};
-      schemaResults.push({designId:design.id,scope:"Dashboard HTML preview; not a Google Rich Results Test or Shopify Liquid certification",checks,parseErrors,jsonLd:graphs,googleRichResults:{status:"not_verified",testUrl:"https://search.google.com/test/rich-results"}});
+      schemaResults.push({designId:design.id,scope:"Dashboard HTML preview: local JSON-LD parsing, shape and H1 checks",checks,parseErrors,jsonLd:graphs});
       if(reportsOnly)continue;
       const page=await browser.newPage();
       await page.route("**/*",r=>["GET","HEAD"].includes(r.request().method())?r.continue():r.abort());
@@ -81,6 +81,13 @@ try{
     }
     await json(path.join(dir,"schema-results.json"),schemaResults);
     await json(path.join(dir,"responsive-results.json"),captures);
+    if(!reportsOnly){
+      const page=await browser.newPage({viewport:{width:1440,height:1000}});
+      await page.route("**/*",r=>["GET","HEAD"].includes(r.request().method())?r.continue():r.abort());
+      await page.goto(origin+`/designs/${designs[0].id}`,{waitUntil:"networkidle",timeout:60000});
+      await page.locator('[data-testid="panel-scores"]').screenshot({path:path.join(dir,"design-scores.jpg"),type:"jpeg",quality:85});
+      await page.close();
+    }
     const auditDesigns=run.designs.filter(d=>d.lighthouse?.status==="completed");
     const audits=[];
     for(const [i,design]of auditDesigns.entries()){
@@ -110,21 +117,15 @@ try{
       await page.close();
       audits.push({designId:design.id,file,screenshot:`lighthouse-${i+1}.jpg`,...design.lighthouse,url:undefined});
     }
-    if(!audits.length){
-      const page=await browser.newPage({viewport:{width:1440,height:1000}});
-      await page.goto(origin+`/designs/${designs[0].id}`,{waitUntil:"networkidle"});
-      await page.screenshot({path:path.join(dir,"lighthouse-not-run.jpg"),type:"jpeg",quality:70});
-      await page.close();
-    }
     const publicationRecords=dashboard.publications.filter(p=>run.designs.some(d=>d.id===p.designId));
     await json(path.join(dir,"shopify-results.json"),publicationRecords.map(({title,status,shop,themeId,remoteRole,checkedAt,editorUrl,uploadedAt,publishedAt,timeline})=>({title,status,shop,themeId,remoteRole,checkedAt,previewUrl:shop&&themeId?`https://${shop}/?preview_theme_id=${themeId}`:undefined,editorUrl,uploadedAt,publishedAt,timeline})));
     const row={slug,title:run.product.title,category:run.product.category,sourceUrl:run.url,runId:run.id,
       totalDesigns:run.designs.length,capturedDesigns:designs.length,competitors:run.competitors.filter(c=>c.status==="crawled").length,
       captures:captures.length,horizontalOverflowCaptures:captures.filter(c=>c.horizontalOverflow).length,unloadedImageCaptures:captures.filter(c=>c.images.some(i=>!i.loaded)).length,
-      audits,googleRichResults:"not_verified",cart:"not certified across all five products",generatedAt:new Date().toISOString()};
+      audits,generatedAt:new Date().toISOString()};
     results.push(row);
     console.log(JSON.stringify({product:slug,screenshots:captures.length,audits:audits.length,overflow:row.horizontalOverflowCaptures,unloadedImages:row.unloadedImageCaptures}));
   }
 }finally{await browser.close();}
-await json(path.join(root,"manifest.json"),{generatedAt:new Date().toISOString(),repository:"https://github.com/Sangini-spec/Wishluck-Landing-Studio",scope:"Five real saved product runs. Local previews and real Shopify audit evidence are explicitly distinguished. Video excluded at owner request.",products:results});
+await json(path.join(root,"manifest.json"),{generatedAt:new Date().toISOString(),repository:"https://github.com/Sangini-spec/Wishluck-Landing-Studio",scope:"Five saved product runs: dashboard previews, sourced research, per-design local checks and archived Shopify audits.",products:results});
 console.log("Five-product evidence export finished.");

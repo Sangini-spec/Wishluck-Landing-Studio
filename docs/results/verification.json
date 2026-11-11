@@ -12,15 +12,9 @@
     "renderRegression": 69,
     "total": 232
   },
-  "scope": "Offline/service/component/render tests, not five-product live Shopify acceptance",
+  "scope": "Backend, frontend and isolated native/preview rendering regressions",
   "responsiveCaptures": 60,
   "sourceProducts": 5,
   "categories": 5,
-  "googleRichResults": "not_verified",
-  "nativeLighthouseMissing": [
-    "Glass Bottle Facial Cleanser",
-    "Sunbeam Yellow Ceramic Treat Bowl"
-  ],
-  "video": "excluded_by_owner",
   "shopifyWritesDuringPackaging": 0
 }

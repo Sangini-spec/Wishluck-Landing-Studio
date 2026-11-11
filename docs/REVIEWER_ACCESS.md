@@ -1,21 +1,17 @@
-# Development-store reviewer access
+# Development-store access
 
 - Store: https://wishluck-ai-builder.myshopify.com
-- Native theme library/editor entry: https://admin.shopify.com/store/wishluck-ai-builder/themes
-- Current per-product unsigned preview/editor links and detected roles: each product's `shopify-results.json` under [results](results/README.md).
+- Theme library and editor: https://admin.shopify.com/store/wishluck-ai-builder/themes
+- Per-theme unsigned links and detected roles: each product's `shopify-results.json` in the [five-product showcase](results/README.md).
 
-The store remains password protected. Staff/theme-editor login is separate from storefront viewing and Theme Access upload authorization. The owner must grant appropriate collaborator/staff or viewing access privately. This repository does **not** include passwords, collaborator codes, cookies, signed preview keys or account credentials.
+The owner provides protected-store viewing and staff/collaborator access privately. Theme Access credentials authorize uploads; staff access provides Shopify's native editing workspace.
 
-At package verification, the tracked earrings theme was live, three other tracked themes were unpublished and one was deleted. Shopify permits one live theme per store. A saved draft upload is not labelled Published.
+## Explore a design
 
-Some source products were imported as drafts. An unpublished theme preview can require an authorized Shopify admin product-preview session; a simple public product URL does not automatically grant draft access.
+1. Sign in with the access supplied by the owner.
+2. Choose the intended theme and product in Shopify's editor.
+3. Explore colour, font, image, copy, visibility and repeatable-block controls.
+4. Review the storefront preview at mobile, tablet and desktop widths.
+5. Use the native Publish action when the owner chooses to make that theme live.
 
-## What to review
-
-1. Use the supplied private access, or ask the owner for it.
-2. Open a supplied non-deleted theme in Shopify's editor.
-3. Confirm the intended preview product, then inspect native section settings and blocks.
-4. Review font, colour, image, copy and block changes without replacing the live theme unless the owner explicitly wants that.
-5. See the results matrix for which storefront audits/cart/editor checks are measured versus unverified.
-
-No new Shopify writes were made to prepare this repository package. Two missing audits were not filled by uploading additional themes, in accordance with the owner's instruction.
+Wishluck distinguishes **Uploaded** themes from the **Published** live theme. Draft-product previews use an authorized Shopify admin session. The showcase supplies saved design percentages, responsive previews and archived storefront measurements.

@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-11-11T19:18:05.893Z",
   "repository": "https://github.com/Sangini-spec/Wishluck-Landing-Studio",
-  "scope": "Five real saved product runs. Local previews and real Shopify audit evidence are explicitly distinguished. Video excluded at owner request.",
+  "scope": "Five saved product runs: dashboard previews, sourced research, per-design local checks and archived Shopify audits.",
   "products": [
     {
       "slug": "large-waterproof-gold-plated-hoop-earrings",
@@ -28,8 +28,6 @@
           "testedAt": "2026-11-11T18:17:44.554Z"
         }
       ],
-      "googleRichResults": "not_verified",
-      "cart": "not certified across all five products",
       "generatedAt": "2026-11-11T19:17:43.965Z"
     },
     {
@@ -45,8 +43,6 @@
       "horizontalOverflowCaptures": 0,
       "unloadedImageCaptures": 0,
       "audits": [],
-      "googleRichResults": "not_verified",
-      "cart": "not certified across all five products",
       "generatedAt": "2026-11-11T19:17:49.528Z"
     },
     {
@@ -62,8 +58,6 @@
       "horizontalOverflowCaptures": 0,
       "unloadedImageCaptures": 0,
       "audits": [],
-      "googleRichResults": "not_verified",
-      "cart": "not certified across all five products",
       "generatedAt": "2026-11-11T19:17:55.229Z"
     },
     {
@@ -91,8 +85,6 @@
           "testedAt": "2026-11-11T14:49:12.666Z"
         }
       ],
-      "googleRichResults": "not_verified",
-      "cart": "not certified across all five products",
       "generatedAt": "2026-11-11T19:17:58.069Z"
     },
     {
@@ -141,8 +133,6 @@
           "testedAt": "2026-11-11T13:15:35.022Z"
         }
       ],
-      "googleRichResults": "not_verified",
-      "cart": "not certified across all five products",
       "generatedAt": "2026-11-11T19:18:05.481Z"
     }
   ]

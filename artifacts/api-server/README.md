@@ -9,4 +9,4 @@ See the [root README](../../README.md) for environment setup, PostgreSQL migrati
 - `src/lib/objectStorage.ts`: Replit-specific durable evidence storage.
 - `scripts/`: offline tests and controlled verification tools.
 
-API contracts are in `lib/api-spec/openapi.yaml`; generated clients/schema types live in shared `lib/` packages. Do not expose these owner-operated privileged APIs publicly without authenticated merchant authorization.
+API contracts are in `lib/api-spec/openapi.yaml`; generated clients/schema types live in shared `lib/` packages. Run these privileged workflow APIs in a private, authorized owner workspace.

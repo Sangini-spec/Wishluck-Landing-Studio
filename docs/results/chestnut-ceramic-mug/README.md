@@ -1,39 +1,40 @@
 # Chestnut Ceramic Mug
 
 - Category: Home & Kitchen
-- Public source: https://coffee.hydrogen.mock.shop/products/chestnut-ceramic-mug
-- Saved designs: 14; four are captured below.
-- Successfully crawled competitors: 8.
-- Recorded cumulative AI estimate: $0.2905. This can include multiple batches; it is not a billing statement or a universal per-batch price.
+- [Public product source](https://coffee.hydrogen.mock.shop/products/chestnut-ceramic-mug)
+- **14 saved designs** and **12 responsive captures**.
+- 10 linked research sources.
+- Recorded cumulative AI estimate: **$0.2905** across this run's recorded work.
 
-## Four design directions at all required widths
+## Design scores and responsive previews
 
-These are real dashboard HTML previews, **not screenshots of executed native Liquid in Shopify**. No cart was submitted. All captured views had no detected horizontal overflow and no unloaded product images; that is narrower than certifying every possible layout interaction.
+Overall/SEO/AEO/GEO values are saved **local page-check coverage** percentages. These dashboard HTML previews show four directions at each required width.
 
-| Design | Mobile 360px | Tablet 768px | Desktop 1440px |
-|---|---|---|---|
-| Gallery-first dossier with a calm purchase band | [Image](design-1-360.jpg) | [Image](design-1-768.jpg) | [Image](design-1-1440.jpg) |
-| Warm Object Rail | [Image](design-2-360.jpg) | [Image](design-2-768.jpg) | [Image](design-2-1440.jpg) |
-| Quiet Stack / Split / FAQ Shift | [Image](design-3-360.jpg) | [Image](design-3-768.jpg) | [Image](design-3-1440.jpg) |
-| Object-First Ledger | [Image](design-4-360.jpg) | [Image](design-4-768.jpg) | [Image](design-4-1440.jpg) |
+| Design | Overall | SEO | AEO | GEO | Mobile 360px | Tablet 768px | Desktop 1440px |
+|---|---:|---:|---:|---:|---|---|---|
+| Gallery-first dossier with a calm purchase band | 61% | 89% | 80% | 17% | [Preview](design-1-360.jpg) | [Preview](design-1-768.jpg) | [Preview](design-1-1440.jpg) |
+| Warm Object Rail | 48% | 78% | 60% | 17% | [Preview](design-2-360.jpg) | [Preview](design-2-768.jpg) | [Preview](design-2-1440.jpg) |
+| Quiet Stack / Split / FAQ Shift | 52% | 89% | 60% | 17% | [Preview](design-3-360.jpg) | [Preview](design-3-768.jpg) | [Preview](design-3-1440.jpg) |
+| Object-First Ledger | 57% | 89% | 60% | 17% | [Preview](design-4-360.jpg) | [Preview](design-4-768.jpg) | [Preview](design-4-1440.jpg) |
 
-## Provenance and reproducible results
+![Saved Overall, SEO, AEO and GEO percentages](design-scores.jpg)
 
-- [Brand analysis and cost](brand-analysis.json)
-- [Competitors, reasons, conversion observations and linked learnings](research.json)
-- [All saved design fingerprints, differences and local checks](design-fingerprints.json)
+## Research and design data
+
+- [Brand analysis and recorded cost](brand-analysis.json)
+- [Research sources, observations and linked learnings](research.json)
+- [All design fingerprints and saved checks](design-fingerprints.json)
 - [Responsive capture measurements](responsive-results.json)
-- [Local JSON-LD parse/shape and H1 results](schema-results.json)
-- [Current tracked Shopify records and unsigned links](shopify-results.json)
+- [Structured-data JSON and local validation results](schema-results.json)
+- [Tracked Shopify records and unsigned links](shopify-results.json)
 
-Local schema results are not Google Rich Results Test certification. External Google validation and comprehensive native all-variant/editor acceptance are **not verified** for this product.
+## Measured Shopify Lighthouse reports
 
-## Existing Shopify Lighthouse evidence
+Lighthouse measures storefront performance, SEO and accessibility separately from the local design scores above. Report links preserve the recorded scores and timestamps with private access details sanitized.
 
-### Archived report 1
+### Chestnut Ceramic Mug — report 1
 
-- [Screenshot](lighthouse-1.jpg) · [Sanitized interactive report](lighthouse-1.html) · [Scores, targets and failed audits](lighthouse-1-summary.json)
-- Measured 2026-11-11T14:49:12.666Z: **95 performance / 69 SEO / 97 accessibility**.
-- Targets: 85 / 95 / 90. Not all numerical targets passed.
-- The report flags **is-crawlable** on the protected draft preview; SEO 69 is retained rather than silently converted to 95+. Protection was not disabled.
+**95 performance / 69 SEO / 97 accessibility**, recorded 2026-11-11T14:49:12.666Z.
+
+[Score screenshot](lighthouse-1.jpg) · [Interactive report](lighthouse-1.html) · [Measurement data](lighthouse-1-summary.json)
 
