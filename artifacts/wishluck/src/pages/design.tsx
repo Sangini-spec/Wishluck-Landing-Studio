@@ -167,9 +167,6 @@ export default function DesignPage() {
         </div>
       </header>
       <CliPublishing design={d} open={pubOpen} onOpenChange={setPubOpen}/>
-      <Notice icon={<Download className="h-3.5 w-3.5" />}>
-        Download a complete theme ZIP, then in Shopify go to Online Store → Themes → Import theme → Upload ZIP. Keep it unpublished and open Customize. Select a product page, or choose a homepage product under Theme settings → Landing page preview. No live-theme publication or product reassignment is required. This is a store upload, not a Theme Store submission.
-      </Notice>
       {d.warnings.length > 0 && <div className="mb-4 space-y-2">{d.warnings.map((w, i) => <Notice key={i} icon={<AlertTriangle className="h-3.5 w-3.5 text-[hsl(var(--amber))]" />}>{w}</Notice>)}</div>}
 
       <div className="grid gap-6 xl:grid-cols-[1fr_340px]">

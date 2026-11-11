@@ -17,7 +17,7 @@ The user approved investigating Shopify CLI + Theme Access after the custom app'
 | Correct product/native variant IDs | publication-product mapping | CLI uploads; publishing context | Store-product or explicit draft selection | Publication product ID | Fixture unit tests and real selected-store product |
 | Assign template to product when authorized | Admin productUpdate, separate consent and readback | CLI uploads | Global assignment checkbox | Publication suffix/previous suffix/assignment flag | Runtime request checks and selected dev-product browser test |
 | Persist success and positive memory | saveDesign; published feedback | CLI uploads | Published status; History | Design, Publication, Feedback | Reload and database evidence |
-| Open Shopify automatically, not a blocked async popup | Synchronous placeholder tab, navigation only after verification | Returned editor URL | Publish dialog; fallback links | Publication editor/preview URLs | Browser journey |
+| Open Shopify automatically without an empty waiting tab | In-app phase/spinner; same-tab navigation only after verified receipt; saved pending intent survives reload | Jobs and publication status | Publish progress dialog; history links | Publication editor/preview URLs; tab-local pending intent | Browser journey and redirect-correlation unit checks |
 | Edit fonts/colors/images/text/blocks | Native generated schema settings/blocks | Shopify native editor | Open theme editor | Shopify theme | Requires authorized Shopify editor access; never infer from schemas alone |
 | Merchant chooses final live Publish | Native Shopify action; app activation remains disabled | Read-only CLI role checks | Shopify editor; app status refresh | Publication live/remote status | Do not activate the store during automated tests |
 | Real responsive variant/cart behavior | Native Liquid/product runtime and cart JS | Shopify cart | Shopify preview at 360/768/1440 | Shopify cart only | Requires authorized storefront access; no purchase is allowed |
@@ -47,3 +47,16 @@ The merchant supplied the store-specific storefront-viewing password through Sec
 - Sanitized HTTP evidence: `generated-artifacts/storefront-verification/167127318626.json`. The verification script is opt-in, uses its own ephemeral session, and never purchases or changes products/themes.
 - All 34 backend unit checks passed, including per-store credential isolation and cross-origin cookie protections. Native Chrome cookies are origin scoped; global Cookie extra headers are not used.
 - Staff/editor authentication remains separate. Font/color/image/block editing and interactive cart/responsive acceptance in the native editor have not been verified. No live theme activation or Google Rich Results validation is claimed.
+
+## Single-tab handoff and hide controls — 2026-11-11
+
+A real browser pass verified the refined product flow:
+
+- Only the main **Publish to Shopify** trigger remains. The ZIP description and redundant publishing panel are absent; the optional ZIP download is retained.
+- One real unpublished upload showed the in-app spinner and actual preparation/verification phases, then navigated the same tab to the official Shopify editor/sign-in chain. No blank or additional tab was opened.
+- Verified publication `4ffd31bf-f86e-4440-956b-29c2631260ca` created theme `167128760418`. The existing seed product was selected, with no import, global template/SEO assignment or live activation.
+- Returning to Wishluck did not redirect back to Shopify again.
+- Hiding a publication survived reload; **Show hidden records** restored it. Collapsing the entire history also survived reload, and **Show history** restored it. No records were deleted.
+- Frontend type checks and four focused regression tests passed, including verified-receipt correlation and store/design isolation.
+
+The browser remained at Shopify's staff login/hCaptcha, without attempting authentication. This verifies the application handoff, not native editor controls after sign-in. Local visibility preferences apply to the current browser; server-side receipts and recovery state are unchanged.
