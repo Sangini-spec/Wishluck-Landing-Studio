@@ -162,6 +162,13 @@ export interface LighthouseResult {
   testedAt?: string;
 }
 
+export interface ResearchInfluence {
+  sourceUrl: string;
+  observation: string;
+  application: string;
+  planFields: string[];
+}
+
 export type DesignFingerprint = { [key: string]: unknown };
 
 export interface Design {
@@ -184,9 +191,12 @@ export interface Design {
   downloadUrl: string;
   warnings: string[];
   lighthouse?: LighthouseResult;
+  researchInfluences?: ResearchInfluence[];
 }
 
 export interface Run {
+  researchKey?: string;
+  researchedAt?: string;
   id: string;
   url: string;
   status: string;
@@ -206,7 +216,14 @@ export interface Run {
   aiCost?: number;
 }
 
+export interface PublicationEvent {
+  status: string;
+  at: string;
+}
+
 export type PublicationVariantMap = {[key: string]: string};
+
+export type PublicationFileHashes = {[key: string]: string};
 
 export interface Publication {
   id: string;
@@ -239,6 +256,13 @@ export interface Publication {
   templateSuffix?: string;
   templateAssigned?: boolean;
   previousTemplateSuffix?: string;
+  uploadedAt?: string;
+  publishedAt?: string;
+  editedAt?: string;
+  edited?: boolean;
+  lifecycleStatus?: string;
+  fileHashes?: PublicationFileHashes;
+  timeline?: PublicationEvent[];
 }
 
 export interface Dashboard {

@@ -283,7 +283,7 @@ function Research({ run }: { run: Run }) {
 }
 
 function Designs({ run }: { run: Run }) {
-  if (!run.designs.length) return <EmptyState icon={<Sparkles className="h-5 w-5" />} title="No designs generated" body="Correct the product and brand, optionally research competitors, then generate." />;
+  if (!run.designs.length) return <EmptyState icon={<Sparkles className="h-5 w-5" />} title="No designs generated" body="Review the product and brand, then continue. Competitor research runs before your designs are created." />;
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{run.designs.map((d) => (
       <Link key={d.id} href={`/designs/${d.id}`} data-testid={`card-design-${d.id}`} className="panel group block overflow-hidden transition-transform hover:-translate-y-0.5">
@@ -321,8 +321,8 @@ export default function RunPage() {
       <PageHeader eyebrow={`Run · ${host(run.url)}`} title={run.product?.title || "Analysing product"}
         sub={<span className="inline-flex flex-wrap items-center gap-2"><StatusPill status={run.status} /><span className="font-mono text-xs">stage: {run.stage}</span><span className="text-xs">· started {ago(run.createdAt)}</span>{run.aiCost != null && <span className="font-mono text-xs">· AI cost ${run.aiCost.toFixed(4)}</span>}</span>}
         actions={<>
-          <Btn data-testid="button-research" variant="outline" disabled={!canAct || research.isPending} onClick={() => research.mutate({ id })}>{research.isPending || run.status === "researching" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />} Research competitors</Btn>
-          <Btn data-testid="button-generate" variant="seal" disabled={!canAct || generate.isPending} onClick={() => generate.mutate({ id })}>{generate.isPending || run.status === "generating" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />} {run.designs.length ? "Generate again" : "Generate designs"}</Btn>
+          {run.designs.length>0&&<Btn data-testid="button-research" variant="outline" disabled={!canAct || research.isPending} onClick={() => research.mutate({ id })}>{research.isPending || run.status === "researching" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />} Refresh research & designs</Btn>}
+          <Btn data-testid="button-generate" variant="seal" disabled={!canAct || generate.isPending} onClick={() => generate.mutate({ id })}>{generate.isPending || ["researching","generating"].includes(run.status) ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />} {run.designs.length ? "Generate new designs" : "Confirm details & create designs"}</Btn>
         </>} />
 
       {busy && (
@@ -333,7 +333,7 @@ export default function RunPage() {
       )}
       {run.error && <div className="mb-4"><ErrorState message={run.error} /></div>}
       {run.warnings.length > 0 && <div className="mb-6 space-y-2">{run.warnings.map((w, i) => <Notice key={i} icon={<AlertTriangle className="h-3.5 w-3.5 text-[hsl(var(--amber))]" />}>{w}</Notice>)}</div>}
-      {run.status === "analysed" && run.designs.length === 0 && <div className="mb-6"><Notice tone="seal">Analysis is paused for your review. Correct the product and brand below, then research or generate.</Notice></div>}
+      {run.status === "analysed" && run.designs.length === 0 && <div className="mb-6"><Notice tone="seal">Review the product and brand below. When you continue, we’ll research competitors and use those findings to create your designs automatically.</Notice></div>}
 
       <div className="mb-6 flex gap-1 overflow-x-auto border-b border-border">
         {TABS.map((t) => {

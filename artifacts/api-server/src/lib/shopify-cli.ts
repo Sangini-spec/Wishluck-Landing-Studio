@@ -4,7 +4,7 @@ import {createRequire} from "node:module";
 import {mkdir,mkdtemp,readFile,writeFile,rm} from "node:fs/promises";
 import path from "node:path";
 import {tmpdir} from "node:os";
-import {randomUUID} from "node:crypto";
+import {randomUUID,createHash} from "node:crypto";
 import {AppError,type Publication} from "./domain";
 import {compile} from "./compiler";
 import {standaloneTheme} from "./theme-package";
@@ -19,6 +19,7 @@ import {contentHash,type DurableJob,reportInterruptedUpload} from "./job-recover
 import {withRunLock} from "./jobs";
 import {withStoreLock} from "./shopify-selection";
 import {queueAudit} from "./audit";
+import {recordPublicationState} from "./publication-status";
 
 const exec=promisify(execFile);
 const require=createRequire(import.meta.url);
@@ -103,14 +104,29 @@ export function sameThemeFile(filename:string,expected:string,actual:string){
   }
   return expected.replace(/^\uFEFF/,"").replaceAll("\r\n","\n")===actual.replace(/^\uFEFF/,"").replaceAll("\r\n","\n");
 }
-export async function verifyCliFiles(shop:string,themeId:string,files:Record<string,string>,directory:string){
+export function themeFileHash(filename:string,text:string){
+  let value=text.replace(/^\uFEFF/,"").replaceAll("\r\n","\n");
+  if(filename.endsWith(".json")){
+    const parsed=shopifyJson(text);
+    if(filename.startsWith("templates/"))for(const section of Object.values(parsed.sections??{}) as any[]){
+      if(section.blocks&&Object.keys(section.blocks).length===0)delete section.blocks;
+      if(Array.isArray(section.block_order)&&!section.block_order.length)delete section.block_order;
+    }
+    value=JSON.stringify(canonical(parsed));
+  }
+  return createHash("sha256").update(value).digest("hex");
+}
+export async function verifyCliFiles(shop:string,themeId:string,files:Record<string,string>,directory:string):Promise<Record<string,string>|void>{
+  const hashes:Record<string,string>={};
   await mkdir(directory,{recursive:true,mode:0o700});
   await runThemeCli(shop,["pull","--theme",themeId,"--path",directory,"--json"]);
   for(const [filename,expected]of Object.entries(files)){
     let actual:string;
     try{actual=await readFile(path.join(directory,filename),"utf8");}catch{throw new AppError(502,`Shopify readback is missing ${filename}. Theme was not marked verified.`);}
     if(!sameThemeFile(filename,expected,actual))throw new AppError(502,`Shopify readback differs for ${filename}. Theme was not marked verified.`);
+    hashes[filename]=themeFileHash(filename,actual);
   }
+  return hashes;
 }
 function currentStore(expectedShop:string){
   const shop=shopifyConfig().shop;
@@ -128,10 +144,15 @@ export async function cliStatus(){
       const list=await cliThemes(shop);result.authenticated=true;result.currentLiveThemeId=list.find((t:any)=>["live","main"].includes(t.role))?.id;
       // Native Shopify publishing is an external writer. Derive current role on
       // every status fetch so reloads/other browser sessions see the real state.
-      result.uploads=result.uploads.map(p=>{
+      for(const p of result.uploads){
         const theme=list.find((t:any)=>t.id===p.themeId);
-        return {...p,remoteRole:theme?.role??"missing",livePublished:!!theme&&["live","main"].includes(theme.role)};
-      });
+        if(!p.themeId||p.status==="uploading")continue;
+        const latest=await getPublication(p.id);if(latest)Object.assign(p,latest);
+        const previous=JSON.stringify({role:p.remoteRole,live:p.livePublished,state:p.lifecycleStatus});
+        p.remoteRole=theme?.role??"missing";p.livePublished=!!theme&&["live","main"].includes(theme.role);
+        p.checkedAt=new Date().toISOString();recordPublicationState(p);
+        if(previous!==JSON.stringify({role:p.remoteRole,live:p.livePublished,state:p.lifecycleStatus}))await savePublication(p);
+      }
     }
     catch(error){result.message=error instanceof Error?error.message:"Theme Access authentication failed.";}
   }
@@ -155,12 +176,22 @@ export async function uploadCliTheme(designId:string,expectedShop:string,options
   assertCliUploadEligibility(design.status,run.product,run.brand);
   if(!run.product||!run.brand)throw new AppError(409,"Product and brand data are required.");
   const mode=options?.productMode??"none";
+  // A design is a single uploadable version. Different destination options
+  // must not bypass idempotency and create multiple themes for that version.
+  const prior=(await durableJobs()).find(j=>j.kind==="upload"&&j.designId===designId);
+  const previous=(await publications()).find(p=>p.designId===designId&&(p.verified||p.status==="published"));
+  if(previous){
+    if(previous.shop!==shop)throw new AppError(409,"This design was already uploaded to another store. Regenerate it to create a new uploadable version.");
+    return previous;
+  }
+  if(prior&&prior.shop!==shop)throw new AppError(409,"This design already has a saved upload in another store. Review it before creating a new design version.");
+  if(!prior&&["uploaded","edited","published"].includes(design.status))throw new AppError(409,"This design has already been uploaded. Open its editor or regenerate a new version; it cannot be uploaded again.");
   // Validate a complete package before any product import or theme creation.
   const sourceHash=contentHash(standaloneTheme(compile(design,content,run.product,run.brand)));
   const hash=contentHash({sourceHash,mode,productId:options?.productId??"",assign:!!options?.confirmTemplateAssignment,
     importRights:!!options?.confirmProductImport,currency:!!options?.confirmCurrencyMismatch});
-  const {job,created}=await createJob({kind:"upload",designId,runId:run.id,shop,contentHash:hash,sourceHash,title:run.product.title,
-    identity:`upload:${shop}:${designId}:${hash}`});
+  const {job,created}=prior?{job:prior,created:false}:await createJob({kind:"upload",designId,runId:run.id,shop,contentHash:hash,sourceHash,title:run.product.title,
+    identity:`upload:${designId}`});
   const existing=await getPublication(job.id);
   if(!created){
     // Includes interrupted/uncertain attempts: never turn a retry into a push.
@@ -184,7 +215,7 @@ export async function uploadCliTheme(designId:string,expectedShop:string,options
       }));
     }catch{
       activeJob.status="attention";activeJob.error="Upload stopped. Review the saved theme and job; no automatic upload retry was attempted.";
-      p.status="failed";p.error=activeJob.error;await savePublication(p);
+      p.status="failed";p.error=activeJob.error;recordPublicationState(p);await savePublication(p);
       await saveJob(activeJob);
     }
     if(p.status==="published"&&p.productId){
@@ -238,7 +269,8 @@ async function executeCliUpload(p:Publication,job:DurableJob,options?:CliUploadI
     if(before.some((t:any)=>t.id===theme.id))throw new AppError(502,"CLI did not create a separate theme. Upload is unverified.");
     p.themeId=theme.id;p.themeName=theme.name;p.previewUrl=theme.previewUrl;p.editorUrl=theme.editorUrl;
     await phase("verifying");
-    await services.verifyCliFiles(shop,theme.id,files,path.join(base,"readback"));
+    const hashes=await services.verifyCliFiles(shop,theme.id,files,path.join(base,"readback"));
+    if(hashes)p.fileHashes=hashes;
     const after=await services.cliThemes(shop);
     if(before.some((t:any)=>!after.some((v:any)=>v.id===t.id&&v.role===t.role&&v.name===t.name)))throw new AppError(502,"Existing theme roles or names changed during upload. Review the store before proceeding.");
     if(target){
@@ -259,13 +291,15 @@ async function executeCliUpload(p:Publication,job:DurableJob,options?:CliUploadI
       p.editorUrl=`${theme.editorUrl}?template=product.${suffix}&previewPath=${encodeURIComponent(path)}`;
       if(design.status!=="published"){
         await db.insert(feedbackTable).values({id:randomUUID(),designId,category,action:"published",reason:"Verified CLI publication to a new unpublished Shopify theme."});
-        design.status="published";await saveDesign(design,content,category);
+        design.status="uploaded";await saveDesign(design,content,category);
       }
     }
     p.verified=true;p.status="published";p.remoteRole="unpublished";p.checkedAt=new Date().toISOString();
+    p.uploadedAt=p.checkedAt;recordPublicationState(p);
     p.jobPhase="completed";job.phase="completed";job.status="completed";
   }catch(error){
     p.status="failed";p.error=error instanceof AppError?error.message:"CLI upload stopped. Review the saved job before continuing.";
+    recordPublicationState(p);
     job.status="attention";job.error=p.error;
     // Even a CLI timeout can have created the theme. Reconcile read-only.
     if(job.phase==="creating")await recoverCliUpload(job,p,services,false);
@@ -314,12 +348,40 @@ export async function checkCliPublication(publicationId:string,expectedShop:stri
   const target=(await cliThemes(shop)).find((t:any)=>t.id===p.themeId);
   if(!target)throw new AppError(404,"The theme is no longer in Shopify. No automatic re-upload or live replacement was attempted.");
   p.remoteRole=target.role;p.livePublished=["main","live"].includes(target.role);p.checkedAt=new Date().toISOString();
+  // Read-only comparison: an editor visit alone is NOT evidence of an edit.
+  const base=await mkdtemp(path.join(tmpdir(),"wishluck-edit-check-"));
+  try{
+    const {design,content,run}=await getDesign(p.designId);
+    if(run.product&&run.brand){
+      const expected=Object.keys(p.fileHashes??standaloneTheme(compile(design,content,run.product,run.brand)));
+      await runThemeCli(shop,["pull","--theme",p.themeId,"--path",base,"--json"]);
+      const hashes:Record<string,string>={};
+      for(const name of expected){
+        try{hashes[name]=themeFileHash(name,await readFile(path.join(base,name),"utf8"));}
+        catch{hashes[name]="missing";}
+      }
+      if(p.fileHashes)p.edited=Object.entries(p.fileHashes).some(([name,hash])=>hashes[name]!==hash);
+      else{
+        p.fileHashes=hashes;
+        p.warnings??=[];const note="Edit tracking started on this check; earlier Shopify edits cannot be inferred.";
+        if(!p.warnings.includes(note))p.warnings.push(note);
+      }
+    }
+  }finally{await rm(base,{recursive:true,force:true});}
+  recordPublicationState(p);
+  await savePublication(p);
   if(p.productId&&p.templateAssigned){
     const result=await admin("query($id:ID!){product(id:$id){id status templateSuffix}}",{id:p.productId});
     p.productStatus=result.product?.status;
     if(!result.product||result.product.templateSuffix!==p.templateSuffix)throw new AppError(409,"The product/template assignment changed in Shopify. Review it in the editor before continuing.");
   }
   await savePublication(p);return p;
+}
+let lastLifecycleRefresh=0,lifecycleRefresh:Promise<void>|undefined;
+export async function refreshPublicationRoles(){
+  if(Date.now()-lastLifecycleRefresh<30000)return;
+  if(!lifecycleRefresh)lifecycleRefresh=cliStatus().then(()=>{lastLifecycleRefresh=Date.now();}).catch(()=>{lastLifecycleRefresh=Date.now();}).finally(()=>{lifecycleRefresh=undefined;});
+  await lifecycleRefresh;
 }
 export function assertLiveConfirmation(input:{confirmReplaceLiveTheme:boolean;expectedShop:string;themeId:string},p:Publication,shop:string){
   if(!input.confirmReplaceLiveTheme||input.expectedShop!==shop||p.shop!==shop||input.themeId!==p.themeId)throw new AppError(400,"Explicit confirmation for this exact store and theme is required to replace the live storefront.");

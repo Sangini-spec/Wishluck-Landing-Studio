@@ -1,16 +1,20 @@
 import { useMemo, useState } from "react";
 import { Link } from "wouter";
 import { History as HIcon, Send, ExternalLink } from "lucide-react";
-import { useListRuns, useGetDashboard,deletePublication,clearPublications,clearRuns } from "@workspace/api-client-react";
+import { useListRuns, useGetDashboard,deletePublication,clearPublications,clearRuns,useCheckCliPublication } from "@workspace/api-client-react";
+import {useQueryClient} from "@tanstack/react-query";
+import {useToast} from "@/hooks/use-toast";
 import {DeleteMenu} from "@/components/delete-menu";
-import { PageHeader, EmptyState, ErrorState, Sk, StatusPill } from "@/components/bits";
+import { PageHeader, EmptyState, ErrorState, Sk, StatusPill,Btn } from "@/components/bits";
 import { RunRow } from "@/components/run-row";
 import { ago, errMsg } from "@/lib/run-utils";
 import { cn } from "@/lib/utils";
 
 export default function HistoryPage() {
   const runs = useListRuns();
-  const dash = useGetDashboard();
+  const qc=useQueryClient(),{toast}=useToast();
+  const dash = useGetDashboard({query:{refetchOnWindowFocus:true,refetchInterval:30000,staleTime:0}});
+  const check=useCheckCliPublication({mutation:{onSuccess:()=>{void qc.invalidateQueries();},onError:e=>toast({title:"Shopify status could not be checked",description:errMsg(e),variant:"destructive"})}});
   const [tab, setTab] = useState<"runs" | "pubs">("runs");
   const [q, setQ] = useState("");
   const filtered = useMemo(() => (runs.data ?? []).filter((r) => !q || (r.url + (r.product?.title ?? "") + (r.product?.category ?? "")).toLowerCase().includes(q.toLowerCase())), [runs.data, q]);
@@ -43,15 +47,16 @@ export default function HistoryPage() {
           : dash.isLoading ? <Sk className="h-60" />
           : pubs.length ? (
             <div className="panel overflow-x-auto">
+              <p className="border-b border-border px-4 py-3 text-xs text-muted-foreground">Uploaded means saved to Shopify, not live. Shopify publication and saved edits are timestamped when detected.</p>
               <table className="w-full text-sm">
-                <thead><tr className="border-b border-border text-left font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground"><th className="px-4 py-3 font-normal">Publication</th><th className="px-4 font-normal">Theme</th><th className="px-4 font-normal">Status</th><th className="px-4 font-normal">When</th><th className="px-4 font-normal">Links</th></tr></thead>
+                <thead><tr className="border-b border-border text-left font-mono text-[10.5px] uppercase tracking-wider text-muted-foreground"><th className="px-4 py-3 font-normal">Design</th><th className="px-4 font-normal">Store</th><th className="px-4 font-normal">Status</th><th className="px-4 font-normal">Timeline</th><th className="px-4 font-normal">Links</th></tr></thead>
                 <tbody>{pubs.map((p) => (
                   <tr key={p.id} data-testid={`row-publication-${p.id}`} className="border-b border-border last:border-0">
                     <td className="px-4 py-3"><div className="font-medium">{p.title}</div><Link href={`/designs/${p.designId}`} className="text-xs text-muted-foreground hover:underline">{designName(p.designId) ?? "Open design"}</Link>{p.error && <div className="mt-1 text-xs text-destructive">{p.error}</div>}</td>
-                    <td className="px-4 text-muted-foreground">{p.themeName ?? "—"}</td>
-                    <td className="px-4"><div className="flex items-center gap-2"><StatusPill status={p.status==="published"?(p.livePublished?"live":"uploaded"):p.status}/><DeleteMenu label={`${p.title} publication`} title="Delete this publication record?" description="Remove this local publication history entry. The design, category memory, and actual Shopify product and theme remain unchanged." onDelete={()=>deletePublication(p.id)} disabled={p.status==="uploading"}/></div></td>
-                    <td className="px-4 text-muted-foreground">{ago(p.createdAt)}</td>
-                    <td className="px-4"><div className="flex gap-3 text-xs">{p.previewUrl && <a href={p.previewUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">Preview <ExternalLink className="h-3 w-3" /></a>}{p.editorUrl && <a href={p.editorUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">Editor <ExternalLink className="h-3 w-3" /></a>}</div></td>
+                    <td className="px-4 text-muted-foreground">{p.shop ?? "—"}</td>
+                    <td className="px-4"><div className="flex items-center gap-2"><StatusPill status={p.livePublished?"published":p.lifecycleStatus??(p.status==="published"?"uploaded":p.status)}/><DeleteMenu label={`${p.title} publication`} title="Delete this publication record?" description="Remove this local publication history entry. The design, category memory, and actual Shopify product and theme remain unchanged." onDelete={()=>deletePublication(p.id)} disabled={p.status==="uploading"}/></div></td>
+                    <td className="px-4 py-3 text-xs text-muted-foreground"><ul className="space-y-1">{(p.timeline?.length?p.timeline:[{status:p.status==="published"?"uploaded":p.status,at:p.uploadedAt??p.createdAt}]).map((event,i)=><li key={i}><span className="capitalize">{event.status}{event.status==="edited"?" detected":""}</span> · <time dateTime={event.at}>{new Date(event.at).toLocaleString()}</time></li>)}</ul>{p.checkedAt&&<p className="mt-2">Checked {new Date(p.checkedAt).toLocaleString()}</p>}</td>
+                    <td className="px-4"><div className="flex flex-wrap gap-3 text-xs">{p.previewUrl && <a href={p.previewUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">Preview <ExternalLink className="h-3 w-3" /></a>}{p.editorUrl && <a href={p.editorUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">Editor <ExternalLink className="h-3 w-3" /></a>}{p.verified&&p.shop&&<Btn variant="outline" disabled={check.isPending} onClick={()=>check.mutate({id:p.id,data:{expectedShop:p.shop!,runAudit:false}})}>Check status</Btn>}</div></td>
                   </tr>))}</tbody>
               </table>
             </div>

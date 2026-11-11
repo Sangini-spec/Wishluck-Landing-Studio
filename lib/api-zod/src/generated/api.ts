@@ -33,6 +33,8 @@ export const GetDashboardResponse = zod.object({
   "publishedCount": zod.number().int(),
   "categories": zod.number().int(),
   "recentRuns": zod.array(zod.object({
+  "researchKey": zod.string().optional(),
+  "researchedAt": zod.string().optional(),
   "id": zod.string(),
   "url": zod.string(),
   "status": zod.string(),
@@ -154,7 +156,13 @@ export const GetDashboardResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })),
   "screenshot": zod.string().optional(),
   "mobileScreenshot": zod.string().optional(),
@@ -190,12 +198,24 @@ export const GetDashboardResponse = zod.object({
   "checkedAt": zod.string().optional(),
   "templateSuffix": zod.string().optional(),
   "templateAssigned": zod.boolean().optional(),
-  "previousTemplateSuffix": zod.string().optional()
+  "previousTemplateSuffix": zod.string().optional(),
+  "uploadedAt": zod.string().optional(),
+  "publishedAt": zod.string().optional(),
+  "editedAt": zod.string().optional(),
+  "edited": zod.boolean().optional(),
+  "lifecycleStatus": zod.string().optional(),
+  "fileHashes": zod.record(zod.string(), zod.string()).optional(),
+  "timeline": zod.array(zod.object({
+  "status": zod.string(),
+  "at": zod.string()
+})).optional()
 }))
 })
 
 
 export const ListRunsResponseItem = zod.object({
+  "researchKey": zod.string().optional(),
+  "researchedAt": zod.string().optional(),
   "id": zod.string(),
   "url": zod.string(),
   "status": zod.string(),
@@ -317,7 +337,13 @@ export const ListRunsResponseItem = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })),
   "screenshot": zod.string().optional(),
   "mobileScreenshot": zod.string().optional(),
@@ -331,6 +357,8 @@ export const CreateRunBody = zod.object({
 })
 
 export const CreateRunResponse = zod.object({
+  "researchKey": zod.string().optional(),
+  "researchedAt": zod.string().optional(),
   "id": zod.string(),
   "url": zod.string(),
   "status": zod.string(),
@@ -452,7 +480,13 @@ export const CreateRunResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })),
   "screenshot": zod.string().optional(),
   "mobileScreenshot": zod.string().optional(),
@@ -465,6 +499,8 @@ export const GetRunParams = zod.object({
 })
 
 export const GetRunResponse = zod.object({
+  "researchKey": zod.string().optional(),
+  "researchedAt": zod.string().optional(),
   "id": zod.string(),
   "url": zod.string(),
   "status": zod.string(),
@@ -586,7 +622,13 @@ export const GetRunResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })),
   "screenshot": zod.string().optional(),
   "mobileScreenshot": zod.string().optional(),
@@ -688,6 +730,8 @@ export const UpdateBrandBody = zod.object({
 })
 
 export const UpdateBrandResponse = zod.object({
+  "researchKey": zod.string().optional(),
+  "researchedAt": zod.string().optional(),
   "id": zod.string(),
   "url": zod.string(),
   "status": zod.string(),
@@ -809,7 +853,13 @@ export const UpdateBrandResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })),
   "screenshot": zod.string().optional(),
   "mobileScreenshot": zod.string().optional(),
@@ -853,6 +903,8 @@ export const UpdateProductBody = zod.object({
 })
 
 export const UpdateProductResponse = zod.object({
+  "researchKey": zod.string().optional(),
+  "researchedAt": zod.string().optional(),
   "id": zod.string(),
   "url": zod.string(),
   "status": zod.string(),
@@ -974,7 +1026,13 @@ export const UpdateProductResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })),
   "screenshot": zod.string().optional(),
   "mobileScreenshot": zod.string().optional(),
@@ -987,6 +1045,8 @@ export const ResearchRunParams = zod.object({
 })
 
 export const ResearchRunResponse = zod.object({
+  "researchKey": zod.string().optional(),
+  "researchedAt": zod.string().optional(),
   "id": zod.string(),
   "url": zod.string(),
   "status": zod.string(),
@@ -1108,7 +1168,13 @@ export const ResearchRunResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })),
   "screenshot": zod.string().optional(),
   "mobileScreenshot": zod.string().optional(),
@@ -1121,6 +1187,8 @@ export const GenerateRunParams = zod.object({
 })
 
 export const GenerateRunResponse = zod.object({
+  "researchKey": zod.string().optional(),
+  "researchedAt": zod.string().optional(),
   "id": zod.string(),
   "url": zod.string(),
   "status": zod.string(),
@@ -1242,7 +1310,13 @@ export const GenerateRunResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })),
   "screenshot": zod.string().optional(),
   "mobileScreenshot": zod.string().optional(),
@@ -1297,7 +1371,13 @@ export const SubmitFeedbackResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })
 
 
@@ -1343,7 +1423,13 @@ export const RegenerateDesignResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })
 
 
@@ -1389,7 +1475,13 @@ export const AuditDesignResponse = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 })
 
 
@@ -1477,7 +1569,17 @@ export const GetCliPublishingStatusResponse = zod.object({
   "checkedAt": zod.string().optional(),
   "templateSuffix": zod.string().optional(),
   "templateAssigned": zod.boolean().optional(),
-  "previousTemplateSuffix": zod.string().optional()
+  "previousTemplateSuffix": zod.string().optional(),
+  "uploadedAt": zod.string().optional(),
+  "publishedAt": zod.string().optional(),
+  "editedAt": zod.string().optional(),
+  "edited": zod.boolean().optional(),
+  "lifecycleStatus": zod.string().optional(),
+  "fileHashes": zod.record(zod.string(), zod.string()).optional(),
+  "timeline": zod.array(zod.object({
+  "status": zod.string(),
+  "at": zod.string()
+})).optional()
 }))
 })
 
@@ -1542,7 +1644,17 @@ export const UploadCliThemeResponse = zod.object({
   "checkedAt": zod.string().optional(),
   "templateSuffix": zod.string().optional(),
   "templateAssigned": zod.boolean().optional(),
-  "previousTemplateSuffix": zod.string().optional()
+  "previousTemplateSuffix": zod.string().optional(),
+  "uploadedAt": zod.string().optional(),
+  "publishedAt": zod.string().optional(),
+  "editedAt": zod.string().optional(),
+  "edited": zod.boolean().optional(),
+  "lifecycleStatus": zod.string().optional(),
+  "fileHashes": zod.record(zod.string(), zod.string()).optional(),
+  "timeline": zod.array(zod.object({
+  "status": zod.string(),
+  "at": zod.string()
+})).optional()
 })
 
 
@@ -1587,7 +1699,17 @@ export const ActivateCliThemeResponse = zod.object({
   "checkedAt": zod.string().optional(),
   "templateSuffix": zod.string().optional(),
   "templateAssigned": zod.boolean().optional(),
-  "previousTemplateSuffix": zod.string().optional()
+  "previousTemplateSuffix": zod.string().optional(),
+  "uploadedAt": zod.string().optional(),
+  "publishedAt": zod.string().optional(),
+  "editedAt": zod.string().optional(),
+  "edited": zod.boolean().optional(),
+  "lifecycleStatus": zod.string().optional(),
+  "fileHashes": zod.record(zod.string(), zod.string()).optional(),
+  "timeline": zod.array(zod.object({
+  "status": zod.string(),
+  "at": zod.string()
+})).optional()
 })
 
 
@@ -1630,7 +1752,17 @@ export const CheckCliPublicationResponse = zod.object({
   "checkedAt": zod.string().optional(),
   "templateSuffix": zod.string().optional(),
   "templateAssigned": zod.boolean().optional(),
-  "previousTemplateSuffix": zod.string().optional()
+  "previousTemplateSuffix": zod.string().optional(),
+  "uploadedAt": zod.string().optional(),
+  "publishedAt": zod.string().optional(),
+  "editedAt": zod.string().optional(),
+  "edited": zod.boolean().optional(),
+  "lifecycleStatus": zod.string().optional(),
+  "fileHashes": zod.record(zod.string(), zod.string()).optional(),
+  "timeline": zod.array(zod.object({
+  "status": zod.string(),
+  "at": zod.string()
+})).optional()
 })
 
 
@@ -1675,7 +1807,17 @@ export const PublishDesignResponse = zod.object({
   "checkedAt": zod.string().optional(),
   "templateSuffix": zod.string().optional(),
   "templateAssigned": zod.boolean().optional(),
-  "previousTemplateSuffix": zod.string().optional()
+  "previousTemplateSuffix": zod.string().optional(),
+  "uploadedAt": zod.string().optional(),
+  "publishedAt": zod.string().optional(),
+  "editedAt": zod.string().optional(),
+  "edited": zod.boolean().optional(),
+  "lifecycleStatus": zod.string().optional(),
+  "fileHashes": zod.record(zod.string(), zod.string()).optional(),
+  "timeline": zod.array(zod.object({
+  "status": zod.string(),
+  "at": zod.string()
+})).optional()
 })
 
 
@@ -1775,7 +1917,13 @@ export const GetMemoryResponseItem = zod.object({
   "url": zod.string().optional(),
   "error": zod.string().optional(),
   "testedAt": zod.string().optional()
-}).optional()
+}).optional(),
+  "researchInfluences": zod.array(zod.object({
+  "sourceUrl": zod.string(),
+  "observation": zod.string(),
+  "application": zod.string(),
+  "planFields": zod.array(zod.string())
+})).optional()
 }))
 })
 export const GetMemoryResponse = zod.array(GetMemoryResponseItem)

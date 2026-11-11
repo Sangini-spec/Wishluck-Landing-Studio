@@ -163,6 +163,11 @@ for(const failure of ["none","after-create","before-result","verification"] as c
       assert.equal(fixture.pushes,1);
       assert.equal(retry.themeId,"3");
       assert.equal(retry.verified,failure==="none");
+      if(failure==="none"){
+        const changedOptions=await uploadCliTheme(fixture.designId,shop,{...options,productMode:"existing",productId:"gid://shopify/Product/999999",confirmTemplateAssignment:true},fixture.services);
+        assert.equal(changedOptions.jobId,jobId,"Changing destination options must return the same upload receipt");
+        assert.equal(fixture.pushes,1,"Changing options must not create a second theme");
+      }
       if(failure==="verification"){assert.equal(fixture.merchantFile,"merchant edit");assert.equal(fixture.verifications,1);}
       assert.deepEqual(fixture.themes.slice(0,2),[{id:"1",name:"Existing live merchant theme",role:"main"},{id:"2",name:"Existing merchant draft",role:"unpublished"}]);
       // Simulate a fresh recovery process using only the database record.

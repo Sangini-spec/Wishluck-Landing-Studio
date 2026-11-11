@@ -52,8 +52,8 @@ export const planClasses = (p: VisualPlan, flip = false) =>
 export const heroImageWant = (p: VisualPlan) =>
   p.family === "catalogue" ? 4 : p.imageTreatment === "collage" || p.family === "mosaic" || p.family === "panorama" ? 3 : 1;
 
-export const spacingFor = (p: VisualPlan) => ({ spacious: 96, dense: 40, alternating: 72 })[p.contentRhythm];
-export const headingSizeFor = (p: VisualPlan) => ({ monumental: 80, balanced: 64, compact: 48 })[p.heroScale];
+export const spacingFor = (p: VisualPlan) => p.sectionSpacing??({ spacious: 96, dense: 40, alternating: 72 })[p.contentRhythm];
+export const headingSizeFor = (p: VisualPlan) => p.headingSize??({ monumental: 80, balanced: 64, compact: 48 })[p.heroScale];
 export const pad2 = (n: number) => (n < 10 ? "0" : "") + n;
 
 const HEADS: Record<VisualPlan["family"], Record<Exclude<SectionKey,"hero">, string>> = {

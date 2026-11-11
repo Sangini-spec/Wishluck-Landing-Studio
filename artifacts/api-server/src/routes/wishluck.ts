@@ -9,6 +9,7 @@ import {
 import { getRun,listRuns,saveRun,getDesign,saveDesign,categoryContext,publications,event,savePublication } from "../lib/store";
 import { analyseProduct } from "../lib/analysis";
 import { research } from "../lib/research";
+import {researchThenGenerate,researchIsCurrent} from "../lib/generation-workflow";
 import { searchReady,searchProvider } from "../lib/search";
 import { generate,generateOne } from "../lib/generation";
 import { publicUrl } from "../lib/network";
@@ -22,7 +23,7 @@ import {SwitchShopifyStoreBody} from "@workspace/api-zod";
 import {GetCliPublishingStatusResponse,GetPublishingJobsResponse,UploadCliThemeBody,ActivateCliThemeBody,CheckCliPublicationBody} from "@workspace/api-zod";
 import {durableJobs} from "../lib/durable-jobs";
 import {shopifyConfig} from "../lib/shopify-auth";
-import {cliStatus,uploadCliTheme,activateCliTheme,checkCliPublication} from "../lib/shopify-cli";
+import {cliStatus,uploadCliTheme,activateCliTheme,checkCliPublication,refreshPublicationRoles} from "../lib/shopify-cli";
 import { preview } from "../lib/preview";
 import { compile,zipDesign } from "../lib/compiler";
 import { objectStorageClient } from "../lib/objectStorage";
@@ -38,9 +39,10 @@ router.post("/products/discover",async(req,res)=>{
   res.json(DiscoverStoreProductsResponse.parse(await discoverProducts(input.url)));
 });
 router.get("/dashboard",async(_req,res)=>{
+  await refreshPublicationRoles();
   const [runs,pubs]=await Promise.all([listRuns(),publications()]);
   const memories=await Promise.all([...new Set(runs.flatMap(r=>r.product?[r.product.category]:[]))].map(categoryContext));
-  res.json(GetDashboardResponse.parse({totalRuns:runs.length,totalDesigns:runs.reduce((n,r)=>n+r.designs.length,0),publishedCount:pubs.filter(p=>p.status==="published").length,
+  res.json(GetDashboardResponse.parse({totalRuns:runs.length,totalDesigns:runs.reduce((n,r)=>n+r.designs.length,0),publishedCount:pubs.filter(p=>p.livePublished===true).length,
     categories:memories.filter(c=>c.designs.length||c.learnings.length).length,recentRuns:runs.slice(0,5),publications:pubs}));
 });
 router.get("/runs",async(_req,res)=>{res.json(ListRunsResponse.parse(await listRuns()));});
@@ -92,16 +94,17 @@ router.patch("/runs/:id/product",async(req,res)=>{
   await saveRun(run);res.json(GetRunResponse.parse(await getRun(run.id)));
 });
 router.post("/runs/:id/research",async(req,res)=>{
-  const run=await getRun(idParam(req.params.id));if(!run.product)throw new AppError(409,"Analyse a product first.");
+  const run=await getRun(idParam(req.params.id));if(!run.product||!run.brand)throw new AppError(409,"Review the product and brand first.");
   if(!searchReady())throw new AppError(503,"Competitor search is not connected. Please contact your workspace administrator to enable research.");
   if(isActive(run.id))throw new AppError(409,"This run already has an active job.");
-  run.status="researching";run.error=null;await saveRun(run);enqueue(run.id,research);res.json(GetRunResponse.parse(run));
+  run.status="researching";run.error=null;await saveRun(run);enqueue(run.id,current=>researchThenGenerate(current,true));res.json(GetRunResponse.parse(run));
 });
 router.post("/runs/:id/generate",async(req,res)=>{
   const run=await getRun(idParam(req.params.id));if(!run.product||!run.brand)throw new AppError(409,"Complete product and brand analysis first.");
   if(run.brand.evidence?.includes("Manual defaults only")&&!run.brand.evidence.includes("Merchant reviewed"))throw new AppError(409,"The storefront blocked CSS/screenshot analysis. Review and save your actual brand values before generating.");
   if(isActive(run.id))throw new AppError(409,"This run already has an active job.");
-  run.status="generating";run.error=null;await saveRun(run);enqueue(run.id,generate);res.json(GetRunResponse.parse(run));
+  if(!searchReady())throw new AppError(503,"Competitor research is required before generation. Search is not connected.");
+  run.status=researchIsCurrent(run)?"generating":"researching";run.error=null;await saveRun(run);enqueue(run.id,current=>researchThenGenerate(current));res.json(GetRunResponse.parse(run));
 });
 router.get("/runs/:id/progress",async(req,res)=>{
   const id=idParam(req.params.id);await getRun(id);
@@ -124,7 +127,10 @@ router.post("/designs/:id/regenerate",async(req,res)=>{
   if(isActive(run.id))throw new AppError(409,"This run already has an active job.");
   const directions=["story-led","benefit-grid","social-proof","offer-led"];
   // Preserve every generated version and its feedback; never overwrite published or rejected evidence.
-  const generated=await withRunLock(run.id,()=>generateOne(run,Math.max(0,directions.indexOf(design.direction)),design.version+1));
+  const generated=await withRunLock(run.id,async()=>{
+    if(!researchIsCurrent(run)){await research(run);if(run.competitors.filter(c=>c.status==="crawled").length<8)throw new AppError(422,"Eight captured competitor pages are required before regenerating.");}
+    return generateOne(run,Math.max(0,directions.indexOf(design.direction)),design.version+1);
+  });
   res.json(generated);
 });
 router.get("/designs/:id/preview",async(req,res)=>{
@@ -144,6 +150,7 @@ router.get("/shopify/jobs",async(_req,res)=>res.json(GetPublishingJobsResponse.p
 router.post("/shopify/cli/uploads",async(req,res)=>{
   const body=UploadCliThemeBody.parse(req.body);
   if(!body.confirmUnpublishedUpload)throw new AppError(400,"Confirm creating a separate unpublished theme.");
+  if(!body.productMode||body.productMode==="none")throw new AppError(400,"Choose a store product or import a draft so Shopify opens the actual design, not an empty setup page.");
   const p=await uploadCliTheme(body.designId,body.expectedShop,body);
   res.json(PublishDesignResponse.parse(p));
 });

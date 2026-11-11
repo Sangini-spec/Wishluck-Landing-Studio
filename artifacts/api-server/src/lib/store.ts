@@ -3,19 +3,22 @@ import { desc, eq, inArray,and,gt } from "drizzle-orm";
 import {preference} from "./preferences";
 import type { Run, Design, DesignContent, Publication, Learning } from "./domain";
 import { AppError } from "./domain";
+import {designUploadState} from "./publication-status";
 
 export async function listRuns(): Promise<Run[]> {
-  const [rows, designs] = await Promise.all([
+  const [rows, designs,uploads] = await Promise.all([
     db.select().from(runsTable).orderBy(desc(runsTable.createdAt)).limit(200),
     db.select().from(designsTable).orderBy(desc(designsTable.createdAt)),
+    publications(),
   ]);
-  return rows.map(row => ({ ...row.data, designs: designs.filter(d => d.runId === row.id).map(d => d.data) }) as Run);
+  return rows.map(row => ({ ...row.data, designs: designs.filter(d => d.runId === row.id).map(d => designUploadState(d.data as Design,uploads)) }) as Run);
 }
 export async function getRun(id: string): Promise<Run> {
   const [row] = await db.select().from(runsTable).where(eq(runsTable.id, id));
   if (!row) throw new AppError(404, "Run not found");
   const designs = await db.select().from(designsTable).where(eq(designsTable.runId, id)).orderBy(desc(designsTable.createdAt));
-  return { ...row.data, designs: designs.map(d => d.data) } as Run;
+  const uploads=await publications();
+  return { ...row.data, designs: designs.map(d => designUploadState(d.data as Design,uploads)) } as Run;
 }
 export async function saveRun(run: Run) {
   const data = { ...run, designs: [] };

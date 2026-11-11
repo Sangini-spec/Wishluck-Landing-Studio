@@ -6,6 +6,7 @@ import { askJson, aiReady } from "./ai";
 import { event } from "./store";
 import { AppError, type Run, type Competitor } from "./domain";
 import { search } from "./search";
+import {createHash} from "node:crypto";
 export async function research(run: Run) {
   if (!run.product) throw new AppError(409,"Analyse a product first.");
   const p = run.product;
@@ -78,8 +79,17 @@ export async function research(run: Run) {
     const sources = successful.filter(c => c.analysis?.[key] === true).map(c => c.url);
     if (sources.length) run.learnings.push({id:randomUUID(),category:p.category,text:`${sources.length} of ${successful.length} successfully crawled pages ${label}. Detection is based on captured HTML/text, not a performance claim.`,sources});
   }
+  for(const c of successful){
+    for(const key of ["hero","atcPlacement","offerDisplay","media","sectionOrder"]){
+      const observed=c.analysis?.[key];
+      const text=Array.isArray(observed)?observed.join(" → "):typeof observed==="string"?observed:"";
+      if(text&& !/not observed|not detected|unavailable/i.test(text))run.learnings.push({id:randomUUID(),category:p.category,text:`Observed ${key}: ${text.slice(0,500)}. Adapt the design pattern, never the competitor's product claims or assets.`,sources:[c.url]});
+    }
+  }
   for (const l of run.learnings) await db.insert(learningsTable).values({id:l.id,runId:run.id,category:p.category,data:l});
   if (successful.length < 8) run.warnings.push(`Research coverage: ${successful.length} of the target 8 competitor pages could be captured. Review blocked sources before using these findings.`);
   run.status = "researched";
+  run.researchKey=createHash("sha256").update(JSON.stringify({product:run.product,brand:run.brand})).digest("hex");
+  run.researchedAt=new Date().toISOString();
   await event(run,"review",`Research saved: ${successful.length} successful sources and ${run.learnings.length} linked observations.`);
 }

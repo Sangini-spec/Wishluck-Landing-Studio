@@ -13,6 +13,8 @@ import type { Product } from './product';
 import type { RunEvent } from './runEvent';
 
 export interface Run {
+  researchKey?: string;
+  researchedAt?: string;
   id: string;
   url: string;
   status: string;

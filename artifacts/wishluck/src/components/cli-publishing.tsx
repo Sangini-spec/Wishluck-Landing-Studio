@@ -1,34 +1,29 @@
 import {useState,useEffect,useRef} from "react";
 import {useQueryClient} from "@tanstack/react-query";
-import {ExternalLink,Loader2,EyeOff,Eye} from "lucide-react";
+import {ExternalLink,Loader2} from "lucide-react";
 import {useGetCliPublishingStatus,useGetPublishingJobs,useUploadCliTheme,useCheckCliPublication,useGetPublishingContext,type Design,type CliUploadInput} from "@workspace/api-client-react";
 import {Dialog,DialogContent,DialogHeader,DialogTitle,DialogDescription} from "@/components/ui/dialog";
 import {Btn,Notice} from "@/components/bits";
 import {useToast} from "@/hooks/use-toast";
 import {errMsg} from "@/lib/run-utils";
-import {historyPreferences,readyPublication,uploadPhase,type PendingUpload} from "@/lib/publishing-ui";
+import {readyPublication,uploadPhase,type PendingUpload} from "@/lib/publishing-ui";
 
 export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen}:{design:Design;open:boolean;onOpenChange:(open:boolean)=>void}){
   const qc=useQueryClient(),{toast}=useToast();
-  const pendingKey=`wishluck:pending-upload:${design.id}`,historyKey=`wishluck:publication-history:${design.id}`,returnKey=`wishluck:editor-return:${design.id}`;
+  const pendingKey=`wishluck:pending-upload:${design.id}`,returnKey=`wishluck:editor-return:${design.id}`;
   const [pending,setPending]=useState<PendingUpload|null>(null),[progressError,setProgressError]=useState<string|null>(null);
-  const [history,setHistory]=useState(()=>{try{return historyPreferences(localStorage.getItem(historyKey));}catch{return historyPreferences(null);}});
   useEffect(()=>{
     try{
-      setHistory(historyPreferences(localStorage.getItem(historyKey)));
       const saved=JSON.parse(sessionStorage.getItem(pendingKey)??"null");
       setPending(saved?.id&&saved?.shop&&saved.designId===design.id?saved:null);
       const editorReturn=JSON.parse(sessionStorage.getItem(returnKey)??"null");
       returnCheck.current=editorReturn?.id&&editorReturn?.shop?editorReturn:null;
     }catch{setPending(null);}
     setProgressError(null);
-  },[design.id,historyKey,pendingKey,returnKey]);
+  },[design.id,pendingKey,returnKey]);
   function rememberPending(value:PendingUpload|null){
     setPending(value);
     try{if(value?.id)sessionStorage.setItem(pendingKey,JSON.stringify(value));else sessionStorage.removeItem(pendingKey);}catch{/* In-memory progress still works when browser storage is disabled. */}
-  }
-  function changeHistory(patch:Partial<typeof history>){
-    setHistory(old=>{const next={...old,...patch};try{localStorage.setItem(historyKey,JSON.stringify(next));}catch{/* Hiding still works for this visit. */}return next;});
   }
   const status=useGetCliPublishingStatus({query:{staleTime:30000,refetchInterval:pending?.id?2500:false}});
   const jobs=useGetPublishingJobs({query:{refetchInterval:q=>q.state.data?.some(j=>["queued","running"].includes(j.status))?2000:15000,refetchOnWindowFocus:true}});
@@ -94,7 +89,7 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
     window.addEventListener("focus",focus);return()=>{window.removeEventListener("focus",focus);if(timer)clearTimeout(timer);};
   },[check.mutate,returnKey]);
   const uploads=(status.data?.uploads??[]).filter(p=>p.designId===design.id);
-  const canPublish=design.status!=="rejected";
+  const canPublish=!["rejected","uploaded","edited","published"].includes(design.status)&&!uploads.some(p=>p.verified);
   const designJobs=(jobs.data??[]).filter(j=>j.designId===design.id&&j.shop===status.data?.shop);
   const processing=designJobs.some(j=>["queued","running"].includes(j.status));
   const activeJob=designJobs.find(j=>j.id===pending?.id);
@@ -106,33 +101,13 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
       productId:mode==="existing"?productId:undefined,confirmTemplateAssignment:mode!=="none"&&assign,confirmProductImport:importRights,confirmCurrencyMismatch:currencyConfirm}});
   }
   return <>
-    {(uploads.length>0||designJobs.length>0)&&<section className="panel my-5 space-y-4 p-5" data-testid="publication-history">
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <h2 className="font-display text-xl">Publication history</h2>
-      <Btn data-testid="button-hide-publication-history" variant="outline" aria-expanded={!history.collapsed} onClick={()=>changeHistory({collapsed:!history.collapsed})}>{history.collapsed?<Eye className="h-4 w-4"/>:<EyeOff className="h-4 w-4"/>}{history.collapsed?"Show history":"Hide history"}</Btn>
-    </div>
-    {!history.collapsed&&<>
-    {history.hidden.length>0&&<Btn variant="outline" data-testid="button-restore-publication-records" onClick={()=>changeHistory({hidden:[]})}>Show hidden records</Btn>}
-    {jobs.error&&<Notice>Progress could not be refreshed. Saved jobs continue on the server; retrying the same upload will not create another theme.</Notice>}
-    {designJobs.filter(j=>!history.hidden.includes(`job:${j.id}`)).slice(0,8).map(j=><div key={j.id} className="rounded border border-border p-3 text-xs" data-testid={`publishing-job-${j.id}`} aria-live="polite">
-      <div className="flex items-center justify-between gap-3"><b>{j.kind==="upload"?"Theme upload":"Lighthouse"} · {j.status}</b><Btn variant="outline" aria-label={`Hide job ${j.id}`} onClick={()=>changeHistory({hidden:[...history.hidden,`job:${j.id}`]})}><EyeOff className="h-3 w-3"/>Hide</Btn></div>
-      {j.kind==="upload"?uploadPhase(j.phase):j.phase}<br/>Job {j.id}
-      {j.themeId&&<> · Theme {j.themeId}</>}
-      {j.error&&<p className="mt-2">{j.error}</p>}
-    </div>)}
-    {uploads.filter(p=>!history.hidden.includes(`publication:${p.id}`)).map(p=><article key={p.id} className="rounded-lg border border-border p-3" data-testid={`cli-upload-${p.id}`}>
-      <div className="flex flex-wrap items-center justify-between gap-2"><div><b className="text-sm">{p.themeName??"CLI upload"}</b>
-        <p className="mt-1 text-xs text-muted-foreground">Theme {p.themeId??"ID unavailable"} · {p.livePublished?"Live on Shopify":p.verified?"Verified · unpublished":"Not verified"} · {p.shop}</p></div>
-        <div className="flex flex-wrap gap-2">{p.verified&&<Btn data-testid={`button-cli-check-${p.id}`} variant="outline" disabled={!ready||check.isPending||design.lighthouse?.status==="running"} onClick={()=>check.mutate({id:p.id,data:{expectedShop:p.shop!,runAudit:true}})}>{check.isPending?<Loader2 className="h-4 w-4 animate-spin"/>:null}Check Shopify & run audit</Btn>}<Btn variant="outline" aria-label={`Hide publication ${p.themeName??p.id}`} onClick={()=>changeHistory({hidden:[...history.hidden,`publication:${p.id}`]})}><EyeOff className="h-3 w-3"/>Hide</Btn></div>
+    {uploads.filter(p=>p.verified).slice(0,1).map(p=><section key={p.id} className="panel my-5 space-y-3 p-5" data-testid="shopify-result">
+      <div className="flex flex-wrap items-center justify-between gap-2"><div><b className="text-sm">Your Shopify design</b>
+        <p className="mt-1 text-xs text-muted-foreground">{p.livePublished?"Published on Shopify":p.edited?"Edited in Shopify · not published":"Uploaded to Shopify · not published"}</p></div>
+        <Btn data-testid={`button-cli-check-${p.id}`} variant="outline" disabled={!ready||check.isPending||design.lighthouse?.status==="running"} onClick={()=>check.mutate({id:p.id,data:{expectedShop:p.shop!,runAudit:true}})}>{check.isPending?<Loader2 className="h-4 w-4 animate-spin"/>:null}Check status & run audit</Btn>
       </div>
-      {p.error&&<Notice>{p.error}</Notice>}
       <div className="mt-3 flex flex-wrap gap-4 text-sm">{p.previewUrl&&<a href={p.previewUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 underline">Preview on Shopify<ExternalLink className="h-3 w-3"/></a>}{p.editorUrl&&<a href={p.editorUrl} onClick={()=>{returnCheck.current={id:p.id,shop:p.shop!};}} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 underline">Open theme editor<ExternalLink className="h-3 w-3"/></a>}</div>
-      {p.productHandle&&<p className="mt-2 text-xs text-muted-foreground">Product: {p.productHandle} · {p.productStatus?.toLowerCase()} · {p.templateAssigned?"Template assignment verified":"Default template preview; global assignment unchanged"}</p>}
-      {p.warnings?.map((warning,i)=><p key={i} className="mt-2 text-xs text-muted-foreground">{warning}</p>)}
-      {p.checkedAt&&<p className="mt-2 text-xs text-muted-foreground">Shopify status checked {new Date(p.checkedAt).toLocaleString()}</p>}
-    </article>)}
-    </>}
-    </section>}
+    </section>)}
     <Dialog open={uploadOpen||!!pending||!!progressError} onOpenChange={closeUpload}><DialogContent className="max-h-[90vh] overflow-y-auto"><DialogHeader><DialogTitle>{pending?"Publishing your design":progressError?"Upload needs attention":"Publish to Shopify"}</DialogTitle><DialogDescription>{pending?"Please wait. Shopify’s theme editor will open here automatically.":progressError?"Your existing store theme has not been replaced.":`Choose the product for ${status.data?.shop??"your connected store"}.`}</DialogDescription></DialogHeader>
       {pending?<div className="space-y-5 py-6 text-center" data-testid="publishing-progress" role="status" aria-live="polite">
         <Loader2 className="mx-auto h-10 w-10 animate-spin text-[hsl(var(--seal))]" aria-hidden="true"/>
@@ -145,7 +120,7 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
       {status.data&&!ready&&<Notice>{status.data.message??"Your Shopify connection needs attention before publishing."}</Notice>}
       {context.isLoading?<p>Loading store products…</p>:context.error?<Notice>{errMsg(context.error)}</Notice>:<div className="space-y-3">
         <label className="block text-sm">Product destination<select data-testid="select-cli-product-mode" className="mt-1 w-full rounded border border-border bg-background p-2" value={mode} disabled={upload.isPending} onChange={e=>{setMode(e.target.value as typeof mode);setAssign(false);}}>
-          {context.data?.sameStore&&<option value="source">Source product in this store</option>}<option value="existing">Choose a product from this store</option><option value="import">Import or reuse a draft copy</option><option value="none">Theme only — choose product later</option></select></label>
+          {context.data?.sameStore&&<option value="source">Source product in this store</option>}<option value="existing">Choose a product from this store</option><option value="import">Import or reuse a draft copy</option></select></label>
         {mode==="existing"&&<><label className="block text-sm">Store product<select data-testid="select-cli-product" className="mt-1 w-full rounded border border-border bg-background p-2" value={productId} disabled={upload.isPending} onChange={e=>setProductId(e.target.value)}><option value="">Choose a product</option>{context.data?.products.map(p=><option key={p.id} value={p.id}>{p.title} · {p.status.toLowerCase()}</option>)}</select></label><p className="text-xs text-muted-foreground">Keeps this composition but uses the selected product’s real images, variants and facts. Unrelated source claims are removed.</p></>}
         {mode==="import"&&<><label className="flex gap-2 text-sm"><input type="checkbox" checked={importRights} onChange={e=>setImportRights(e.target.checked)}/>I have the rights to import the product and images as a draft.</label>{context.data?.sourceCurrency!==context.data?.currency&&<label className="flex gap-2 text-sm"><input type="checkbox" checked={currencyConfirm} onChange={e=>setCurrencyConfirm(e.target.checked)}/>Keep numeric prices in {context.data?.currency}; no currency conversion is performed.</label>}<p className="text-xs text-muted-foreground">An existing matching Wishluck draft is reused. Products are never activated automatically.</p></>}
         {mode!=="none"&&<label className="flex items-start gap-2 rounded-lg border border-border p-3 text-sm"><input data-testid="checkbox-cli-assignment" type="checkbox" checked={assign} disabled={upload.isPending} onChange={e=>setAssign(e.target.checked)}/><span>Assign this product’s template and SEO fields after verification. This is a global product change, even though the new theme stays unpublished. Leave unchecked for a preview with no product changes.</span></label>}

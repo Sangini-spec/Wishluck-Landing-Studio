@@ -20,6 +20,8 @@ export const visualPlanSchema=z.object({
   detailLayout:z.enum(["tiles","timeline","bento","split","columns"]),
   alignment:z.enum(["start","center"]),
   accentPlacement:z.enum(["edge","panel","rule"]),
+  headingSize:z.number().int().min(30).max(80).optional(),
+  sectionSpacing:z.number().int().min(12).max(100).multipleOf(2).optional(),
   sections:z.array(z.enum(["hero","story","benefits","specs","faq","reviews","gallery","purchase"])).min(4).max(8),
 });
 export type VisualPlan=z.infer<typeof visualPlanSchema>;

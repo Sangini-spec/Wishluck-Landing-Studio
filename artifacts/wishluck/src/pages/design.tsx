@@ -163,7 +163,7 @@ export default function DesignPage() {
         <div className="flex flex-wrap gap-2">
           <a href={d.downloadUrl} download data-testid="link-download" className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3.5 text-[13px] font-medium hover:bg-muted"><Download className="h-4 w-4" /> Theme ZIP</a>
           <Btn data-testid="button-regenerate" variant="outline" disabled={regen.isPending} onClick={() => regen.mutate({ id: d.id }, { ...done("New design version created"), onSuccess: (next) => { invalidateRun(qc, run.id); navigate(`/designs/${next.id}`); toast({title:"New design version created"}); } })}>{regen.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />} Regenerate</Btn>
-          <Btn data-testid="button-publish" variant="seal" disabled={d.status==="rejected"} title={d.status==="rejected"?"Approve this rejected design before publishing":"Upload automatically and open Shopify’s editor"} onClick={() => setPubOpen(true)}><Send className="h-4 w-4" /> Publish to Shopify</Btn>
+          <Btn data-testid="button-publish" variant={["uploaded","edited","published"].includes(d.status)?"outline":"seal"} disabled={["rejected","uploaded","edited","published"].includes(d.status)} title={["uploaded","edited","published"].includes(d.status)?"This version is already uploaded. Open its editor below or regenerate a new version.":d.status==="rejected"?"Approve this rejected design before publishing":"Upload automatically and open Shopify’s editor"} onClick={() => setPubOpen(true)}><Send className="h-4 w-4" /> {d.status==="published"?"Published":["uploaded","edited"].includes(d.status)?"Already uploaded":"Publish to Shopify"}</Btn>
         </div>
       </header>
       <CliPublishing design={d} open={pubOpen} onOpenChange={setPubOpen}/>
@@ -172,6 +172,10 @@ export default function DesignPage() {
       <div className="grid gap-6 xl:grid-cols-[1fr_340px]">
         <Preview design={d} />
         <aside className="space-y-4">
+          {!!d.researchInfluences?.length&&<section className="panel space-y-3 p-4" data-testid="research-applied">
+            <h2 className="font-display text-xl">Research applied</h2>
+            {d.researchInfluences.map((influence,i)=><div key={i} className="border-t border-border pt-3 text-sm"><p className="font-medium">{influence.observation}</p><p className="mt-1 text-muted-foreground">{influence.application}</p><a href={influence.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs underline">View reference</a></div>)}
+          </section>}
           <div className="panel p-4">
             <div className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground">Feedback</div>
             <textarea data-testid="input-feedback-reason" rows={3} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="What should change, or why it works" className="w-full rounded-lg border border-input bg-background p-2.5 text-[13px] outline-none focus:ring-2 focus:ring-[hsl(var(--seal)/0.15)]" />

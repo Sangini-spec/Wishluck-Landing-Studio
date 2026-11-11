@@ -8,6 +8,7 @@
 import type { Check } from './check';
 import type { DesignFingerprint } from './designFingerprint';
 import type { LighthouseResult } from './lighthouseResult';
+import type { ResearchInfluence } from './researchInfluence';
 import type { Scores } from './scores';
 
 export interface Design {
@@ -30,4 +31,5 @@ export interface Design {
   downloadUrl: string;
   warnings: string[];
   lighthouse?: LighthouseResult;
+  researchInfluences?: ResearchInfluence[];
 }

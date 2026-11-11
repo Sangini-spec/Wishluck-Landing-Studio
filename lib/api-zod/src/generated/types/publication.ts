@@ -5,6 +5,8 @@
  * Wishluck Shopify landing page studio
  * OpenAPI spec version: 1.0.0
  */
+import type { PublicationEvent } from './publicationEvent';
+import type { PublicationFileHashes } from './publicationFileHashes';
 import type { PublicationVariantMap } from './publicationVariantMap';
 
 export interface Publication {
@@ -38,4 +40,11 @@ export interface Publication {
   templateSuffix?: string;
   templateAssigned?: boolean;
   previousTemplateSuffix?: string;
+  uploadedAt?: string;
+  publishedAt?: string;
+  editedAt?: string;
+  edited?: boolean;
+  lifecycleStatus?: string;
+  fileHashes?: PublicationFileHashes;
+  timeline?: PublicationEvent[];
 }

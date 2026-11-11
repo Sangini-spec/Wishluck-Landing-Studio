@@ -442,6 +442,8 @@ components:
       type: object
       required: [id, url, status, stage, createdAt, events, warnings, competitors, learnings, designs]
       properties:
+        researchKey: { type: string }
+        researchedAt: { type: string }
         id: { type: string }
         url: { type: string }
         status: { type: string }
@@ -572,6 +574,17 @@ components:
         downloadUrl: { type: string }
         warnings: { type: array, items: { type: string } }
         lighthouse: { $ref: "#/components/schemas/LighthouseResult" }
+        researchInfluences:
+          type: array
+          items: { $ref: "#/components/schemas/ResearchInfluence" }
+    ResearchInfluence:
+      type: object
+      required: [sourceUrl, observation, application, planFields]
+      properties:
+        sourceUrl: { type: string }
+        observation: { type: string }
+        application: { type: string }
+        planFields: { type: array, items: { type: string } }
     Check:
       type: object
       required: [key, category, label, status, detail]
@@ -731,6 +744,21 @@ components:
         templateSuffix: { type: string }
         templateAssigned: { type: boolean }
         previousTemplateSuffix: { type: string }
+        uploadedAt: { type: string }
+        publishedAt: { type: string }
+        editedAt: { type: string }
+        edited: { type: boolean }
+        lifecycleStatus: { type: string }
+        fileHashes: { type: object, additionalProperties: { type: string } }
+        timeline:
+          type: array
+          items: { $ref: "#/components/schemas/PublicationEvent" }
+    PublicationEvent:
+      type: object
+      required: [status, at]
+      properties:
+        status: { type: string }
+        at: { type: string }
     Connection:
       type: object
       required: [configured, connected, shop, message, missing]

@@ -4,6 +4,10 @@ The original assignment requirements and exact wording are indexed by H/D/E/X id
 
 **No row is assumed accepted just because code exists.** “Implemented / unverified” means the code path exists and TypeScript passes, but the specified acceptance evidence is not yet available. “Partial” means a requirement still has known functional gaps. “Blocked” means real external access or verification is needed. No mandatory pending row has been silently dropped.
 
+## Latest research/publishing workflow verification
+
+See [the focused verification record](RESEARCH_PUBLISHING_WORKFLOW.md). Research-before-generation and publication lifecycle controls have been implemented. **Research-informed creative novelty remains partial:** live attempts against an existing populated category were rejected as too similar. No new design from those attempts was saved; this is not an end-to-end creative-generation acceptance.
+
 ## Source-location and entity legend
 
 All backend modules below are under `backend/src/lib/` (the `backend` symlink resolves to `artifacts/api-server`). All routes are in `backend/src/routes/wishluck.ts`. UI components below are under `frontend/src/` (the `frontend` symlink resolves to `artifacts/wishluck`).

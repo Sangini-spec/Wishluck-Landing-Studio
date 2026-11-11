@@ -9,7 +9,7 @@ import { errMsg, invalidateRun } from "@/lib/run-utils";
 const STEPS = [
   { icon: ScanSearch, t: "Read the product", d: "Title, variants, price, specs, reviews, and the facts that are missing." },
   { icon: Palette, t: "Extract the brand", d: "Colors, fonts, radius, spacing, tone. You correct anything before generating." },
-  { icon: Search, t: "Research competitors", d: "Optional. Every learning cites the pages it came from." },
+  { icon: Search, t: "Research competitors", d: "Runs before design generation. Every learning cites its source pages." },
   { icon: Sparkles, t: "Generate editable pages", d: "Shopify sections with checks for SEO, AEO and GEO." },
 ];
 

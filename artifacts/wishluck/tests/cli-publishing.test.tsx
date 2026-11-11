@@ -20,32 +20,18 @@ async function confirmUpload(h: PublishingHarness) {
 }
 
 async function exerciseHistory(h: PublishingHarness) {
-  const receiptId = `cli-upload-${publication.id}`, jobId = `publishing-job-${job.id}`;
-  await until(() => assert.ok(element(receiptId)));
-  await act(async () => {
-    document.querySelector<HTMLButtonElement>(`[aria-label="Hide publication ${publication.id}"]`)!.click();
-  });
-  assert.equal(document.querySelector(`[data-testid="${receiptId}"]`), null);
-  assert.ok(element(jobId));
-  await act(async () => {
-    document.querySelector<HTMLButtonElement>(`[aria-label="Hide job ${job.id}"]`)!.click();
-  });
-  assert.equal(document.querySelector(`[data-testid="${jobId}"]`), null);
-  await clickText("Show hidden records");
-  assert.ok(element(receiptId));
-  assert.ok(element(jobId));
-  await clickText("Hide history");
-  assert.equal(element("button-hide-publication-history").getAttribute("aria-expanded"), "false");
-  assert.equal(document.querySelector(`[data-testid="${receiptId}"]`), null);
-  await clickText("Show history");
-  assert.ok(element(receiptId));
+  await until(() => assert.ok(element("shopify-result")));
+  assert.equal(document.querySelector('[data-testid="publication-history"]'),null);
+  assert.equal(document.querySelector(`[data-testid="publishing-job-${job.id}"]`),null);
+  const summary=element("shopify-result");
+  assert.doesNotMatch(summary.textContent!,/CLI|Job |Theme \d|Publication history/);
+  assert.ok(summary.querySelector(`a[href="${publication.editorUrl}"]`));
   const checksBefore = h.checks.length;
   await act(async () => { element(`button-cli-check-${publication.id}`).click(); });
   await until(() => assert.equal(h.checks.length, checksBefore + 1));
   assert.deepEqual(h.checks.at(-1)?.body, {expectedShop: pending.shop, runAudit: true});
   await h.poll();
-  assert.ok(element(receiptId));
-  assert.ok(element(jobId));
+  assert.ok(element("shopify-result"));
 }
 
 function returnCheckClock(t: TestContext) {
@@ -107,7 +93,7 @@ for (const fault of [...storageFaults, "all"] as const) {
       }
       h.complete();
       await h.poll();
-      await until(() => assert.ok(element(`cli-upload-${publication.id}`)));
+      await until(() => assert.ok(element("shopify-result")));
       assert.equal(h.redirects.length, dismiss ? 0 : 1);
       if (!dismiss) {
         assert.equal(h.redirects[0].url, publication.editorUrl);
@@ -123,13 +109,11 @@ for (const fault of [...storageFaults, "all"] as const) {
       assert.equal(h.uploadPosts.length, 1, "History and polling never duplicate the confirmed upload");
       for (const failure of fault === "all" ? storageFaults : [fault]) {
         const [area, method] = failure.split(".");
-        // History updates use setItem, never removeItem: deletion of local
-        // preferences must not be required for hide/show to keep working.
+        // Technical history was removed from this view. Local history
+        // preferences are no longer read or written by publishing.
         const calls = h.storageCalls.filter(call => call.area === area && call.method === method);
-        // The restoration effect reads local history first, so its exception
-        // also skips session reads when both stores are unavailable.
-        if (failure === "localStorage.removeItem" || (fault === "all" && failure === "sessionStorage.getItem")) {
-          assert.equal(calls.length, 0);
+        if (area === "localStorage") {
+          assert.equal(calls.filter(call=>call.failed).length, 0);
         }
         else assert.ok(calls.some(call => call.failed), `${failure} exception branch was exercised`);
       }
@@ -174,7 +158,7 @@ for (const {name, value} of malformedRecords) {
     await h.mount();
     await act(async () => { dom.dispatchEvent(new dom.Event("focus")); });
     await h.poll();
-    assert.ok(element("publication-history"));
+    assert.equal(document.querySelector('[data-testid="publication-history"]'),null);
     assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
     assert.equal(h.redirects.length, 0);
     assert.equal(h.checks.length, 0);
@@ -194,11 +178,8 @@ for (const {name, value} of [
     localStorage.setItem(historyKey, JSON.stringify(value));
     h.complete();
     await h.mount();
-    assert.equal(element("button-hide-publication-history").getAttribute("aria-expanded"), "true");
-    if (name === "mixed hidden records") {
-      assert.equal(document.querySelector(`[data-testid="cli-upload-${publication.id}"]`), null);
-      await clickText("Show hidden records");
-    }
+    assert.ok(element("shopify-result"));
+    assert.equal(document.querySelector('[data-testid="publication-history"]'),null);
     await exerciseHistory(h);
     assert.equal(h.uploadPosts.length, 0);
     assert.equal(h.redirects.length, 0);
@@ -286,12 +267,12 @@ test("Stay in Wishluck clears auto-open intent, preserves receipts, and survives
   assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
   h.complete();
   await h.poll();
-  await until(() => assert.ok(element(`cli-upload-${publication.id}`)));
+  await until(() => assert.ok(element("shopify-result")));
   assert.equal(h.redirects.length, 0);
   await h.unmount();
   await h.mount();
   await h.poll();
-  assert.ok(element(`cli-upload-${publication.id}`));
+  assert.ok(element("shopify-result"));
   assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
   assert.equal(h.redirects.length, 0);
   assert.equal(h.uploadPosts.length, 0);
@@ -430,7 +411,7 @@ test("A failed return check explains the failure without retrying, uploading, or
   assert.equal(h.checks.length, 1);
   assert.deepEqual(h.checks[0].body, {expectedShop: publication.shop, runAudit: true});
   assert.equal(sessionStorage.getItem(returnKey), null);
-  assert.ok(element(`cli-upload-${publication.id}`));
+  assert.ok(element("shopify-result"));
   assert.equal((element(`button-cli-check-${publication.id}`) as HTMLButtonElement).disabled, false);
   await act(async () => {
     dom.dispatchEvent(new dom.Event("focus"));
@@ -456,11 +437,11 @@ for (const state of ["failed", "attention"] as const) {
     await h.poll();
     await until(() => assert.match(document.body.textContent!, /Upload needs attention/));
     assert.match(document.body.textContent!, /Your existing store theme has not been replaced/);
-    assert.match(element(`publishing-job-${job.id}`).textContent!, new RegExp(h.jobs[0].error!));
+    assert.match(document.body.textContent!, new RegExp(h.jobs[0].error!));
     assert.equal(sessionStorage.getItem(pendingKey), null);
     assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
     await clickText("Close");
-    assert.ok(element(`publishing-job-${job.id}`));
+    assert.equal(document.querySelector(`[data-testid="publishing-job-${job.id}"]`),null);
     assert.equal(h.redirects.length, 0);
     assert.equal(h.uploadPosts.length, 0);
   });
@@ -525,7 +506,7 @@ test("Malformed saved intent does not crash the screen or start an upload", asyn
   sessionStorage.setItem(pendingKey, "{broken");
   await h.mount();
   await settle();
-  assert.ok(element("publication-history"));
+  assert.equal(document.querySelector('[data-testid="publication-history"]'),null);
   assert.equal(document.querySelector('[data-testid="publishing-progress"]'), null);
   assert.equal(h.redirects.length, 0);
   assert.equal(h.uploadPosts.length, 0);
