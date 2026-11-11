@@ -274,7 +274,6 @@ export interface Settings {
   ai: ProviderStatus;
   search: ProviderStatus;
   database: string;
-  requirementsUrl: string;
 }
 
 export interface MemoryCategory {

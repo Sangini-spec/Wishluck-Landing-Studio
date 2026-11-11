@@ -24,3 +24,4 @@ timeoutMs = 20000
 [userenv.shared]
 SHOPIFY_API_VERSION = "2026-10"
 SHOPIFY_SHOP_DOMAIN = "wishluck-ai-builder.myshopify.com"
+SEARCH_PROVIDER = "tavily"

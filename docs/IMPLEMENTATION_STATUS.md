@@ -118,3 +118,9 @@ These are preserved even though the HR document takes precedence:
 2026-11-11: full TypeScript check passed; backend and frontend workflows running; dashboard screenshot reviewed; health/settings/dashboard API responses succeeded; custom-app authentication, actual theme list and actual product/variant/image reads succeeded. The store's public product URL returned HTTP 429 during a simple access check. No store writes or real cart operations were performed.
 
 This record is intentionally narrower than “all requirements complete.”
+
+## Product-facing scope correction
+
+Assignment checklists, submission guidance and integration readiness are developer-side material only. The readiness page, sidebar status/checklist panel, and document download endpoints have been removed from the product. Shopify connection is available inside publishing instead. References above to the former settings page or document endpoints describe the earlier build and no longer represent active product routes.
+
+Search now uses Tavily basic REST search with automatic upgrades disabled; Brave and SerpAPI adapters are removed. A Tavily credential is still required for real research. Google Custom Search JSON API is closed to new customers and is scheduled to end on January 1, 2027, so it was not selected as the default. Mocked search unit tests verify request shape, result mapping and failure behavior; they do not establish live provider access.

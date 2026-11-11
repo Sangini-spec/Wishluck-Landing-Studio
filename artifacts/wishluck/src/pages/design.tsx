@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams, useLocation } from "wouter";
 import { useQueryClient } from "@tanstack/react-query";
 import { Smartphone, Tablet, Monitor, Download, ThumbsUp, ThumbsDown, RefreshCw, Gauge, Send, Loader2, ArrowLeft, Info, ShoppingCart, Check, X, CircleDashed, ExternalLink, AlertTriangle } from "lucide-react";
-import { useListRuns, useSubmitFeedback, useRegenerateDesign, useAuditDesign, useGetShopifyStatus, useListThemes, usePublishDesign, getListThemesQueryKey, type Design } from "@workspace/api-client-react";
+import { useListRuns, useSubmitFeedback, useRegenerateDesign, useAuditDesign, useGetShopifyStatus, useListThemes, usePublishDesign, useConnectShopify, getListThemesQueryKey, getGetShopifyStatusQueryKey, type Design } from "@workspace/api-client-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Btn, ErrorState, Sk, StatusPill, Notice, Tag, EmptyState } from "@/components/bits";
 import { useToast } from "@/hooks/use-toast";
@@ -63,6 +63,10 @@ function PublishDialog({ design, open, onOpenChange }: { design: Design; open: b
   const qc = useQueryClient();
   const { toast } = useToast();
   const shop = useGetShopifyStatus();
+  const connect = useConnectShopify({mutation:{
+    onSuccess:async()=>{await qc.invalidateQueries({queryKey:getGetShopifyStatusQueryKey()});},
+    onError:(e)=>toast({title:"Could not connect Shopify",description:errMsg(e),variant:"destructive"}),
+  }});
   const connected = !!shop.data?.connected;
   const themes = useListThemes({ query: { enabled: open && connected, queryKey: getListThemesQueryKey() } });
   const safe = (themes.data ?? []).filter((t) => t.role !== "main");
@@ -80,7 +84,7 @@ function PublishDialog({ design, open, onOpenChange }: { design: Design; open: b
         {shop.isLoading ? <Sk className="h-24" /> : !connected ? (
           <div className="space-y-3"><Notice icon={<AlertTriangle className="h-3.5 w-3.5" />}>{shop.data?.message || "Shopify is not connected."}</Notice>
             {shop.data?.missing?.length ? <div className="flex flex-wrap gap-1.5">{shop.data.missing.map((m) => <code key={m} className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-xs">{m}</code>)}</div> : null}
-            <Link href="/settings" className="text-sm underline">Open readiness settings</Link></div>
+            <Btn variant="outline" disabled={connect.isPending} onClick={()=>connect.mutate()}>{connect.isPending?<Loader2 className="h-4 w-4 animate-spin"/>:null} Connect Shopify</Btn></div>
         ) : pub ? (
           <div className="space-y-3"><div className="flex items-center gap-2"><StatusPill status={pub.status} /><span className="text-sm">{pub.themeName}</span></div>{pub.error && <ErrorState message={pub.error} />}
             <div className="flex gap-3 text-sm">{pub.previewUrl && <a href={pub.previewUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline">Theme preview <ExternalLink className="h-3 w-3" /></a>}{pub.editorUrl && <a href={pub.editorUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline">Open theme editor <ExternalLink className="h-3 w-3" /></a>}</div></div>

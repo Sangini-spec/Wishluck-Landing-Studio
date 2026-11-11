@@ -1346,8 +1346,7 @@ export const GetSettingsResponse = zod.object({
   "configured": zod.boolean(),
   "message": zod.string()
 }),
-  "database": zod.string(),
-  "requirementsUrl": zod.string()
+  "database": zod.string()
 })
 
 

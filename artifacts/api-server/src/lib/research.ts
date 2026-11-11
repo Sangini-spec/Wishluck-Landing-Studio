@@ -5,22 +5,7 @@ import { crawl } from "./crawler";
 import { askJson, aiReady } from "./ai";
 import { event } from "./store";
 import { AppError, type Run, type Competitor } from "./domain";
-
-export function searchReady() { return !!process.env.SEARCH_API_KEY; }
-async function search(query: string): Promise<{url:string;title:string;description?:string}[]> {
-  if (!searchReady()) throw new AppError(503,"Live competitor search is unavailable. Add SEARCH_API_KEY for Brave or SerpAPI in project Secrets.");
-  if (process.env.SEARCH_PROVIDER === "serpapi") {
-    const url = new URL("https://serpapi.com/search.json");
-    url.search = new URLSearchParams({ engine:"google",q:query,num:"20",api_key:process.env.SEARCH_API_KEY! }).toString();
-    const response = await fetch(url,{signal:AbortSignal.timeout(25000)});
-    if (!response.ok) throw new AppError(502,`Search provider returned HTTP ${response.status}`);
-    const data = await response.json() as {organic_results?:{link:string;title:string;snippet?:string}[]};
-    return (data.organic_results ?? []).map((r:any) => ({ url:r.link,title:r.title,description:r.snippet }));
-  }
-  const response = await fetch(`https://api.search.brave.com/res/v1/web/search?${new URLSearchParams({q:query,count:"20",country:"IN"})}`,{headers:{"X-Subscription-Token":process.env.SEARCH_API_KEY!},signal:AbortSignal.timeout(25000)});
-  if (!response.ok) throw new AppError(502,`Search provider returned HTTP ${response.status}`);
-  return ((await response.json()) as {web?:{results:{url:string;title:string;description?:string}[]}}).web?.results ?? [];
-}
+import { search } from "./search";
 export async function research(run: Run) {
   if (!run.product) throw new AppError(409,"Analyse a product first.");
   const p = run.product;
@@ -86,7 +71,7 @@ export async function research(run: Run) {
     if (sources.length) run.learnings.push({id:randomUUID(),category:p.category,text:`${sources.length} of ${successful.length} successfully crawled pages ${label}. Detection is based on captured HTML/text, not a performance claim.`,sources});
   }
   for (const l of run.learnings) await db.insert(learningsTable).values({id:l.id,runId:run.id,category:p.category,data:l});
-  if (successful.length < 8) run.warnings.push(`Research coverage is ${successful.length}/8 successful competitor pages. HR research minimum is not met.`);
+  if (successful.length < 8) run.warnings.push(`Research coverage: ${successful.length} of the target 8 competitor pages could be captured. Review blocked sources before using these findings.`);
   run.status = "researched";
   await event(run,"review",`Research saved: ${successful.length} successful sources and ${run.learnings.length} linked observations.`);
 }

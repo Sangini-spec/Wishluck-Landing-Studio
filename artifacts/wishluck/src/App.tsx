@@ -12,7 +12,6 @@ import RunPage from '@/pages/run';
 import DesignPage from '@/pages/design';
 import Memory from '@/pages/memory';
 import HistoryPage from '@/pages/history';
-import SettingsPage from '@/pages/settings';
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { refetchOnWindowFocus: false, retry: 1 } } });
 
@@ -27,7 +26,6 @@ function Router() {
           <Route path="/designs/:id" component={DesignPage} />
           <Route path="/memory" component={Memory} />
           <Route path="/history" component={HistoryPage} />
-          <Route path="/settings" component={SettingsPage} />
           <Route component={NotFound} />
         </Switch>
       </RoutedErrorBoundary>

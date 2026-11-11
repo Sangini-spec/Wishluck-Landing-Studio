@@ -453,13 +453,12 @@ components:
         role: { type: string }
     Settings:
       type: object
-      required: [shopify, ai, search, database, requirementsUrl]
+      required: [shopify, ai, search, database]
       properties:
         shopify: { $ref: "#/components/schemas/Connection" }
         ai: { $ref: "#/components/schemas/ProviderStatus" }
         search: { $ref: "#/components/schemas/ProviderStatus" }
         database: { type: string }
-        requirementsUrl: { type: string }
     ProviderStatus:
       type: object
       required: [provider, configured, message]

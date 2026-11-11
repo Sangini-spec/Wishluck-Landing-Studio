@@ -8,7 +8,8 @@ import {
 } from "@workspace/api-zod";
 import { getRun,listRuns,saveRun,getDesign,saveDesign,categoryContext,publications,event } from "../lib/store";
 import { analyseProduct } from "../lib/analysis";
-import { research,searchReady } from "../lib/research";
+import { research } from "../lib/research";
+import { searchReady,searchProvider } from "../lib/search";
 import { generate,generateOne } from "../lib/generation";
 import { publicUrl } from "../lib/network";
 import { enqueue,isActive,withRunLock } from "../lib/jobs";
@@ -16,10 +17,9 @@ import { AppError,type Run } from "../lib/domain";
 import { aiReady } from "../lib/ai";
 import { shopifyStatus,connectShopify,themes,publish,admin } from "../lib/shopify";
 import { preview } from "../lib/preview";
-import { compile,zipDesign,rootDir } from "../lib/compiler";
+import { compile,zipDesign } from "../lib/compiler";
 import { objectStorageClient } from "../lib/objectStorage";
 import { audit } from "../lib/audit";
-import path from "node:path";
 import { missingFacts } from "../lib/facts";
 
 const router:IRouter=Router();
@@ -69,7 +69,7 @@ router.patch("/runs/:id/product",async(req,res)=>{
 });
 router.post("/runs/:id/research",async(req,res)=>{
   const run=await getRun(idParam(req.params.id));if(!run.product)throw new AppError(409,"Analyse a product first.");
-  if(!searchReady())throw new AppError(503,"Live search is not configured. Add SEARCH_API_KEY for Brave (or SerpAPI with SEARCH_PROVIDER=serpapi) through project Secrets. No research has been simulated.");
+  if(!searchReady())throw new AppError(503,"Competitor search is not connected. Please contact your workspace administrator to enable research.");
   if(isActive(run.id))throw new AppError(409,"This run already has an active job.");
   run.status="researching";run.error=null;await saveRun(run);enqueue(run.id,research);res.json(GetRunResponse.parse(run));
 });
@@ -122,10 +122,10 @@ router.get("/shopify/products",async(_req,res)=>{res.json(await admin("query{pro
 router.post("/shopify/publish",async(req,res)=>{const body=PublishDesignBody.parse(req.body);res.json(PublishDesignResponse.parse(await publish(body.designId,body.themeId,body.confirmTemplateAssignment)));});
 router.get("/shopify/publish/:id/status",async(req,res)=>{const p=(await publications()).find(p=>p.id===idParam(req.params.id));if(!p)throw new AppError(404,"Publication not found");res.json(p);});
 router.get("/settings",async(_req,res)=>{
-  let database="Unavailable";try{await db.execute(sql`select 1`);database="Connected · PostgreSQL";}catch{/* readiness report must remain usable */}
-  res.json(GetSettingsResponse.parse({shopify:shopifyStatus(),database,requirementsUrl:"/api/requirements",
+  let database="Unavailable";try{await db.execute(sql`select 1`);database="Connected · PostgreSQL";}catch{/* Keep integration status available during a database outage. */}
+  res.json(GetSettingsResponse.parse({shopify:shopifyStatus(),database,
     ai:{provider:process.env.TEXT_MODEL||"OpenAI · gpt-5.4-mini",configured:aiReady(),message:aiReady()?"Replit AI integration configured. Actual calls may still fail; failures are shown per run.":"AI not configured. Source-only output is labelled explicitly."},
-    search:{provider:process.env.SEARCH_PROVIDER||"Brave Search",configured:searchReady(),message:searchReady()?"Search key is present. Provider access is checked on research.":"SEARCH_API_KEY missing. Live competitor research is unavailable."}}));
+    search:{provider:searchProvider(),configured:searchReady(),message:searchReady()?"Search is configured. Provider access is checked on research.":"Competitor search is not connected."}}));
 });
 router.get("/memory",async(_req,res)=>{
   const runs=await listRuns(),categories=[...new Set(runs.flatMap(r=>r.product?[r.product.category]:[]))];
@@ -142,6 +142,4 @@ router.get("/evidence/:id",async(req,res)=>{
   const [bytes]=await objectStorageClient.bucket(record.objectPath.slice(0,slash)).file(record.objectPath.slice(slash+1)).download();
   res.set({"Content-Type":record.contentType,"X-Content-Type-Options":"nosniff","Content-Security-Policy":"sandbox; default-src 'none'; style-src 'unsafe-inline'; img-src data: https:","Content-Disposition":record.contentType==="text/html"?`attachment; filename="evidence-${record.id}.html"`:"inline"}).send(bytes);
 });
-router.get("/requirements",(_req,res)=>{res.download(path.join(rootDir,"docs/IMPLEMENTATION_STATUS.md"));});
-router.get("/submission",(_req,res)=>{res.download(path.join(rootDir,"docs/SUBMISSION.md"));});
 export default router;

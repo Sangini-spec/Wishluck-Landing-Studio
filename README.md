@@ -20,7 +20,7 @@ React + Vite dashboard
        ├── Shopify product JSON + structured data
        ├── authorised own-store Admin fallback (clearly labelled)
        ├── OpenAI text + screenshot vision
-       ├── Brave or SerpAPI search → competitor capture → linked learnings
+       ├── Tavily basic search → competitor capture → linked learnings
        ├── PostgreSQL run history, evidence metadata, designs, feedback
        ├── category context → original copy → layout novelty search
        ├── Liquid / JSON / CSS / JS compiler → ZIP
@@ -71,7 +71,7 @@ The frontend build and dev commands need the workflow-provided `PORT` and `BASE_
 
 This assignment supplies an existing custom app and dev store. No replacement store is provisioned. With `SHOPIFY_CONNECTOR_NAME` blank, the backend exchanges `SHOPIFY_CLIENT_ID` and `SHOPIFY_CLIENT_SECRET` using Shopify's documented client-credentials grant. The token is cached only in server memory, refreshes before expiry and retries authentication once on a 401. Concurrent renewals share one promise. The browser never sees secrets or access tokens.
 
-This grant requires app and store to belong to the same Shopify organisation. Credential presence is not authentication success: use **Readiness → Test connection**.
+This grant requires app and store to belong to the same Shopify organisation. Credential presence is not authentication success: use **Connect Shopify** inside the publish dialog.
 
 If the user explicitly chooses an already-authorised managed connector, `SHOPIFY_CONNECTOR_NAME=shopify` or `shopify-store` uses the provided server-only proxy helper instead. That path has not been verified in this build.
 
@@ -97,7 +97,11 @@ If AI fails, a source-only fallback can still compile factual content; its warni
 
 ### Search
 
-Configure `SEARCH_API_KEY`, with `SEARCH_PROVIDER=brave` (default) or `serpapi`. Missing keys produce an actionable error and zero researched competitors. No fixed competitor list is presented as live research.
+Configure `TAVILY_API_KEY` and `SEARCH_PROVIDER=tavily` (default). `SEARCH_API_KEY` is an optional alias for the same Tavily credential. Brave and SerpAPI adapters have been removed.
+
+[Tavily's official free plan](https://docs.tavily.com/documentation/api-credits) currently includes 1,000 credits/month without a credit card. Basic search costs one credit per request. This app explicitly uses `basic`, disables automatic parameter upgrades and makes three search requests per research run. Stay on the free plan and do not enable pay-as-you-go if zero search spend is required; quotas/rate limits are surfaced rather than triggering a paid-provider fallback. Provider terms can change.
+
+Missing credentials produce a concise product-facing error and zero researched competitors. No fixed competitor list is presented as live research. Assignment/submission documents remain developer materials in the repository; they have no app page, navigation links or download endpoints.
 
 ### Storage
 

@@ -1,7 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link, useLocation } from "wouter";
-import { LayoutGrid, Plus, BookMarked, History, Settings2, Menu, X, FileText } from "lucide-react";
-import { useGetSettings } from "@workspace/api-client-react";
+import { LayoutGrid, Plus, BookMarked, History, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -9,7 +8,6 @@ const NAV = [
   { href: "/create", label: "New analysis", icon: Plus },
   { href: "/memory", label: "Category memory", icon: BookMarked },
   { href: "/history", label: "History", icon: History },
-  { href: "/settings", label: "Readiness", icon: Settings2 },
 ];
 
 function Mark() {
@@ -26,13 +24,8 @@ function Mark() {
   );
 }
 
-function Dot({ ok }: { ok?: boolean }) {
-  return <span className={cn("h-1.5 w-1.5 rounded-full", ok ? "bg-[hsl(var(--jade))]" : "bg-[hsl(var(--amber))]")} />;
-}
-
 function Nav({ onNav }: { onNav?: () => void }) {
   const [loc] = useLocation();
-  const { data: s } = useGetSettings();
   const active = (h: string) => (h === "/" ? loc === "/" : loc.startsWith(h)) || (h === "/" && (loc.startsWith("/runs") || loc.startsWith("/designs")));
   return (
     <div className="flex h-full flex-col">
@@ -48,17 +41,6 @@ function Nav({ onNav }: { onNav?: () => void }) {
           </Link>
         ))}
       </nav>
-      <div className="m-3 rounded-xl border border-sidebar-border bg-card/60 p-3.5">
-        <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">Integrations</div>
-        <div className="space-y-1.5 text-[12.5px]">
-          <div className="flex items-center justify-between"><span>AI model</span><Dot ok={s?.ai.configured} /></div>
-          <div className="flex items-center justify-between"><span>Search</span><Dot ok={s?.search.configured} /></div>
-          <div className="flex items-center justify-between"><span>Shopify</span><Dot ok={s?.shopify.connected} /></div>
-        </div>
-        <a href="/api/requirements" data-testid="link-requirements-sidebar" className="mt-3 flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground">
-          <FileText className="h-3.5 w-3.5" /> Requirements checklist
-        </a>
-      </div>
     </div>
   );
 }
