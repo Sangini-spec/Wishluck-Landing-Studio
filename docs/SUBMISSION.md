@@ -17,7 +17,7 @@ These checks are not a substitute for the HR acceptance suite.
 
 ## Current dependencies and blockers
 
-- A Tavily credential (`TAVILY_API_KEY`, optional alias `SEARCH_API_KEY`) is missing: no live search/competitor run has completed. Brave is no longer used.
+- Tavily authentication is verified: one real basic search returned 20 results. Full competitor relevance/crawling and generation runs remain unverified. Brave is no longer used.
 - The development-store public product request returned HTTP 429 with `Retry-After: 60`. Do not bypass rate limits or remove store password protection. Own-store Admin access works but does not supply CSS/screenshot evidence.
 - Theme-file write exemption is not verified.
 - No actual write, template assignment or theme publication was performed by the agent.
