@@ -8,6 +8,7 @@
 
 export interface LighthouseResult {
   status: string;
+  jobId?: string;
   performance?: number;
   seo?: number;
   accessibility?: number;

@@ -2,6 +2,7 @@ import { getRun, event } from "./store";
 import { logger } from "./logger";
 import type { Run } from "./domain";
 import { AppError } from "./domain";
+import {durableJobs} from "./durable-jobs";
 
 const active=new Set<string>();
 const queue:{id:string;work:(run:Run)=>Promise<unknown>}[]=[];
@@ -15,6 +16,7 @@ export function enqueue(id:string,work:(run:Run)=>Promise<unknown>){
 export const isActive=(id:string)=>active.has(id);
 export async function withRunLocks<T>(ids:string[],work:()=>Promise<T>){
   if(ids.some(id=>active.has(id)))throw new AppError(409,"Wait for processing or publishing to finish before deleting this data.");
+  if((await durableJobs()).some(j=>ids.includes(j.runId)&&["queued","running"].includes(j.status)))throw new AppError(409,"Wait for the saved publishing or Lighthouse job to finish before deleting this data.");
   ids.forEach(id=>active.add(id));
   try{return await work();}finally{ids.forEach(id=>active.delete(id));}
 }

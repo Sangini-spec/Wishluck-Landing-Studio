@@ -138,6 +138,7 @@ export interface Scores {
 
 export interface LighthouseResult {
   status: string;
+  jobId?: string;
   performance?: number;
   seo?: number;
   accessibility?: number;
@@ -194,6 +195,8 @@ export type PublicationVariantMap = {[key: string]: string};
 
 export interface Publication {
   id: string;
+  jobId?: string;
+  jobPhase?: string;
   designId: string;
   title: string;
   status: string;
@@ -344,6 +347,42 @@ export interface CliActivateInput {
   confirmReplaceLiveTheme: boolean;
 }
 
+export type PublishingJobKind = typeof PublishingJobKind[keyof typeof PublishingJobKind];
+
+
+export const PublishingJobKind = {
+  upload: 'upload',
+  lighthouse: 'lighthouse',
+} as const;
+
+export type PublishingJobStatus = typeof PublishingJobStatus[keyof typeof PublishingJobStatus];
+
+
+export const PublishingJobStatus = {
+  queued: 'queued',
+  running: 'running',
+  completed: 'completed',
+  failed: 'failed',
+  attention: 'attention',
+} as const;
+
+export interface PublishingJob {
+  id: string;
+  kind: PublishingJobKind;
+  designId: string;
+  shop: string;
+  contentHash: string;
+  phase: string;
+  status: PublishingJobStatus;
+  createdAt: string;
+  updatedAt: string;
+  publicationId?: string;
+  themeId?: string;
+  themeName?: string;
+  error?: string;
+  templateAssigned?: boolean;
+}
+
 export interface CliPublishingStatus {
   shop: string;
   configured: boolean;
@@ -352,6 +391,7 @@ export interface CliPublishingStatus {
   livePublishingEnabled: boolean;
   currentLiveThemeId?: string;
   message?: string;
+  jobs?: PublishingJob[];
   uploads: Publication[];
 }
 

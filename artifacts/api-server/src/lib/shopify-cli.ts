@@ -8,12 +8,17 @@ import {randomUUID} from "node:crypto";
 import {AppError,type Publication} from "./domain";
 import {compile} from "./compiler";
 import {standaloneTheme} from "./theme-package";
-import {getDesign,savePublication,publications,saveDesign} from "./store";
+import {getDesign,getPublication,savePublication,publications,saveDesign} from "./store";
 import {shopifyConfig} from "./shopify-auth";
 import {admin,publishingContext} from "./shopify";
 import {preparePublicationProduct} from "./publication-product";
 import type {CliUploadInput} from "@workspace/api-zod";
 import {db,feedbackTable} from "@workspace/db";
+import {createJob,durableJobs,saveJob,startDurableJob,withJobLock,getJob} from "./durable-jobs";
+import {contentHash,type DurableJob,reportInterruptedUpload} from "./job-recovery";
+import {withRunLock} from "./jobs";
+import {withStoreLock} from "./shopify-selection";
+import {queueAudit} from "./audit";
 
 const exec=promisify(execFile);
 const require=createRequire(import.meta.url);
@@ -116,6 +121,7 @@ export async function cliStatus(){
   const shop=shopifyConfig().shop;
   const configured=!!shop&&(()=>{try{cliCredential(shop);return true;}catch{return false;}})();
   const result={shop,configured,authenticated:false,livePublishingEnabled:process.env.SHOPIFY_CLI_ALLOW_LIVE_PUBLISH==="true",credentialKey:shop?cliSecretKey(shop):"",uploads:(await publications()).filter(p=>p.method==="theme-access-cli"&&p.shop===shop),
+    jobs:(await durableJobs()).filter(j=>j.shop===shop),
     currentLiveThemeId:undefined as string|undefined,message:undefined as string|undefined};
   if(configured){
     try{
@@ -136,20 +142,74 @@ export function assertCliUploadEligibility(status:string,product:unknown,brand:u
   // positive feedback is optional. Rejected/incomplete designs remain blocked.
   if(!product||!brand||status==="rejected")throw new AppError(409,"A non-rejected design with product and brand data is required.");
 }
-export async function uploadCliTheme(designId:string,expectedShop:string,options?:CliUploadInput){
-  const shop=currentStore(expectedShop);
-  const {design,content,run,category}=await getDesign(designId);
+async function readAssignment(shop:string,productId:string):Promise<string|null>{
+  if(shopifyConfig().shop!==shop)throw new AppError(409,"Select the saved store before checking its product assignment.");
+  const result=await admin("query($id:ID!){product(id:$id){id templateSuffix}}",{id:productId});
+  return result.product?.templateSuffix??null;
+}
+const uploadServices={currentStore,getDesign,cliThemes,runThemeCli,verifyCliFiles,readAssignment};
+export type UploadServices=typeof uploadServices;
+export async function uploadCliTheme(designId:string,expectedShop:string,options?:CliUploadInput,services:UploadServices=uploadServices){
+  const shop=services.currentStore(expectedShop);
+  const {design,content,run}=await services.getDesign(designId);
   assertCliUploadEligibility(design.status,run.product,run.brand);
   if(!run.product||!run.brand)throw new AppError(409,"Product and brand data are required.");
   const mode=options?.productMode??"none";
   // Validate a complete package before any product import or theme creation.
-  standaloneTheme(compile(design,content,run.product,run.brand));
-  const id=randomUUID(),base=await mkdtemp(path.join(tmpdir(),"wishluck-cli-theme-"));
+  const sourceHash=contentHash(standaloneTheme(compile(design,content,run.product,run.brand)));
+  const hash=contentHash({sourceHash,mode,productId:options?.productId??"",assign:!!options?.confirmTemplateAssignment,
+    importRights:!!options?.confirmProductImport,currency:!!options?.confirmCurrencyMismatch});
+  const {job,created}=await createJob({kind:"upload",designId,runId:run.id,shop,contentHash:hash,sourceHash,title:run.product.title,
+    identity:`upload:${shop}:${designId}:${hash}`});
+  const existing=await getPublication(job.id);
+  if(!created){
+    // Includes interrupted/uncertain attempts: never turn a retry into a push.
+    if(job.status==="attention"||!existing)await withJobLock(job.id,async()=>{
+      const latest=await getJob(job.id);
+      if(latest&&(latest.status==="attention"||(!existing&&!["queued","running"].includes(latest.status))))await recoverCliUpload(latest,undefined,services);
+    });
+    const saved=await getPublication(job.id);
+    return saved??existing??{id:job.id,jobId:job.id,jobPhase:job.phase,designId,title:run.product.title,
+      status:job.status==="queued"||job.status==="running"?"uploading":"failed",createdAt:job.createdAt,shop,
+      method:"theme-access-cli",error:job.error};
+  }
+  const id=job.id;
   const p:Publication={id,designId,title:run.product.title,status:"uploading",createdAt:new Date().toISOString(),shop,method:"theme-access-cli",verified:false,livePublished:false,
-    warnings:[]};
+    jobId:id,jobPhase:"queued",warnings:[]};
   await savePublication(p);
+  startDurableJob(id,async activeJob=>{
+    try{
+      await withRunLock(run.id,()=>withStoreLock(async()=>{
+        await executeCliUpload(p,activeJob,options,services);
+      }));
+    }catch{
+      activeJob.status="attention";activeJob.error="Upload stopped. Review the saved theme and job; no automatic upload retry was attempted.";
+      p.status="failed";p.error=activeJob.error;await savePublication(p);
+      await saveJob(activeJob);
+    }
+    if(p.status==="published"&&p.productId){
+      try{await queueAudit(p.designId,p.id);}
+      catch{p.warnings??=[];p.warnings.push("Upload verified; automatic Lighthouse could not be queued. Use Run audit to retry.");await savePublication(p);}
+    }
+  });
+  return p;
+}
+async function executeCliUpload(p:Publication,job:DurableJob,options?:CliUploadInput,services:UploadServices=uploadServices){
+  const shop=services.currentStore(job.shop),designId=p.designId;
+  const {design,content,run,category}=await services.getDesign(designId);
+  if(!run.product||!run.brand)throw new AppError(409,"Missing saved product or brand.");
+  const mode=options?.productMode??"none";
+  const base=await mkdtemp(path.join(tmpdir(),"wishluck-cli-theme-"));
+  const phase=async(value:string)=>{
+    job.phase=value;p.jobPhase=value;
+    job.themeId=p.themeId;job.templateAssigned=p.templateAssigned;
+    await savePublication(p);await saveJob(job);
+  };
   try{
-    const before=await cliThemes(shop);
+    if(contentHash(standaloneTheme(compile(design,content,run.product,run.brand)))!==job.sourceHash)throw new AppError(409,"Design content changed before upload started. No theme was created.");
+    await phase("preparing");
+    const before=await services.cliThemes(shop);
+    job.beforeThemeIds=before.map((t:any)=>t.id);
     p.previousLiveThemeId=before.find((t:any)=>["live","main"].includes(t.role))?.id;
     const context=mode==="none"?null:await publishingContext(designId);
     if(context&&context.shop!==shop)throw new AppError(409,"The destination store changed.");
@@ -168,23 +228,30 @@ export async function uploadCliTheme(designId:string,expectedShop:string,options
     }else p.warnings!.push("Theme-only preview. Select a store product in the editor; no product was created or reassigned.");
     const directory=path.join(base,"theme");
     await writeDirectory(files,directory);
-    const result=await runThemeCli(shop,["push","--unpublished","--nodelete","--theme",`Wishluck ${design.id.slice(0,8)} ${id.slice(0,6)}`,"--path",directory,"--strict","--json"]);
+    // Full UUID is persisted before the non-idempotent command. In the uncertain
+    // create window recovery can list this exact name but must never push again.
+    job.themeName=`Wishluck ${job.id}`;job.publicationId=p.id;
+    job.contentHash=contentHash(files);
+    await phase("creating");
+    const result=await services.runThemeCli(shop,["push","--unpublished","--nodelete","--theme",job.themeName,"--path",directory,"--strict","--json"]);
     const theme=parseCliTheme(result.theme,shop);
     if(before.some((t:any)=>t.id===theme.id))throw new AppError(502,"CLI did not create a separate theme. Upload is unverified.");
     p.themeId=theme.id;p.themeName=theme.name;p.previewUrl=theme.previewUrl;p.editorUrl=theme.editorUrl;
-    await savePublication(p);
-    await verifyCliFiles(shop,theme.id,files,path.join(base,"readback"));
-    const after=await cliThemes(shop);
+    await phase("verifying");
+    await services.verifyCliFiles(shop,theme.id,files,path.join(base,"readback"));
+    const after=await services.cliThemes(shop);
     if(before.some((t:any)=>!after.some((v:any)=>v.id===t.id&&v.role===t.role&&v.name===t.name)))throw new AppError(502,"Existing theme roles or names changed during upload. Review the store before proceeding.");
     if(target){
       const suffix=p.templateSuffix!;
       if(options?.confirmTemplateAssignment){
+        await phase("assigning");
         const assigned=await admin("mutation($product:ProductUpdateInput!){productUpdate(product:$product){product{id templateSuffix} userErrors{field message}}}",
           {product:{id:target.native.id,templateSuffix:suffix,seo:{title:target.content.headline.slice(0,70),description:target.content.subheading.slice(0,160)}}});
         if(assigned.productUpdate.userErrors?.length)throw new AppError(422,assigned.productUpdate.userErrors.map((e:any)=>e.message).join("; "));
         const readback=await admin("query($id:ID!){product(id:$id){id templateSuffix}}",{id:target.native.id});
         if(readback.product?.templateSuffix!==suffix)throw new AppError(502,"Uploaded theme is intact, but product template assignment could not be verified.");
         p.templateAssigned=true;
+        await phase("assigned");
       }
       const nativePreview=target.native.status==="DRAFT"?target.native.onlineStorePreviewUrl:null;
       p.previewUrl=nativePreview?`${nativePreview}${nativePreview.includes("?")?"&":"?"}preview_theme_id=${theme.id}`:`https://${shop}/products/${encodeURIComponent(target.native.handle)}?preview_theme_id=${theme.id}`;
@@ -196,10 +263,50 @@ export async function uploadCliTheme(designId:string,expectedShop:string,options
       }
     }
     p.verified=true;p.status="published";p.remoteRole="unpublished";p.checkedAt=new Date().toISOString();
-  }catch(error){p.status="failed";p.error=error instanceof Error?error.message:"CLI upload failed";}
+    p.jobPhase="completed";job.phase="completed";job.status="completed";
+  }catch(error){
+    p.status="failed";p.error=error instanceof AppError?error.message:"CLI upload stopped. Review the saved job before continuing.";
+    job.status="attention";job.error=p.error;
+    // Even a CLI timeout can have created the theme. Reconcile read-only.
+    if(job.phase==="creating")await recoverCliUpload(job,p,services,false);
+  }
   finally{await rm(base,{recursive:true,force:true});}
   await savePublication(p);
-  return p;
+  await saveJob(job);
+}
+export async function recoverCliUpload(job:DurableJob,publication?:Publication,services:UploadServices=uploadServices,persist=true){
+  const p=publication??await getPublication(job.id)??{
+    id:job.id,jobId:job.id,jobPhase:job.phase,designId:job.designId,title:job.title??"Recovered upload",
+    shop:job.shop,method:"theme-access-cli",status:"failed",createdAt:job.createdAt};
+  // Publication completion is persisted before the final job checkpoint.
+  if(p.status==="published"&&p.verified){
+    job.status="completed";job.phase="completed";job.themeId=p.themeId;job.templateAssigned=p.templateAssigned;
+    await saveJob(job);return;
+  }
+  job.themeId??=p.themeId;
+  try{
+    const {theme,message}=await reportInterruptedUpload(job,()=>services.cliThemes(job.shop));
+    job.error=message;
+    if(theme){
+      job.themeId=theme.id;
+      if(p){
+        p.themeId=theme.id;p.themeName=theme.name;p.remoteRole=theme.role;
+        p.livePublished=["main","live"].includes(theme.role);
+        p.editorUrl??=`https://${job.shop}/admin/themes/${theme.id}/editor`;
+        p.previewUrl??=`https://${job.shop}/?preview_theme_id=${theme.id}`;
+      }
+    }
+    // Assignment may have succeeded just before the process stopped. Read its
+    // outcome, never replay productUpdate over a merchant's subsequent edits.
+    if(p?.productId&&["assigning","assigned","completed"].includes(job.phase)){
+      const suffix=await services.readAssignment(job.shop,p.productId);
+      p.templateAssigned=suffix===p.templateSuffix;
+      job.templateAssigned=p.templateAssigned;
+    }
+  }catch{job.error="Interrupted upload could not be reconciled with Shopify. Check the saved store and theme; no upload was retried.";}
+  job.status="attention";
+  p.status="failed";p.error=job.error;p.jobPhase=job.phase;
+  if(persist){await savePublication(p);await saveJob(job);}
 }
 export async function checkCliPublication(publicationId:string,expectedShop:string){
   const shop=currentStore(expectedShop),p=(await publications()).find(p=>p.id===publicationId);

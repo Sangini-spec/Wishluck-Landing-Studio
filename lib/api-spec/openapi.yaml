@@ -256,6 +256,17 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/CliPublishingStatus" }
+  /shopify/jobs:
+    get:
+      operationId: getPublishingJobs
+      responses:
+        "200":
+          description: Durable publishing and Lighthouse progress for the selected store
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/PublishingJob" }
   /shopify/cli/uploads:
     post:
       operationId: uploadCliTheme
@@ -549,6 +560,7 @@ components:
       required: [status]
       properties:
         status: { type: string }
+        jobId: { type: string }
         performance: { type: number }
         seo: { type: number }
         accessibility: { type: number }
@@ -631,12 +643,33 @@ components:
         livePublishingEnabled: { type: boolean }
         currentLiveThemeId: { type: string }
         message: { type: string }
+        jobs: { type: array, items: { $ref: "#/components/schemas/PublishingJob" } }
         uploads: { type: array, items: { $ref: "#/components/schemas/Publication" } }
+    PublishingJob:
+      type: object
+      required: [id, kind, designId, shop, contentHash, phase, status, createdAt, updatedAt]
+      properties:
+        id: { type: string }
+        kind: { type: string, enum: [upload, lighthouse] }
+        designId: { type: string }
+        shop: { type: string }
+        contentHash: { type: string }
+        phase: { type: string }
+        status: { type: string, enum: [queued, running, completed, failed, attention] }
+        createdAt: { type: string }
+        updatedAt: { type: string }
+        publicationId: { type: string }
+        themeId: { type: string }
+        themeName: { type: string }
+        error: { type: string }
+        templateAssigned: { type: boolean }
     Publication:
       type: object
       required: [id, designId, title, status, createdAt]
       properties:
         id: { type: string }
+        jobId: { type: string }
+        jobPhase: { type: string }
         designId: { type: string }
         title: { type: string }
         status: { type: string }

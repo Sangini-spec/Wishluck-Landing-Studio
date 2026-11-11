@@ -19,7 +19,9 @@ import { shopifyStatus,connectShopify,themes,publish,admin,publishingContext,ver
 import {deleteRuns,deleteMemory,deletePublications} from "../lib/deletion";
 import {savedStores,withStoreLock} from "../lib/shopify-selection";
 import {SwitchShopifyStoreBody} from "@workspace/api-zod";
-import {GetCliPublishingStatusResponse,UploadCliThemeBody,ActivateCliThemeBody,CheckCliPublicationBody} from "@workspace/api-zod";
+import {GetCliPublishingStatusResponse,GetPublishingJobsResponse,UploadCliThemeBody,ActivateCliThemeBody,CheckCliPublicationBody} from "@workspace/api-zod";
+import {durableJobs} from "../lib/durable-jobs";
+import {shopifyConfig} from "../lib/shopify-auth";
 import {cliStatus,uploadCliTheme,activateCliTheme,checkCliPublication} from "../lib/shopify-cli";
 import { preview } from "../lib/preview";
 import { compile,zipDesign } from "../lib/compiler";
@@ -132,15 +134,11 @@ router.get("/designs/:id/download",async(req,res)=>{
 });
 router.post("/designs/:id/quality",async(req,res)=>{res.json(await queueAudit(idParam(req.params.id)));});
 router.get("/shopify/cli",async(_req,res)=>res.json(GetCliPublishingStatusResponse.parse(await cliStatus())));
+router.get("/shopify/jobs",async(_req,res)=>res.json(GetPublishingJobsResponse.parse((await durableJobs()).filter(j=>j.shop===shopifyConfig().shop))));
 router.post("/shopify/cli/uploads",async(req,res)=>{
   const body=UploadCliThemeBody.parse(req.body);
   if(!body.confirmUnpublishedUpload)throw new AppError(400,"Confirm creating a separate unpublished theme.");
-  const {run}=await getDesign(body.designId);
-  const p=await withRunLock(run.id,()=>withStoreLock(()=>uploadCliTheme(body.designId,body.expectedShop,body)));
-  if(p.status==="published"&&p.productId){
-    try{await queueAudit(p.designId,p.id);}
-    catch{p.warnings??=[];p.warnings.push("Upload verified; automatic Lighthouse could not be queued. Use Run audit to retry.");await savePublication(p);}
-  }
+  const p=await uploadCliTheme(body.designId,body.expectedShop,body);
   res.json(PublishDesignResponse.parse(p));
 });
 router.post("/shopify/cli/uploads/:id/check",async(req,res)=>{

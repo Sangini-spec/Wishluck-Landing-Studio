@@ -6,6 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 import type { Publication } from './publication';
+import type { PublishingJob } from './publishingJob';
 
 export interface CliPublishingStatus {
   shop: string;
@@ -15,5 +16,6 @@ export interface CliPublishingStatus {
   livePublishingEnabled: boolean;
   currentLiveThemeId?: string;
   message?: string;
+  jobs?: PublishingJob[];
   uploads: Publication[];
 }

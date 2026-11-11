@@ -1,7 +1,7 @@
 import {useState,useEffect,useRef} from "react";
 import {useQueryClient} from "@tanstack/react-query";
 import {ExternalLink,Loader2,Upload} from "lucide-react";
-import {useGetCliPublishingStatus,useUploadCliTheme,useCheckCliPublication,useGetPublishingContext,type Design,type CliUploadInput} from "@workspace/api-client-react";
+import {useGetCliPublishingStatus,useGetPublishingJobs,useUploadCliTheme,useCheckCliPublication,useGetPublishingContext,type Design,type CliUploadInput} from "@workspace/api-client-react";
 import {Dialog,DialogContent,DialogHeader,DialogTitle,DialogDescription} from "@/components/ui/dialog";
 import {Btn,Notice} from "@/components/bits";
 import {useToast} from "@/hooks/use-toast";
@@ -10,28 +10,56 @@ import {errMsg} from "@/lib/run-utils";
 export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen}:{design:Design;open:boolean;onOpenChange:(open:boolean)=>void}){
   const qc=useQueryClient(),{toast}=useToast();
   const status=useGetCliPublishingStatus({query:{staleTime:30000}});
+  const jobs=useGetPublishingJobs({query:{refetchInterval:q=>q.state.data?.some(j=>["queued","running"].includes(j.status))?2000:15000,refetchOnWindowFocus:true}});
   const [uploadConfirm,setUploadConfirm]=useState(false),[assign,setAssign]=useState(false);
   const [mode,setMode]=useState<NonNullable<CliUploadInput["productMode"]>>("existing"),[productId,setProductId]=useState("");
   const [importRights,setImportRights]=useState(false),[currencyConfirm,setCurrencyConfirm]=useState(false);
   const context=useGetPublishingContext(design.id,{query:{enabled:uploadOpen,staleTime:0}});
   const popup=useRef<Window|null>(null),lastShop=useRef<string|undefined>(undefined);
+  const pendingPopup=useRef<string|null>(null),lastJobs=useRef("");
   const returnCheck=useRef<{id:string;shop:string}|null>(null),designRef=useRef(design);designRef.current=design;
   const check=useCheckCliPublication({mutation:{onSuccess:()=>{void qc.invalidateQueries();},onError:e=>toast({title:"Shopify check needs attention",description:errMsg(e),variant:"destructive"})}});
   const upload=useUploadCliTheme({mutation:{
     onSuccess:async p=>{
       if(p.status==="failed"){popup.current?.close();toast({title:"Theme upload incomplete",description:p.error,variant:"destructive"});await qc.invalidateQueries();return;}
+      if(p.status==="uploading"){
+        pendingPopup.current=p.jobId??p.id;
+        setUploadOpen(false);setUploadConfirm(false);
+        toast({title:"Upload saved",description:`Job ${p.jobId??p.id} continues even if this page closes. Progress appears below.`});
+        await qc.invalidateQueries();return;
+      }
       if(p.editorUrl&&popup.current&&!popup.current.closed){returnCheck.current={id:p.id,shop:p.shop!};popup.current.location.href=p.editorUrl;}
       setUploadOpen(false);setUploadConfirm(false);
       toast({title:"Design uploaded to Shopify",description:popup.current&&!popup.current.closed?"Shopify's editor is opening. Quality checks run automatically.":"Use Open theme editor below if your browser blocked the new tab."});
       await qc.invalidateQueries();
     },
-    onError:()=>{popup.current?.close();},
+    onError:()=>{popup.current?.close();void qc.invalidateQueries();},
   }});
   const ready=!!status.data?.authenticated;
   useEffect(()=>{
-    if(lastShop.current&&lastShop.current!==status.data?.shop){setUploadOpen(false);setUploadConfirm(false);returnCheck.current=null;setProductId("");}
+    if(lastShop.current&&lastShop.current!==status.data?.shop){setUploadOpen(false);setUploadConfirm(false);returnCheck.current=null;pendingPopup.current=null;popup.current?.close();setProductId("");}
     lastShop.current=status.data?.shop;
   },[status.data?.shop,setUploadOpen]);
+  useEffect(()=>{
+    if(!jobs.data)return;
+    const signature=jobs.data.map(j=>`${j.id}:${j.phase}:${j.status}:${j.updatedAt}`).join("|");
+    if(lastJobs.current!==signature)void qc.invalidateQueries({predicate:q=>q.queryKey[0]!=="/api/shopify/jobs"});
+    lastJobs.current=signature;
+  },[jobs.data,qc]);
+  useEffect(()=>{
+    if(!pendingPopup.current)return;
+    const p=status.data?.uploads.find(p=>p.jobId===pendingPopup.current);
+    const job=jobs.data?.find(j=>j.id===pendingPopup.current);
+    if(job?.shop!==status.data?.shop)return;
+    if(p?.status==="published"&&p.editorUrl){
+      if(popup.current&&!popup.current.closed){popup.current.location.href=p.editorUrl;returnCheck.current={id:p.id,shop:p.shop!};}
+      pendingPopup.current=null;
+      toast({title:"Shopify theme ready",description:"Open the theme editor below to review it. The live theme was not changed."});
+    }else if(job&&["failed","attention"].includes(job.status)){
+      popup.current?.close();pendingPopup.current=null;
+      toast({title:"Upload needs attention",description:job.error,variant:"destructive"});
+    }
+  },[status.data,jobs.data,toast]);
   useEffect(()=>{if(uploadOpen&&context.data){setMode(context.data.sameStore?"source":"existing");setProductId("");setAssign(false);setImportRights(false);setCurrencyConfirm(false);}},[uploadOpen,context.data?.shop]);
   useEffect(()=>{
     let timer:ReturnType<typeof setTimeout>|undefined;
@@ -45,6 +73,8 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
   },[check.mutate]);
   const uploads=(status.data?.uploads??[]).filter(p=>p.designId===design.id);
   const canPublish=design.status!=="rejected";
+  const designJobs=(jobs.data??[]).filter(j=>j.designId===design.id&&j.shop===status.data?.shop);
+  const processing=designJobs.some(j=>["queued","running"].includes(j.status));
   function closeUpload(open:boolean){if(upload.isPending)return;setUploadOpen(open);if(!open){setUploadConfirm(false);upload.reset();}}
   function confirmUpload(){
     // Reserve a tab synchronously with the click: opening after an async CLI
@@ -57,11 +87,18 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
   return <section className="panel my-5 space-y-4 p-5" data-testid="cli-publishing">
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div><h2 className="font-display text-xl">Shopify publishing</h2></div>
-      <Btn data-testid="button-cli-upload" variant="outline" disabled={!ready||!canPublish||status.isFetching} onClick={()=>setUploadOpen(true)}><Upload className="h-4 w-4"/>{uploads.length?"Publish another preview":"Publish to Shopify"}</Btn>
+      <Btn data-testid="button-cli-upload" variant="outline" disabled={!ready||!canPublish||status.isFetching||processing} onClick={()=>setUploadOpen(true)}><Upload className="h-4 w-4"/>{uploads.length?"Publish preview":"Publish to Shopify"}</Btn>
     </div>
     {status.isLoading?<p className="text-sm text-muted-foreground">Checking your Shopify connection…</p>:status.error?<Notice>{errMsg(status.error)}</Notice>:
       <p className="text-xs text-muted-foreground"><span className="font-medium text-foreground">{status.data?.shop}</span> · {ready?"Connected":status.data?.configured?"Connection needs attention":"Publishing not configured"}</p>}
     {status.data&&!ready&&<Notice>{status.data.message??`Add ${status.data.credentialKey} through project Secrets. This credential is specific to this store.`}</Notice>}
+    <p className="text-xs text-muted-foreground">Retrying unchanged content returns the same saved job and theme. Recovery never overwrites Shopify edits.</p>
+    {jobs.error&&<Notice>Progress could not be refreshed. Saved jobs continue on the server; retrying the same upload will not create another theme.</Notice>}
+    {designJobs.slice(0,8).map(j=><div key={j.id} className="rounded border border-border p-3 text-xs" data-testid={`publishing-job-${j.id}`} aria-live="polite">
+      <b>{j.kind==="upload"?"Theme upload":"Lighthouse"}</b> · {j.status} · {j.phase}<br/>Job {j.id}
+      {j.themeId&&<> · Theme {j.themeId}</>}
+      {j.error&&<p className="mt-2">{j.error}</p>}
+    </div>)}
     {uploads.map(p=><article key={p.id} className="rounded-lg border border-border p-3" data-testid={`cli-upload-${p.id}`}>
       <div className="flex flex-wrap items-center justify-between gap-2"><div><b className="text-sm">{p.themeName??"CLI upload"}</b>
         <p className="mt-1 text-xs text-muted-foreground">Theme {p.themeId??"ID unavailable"} · {p.livePublished?"Live on Shopify":p.verified?"Verified · unpublished":"Not verified"} · {p.shop}</p></div>
@@ -85,7 +122,7 @@ export function CliPublishing({design,open:uploadOpen,onOpenChange:setUploadOpen
       {upload.error&&<Notice>{errMsg(upload.error)}</Notice>}
       {upload.data?.status==="failed"&&<Notice>{upload.data.error}</Notice>}
       <div className="flex justify-end gap-2"><Btn variant="outline" disabled={upload.isPending} onClick={()=>closeUpload(false)}>Cancel</Btn>
-        <Btn data-testid="button-cli-confirm-upload" disabled={!uploadConfirm||!ready||!canPublish||upload.isPending||context.isLoading||!!context.error||(mode==="existing"&&!productId)||(mode==="import"&&(!importRights||(context.data?.sourceCurrency!==context.data?.currency&&!currencyConfirm)))} onClick={confirmUpload}>{upload.isPending?<Loader2 className="h-4 w-4 animate-spin"/>:null}Publish & open Shopify</Btn></div>
+        <Btn data-testid="button-cli-confirm-upload" disabled={!uploadConfirm||!ready||!canPublish||upload.isPending||processing||context.isLoading||!!context.error||(mode==="existing"&&!productId)||(mode==="import"&&(!importRights||(context.data?.sourceCurrency!==context.data?.currency&&!currencyConfirm)))} onClick={confirmUpload}>{upload.isPending?<Loader2 className="h-4 w-4 animate-spin"/>:null}Publish & open Shopify</Btn></div>
     </DialogContent></Dialog>
   </section>;
 }

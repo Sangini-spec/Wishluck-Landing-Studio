@@ -133,6 +133,7 @@ export const GetDashboardResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -147,6 +148,8 @@ export const GetDashboardResponse = zod.object({
 })),
   "publications": zod.array(zod.object({
   "id": zod.string(),
+  "jobId": zod.string().optional(),
+  "jobPhase": zod.string().optional(),
   "designId": zod.string(),
   "title": zod.string(),
   "status": zod.string(),
@@ -293,6 +296,7 @@ export const ListRunsResponseItem = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -427,6 +431,7 @@ export const CreateRunResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -560,6 +565,7 @@ export const GetRunResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -782,6 +788,7 @@ export const UpdateBrandResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -946,6 +953,7 @@ export const UpdateProductResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -1079,6 +1087,7 @@ export const ResearchRunResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -1212,6 +1221,7 @@ export const GenerateRunResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -1266,6 +1276,7 @@ export const SubmitFeedbackResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -1311,6 +1322,7 @@ export const RegenerateDesignResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -1356,6 +1368,7 @@ export const AuditDesignResponse = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),
@@ -1404,8 +1417,26 @@ export const GetCliPublishingStatusResponse = zod.object({
   "livePublishingEnabled": zod.boolean(),
   "currentLiveThemeId": zod.string().optional(),
   "message": zod.string().optional(),
+  "jobs": zod.array(zod.object({
+  "id": zod.string(),
+  "kind": zod.enum(['upload', 'lighthouse']),
+  "designId": zod.string(),
+  "shop": zod.string(),
+  "contentHash": zod.string(),
+  "phase": zod.string(),
+  "status": zod.enum(['queued', 'running', 'completed', 'failed', 'attention']),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string(),
+  "publicationId": zod.string().optional(),
+  "themeId": zod.string().optional(),
+  "themeName": zod.string().optional(),
+  "error": zod.string().optional(),
+  "templateAssigned": zod.boolean().optional()
+})).optional(),
   "uploads": zod.array(zod.object({
   "id": zod.string(),
+  "jobId": zod.string().optional(),
+  "jobPhase": zod.string().optional(),
   "designId": zod.string(),
   "title": zod.string(),
   "status": zod.string(),
@@ -1437,6 +1468,25 @@ export const GetCliPublishingStatusResponse = zod.object({
 })
 
 
+export const GetPublishingJobsResponseItem = zod.object({
+  "id": zod.string(),
+  "kind": zod.enum(['upload', 'lighthouse']),
+  "designId": zod.string(),
+  "shop": zod.string(),
+  "contentHash": zod.string(),
+  "phase": zod.string(),
+  "status": zod.enum(['queued', 'running', 'completed', 'failed', 'attention']),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string(),
+  "publicationId": zod.string().optional(),
+  "themeId": zod.string().optional(),
+  "themeName": zod.string().optional(),
+  "error": zod.string().optional(),
+  "templateAssigned": zod.boolean().optional()
+})
+export const GetPublishingJobsResponse = zod.array(GetPublishingJobsResponseItem)
+
+
 export const UploadCliThemeBody = zod.object({
   "designId": zod.string(),
   "expectedShop": zod.string(),
@@ -1450,6 +1500,8 @@ export const UploadCliThemeBody = zod.object({
 
 export const UploadCliThemeResponse = zod.object({
   "id": zod.string(),
+  "jobId": zod.string().optional(),
+  "jobPhase": zod.string().optional(),
   "designId": zod.string(),
   "title": zod.string(),
   "status": zod.string(),
@@ -1493,6 +1545,8 @@ export const ActivateCliThemeBody = zod.object({
 
 export const ActivateCliThemeResponse = zod.object({
   "id": zod.string(),
+  "jobId": zod.string().optional(),
+  "jobPhase": zod.string().optional(),
   "designId": zod.string(),
   "title": zod.string(),
   "status": zod.string(),
@@ -1534,6 +1588,8 @@ export const CheckCliPublicationBody = zod.object({
 
 export const CheckCliPublicationResponse = zod.object({
   "id": zod.string(),
+  "jobId": zod.string().optional(),
+  "jobPhase": zod.string().optional(),
   "designId": zod.string(),
   "title": zod.string(),
   "status": zod.string(),
@@ -1577,6 +1633,8 @@ export const PublishDesignBody = zod.object({
 
 export const PublishDesignResponse = zod.object({
   "id": zod.string(),
+  "jobId": zod.string().optional(),
+  "jobPhase": zod.string().optional(),
   "designId": zod.string(),
   "title": zod.string(),
   "status": zod.string(),
@@ -1696,6 +1754,7 @@ export const GetMemoryResponseItem = zod.object({
   "warnings": zod.array(zod.string()),
   "lighthouse": zod.object({
   "status": zod.string(),
+  "jobId": zod.string().optional(),
   "performance": zod.number().optional(),
   "seo": zod.number().optional(),
   "accessibility": zod.number().optional(),

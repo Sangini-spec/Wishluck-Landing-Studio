@@ -9,6 +9,8 @@ import type { PublicationVariantMap } from './publicationVariantMap';
 
 export interface Publication {
   id: string;
+  jobId?: string;
+  jobPhase?: string;
   designId: string;
   title: string;
   status: string;

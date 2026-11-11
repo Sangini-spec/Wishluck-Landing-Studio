@@ -54,6 +54,10 @@ export async function publications(): Promise<Publication[]> {
   const rows = await db.select().from(publicationsTable).orderBy(desc(publicationsTable.createdAt)).limit(100);
   return rows.map(row => row.data as Publication);
 }
+export async function getPublication(id:string):Promise<Publication|undefined>{
+  const [row]=await db.select().from(publicationsTable).where(eq(publicationsTable.id,id));
+  return row?.data as Publication|undefined;
+}
 export async function savePublication(p: Publication) {
   const row = { id: p.id, designId: p.designId, status: p.status, data: p as Record<string, unknown> };
   await db.insert(publicationsTable).values(row).onConflictDoUpdate({ target: publicationsTable.id, set: row });

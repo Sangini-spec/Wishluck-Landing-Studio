@@ -22,3 +22,4 @@ export * from "./designs";
 export * from "./intelligence";
 export * from "./publications";
 export * from "./preferences";
+export * from "./jobs";

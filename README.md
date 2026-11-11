@@ -240,7 +240,7 @@ URL validation rejects private/reserved IPs, custom ports, embedded credentials 
 
 This is currently a **private, single-workspace development build**. Managed user authentication/authorisation is not implemented. Production API access is intentionally locked rather than exposing store-admin operations publicly. Do not bypass that lock to deploy. Add managed authentication and per-workspace authorization before public release.
 
-Job status is persistent, but the worker queue is in-process. On restart unfinished jobs become explicitly interrupted/failed rather than hanging forever. Automatic durable job resumption, multi-worker locking and distributed DNS/rate-limit hardening remain future work.
+CLI uploads and Lighthouse now return durable job IDs and persist selected-store identity, content hashes, phases, created theme IDs and assignment outcomes. Upload retries reuse the saved receipt. Restart recovery reconciles existing themes read-only rather than repeating uncertain uploads or overwriting merchant edits. The frontend polls progress and retains Shopify editor links. Interrupted audits are explicit, retryable failures, with already-saved scores preserved. See [upload recovery](docs/UPLOAD_JOB_RECOVERY.md). Analysis/research/generation still use an in-process queue and become explicitly interrupted/failed on restart; automatic resumption for those jobs and distributed DNS/rate-limit hardening remain future work.
 
 ## Verification and submission
 
