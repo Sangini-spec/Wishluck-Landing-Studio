@@ -2,7 +2,15 @@
 
 An AI-assisted Shopify landing-page studio that turns product research into distinctive, editable landing pages.
 
-**[Five-product showcase](docs/results/README.md)** · **[Development-store access](docs/REVIEWER_ACCESS.md)** · 
+## Demo
+
+- **[Watch the application screen recording](https://drive.google.com/file/d/16FA6A_t1hz6czriXcROESir9Qaun9NXz/view?usp=sharing)**
+- **[Open the privately deployed application](https://wishluck-ai-landing-page-builder.replit.app)**
+
+The live demo is **privately deployed**. To try the product, please provide your Replit account email to the project owner, who will grant you access. Once invited, sign in to Replit with that account and open the demo link above.
+
+**[Five-product showcase](docs/results/README.md)** · **[Development-store access](docs/REVIEWER_ACCESS.md)**
+
 ## Product highlights
 
 - Analyse a product URL, extract its brand identity and review editable product facts.
